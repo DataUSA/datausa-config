@@ -1,0 +1,56 @@
+global:
+    seperator: ","
+    name: pums
+    use_schema: True
+    source : "/Users/jspeiser/pums_entire_usa/<year>/<est>/csv_pus.zip"
+    source_vars:
+        year:
+            start: 2009
+            end: 2013
+        est:
+            start: 1
+            end: 1
+
+    strip_column_whitespace: True
+    force_column_uppercase:
+        exclude: ["year", "geo_id"]
+    output : "/Users/jspeiser/pums_output/<year>/<state>/"
+    ftp_paths:
+        "pums": "acs<year>_<est>yr/pums"
+    # type must be the original name of the column (before rename)
+    type:
+        occp02 : "str"
+        naicsp02: "str"
+        naicsp07: "str"
+        occp10 : "str"
+        ST: "str"
+        AGEP: "int"
+
+    agg: "sum"
+
+    # db_settings:
+        # user: postgres
+        # password_env_var: DATAUSA_PW
+        # host: 162.209.124.219
+        # db_name: postgres
+
+    transform:
+        df:
+            type: frame_func
+            func: "plugins.census.pums.process"
+            sumlevel: "puma"
+
+    archive_files: "csv"
+
+tables:
+    puma_yg:
+        pk: ["year", "geo_id"]
+    # puma_ygi:
+        # pk: ["year", "geo_id", "naics"]
+    state_yg:
+        pk: ["year", "geo_id"]
+        transform:
+            df:
+                type: frame_func
+                func: "plugins.census.pums.process"
+                sumlevel: "state"

@@ -1,0 +1,77 @@
+global:
+    seperator: ","
+    name: ipeds
+    source : "data/ipeds/ic<year>_ay.zip"
+    use_schema: True
+    force_column_uppercase:
+        exclude: ["year"]
+    index_col: False
+    # strip_column_whitespace: True
+
+    source_vars:
+        year:
+            start: 2005
+            end: 2008
+
+    output : "/tmp/ipeds_tuition/<year>"
+
+    web_paths:
+        "ipeds": "https://nces.ed.gov/ipeds/datacenter/data/ic<year>_ay.zip"
+
+    na_values: ['.']
+
+    fillna:
+        mode: True
+        value: 0
+
+    import_to_db: True
+    db_settings:
+        user: postgres
+        password_env_var: DATAUSA_PW
+        host: 162.209.124.219
+        db_name: postgres
+
+    rename:
+        UNITID: university_id
+        TUIT1: district_tuition
+        TUITION1: district_tuition
+        FEE1: district_fee
+        TUITION2: state_tuition
+        TUIT2: state_tuition
+        FEE2: state_fee
+        TUITION3: oos_tuition
+        TUIT3: oos_tuition
+        FEE3: oos_fee
+        TUITION5: district_ft_tuition
+        TUIT5: district_ft_tuition
+        FEE5: district_ft_fee
+        TUITION6: state_ft_tuition
+        TUIT6: state_ft_tuition
+        FEE6: state_ft_fee
+        TUITION7: oos_ft_tuition
+        TUIT7: oos_ft_tuition
+        FEE7: oos_ft_fee
+
+    agg:
+        district_tuition: "sum"
+        district_fee: "sum"
+        state_tuition: "sum"
+        state_tuition: "sum"
+        state_fee: "sum"
+        oos_tuition: "sum"
+        oos_tuition: "sum"
+        oos_fee: "sum"
+        district_ft_tuition: "sum"
+        district_ft_tuition: "sum"
+        district_ft_fee: "sum"
+        state_ft_tuition: "sum"
+        state_ft_tuition: "sum"
+        state_ft_fee: "sum"
+        oos_ft_tuition: "sum"
+        oos_ft_tuition: "sum"
+        oos_ft_fee: "sum"
+
+    # columns: ["UNITID", "TUITION1", "TUITION2", "TUITION3", "TUITION5", "TUITION6", "TUITION7", "FEE1", "FEE2", "FEE3", "FEE5", "FEE6", "FEE7"]
+tables:
+    tuition_yu:
+        pk: ["year", "university_id"]

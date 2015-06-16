@@ -1,0 +1,62 @@
+global:
+    seperator: ","
+    name: attrs
+    source : "data/ipeds/hd<year>.zip"
+    use_schema: True
+    encoding: False
+    strip_column_whitespace: True
+    output : "/Users/jspeiser/code/ipeds/output/hd/<year>"
+
+    web_paths:
+        "ipeds": "https://nces.ed.gov/ipeds/datacenter/data/hd<year>.zip"
+
+    source_vars:
+        year:
+            start: 2013
+            end: 2013
+
+    import_to_db: True
+    db_settings:
+        user: postgres
+        password_env_var: DATAUSA_PW
+        host: 162.209.124.219
+        db_name: postgres
+
+    type:
+        FIPS: "str"
+        COUNTYCD: "str"
+        CBSA: "str"
+
+    rename:
+        UNITID: id
+        INSTNM: name
+        FIPS: state
+        COUNTYCD: county
+        CBSA: msa
+        WEBADDR: url
+        INSTCAT: category
+        F1SYSCOD: parent_code
+
+    transform:
+        state:
+            -
+                type: "concat_and_fill"
+                prefix: "04000US"
+                zfill: 2
+
+        county:
+            -
+                type: "concat_and_fill"
+                prefix: "05000US"
+                zfill: 5
+        msa:
+            -
+                type: "concat_and_fill"
+                prefix: "31000US"
+                zfill: 5
+    agg:
+        url: "sum"
+
+tables:
+    university:
+        pk: ["id", "name", "state", "county", "msa", "category", "parent_code"]

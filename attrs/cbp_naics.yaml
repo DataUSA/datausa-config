@@ -1,0 +1,47 @@
+global:
+    seperator: ","
+    name: attrs
+    source : "data/naics/NAICS2012.txt"
+    use_schema: True
+    output : "/Users/jspeiser/code/ipeds/output/naics/"
+
+    web_paths:
+        "naics": "https://www.census.gov/econ/cbp/download/NAICS2012.txt"
+
+    import_to_db: True
+    db_settings:
+        user: postgres
+        password_env_var: DATAUSA_PW
+        host: 162.209.124.219
+        db_name: postgres
+
+    type:
+        NAICS: "str"
+        DESCRIPTION: "str"
+
+    rename:
+        NAICS: id
+        DESCRIPTION: name
+
+    transform:
+        id:
+            -
+                type: replace
+                target: "/"
+                value: ""
+            -
+                type: replace
+                target: "-"
+                value: ""
+            -
+                type: "conditional_map"
+                target: "id"
+                func: "lambda x: '0'"
+                condition: "df.id.str.len() == 0"
+
+    agg:
+        name: "sum"
+
+tables:
+    cbp_naics:
+        pk: ["id"]

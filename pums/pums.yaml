@@ -10,16 +10,16 @@ global:
         est:
             start: 1
             end: 1
-
+    archive_files: "csv"
     strip_column_whitespace: True
     force_column_uppercase:
         exclude: ["year", "geo_id"]
-    output : "/Users/jspeiser/pums_output/<year>/<state>/"
+    output : "/Users/jspeiser/pums_output/<year>/<est>/"
     ftp_paths:
         "pums": "acs<year>_<est>yr/pums"
     # type must be the original name of the column (before rename)
     type:
-        occp02 : "str"
+        occp02: "str"
         naicsp02: "str"
         naicsp07: "str"
         occp10 : "str"
@@ -28,29 +28,42 @@ global:
 
     agg: "sum"
 
-    # db_settings:
-        # user: postgres
-        # password_env_var: DATAUSA_PW
-        # host: 162.209.124.219
-        # db_name: postgres
+    import_to_db: True
+    db_settings:
+        user: postgres
+        password_env_var: DATAUSA_PW
+        host: 162.209.124.219
+        db_name: postgres
 
     transform:
         df:
             type: frame_func
             func: "plugins.census.pums.process"
             sumlevel: "puma"
+            values:
+                -
+                    column: WAGP
+                    name: avg_wage
+                -
+                    column: AGEP
+                    name: avg_age
 
-    archive_files: "csv"
 
 tables:
-    puma_yg:
+    puma_ygi_1yr:
         pk: ["year", "geo_id"]
-    # puma_ygi:
-        # pk: ["year", "geo_id", "naics"]
-    state_yg:
+
+    state_yg_1yr:
         pk: ["year", "geo_id"]
         transform:
             df:
                 type: frame_func
                 func: "plugins.census.pums.process"
                 sumlevel: "state"
+                values:
+                    -
+                        column: WAGP
+                        name: avg_wage
+                    -
+                        column: AGEP
+                        name: avg_age

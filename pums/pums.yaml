@@ -41,13 +41,18 @@ global:
             func: "plugins.census.pums.process"
             sumlevel: "puma"
             values:
-                -
-                    column: WAGP
-                    name: avg_wage
-                -
-                    column: AGEP
-                    name: avg_age
-
+                    -
+                        column: WAGP
+                        name: avg_wage
+                    -
+                        column: AGEP
+                        name: avg_age
+                    - 
+                        column: TAXP
+                        name: avg_property_tax
+                    -
+                        column: VALP
+                        name: avg_property_val
 
 tables:
     puma_ygi_1yr:
@@ -67,3 +72,9 @@ tables:
                     -
                         column: AGEP
                         name: avg_age
+                    - 
+                        column: TAXP
+                        name: avg_property_tax
+                    -
+                        column: VALP
+                        name: avg_property_val

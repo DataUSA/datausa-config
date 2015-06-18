@@ -1,0 +1,92 @@
+global:
+    seperator: ","
+    name: pums
+    use_schema: True
+    source : "/tmp/pums/<year>/<est>/csv_hus.zip"
+    source_vars:
+        year:
+            start: 2013
+            end: 2013
+        est:
+            start: 5
+            end: 5
+    archive_files: "csv"
+    strip_column_whitespace: True
+    force_column_uppercase:
+        exclude: ["year", "geo_id"]
+    output : "/tmp/pums_house_output/<year>/<est>/"
+    web_paths:
+        # "pums": "acs<year>_<est>yr/pums"
+        pums: "ftp://ftp.census.gov/acs<year>_<est>yr/pums/csv_hus.zip"
+    type:
+        ST: "str"
+
+    agg: "sum"
+
+    import_to_db: False
+    db_settings:
+        user: postgres
+        password_env_var: DATAUSA_PW
+        host: 162.209.124.219
+        db_name: postgres
+
+    transform:
+        df:
+            type: frame_func
+            func: "plugins.census.pums.process"
+            sumlevel: "puma"
+            mode: household
+
+    rename:
+        TAXP: property_tax
+        TEN: tenure
+        VAL: property_value
+        VEH: num_vehicles
+
+    named_transforms:
+        pums_state: 
+            type: frame_func
+            func: "plugins.census.pums.process"
+            sumlevel: "state"
+            mode: household
+        pums_nation: 
+            type: frame_func
+            func: "plugins.census.pums.process"
+            sumlevel: "nation"
+            mode: household
+
+tables:
+    # puma_yg_tenure:
+    #     pk: ["year", "geo_id", "tenure"]
+    # state_yg_tenure:
+    #     pk: ["year", "geo_id", "tenure"]
+    #     transform:
+    #         df: pums_state
+    # nation_yg_tenure:
+    #     pk: ["year", "geo_id", "tenure"]
+    #     transform:
+    #         df: pums_nation
+
+
+    # puma_yg_ptax:
+    #     pk: ["year", "geo_id", "property_tax"]
+    # state_yg_ptax:
+    #     pk: ["year", "geo_id", "property_tax"]
+    #     transform:
+    #         df: pums_state
+    # nation_yg_ptax:
+    #     pk: ["year", "geo_id", "property_tax"]
+    #     transform:
+    #         df: pums_nation
+
+
+    # puma_yg_vehicles:
+    #     pk: ["year", "geo_id", "num_vehicles"]
+    # state_yg_tenure:
+    #     pk: ["year", "geo_id", "num_vehicles"]
+    #     transform:
+    #         df: pums_state
+    nation_yg_tenure:
+        pk: ["year", "geo_id", "num_vehicles"]
+        transform:
+            df: pums_nation

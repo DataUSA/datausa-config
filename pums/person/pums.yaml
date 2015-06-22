@@ -2,22 +2,25 @@ global:
     seperator: ","
     name: pums
     use_schema: True
-    source : "/Users/jspeiser/pums_entire_usa/<year>/<est>/csv_pus.zip"
+    source : "/home/hermes/pums_entire_usa/<year>/<est>/csv_pus.zip"
     # source: "/tmp/test<year>_<est>.csv"
     source_vars:
         year:
-            start: 2007
-            end: 2007
+            start: 2005
+            end: 2013
         est:
             start: 1
             end: 1
+
     archive_files: "csv"
     strip_column_whitespace: True
     force_column_uppercase:
         exclude: ["year", "est", "geo_id"]
-    output : "/Users/jspeiser/pums_output/<year>/<est>/"
-    # ftp_paths:
-        # "pums": "acs<year>_<est>yr/pums"
+    output : "/home/hermes/pums_output/<year>/<est>/"
+    web_paths:
+        "2005": "http://www2.census.gov/acs/downloads/pums/<year>/csv_pus.zip"
+        "2006": "http://www2.census.gov/acs/downloads/pums/<year>/csv_pus.zip"
+        pums: "ftp://ftp.census.gov/acs<year>_<est>yr/pums/csv_pus.zip"
     # type must be the original name of the column (before rename)
     type:
         occp02: "str"

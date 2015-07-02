@@ -2,7 +2,7 @@ global:
     seperator: ","
     name: pums
     use_schema: True
-    source : "/home/hermes/pums_entire_usa/<year>/<est>/csv_pus.zip"
+    source : "/tmp/pums_entire_usa/<year>/<est>/csv_pus.zip"
     # source: "/tmp/test<year>_<est>.csv"
     source_vars:
         year:
@@ -15,8 +15,8 @@ global:
     archive_files: "csv"
     strip_column_whitespace: True
     force_column_uppercase:
-        exclude: ["year", "est", "geo_id"]
-    output : "/home/hermes/pums_output/<year>/<est>/"
+        exclude: ["year", "est", "geo_id", "naics", "num_households", "num_ppl", "num_records"]
+    output : "/tmp/pums_output/<year>/<est>/"
     web_paths:
         "2005": "http://www2.census.gov/acs/downloads/pums/<year>/csv_pus.zip"
         "2006": "http://www2.census.gov/acs/downloads/pums/<year>/csv_pus.zip"
@@ -52,36 +52,66 @@ global:
                         column: AGEP
                         name: avg_age
 
+    named_transforms:
+        pums_state:
+            type: frame_func
+            func: "plugins.census.pums.process"
+            sumlevel: "state"
+            values:
+                    -
+                        column: WAGP
+                        name: avg_wage
+                    -
+                        column: AGEP
+                        name: avg_age
+
+        pums_nation:
+            type: frame_func
+            func: "plugins.census.pums.process"
+            sumlevel: "nation"
+            values:
+                    -
+                        column: WAGP
+                        name: avg_wage
+                    -
+                        column: AGEP
+                        name: avg_age
+
 tables:
-    puma_yeg:
-        pk: ["year", "est", "geo_id"]
-
-    state_yeg:
-        pk: ["year", "est", "geo_id"]
+   nation_yegi:
+        pk: ["year", "est", "geo_id", "naics"]
         transform:
-            df:
-                type: frame_func
-                func: "plugins.census.pums.process"
-                sumlevel: "state"
-                values:
-                    -
-                        column: WAGP
-                        name: avg_wage
-                    -
-                        column: AGEP
-                        name: avg_age
-
-    nation_ye:
-        pk: ["year", "est", "geo_id"]
+            df: pums_nation
+   state_yegi:
+        pk: ["year", "est", "geo_id", "naics"]
         transform:
-            df:
-                type: frame_func
-                func: "plugins.census.pums.process"
-                sumlevel: "nation"
-                values:
-                    -
-                        column: WAGP
-                        name: avg_wage
-                    -
-                        column: AGEP
-                        name: avg_age
+            df: pums_state
+    puma_yegi:
+        pk: ["year", "est", "geo_id", "naics"]
+
+
+
+   nation_yego:
+        pk: ["year", "est", "geo_id", "soc"]
+        transform:
+            df: pums_nation
+   state_yego:
+        pk: ["year", "est", "geo_id", "soc"]
+        transform:
+            df: pums_state
+    puma_yego:
+        pk: ["year", "est", "geo_id", "soc"]
+
+
+
+   nation_yegio:
+        pk: ["year", "est", "geo_id", "naics", "soc"]
+        transform:
+            df: pums_nation
+   state_yegio:
+        pk: ["year", "est", "geo_id", "naics", "soc"]
+        transform:
+            df: pums_state
+    puma_yegio:
+        pk: ["year", "est", "geo_id", "naics", "soc"]
+

@@ -10,8 +10,8 @@ global:
 
     source_vars:
         year:
-            start: 2005
-            end: 2008
+            start: 2009
+            end: 2012
 
     output : "/tmp/ipeds_tuition/<year>"
 
@@ -42,15 +42,15 @@ global:
         TUITION3: oos_tuition
         TUIT3: oos_tuition
         FEE3: oos_fee
-        TUITION5: district_ft_tuition
-        TUIT5: district_ft_tuition
-        FEE5: district_ft_fee
-        TUITION6: state_ft_tuition
-        TUIT6: state_ft_tuition
-        FEE6: state_ft_fee
-        TUITION7: oos_ft_tuition
-        TUIT7: oos_ft_tuition
-        FEE7: oos_ft_fee
+        TUITION5: district_tuition_grads
+        TUIT5: district_tuition_grads
+        FEE5: district_fee_grads
+        TUITION6: state_tuition_grads
+        TUIT6: state_tuition_grads
+        FEE6: state_fee_grads
+        TUITION7: oos_tuition_grads
+        TUIT7: oos_tuition_grads
+        FEE7: oos_fee_grads
 
     agg:
         district_tuition: "sum"
@@ -61,15 +61,14 @@ global:
         oos_tuition: "sum"
         oos_tuition: "sum"
         oos_fee: "sum"
-        district_ft_tuition: "sum"
-        district_ft_tuition: "sum"
-        district_ft_fee: "sum"
-        state_ft_tuition: "sum"
-        state_ft_tuition: "sum"
-        state_ft_fee: "sum"
-        oos_ft_tuition: "sum"
-        oos_ft_tuition: "sum"
-        oos_ft_fee: "sum"
+        district_tuition_grads: "sum"
+        district_tuition_grads: "sum"
+        district_fee_grads: "sum"
+        state_tuition: "sum"
+        state_tuition_grads: "sum"
+        state_fee_grads: "sum"
+        oos_tuition_grads: "sum"
+        oos_fee_grads: "sum"
 
     # columns: ["UNITID", "TUITION1", "TUITION2", "TUITION3", "TUITION5", "TUITION6", "TUITION7", "FEE1", "FEE2", "FEE3", "FEE5", "FEE6", "FEE7"]
 tables:

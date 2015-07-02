@@ -36,6 +36,8 @@ global:
         WEBADDR: url
         INSTCAT: category
         F1SYSCOD: parent_code
+        LONGITUD: long
+        LATITUDE: lat
 
     transform:
         state:
@@ -59,4 +61,4 @@ global:
 
 tables:
     university:
-        pk: ["id", "name", "state", "county", "msa", "category", "parent_code"]
+        pk: ["id", "name", "state", "county", "msa", "category", "parent_code", "lat", "long"]

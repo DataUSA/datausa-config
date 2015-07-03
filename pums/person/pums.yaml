@@ -6,7 +6,7 @@ global:
     # source: "/tmp/test<year>_<est>.csv"
     source_vars:
         year:
-            start: 2005
+            start: 2006
             end: 2013
         est:
             start: 1
@@ -86,7 +86,7 @@ tables:
         pk: ["year", "est", "geo_id", "naics"]
         transform:
             df: pums_state
-    puma_yegi:
+   puma_yegi:
         pk: ["year", "est", "geo_id", "naics"]
 
 
@@ -99,7 +99,7 @@ tables:
         pk: ["year", "est", "geo_id", "soc"]
         transform:
             df: pums_state
-    puma_yego:
+   puma_yego:
         pk: ["year", "est", "geo_id", "soc"]
 
 
@@ -112,6 +112,6 @@ tables:
         pk: ["year", "est", "geo_id", "naics", "soc"]
         transform:
             df: pums_state
-    puma_yegio:
+   puma_yegio:
         pk: ["year", "est", "geo_id", "naics", "soc"]
 

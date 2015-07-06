@@ -15,7 +15,7 @@ global:
             start: 2005
             end: 2007
 
-    output : "/tmp/ipeds_enrollment2/<year>"
+    output : "data/output/ipeds/enrollment/<year>"
 
     web_paths:
         "ipeds": "https://nces.ed.gov/ipeds/datacenter/data/ef<year>a.zip"
@@ -31,7 +31,7 @@ global:
         user: postgres
         password_env_var: DATAUSA_PW
         host: 162.209.124.219
-        db_name: postgres
+        db_name: datausa
 
     transform:
         course_id:

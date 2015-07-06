@@ -1,6 +1,7 @@
 global:
     seperator: ","
-    name: cbp.msa
+    name: cbp
+    use_schema: True
     source : "$CENSUS_DATA/CBP/cbp<year>msa.zip"
     source_vars:
         year: ["05", "06", "07", "08", "09", "10", "11", "12", "13"]

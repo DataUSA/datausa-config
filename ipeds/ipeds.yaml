@@ -3,26 +3,19 @@ global:
     name: ipeds
     source : "data/ipeds/c<year>_a.zip"
     use_schema: True
-    # force_column_uppercase:
-        # exclude: ["year"]
+    encoding: utf-8-sig
 
     strip_column_whitespace: True
 
     source_vars:
         year:
             start: 2008
-            end: 2013
+            end: 2011
 
     output : "/Users/jspeiser/code/ipeds/output/<year>"
 
     web_paths:
         "ipeds": "https://nces.ed.gov/ipeds/datacenter/data/c<year>_a.zip"
-
-    # type:
-        # C2MORT: "int"
-        # total_multi: "int"        
-        # total_multi_men: "int"
-        # total_multi_women: "int"
 
     na_values: ['']
 
@@ -36,6 +29,8 @@ global:
                 type: replace
                 target: "."
                 value: ""
+            -
+                type: strip
 
     import_to_db: True
     db_settings:
@@ -44,6 +39,8 @@ global:
         host: 162.209.124.219
         db_name: postgres
 
+    post_agg_add_pklengths: 1
+    deduplicate: True
     rename:
         UNITID: university_id
         CIPCODE: course_id
@@ -82,6 +79,8 @@ global:
 tables:
     grads_yucd:
         pk: ["year", "university_id", "course_id", "degree_id"]
+        depths: { "year": ["identity"], "university_id" : [YES], "course_id": [2, YES], "degree_id": ["identity"]  }
+
         agg:
             total: "sum"
             total_men: "sum"

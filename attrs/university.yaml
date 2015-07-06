@@ -5,7 +5,7 @@ global:
     use_schema: True
     encoding: False
     strip_column_whitespace: True
-    output : "/Users/jspeiser/code/ipeds/output/hd/<year>"
+    output : "data/output/ipeds/hd/<year>"
 
     web_paths:
         "ipeds": "https://nces.ed.gov/ipeds/datacenter/data/hd<year>.zip"
@@ -20,7 +20,7 @@ global:
         user: postgres
         password_env_var: DATAUSA_PW
         host: 162.209.124.219
-        db_name: postgres
+        db_name: datausa
 
     type:
         FIPS: "str"

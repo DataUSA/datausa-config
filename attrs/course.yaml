@@ -4,14 +4,14 @@ global:
     source : "/Users/jspeiser/Desktop/Deloitte/Data/IPEDS/CIPCode2010.csv"
     use_schema: True
 
-    output : "/Users/jspeiser/code/ipeds/output/cip/<year>"
+    output : "data/output/ipeds/cip/<year>"
 
     import_to_db: True
     db_settings:
         user: postgres
         password_env_var: DATAUSA_PW
         host: 162.209.124.219
-        db_name: postgres
+        db_name: datausa
 
     type:
         CIPCode: "str"

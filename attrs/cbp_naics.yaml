@@ -3,7 +3,7 @@ global:
     name: attrs
     source : "data/naics/NAICS2012.txt"
     use_schema: True
-    output : "/Users/jspeiser/code/ipeds/output/naics/"
+    output : "data/output/naics/"
 
     web_paths:
         "naics": "https://www.census.gov/econ/cbp/download/NAICS2012.txt"

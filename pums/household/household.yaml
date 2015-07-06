@@ -2,17 +2,17 @@ global:
     seperator: ","
     name: pums
     use_schema: True
-    source : "/home/hermes/datastore/pums/<year>/<est>/csv_hus.zip"
+    source : "/tmp/pums/<year>/<est>/csv_hus.zip"
     source_vars:
         year:
-            start: 2007
+            start: 2005
             end: 2013
-        est: [3]
+        est: [1]
     archive_files: "csv"
     strip_column_whitespace: True
     force_column_uppercase:
         exclude: ["year", "est", "geo_id"]
-    output : "/home/hermes/datastore/pums_house_output/<year>/<est>/"
+    output : "/tmp/pums_house_output/<year>/<est>/"
     web_paths:
         "2005": "http://www2.census.gov/acs/downloads/pums/<year>/csv_hus.zip"
         "2006": "http://www2.census.gov/acs/downloads/pums/<year>/csv_hus.zip"
@@ -27,7 +27,7 @@ global:
         user: postgres
         password_env_var: DATAUSA_PW
         host: 162.209.124.219
-        db_name: postgres
+        db_name: datausa
 
     transform:
         df:

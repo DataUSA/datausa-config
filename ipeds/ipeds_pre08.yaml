@@ -15,7 +15,7 @@ global:
             start: 2005
             end: 2007
 
-    output : "/Users/jspeiser/code/ipeds/output/<year>"
+    output : "data/output/ipeds/<year>"
 
     web_paths:
         "ipeds": "https://nces.ed.gov/ipeds/datacenter/data/c<year>_a.zip"

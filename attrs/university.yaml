@@ -36,7 +36,7 @@ global:
         WEBADDR: url
         INSTCAT: category
         F1SYSCOD: parent_code
-        LONGITUD: long
+        LONGITUD: lng
         LATITUDE: lat
 
     transform:

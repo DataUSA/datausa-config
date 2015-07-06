@@ -1,11 +1,12 @@
 global:
     seperator: ","
-    name: cbp.state
+    name: cbp
+    use_schema: True
     source : "$CENSUS_DATA/CBP/cbp<year>st.zip"
     source_vars:
         year: ["05", "06", "07", "08", "09", "10", "11", "12", "13"]
 
-    output : "/Users/jspeiser/cbp_output/<year>"
+    output : "data/output/cbp/<year>"
     import_to_db: True
     db_settings:
         user: postgres
@@ -16,7 +17,7 @@ global:
     ftp_paths:
         "CBP/cbp07st.zip":
             path: "econ20<year>/CBP_CSV"
-            filename: "cbp<year>st.txt"
+            filename: "cbp<year>st.zip"
         "CBP/cbp06us.zip":
             path: "econ2006/CBP_CSV"
             filename: "cbp06st.txt"

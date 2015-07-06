@@ -77,6 +77,16 @@ tables:
         transform:
             df: pums_nation
 
+    puma_yeg_pval:
+        pk: ["year", "est", "geo_id", "property_value"]
+    state_yeg_pval:
+        pk: ["year", "est", "geo_id", "property_value"]
+        transform:
+            df: pums_state
+    nation_yeg_pval:
+        pk: ["year", "est", "geo_id", "property_value"]
+        transform:
+            df: pums_nation
 
     puma_yeg_vehicles:
         pk: ["year", "est", "geo_id", "num_vehicles"]

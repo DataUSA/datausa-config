@@ -1,0 +1,50 @@
+global:
+    seperator: ","
+    name: onet
+    source : "/tmp/data/occindo/occindo.zip"
+    use_schema: True
+    encoding: False
+    strip_column_whitespace: True
+    output : "/tmp/data/output/occindo/"
+    force_column_uppercase:
+        to_exclude: []
+    web_paths:
+        "occindo": "http://webdata.xwalkcenter.org/ftp/download/xwalks/occindo.zip"
+    # source_vars:
+    #     year:
+    #         start: 2005
+    #         end: 2013
+
+    concat: YES
+
+    import_to_db: True
+    db_settings:
+        user: postgres
+        password_env_var: DATAUSA_PW
+        host: 162.209.124.219
+        db_name: datausa
+
+    type:
+        INDCODE: "str"
+        OCCCODE: "str"
+        EMPLOYMENT: "int"
+
+    rename:
+        INDCODE: naics
+        OCCCODE: soc
+        EMPLOYMENT: num_emp
+
+    transform:
+        soc:
+            -
+                type: "replace"
+                target: "-"
+                value: ""
+
+
+    agg:
+        num_emp: "sum"
+
+tables:
+    naics_soc_crosswalk:
+        pk: ["naics", "soc"]

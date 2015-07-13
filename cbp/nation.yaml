@@ -44,6 +44,15 @@ global:
         empflag: "sum"
         emp: "sum"
         emp_nf: "sum"
+        n1_4: "sum"
+        n5_9: "sum"
+        n10_19: "sum"
+        n20_49: "sum"
+        n50_99: "sum"
+        n100_249: "sum"
+        n250_499: "sum"
+        n500_999: "sum"
+        n1000: "sum"
 
     transform:
         df:
@@ -52,6 +61,6 @@ global:
             mode: "nation"
 
 tables:
-    ygi_nation:
+    ygi_nation_firmsize:
         pk: ["year", "geo", "naics"]
 

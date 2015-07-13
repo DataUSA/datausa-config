@@ -28,6 +28,19 @@ global:
         empflag: "str"
         emp: "int"
         emp_nf: "str"
+        n1_4: "sum"
+        n5_9: "sum"
+        n10_19: "sum"
+        n20_49: "sum"
+        n50_99: "sum"
+        n100_249: "sum"
+        n250_499: "sum"
+        n500_999: "sum"
+        n1000: "sum"
+        n1000_1: "sum"
+        n1000_2: "sum"
+        n1000_3: "sum"
+        n1000_4: "sum"
 
     agg:
         est: "sum"
@@ -45,6 +58,6 @@ global:
 
 
 tables:
-    ygi_msa:
+    ygi_msa_firmsize:
         pk: ["year", "geo", "naics"]
 

@@ -4,7 +4,7 @@ global:
     use_schema: True
     source : "$CENSUS_DATA/CBP/cbp<year>co.zip"
     source_vars:
-        year: ["05"] #, "06", "07", "08", "09", "10", "11", "12", "13"]
+        year: ["05", "06", "07", "08", "09", "10", "11", "12", "13"]
 
     output : "data/output/cbp/<year>"
     import_to_db: True

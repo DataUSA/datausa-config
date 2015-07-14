@@ -1,0 +1,80 @@
+global:
+    seperator: ","
+    name: pums
+    use_schema: True
+    source : "/tmp/pums_entire_usa/<year>/<est>/csv_pus.zip"
+    df_chunker:
+        func: src.plugins.census.pums.chunker.process
+        pk: [""]
+    # source: "/tmp/test<year>_<est>.csv"
+    source_vars:
+        year:
+            start: 2007
+            end: 2007
+        est:
+            start: 3
+            end: 3
+
+    archive_files: "csv"
+    strip_column_whitespace: True
+    force_column_uppercase:
+        exclude: ["year", "est", "geo_id", "naics", "num_households", "num_ppl", "num_records"]
+    output : "/tmp/pums_output/<year>/<est>/"
+    web_paths:
+        "2005": "http://www2.census.gov/acs/downloads/pums/<year>/csv_pus.zip"
+        "2006": "http://www2.census.gov/acs/downloads/pums/<year>/csv_pus.zip"
+        pums: "http://ftp.census.gov/acs<year>_<est>yr/pums/csv_pus.zip"
+    # type must be the original name of the column (before rename)
+    type:
+        occp02: "str"
+        naicsp02: "str"
+        naicsp07: "str"
+        occp10 : "str"
+        ST: "str"
+        AGEP: "int"
+
+    agg: "sum"
+
+    import_to_db: True
+    db_settings:
+        user: postgres
+        password_env_var: DATAUSA_PW
+        host: 162.209.124.219
+        db_name: datausa
+
+    transform:
+        df:
+            type: frame_func
+            func: "plugins.census.pums.chunker.step2"
+            sumlevel: "puma"
+            values:
+                    -
+                        column: WAGP
+                        name: avg_wage
+                    -
+                        column: AGEP
+                        name: avg_age
+            depths:
+                year: ["identity"]
+                est: ["identity"]
+                naics: [2, True]
+                soc: [2, True]
+                geo_id: ["identity"]
+
+    named_transforms:
+        pums_state:
+            type: frame_func
+            func: "plugins.census.pums.chunker.step2"
+            sumlevel: "state"
+            values:
+                    -
+                        column: WAGP
+                        name: avg_wage
+                    -
+                        column: AGEP
+                        name: avg_age
+
+tables:
+   ztest3_puma_yego:
+        pk: ["year", "est", "geo_id"]
+

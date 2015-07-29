@@ -27,6 +27,13 @@ ygor: &ygor
     sumlevel: "nation"
     values: *defaults
 
+ygos: &ygos
+    pk: ["year", "geo_id", "soc", "sex"]
+    depths:
+        soc: [0, 1, 2, 3]
+    sumlevel: "nation"
+    values: *defaults
+
 ygi: &ygi
     pk: ["year", "geo_id", "naics"]
     depths:
@@ -63,7 +70,7 @@ global:
         pums: "http://ftp.census.gov/acs<year>_<est>yr/pums/csv_pak.zip"
     rename:
         AGEP: age
-        SEX: gender
+        SEX: sex
         RAC1P: race
         FOD1P: major
     type:
@@ -107,4 +114,12 @@ tables:
         sumlevel: "state"
    puma_ygor_1yr:
         <<: *ygor
+        sumlevel: "puma"
+
+   nation_ygos_1yr: *ygos
+   state_ygos_1yr:
+        <<: *ygos
+        sumlevel: "state"
+   puma_ygos_1yr:
+        <<: *ygos
         sumlevel: "puma"

@@ -38,7 +38,7 @@ ygos: &ygos
 ygi: &ygi
     pk: ["year", "geo_id", "naics"]
     depths:
-        soc: [0, 1, 2]
+        naics: [0, 1, 2]
     rca:
         index: ["year", "geo_id"]
         column: "naics"
@@ -65,7 +65,7 @@ global:
         exclude: ["year", "est", "geo_id", "naics", "num_households", "num_ppl", "num_records"]
     output : "/tmp/pums_output/<year>/<est>/"
     web_paths:
-        pums: "http://ftp.census.gov/acs<year>_<est>yr/pums/csv_pak.zip"
+        pums: "http://ftp.census.gov/acs<year>_<est>yr/pums/csv_pus.zip"
     rename:
         AGEP: age
         SEX: sex

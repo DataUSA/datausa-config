@@ -2,9 +2,9 @@ global:
     seperator: ","
     name: cbp
     use_schema: True
-    source : "$CENSUS_DATA/CBP/cbp<year>msa.zip"
+    source : "data/cbp/cbp<year>msa.zip"
     source_vars:
-        year: ["05", "06", "07", "08", "09", "10", "11", "12", "13"]
+        year: ["13"]
 
     output : "data/output/cbp/<year>"
     import_to_db: True
@@ -15,7 +15,7 @@ global:
         db_name: datausa
 
     ftp_paths:
-        "CBP": "econ20<year>/CBP_CSV"
+        "cbp": "econ20<year>/CBP_CSV"
 
     # type must be the original name of the column (before rename)
     type:

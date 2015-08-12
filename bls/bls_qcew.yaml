@@ -1,0 +1,81 @@
+where_county: &where_county
+    column: agglvl_code
+    func: "eq"
+    value: 70
+
+where_state: &where_state
+    column: agglvl_code
+    func: "eq"
+    value: 50
+
+where_msa: &where_msa
+    column: agglvl_code
+    func: "eq"
+    value: 40
+
+where_us: &where_us
+    column: agglvl_code
+    func: "eq"
+    value: 10
+
+
+global:
+    source: "data/bls/20<year>_annual_singlefile.zip"
+    web_paths: http://www.bls.gov/cew/data/files/20<year>/csv/20<year>_annual_singlefile.zip
+    name: bls
+    na_values: [".", ]
+    source_vars:
+        year: ["14"]
+    output : "data/output/bls/qcew/<year>"
+    type:
+        area_fips: str
+
+    rename:
+        industry_code: naics
+        area_fips: area
+
+    transform:
+        -
+            column: year
+            type: concat_and_fill
+            prefix: "20"
+        -
+            column: area
+            type: concat_and_fill
+            prefix: "05000US"
+            where: *where_county
+        -
+            column: area
+            type: concat_and_fill
+            prefix: "04000US"
+            where: *where_state
+        -
+            column: area
+            type: set_val
+            value: "01000US"
+            where: *where_us
+        -
+            column: area
+            type: concat_and_fill
+            prefix: "31000US"
+            where: *where_msa
+
+
+tables:
+    qcew_ygi:
+        pk: ["year", "area", "naics", ]
+        agg:
+            annual_avg_estabs: sum
+            annual_avg_emplvl: sum
+            annual_contributions: sum
+            total_annual_wages: sum
+            taxable_annual_wages: sum
+            annual_avg_wkly_wage: sum
+            avg_annual_pay: sum
+            lq_annual_avg_estabs: sum
+            lq_annual_avg_emplvl: sum
+            lq_total_annual_wages: sum
+            lq_taxable_annual_wages: sum
+            lq_annual_contributions: sum
+            lq_annual_avg_wkly_wage: sum
+            lq_avg_annual_pay: sum

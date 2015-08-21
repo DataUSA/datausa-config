@@ -73,7 +73,7 @@ global:
         FOD1P: major
         SCHL: degree
         NATIVITY: native
-        POBP: country
+        POBP: birthplace
 
     type:
         occp02: "str"
@@ -154,11 +154,29 @@ tables:
             values: [num_ppl]
         values: *defaults
 
-    ymc:
-        pk: ["year", "major", "country"]
+    ymb:
+        pk: ["year", "major", "birthplace"]
         rca:
             index: ["year", "major"]
-            column: "country"
+            column: "birthplace"
+            values: [num_ppl]
+        values: *defaults
+
+    ymb:
+        pk: ["year", "major", "birthplace"]
+        rca:
+            index: ["year", "major"]
+            column: "birthplace"
+            values: [num_ppl]
+        values: *defaults
+
+
+    ymgb:
+        pk: ["year", "major", "geo_id", "birthplace"]
+        sumlevel: state
+        rca:
+            index: ["year", "major", "geo_id"]
+            column: "birthplace"
             values: [num_ppl]
         values: *defaults
 

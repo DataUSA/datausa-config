@@ -52,17 +52,17 @@ global:
     use_schema: True
     source : "/tmp/pums_entire_usa/<year>/<est>/csv_pus.zip"
     # source: "/tmp/test<year>_<est>.csv"
-    usecols: ['WKHP', 'FOD1P', 'RAC1P', 'ADJINC', 'ESR', 'PWGTP', 'SCHL', 'ST', 'WAGP', 'SOCP', 'NAICSP', 'SEX', 'AGEP', 'PUMA', 'pwgtp1', 'pwgtp2', 'pwgtp3', 'pwgtp4', 'pwgtp5', 'pwgtp6', 'pwgtp7', 'pwgtp8', 'pwgtp9', 'pwgtp10', 'pwgtp11', 'pwgtp12', 'pwgtp13', 'pwgtp14', 'pwgtp15', 'pwgtp16', 'pwgtp17', 'pwgtp18', 'pwgtp19', 'pwgtp20', 'pwgtp21', 'pwgtp22', 'pwgtp23', 'pwgtp24', 'pwgtp25', 'pwgtp26', 'pwgtp27', 'pwgtp28', 'pwgtp29', 'pwgtp30', 'pwgtp31', 'pwgtp32', 'pwgtp33', 'pwgtp34', 'pwgtp35', 'pwgtp36', 'pwgtp37', 'pwgtp38', 'pwgtp39', 'pwgtp40', 'pwgtp41', 'pwgtp42', 'pwgtp43', 'pwgtp44', 'pwgtp45', 'pwgtp46', 'pwgtp47', 'pwgtp48', 'pwgtp49', 'pwgtp50', 'pwgtp51', 'pwgtp52', 'pwgtp53', 'pwgtp54', 'pwgtp55', 'pwgtp56', 'pwgtp57', 'pwgtp58', 'pwgtp59', 'pwgtp60', 'pwgtp61', 'pwgtp62', 'pwgtp63', 'pwgtp64', 'pwgtp65', 'pwgtp66', 'pwgtp67', 'pwgtp68', 'pwgtp69', 'pwgtp70', 'pwgtp71', 'pwgtp72', 'pwgtp73', 'pwgtp74', 'pwgtp75', 'pwgtp76', 'pwgtp77', 'pwgtp78', 'pwgtp79', 'pwgtp80']
+    usecols: ['NATIVITY', 'POBP', 'WKHP', 'FOD1P', 'RAC1P', 'ADJINC', 'ESR', 'PWGTP', 'SCHL', 'ST', 'WAGP', 'SOCP', 'NAICSP', 'SEX', 'AGEP', 'PUMA', 'pwgtp1', 'pwgtp2', 'pwgtp3', 'pwgtp4', 'pwgtp5', 'pwgtp6', 'pwgtp7', 'pwgtp8', 'pwgtp9', 'pwgtp10', 'pwgtp11', 'pwgtp12', 'pwgtp13', 'pwgtp14', 'pwgtp15', 'pwgtp16', 'pwgtp17', 'pwgtp18', 'pwgtp19', 'pwgtp20', 'pwgtp21', 'pwgtp22', 'pwgtp23', 'pwgtp24', 'pwgtp25', 'pwgtp26', 'pwgtp27', 'pwgtp28', 'pwgtp29', 'pwgtp30', 'pwgtp31', 'pwgtp32', 'pwgtp33', 'pwgtp34', 'pwgtp35', 'pwgtp36', 'pwgtp37', 'pwgtp38', 'pwgtp39', 'pwgtp40', 'pwgtp41', 'pwgtp42', 'pwgtp43', 'pwgtp44', 'pwgtp45', 'pwgtp46', 'pwgtp47', 'pwgtp48', 'pwgtp49', 'pwgtp50', 'pwgtp51', 'pwgtp52', 'pwgtp53', 'pwgtp54', 'pwgtp55', 'pwgtp56', 'pwgtp57', 'pwgtp58', 'pwgtp59', 'pwgtp60', 'pwgtp61', 'pwgtp62', 'pwgtp63', 'pwgtp64', 'pwgtp65', 'pwgtp66', 'pwgtp67', 'pwgtp68', 'pwgtp69', 'pwgtp70', 'pwgtp71', 'pwgtp72', 'pwgtp73', 'pwgtp74', 'pwgtp75', 'pwgtp76', 'pwgtp77', 'pwgtp78', 'pwgtp79', 'pwgtp80']
     source_vars:
         year: [2013]
         est: [1]
-        geo_level: ["nation", "state", "puma"]
+        #geo_level: ["nation", "state", "puma"]
     # post_agg_add_pklengths: True
 
     archive_files: "csv"
     strip_column_whitespace: True
     force_column_uppercase:
-        exclude: ["year", "est", "geo_id", "naics", "num_households", "num_ppl", "num_records"]
+        exclude: ["year", "est", "geo_id", "naics", "num_households", "num_ppl", "num_records", "country", "native"]
     output : "/tmp/pums_output/<year>/<est>/"
     web_paths:
         pums: "http://ftp.census.gov/acs<year>_<est>yr/pums/csv_pus.zip"
@@ -72,6 +72,9 @@ global:
         RAC1P: race
         FOD1P: major
         SCHL: degree
+        NATIVITY: native
+        POBP: country
+
     type:
         occp02: "str"
         naicsp02: "str"
@@ -101,15 +104,6 @@ tables:
         sumlevel: <geo_level>
         values: *defaults
 
-    ygd:
-        pk: ["year", "geo_id", "degree"]
-        rca:
-            index: ["year", "geo_id"]
-            column: "degree"
-            values: [num_ppl]
-        sumlevel: <geo_level>
-        values: *defaults
-
     ymd:
         pk: ["year", "major", "degree"]
         rca:
@@ -128,12 +122,51 @@ tables:
             values: [num_ppl]
         values: *defaults
 
-    yod:
-        pk: ["year", "soc", "degree"]
-        depths:
-            soc: [0, 1, 2, 3]
+    yms:
+        pk: ["year", "major", "sex"]
         rca:
-            index: ["year", "soc"]
-            column: "degree"
+            index: ["year", "major"]
+            column: "sex"
             values: [num_ppl]
+        values: *defaults
+
+    ymr:
+        pk: ["year", "major", "race"]
+        rca:
+            index: ["year", "major"]
+            column: "race"
+            values: [num_ppl]
+        values: *defaults
+
+    yma:
+        pk: ["year", "major", "age"]
+        rca:
+            index: ["year", "major"]
+            column: "age"
+            values: [num_ppl]
+        values: *defaults
+
+    ymn:
+        pk: ["year", "major", "native"]
+        rca:
+            index: ["year", "major"]
+            column: "native"
+            values: [num_ppl]
+        values: *defaults
+
+    ymc:
+        pk: ["year", "major", "country"]
+        rca:
+            index: ["year", "major"]
+            column: "country"
+            values: [num_ppl]
+        values: *defaults
+
+    ym:
+        pk: ["year", "major"]
+        rca:
+            index: ["year"]
+            column: "major"
+            values: [num_ppl]
+        values: *defaults
 

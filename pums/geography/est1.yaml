@@ -64,3 +64,24 @@ tables:
     sumlevel: <geo_level>
     values: *defaults
 
+    ygi:
+        pk: ["year", "geo_id", "naics"]
+        depths:
+            naics: [0, 1, 2]
+        rca:
+            index: ["year", "geo_id"]
+            column: "naics"
+            values: [num_ppl]
+        values: *defaults
+
+    ygio:
+        pk: ["year", "geo_id", "naics", "soc"]
+        depths:
+            soc: [0, 1, 2, 3]
+            naics: [0, 1, 2]
+        rca:
+            index: ["year", "geo_id", "naics"]
+            column: "soc"
+            values: [num_ppl]
+        values: *defaults
+

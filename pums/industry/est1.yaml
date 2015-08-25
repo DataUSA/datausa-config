@@ -52,6 +52,12 @@ global:
 
         deduplicate: True
 tables:
+    yi:
+        pk: ["year", "naics"]
+        depths:
+            naics: [0, 1, 2]
+        values: *defaults
+
     yid:
         pk: ["year", "naics", "degree"]
         depths:

@@ -72,6 +72,7 @@ tables:
             index: ["year", "geo_id"]
             column: "naics"
             values: [num_ppl]
+        sumlevel: <geo_level>
         values: *defaults
 
     ygio:
@@ -83,5 +84,15 @@ tables:
             index: ["year", "geo_id", "naics"]
             column: "soc"
             values: [num_ppl]
+        sumlevel: <geo_level>
+        values: *defaults
+
+    ygmd:
+        pk: ["year", "geo_id", "major", "degree"]
+        rca:
+            index: ["year", "major"]
+            column: "degree"
+            values: [num_ppl]
+        sumlevel: <geo_level>
         values: *defaults
 

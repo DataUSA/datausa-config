@@ -90,7 +90,7 @@ tables:
     ygmd:
         pk: ["year", "geo_id", "major", "degree"]
         rca:
-            index: ["year", "major"]
+            index: ["year", "geo_id", "major"]
             column: "degree"
             values: [num_ppl]
         sumlevel: <geo_level>

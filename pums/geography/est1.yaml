@@ -55,14 +55,14 @@ global:
 
         deduplicate: True
 tables:
-   ygd:
-    pk: ["year", "geo_id", "degree"]
-    rca:
-        index: ["year", "geo_id"]
-        column: "degree"
-        values: [num_ppl]
-    sumlevel: <geo_level>
-    values: *defaults
+    ygd:
+       pk: ["year", "geo_id", "degree"]
+       rca:
+           index: ["year", "geo_id"]
+           column: "degree"
+           values: [num_ppl]
+       sumlevel: <geo_level>
+       values: *defaults
 
     ygi:
         pk: ["year", "geo_id", "naics"]

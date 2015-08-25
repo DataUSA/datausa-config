@@ -33,6 +33,7 @@ global:
         SEX: sex
         RAC1P: race
         FOD1P: major
+        SCHL: degree
     type:
         occp02: "str"
         naicsp02: "str"

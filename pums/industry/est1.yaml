@@ -10,42 +10,6 @@ default_values: &defaults
         column: WKHP
         name: avg_hrs
 
-ygo: &ygo
-    pk: ["year", "geo_id", "soc"]
-    depths:
-        soc: [0, 1, 2, 3]
-    rca:
-        index: ["year", "geo_id"]
-        column: "soc"
-        values: [num_ppl]
-    sumlevel: <geo_level>
-    values: *defaults
-
-ygor: &ygor
-    pk: ["year", "geo_id", "soc", "race"]
-    depths:
-        soc: [0, 1, 2, 3]
-    sumlevel: <geo_level>
-    values: *defaults
-
-ygos: &ygos
-    pk: ["year", "geo_id", "soc", "sex"]
-    depths:
-        soc: [0, 1, 2, 3]
-    sumlevel: <geo_level>
-    values: *defaults
-
-ygi: &ygi
-    pk: ["year", "geo_id", "naics"]
-    depths:
-        naics: [0, 1, 2]
-    rca:
-        index: ["year", "geo_id"]
-        column: "naics"
-        values: [num_ppl]
-    sumlevel: <geo_level>
-    values: *defaults
-
 global:
     seperator: ","
     name: pums_beta
@@ -56,8 +20,6 @@ global:
     source_vars:
         year: [2013]
         est: [1]
-        geo_level: ["nation", "state", "puma"]
-    # post_agg_add_pklengths: True
 
     archive_files: "csv"
     strip_column_whitespace: True
@@ -90,7 +52,27 @@ global:
 
         deduplicate: True
 tables:
-    yio_<est>yr:
+    yid:
+        pk: ["year", "naics", "degree"]
+        depths:
+            naics: [0, 1, 2]
+        rca:
+            index: ["year", "naics"]
+            column: "degree"
+            values: [num_ppl]
+        values: *defaults
+
+    yim:
+        pk: ["year", "naics", "major"]
+        depths:
+            naics: [0, 1, 2]
+        rca:
+            index: ["year", "naics"]
+            column: "major"
+            values: [num_ppl]
+        values: *defaults
+
+    yio:
         pk: ["year", "naics", "soc"]
         depths:
             soc: [0, 1, 2, 3]
@@ -101,21 +83,21 @@ tables:
             values: [num_ppl]
         values: *defaults
 
-    yior_<est>yr:
+    yior:
         pk: ["year", "naics", "soc", "race"]
         depths:
             soc: [0, 1, 2, 3]
             naics: [0, 1, 2]
         values: *defaults
 
-    yios_<est>yr:
+    yios:
         pk: ["year", "naics", "soc", "sex"]
         depths:
             soc: [0, 1, 2, 3]
             naics: [0, 1, 2]
         values: *defaults
 
-    yiw_<est>yr:
+    yiw:
         pk: ["year", "naics", "wage_bin"]
         depths:
             naics: [0, 1, 2]

@@ -71,6 +71,7 @@ global:
         SEX: sex
         RAC1P: race
         FOD1P: major
+        SCHL: degree
     type:
         occp02: "str"
         naicsp02: "str"
@@ -90,14 +91,19 @@ global:
 
         deduplicate: True
 tables:
-   ygos_<geo_level>_<est>yr:
-        <<: *ygos
+    yg_<geo_level>_<est>yr:
+        pk: ["year", "geo_id"]
+        sumlevel: <geo_level>
+        values: *defaults
+        gini: True
+   # ygos_<geo_level>_<est>yr:
+   #      <<: *ygos
 
-   ygor_<geo_level>_<est>yr:
-        <<: *ygor
+   # ygor_<geo_level>_<est>yr:
+   #      <<: *ygor
 
-   ygi_<geo_level>_<est>yr:
-        <<: *ygi
+   # ygi_<geo_level>_<est>yr:
+   #      <<: *ygi
 
-   ygo_<geo_level>_<est>yr:
-        <<: *ygo
+   # ygo_<geo_level>_<est>yr:
+   #      <<: *ygo

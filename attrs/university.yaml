@@ -1,19 +1,21 @@
 global:
     seperator: ","
     name: attrs
-    source : "data/ipeds/hd<year>.zip"
+    source : "/tmp/zdata/ipeds/hd<year>.zip"
     use_schema: True
     encoding: False
     strip_column_whitespace: True
-    output : "data/output/ipeds/hd/<year>"
-
+    output : "/tmp/zdata/output/ipeds/hd/<year>"
+    force_column_uppercase:
+        to_exclude: []
     web_paths:
         "ipeds": "https://nces.ed.gov/ipeds/datacenter/data/hd<year>.zip"
-
     source_vars:
         year:
-            start: 2013
+            start: 2005
             end: 2013
+
+    concat: YES
 
     import_to_db: True
     db_settings:
@@ -24,8 +26,11 @@ global:
 
     type:
         FIPS: "str"
+        fips: "str"
         COUNTYCD: "str"
         CBSA: "str"
+        UNITID: "str"
+        countycd: "str"
 
     rename:
         UNITID: id
@@ -35,7 +40,8 @@ global:
         CBSA: msa
         WEBADDR: url
         INSTCAT: category
-        F1SYSCOD: parent_code
+        SECTOR: sector
+        # F1SYSCOD: parent_code
         LONGITUD: lng
         LATITUDE: lat
 
@@ -48,17 +54,37 @@ global:
 
         county:
             -
+                type: "ifmissing"
+                default: "XXXXX"
+
+            -
                 type: "concat_and_fill"
                 prefix: "05000US"
                 zfill: 5
         msa:
             -
+                type: "ifmissing"
+                default: "XXXXX"
+            -
                 type: "concat_and_fill"
                 prefix: "31000US"
                 zfill: 5
+        id:
+            -
+                type: "cast"
+                as: str
+        lat:
+            type: ifmissing
+            default: None
+        lng:
+            type: ifmissing
+            default: None
+
     agg:
-        url: "sum"
+        url: "any"
+        lat: "any"
+        lng: "any"
 
 tables:
-    university:
-        pk: ["id", "name", "state", "county", "msa", "category", "parent_code", "lat", "long"]
+    ztest_university2:
+        pk: ["year", "id", "name", "state", "county", "msa", "category", "sector"] #, "parent_code"]

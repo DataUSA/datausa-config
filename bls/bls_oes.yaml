@@ -1,0 +1,78 @@
+where_state: &where_state
+    column: "area_type"
+    func: "eq"
+    value: 2
+
+where_msa: &where_msa
+    column: area_type
+    func: "eq"
+    value: 4
+
+where_us: &where_us
+    column: area_type
+    func: "eq"
+    value: 1
+
+global:
+    seperator: ","
+    name: bls
+    source : "data/bls/oesm<year>all.zip"
+    na_values: [".", "*", "**", "#"]
+    filetype: excel
+    sheetname: All May 20<year> Data
+    source_vars:
+        year: ["14"]
+
+    type:
+        area: str
+        naics: str
+
+    output : "data/output/bls/oes/<year>"
+
+    web_paths: "http://www.bls.gov/oes/special.requests/oesm14all.zip"
+
+    transform:
+        -
+            column: year
+            type: concat_and_fill
+            prefix: "20"
+        -
+            column: area
+            type: slice
+            start: 0
+            length: 2
+            where: *where_state
+        -
+            column: area
+            type: concat_and_fill
+            prefix: "04000US"
+            where: *where_state
+        -
+            column: area
+            type: set_val
+            value: "01000US"
+            where: *where_us
+        -
+            column: area
+            type: concat_and_fill
+            prefix: "31000US"
+            where: *where_msa
+
+    rename:
+        "occ code": "soc"
+        "emp_prse": "tot_emp_prse"
+        "a_mean": "annual_mean_wage"
+        "mean_prse": "annual_mean_wage_prse"
+
+
+tables:
+    oes_ygo:
+        pk: ["year", "area", "naics", "soc"]
+        agg:
+            tot_emp: sum
+            annual_mean_wage: sum
+            annual_mean_wage_prse: sum
+            tot_emp: sum
+            tot_emp_prse: sum
+            jobs_1000: sum
+            loc_quotient: sum

@@ -1,0 +1,80 @@
+where_county: &where_county
+    column: is_county
+    func: "eq"
+    value: 1
+
+where_state: &where_state
+    column: County
+    func: "eq"
+    value: Statewide
+
+where_us: &where_us
+    column: County
+    func: "eq"
+    value: Nationwide
+
+
+global:
+    source: "data/epa/nata/cancer_risk05_v4_county.xls"
+    web_paths: http://www.epa.gov/ttn/atw/nata2005/countyxls/cancer_risk05_v4_county.xls
+    sheetname: "US_NATA05_srcrisk_pollbkdn_byco"
+    skiprows: 8
+    filetype: excel
+    name: epa
+    na_values: [".", "-"]
+    output : "data/output/epa/nata"
+    type:
+        FIPS: str
+
+    rename:
+        FIPS: area
+
+    transform:
+        -
+            column: year
+            type: set_val
+            value: "2005"
+        -
+            column: area
+            type: set_val
+            value: "01000US"
+            where: *where_us
+        -
+            column: area
+            type: concat_and_fill
+            prefix: "04000US"
+            where: *where_state
+        -
+            column: is_county
+            type: set_val
+            value: 1
+        -
+            column: is_county
+            type: set_val
+            value: -1
+            where: *where_us
+        -
+            column: is_county
+            type: set_val
+            value: -1
+            where: *where_state
+        -
+            column: area
+            type: concat_and_fill
+            prefix: "05000US"
+            where: *where_county
+
+
+
+tables:
+    nata_cancer_risk:
+        pk: ["year", "area", ]
+        agg:
+            "Population": sum
+            "Total Cancer Risk": sum
+            "Point Cancer Risk": sum
+            "Nonpoint Cancer Risk": sum
+            "Onroad Cancer Risk": sum
+            "Nonroad Cancer Risk": sum
+            "Background Cancer Risk": sum
+            "Secondary Pollutant Cancer Risk": sum

@@ -20,14 +20,16 @@ global:
     # type must be the original name of the column (before rename)
     type:
         msa: "str"
-        naics: "str"
-        fipstate: "str"
-        est: "int"
-        ap: "int"
         ap_nf: "str"
-        empflag: "str"
-        emp: "int"
         emp_nf: "str"
+
+    agg:
+        est: "sum"
+        ap: "sum"
+        ap_nf: "sum"
+        empflag: "sum"
+        emp: "sum"
+        emp_nf: "sum"
         n1_4: "sum"
         n5_9: "sum"
         n10_19: "sum"

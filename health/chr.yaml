@@ -1,0 +1,100 @@
+global:
+    seperator: ","
+    name: chr
+    source : "data/chr/chr_<year>.csv"
+    use_schema: True
+
+    index_col: False
+    strip_column_whitespace: True
+
+    source_vars:
+        year: ["2015"]
+
+    output : "data/output/chr/<year>"
+
+    web_paths:
+        # "2014": "http://www.countyhealthrankings.org/sites/default/files/<year>%20CHR%20analytic%20data.csv"
+        "chr": "http://www.countyhealthrankings.org/sites/default/files/<year>%20CHR%20Analytic%20Data.csv"
+
+    import_to_db: True
+    db_settings:
+        user: postgres
+        password_env_var: DATAUSA_PW
+        host: 162.209.124.219
+        db_name: datausa
+
+    transform:
+            -
+                column: county
+                type: cast
+                as: str
+            -
+                column: county
+                type: concat_and_fill
+                zfill: 3
+            -
+                column: county
+                type: whereset
+                where:
+                    -
+                        op: notequals
+                        value: '000'
+                        set:
+                            prefix: '05000US'
+                            sumlevel: 50
+                    -
+                        op: equals
+                        value: '000'
+                        set:
+                            prefix: '04000US'
+                            county: ''
+                            sumlevel: 40
+            -
+                column: state
+                type: concat_and_fill
+                zfill: 2
+                # prefix: "05000US"
+            # -
+            #     column: polution_ppm
+            #     type: cast
+            #     as: float
+
+            -
+                column: geo_id
+                type: "concat"
+                column0: prefix
+                column1: state
+                column2: county
+
+    agg: "sum"
+
+    type:
+        # "Adult smoking Value": "float"
+
+        STATECODE: str
+        COUNTYCODE: str
+
+    rename:
+        STATECODE: state
+        COUNTYCODE: county
+        "Air pollution - particulate matter Value": polution_ppm
+        # "Air pollution - particulate matter Value": polution_ppm
+
+    regex_rename:
+        "<name> Value": "<name>"
+        "<name> Lower Confidence Interval": "<name>_lci"
+        "<name> Upper Confidence Interval": "<name>_uci"
+
+    regex_drop:
+        "Percent<desc>": "delete"
+        "percent<desc>": "delete"
+        "<desc> Numerator": "delete"
+        "<desc> Denominator": "delete"
+        "Coun<desc>": "delete"
+        "Stat<desc>": "delete"
+
+    dropcols: ["Percent of population that is Native Hawaiian or Other Pacific Islander"]
+
+tables:
+    health_test5:
+        pk: ["year", "geo_id", "sumlevel"]

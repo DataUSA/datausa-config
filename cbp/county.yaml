@@ -52,7 +52,8 @@ global:
         n1000_4: "sum"
 
     transform:
-        df:
+        -
+            colname: dummy
             type: frame_func
             func: "plugins.census.cbp.process"
             mode: "county"

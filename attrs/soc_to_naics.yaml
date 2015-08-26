@@ -9,7 +9,7 @@ global:
     force_column_uppercase:
         to_exclude: []
     web_paths:
-        "occindo": "http://webdata.xwalkcenter.org/ftp/download/xwalks/occindo.zip"
+        "occindo": "ftp://ftp.xwalkcenter.org/DOWNLOAD/xwalks/occindo.zip"
     # source_vars:
     #     year:
     #         start: 2005
@@ -27,7 +27,7 @@ global:
     type:
         INDCODE: "str"
         OCCCODE: "str"
-        EMPLOYMENT: "int"
+        EMPLOYMENT: "str"
 
     rename:
         INDCODE: naics
@@ -46,5 +46,5 @@ global:
         num_emp: "sum"
 
 tables:
-    naics_soc_crosswalk:
+    io_crosswalk:
         pk: ["naics", "soc"]

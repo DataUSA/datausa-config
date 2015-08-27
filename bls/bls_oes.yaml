@@ -15,7 +15,7 @@ where_us: &where_us
 
 global:
     seperator: ","
-    name: bls
+    name: bls_oes
     source : "data/bls/oesm<year>all.zip"
     na_values: [".", "*", "**", "#"]
     filetype: excel
@@ -27,6 +27,9 @@ global:
         area: str
         naics: str
 
+    rename:
+        area: geo_id
+
     output : "data/output/bls/oes/<year>"
 
     web_paths: "http://www.bls.gov/oes/special.requests/oesm14all.zip"
@@ -37,23 +40,23 @@ global:
             type: concat_and_fill
             prefix: "20"
         -
-            column: area
+            column: geo_id
             type: slice
             start: 0
             length: 2
             where: *where_state
         -
-            column: area
+            column: geo_id
             type: concat_and_fill
             prefix: "04000US"
             where: *where_state
         -
-            column: area
+            column: geo_id
             type: set_val
             value: "01000US"
             where: *where_us
         -
-            column: area
+            column: geo_id
             type: concat_and_fill
             prefix: "31000US"
             where: *where_msa
@@ -64,10 +67,36 @@ global:
         "a_mean": "annual_mean_wage"
         "mean_prse": "annual_mean_wage_prse"
 
+    import_to_db: True
+    db_settings:
+        user: postgres
+        password_env_var: DATAUSA_PW
+        host: 162.209.124.219
+        db_name: datausa
 
 tables:
+    oes_ygio:
+        pk: ["year", "geo_id", "naics", "soc"]
+        agg:
+            tot_emp: sum
+            annual_mean_wage: sum
+            annual_mean_wage_prse: sum
+            tot_emp: sum
+            tot_emp_prse: sum
+            jobs_1000: sum
+            loc_quotient: sum
+    oes_ygi:
+        pk: ["year", "geo_id", "naics"]
+        agg:
+            tot_emp: sum
+            annual_mean_wage: sum
+            annual_mean_wage_prse: sum
+            tot_emp: sum
+            tot_emp_prse: sum
+            jobs_1000: sum
+            loc_quotient: sum
     oes_ygo:
-        pk: ["year", "area", "naics", "soc"]
+        pk: ["year", "geo_id", "soc"]
         agg:
             tot_emp: sum
             annual_mean_wage: sum

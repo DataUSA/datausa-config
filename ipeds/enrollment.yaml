@@ -1,24 +1,31 @@
 global:
     seperator: ","
-    name: ipeds
+    name: ipeds_beta
     source : "data/ipeds/ef<year>a.zip"
     use_schema: True
     force_column_uppercase:
         exclude: ["year"]
     index_col: False
     strip_column_whitespace: True
+    na_values: ['.', '. ']
+
+    join:
+        source: "data/ipeds/hd<year>.zip"
+        left_on: university_id
+        right_on: UNITID
+        encoding: ISO-8859-1
 
     source_vars:
         year:
-            start: 2008
+            start: 2013
             end: 2013
+        sumlevel: ["nation", "FIPS", "CBSA", "COUNTYCD"]
 
     output : "data/output/ipeds/enrollment/<year>"
 
     web_paths:
-        "ipeds": "https://nces.ed.gov/ipeds/datacenter/data/ef<year>a.zip"
-
-    na_values: ['.', '. ']
+        "ipeds/ef": "https://nces.ed.gov/ipeds/datacenter/data/ef<year>a.zip"
+        "ipeds/hd": "https://nces.ed.gov/ipeds/datacenter/data/hd<year>.zip"
 
     fillna:
         mode: True
@@ -32,11 +39,40 @@ global:
         db_name: datausa
 
     transform:
-        course_id:
-            -
-                type: replace
-                target: "."
-                value: ""
+        - 
+            column: nation
+            type: set_val
+            value: "01000US"
+        - 
+            column: FIPS
+            type: zfill
+            size: 2
+        -
+            column: CBSA
+            type: set_val
+            value: "XXXXX"
+            where:
+                column: "CBSA"
+                func: "eq"
+                value: -2
+        - 
+            column: CBSA
+            type: concat_and_fill
+            prefix: "31000US"
+            zfill: 5
+        - 
+            column: COUNTYCD
+            type: concat_and_fill
+            prefix: "05000US"
+            zfill: 5
+        - 
+            column: FIPS
+            type: concat_and_fill
+            prefix: "04000US"
+        -
+            column: geo_id
+            type: set_val
+            value: "[<sumlevel>]"
 
     agg:
         total: "sum"
@@ -53,6 +89,8 @@ global:
         nonresident: "sum"
 
     rename:
+        # COUNTYCD: county
+        # CBSA: msa
         UNITID: university_id
         EFTOTLT: total
         EFTOTLM: men
@@ -88,3 +126,9 @@ global:
 tables:
     enrollment_yu:
         pk: ["year", "university_id"]
+
+    enrollment_yg:
+        pk: ["year", "geo_id"]
+
+    enrollment_ygu:
+        pk: ["year", "geo_id", "university_id"]

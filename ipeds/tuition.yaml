@@ -9,7 +9,7 @@ global:
         year:
             start: 2013
             end: 2013
-        major_depth: [2, 4, 6]
+        cip_depth: [2, 4, 6]
 
     type:
         CIPCODE: str
@@ -54,21 +54,21 @@ global:
         mode: True
         value: 0
 
-    transform:
+    transform: &global_transform
         -
-            column: major
+            column: cip
             type: replace
             target: "."
             value: ""
         -
-            column: major
+            column: cip
             type: replace
             target: " "
             value: ""
         -
-            column: major
+            column: cip
             type: slice
-            length: "<major_depth>"
+            length: "<cip_depth>"
 
     import_to_db: True
     db_settings:
@@ -80,7 +80,7 @@ global:
     deduplicate: True
     rename:
         UNITID: university
-        CIPCODE: major
+        CIPCODE: cip
         AWLEVEL: degree
         CTOTALT: total
         CTOTALM: men
@@ -113,7 +113,7 @@ global:
         CNRALM: nonresident_men
         CNRALW: nonresident_women
 
-    agg:
+    agg: &global_agg
         district_tuition: "median"
         district_fee: "median"
         state_tuition: "median"
@@ -133,23 +133,45 @@ global:
 
 tables:
     tuition_ym:
-        pk: ["year", "major"]
+        pk: ["year", "cip"]
         filter:
             -
-                column: "major"
+                column: "cip"
                 func: "eq"
                 value: "99"
     tuition_ymu:
-        pk: ["year", "major", "university"]
+        pk: ["year", "cip", "university"]
         filter:
             -
-                column: "major"
+                column: "cip"
                 func: "eq"
                 value: "99"
-    tuition_yms:
-        pk: ["year", "major", "sector"]
+    tuition_ycs:
+        pk: ["year", "cip", "sector"]
+        transform:
+            -
+                column: cip
+                type: replace
+                target: "."
+                value: ""
+            -
+                column: cip
+                type: replace
+                target: " "
+                value: ""
+            -
+                column: cip
+                type: slice
+                length: "<cip_depth>"
+            -
+                column: num_universities
+                type: clone
+                source: university
+        agg:
+            <<: *global_agg
+            num_universities: nunique
         filter:
             -
-                column: "major"
+                column: "cip"
                 func: "eq"
                 value: "99"

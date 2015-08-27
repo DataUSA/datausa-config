@@ -9,7 +9,7 @@ global:
         year:
             start: 2013
             end: 2013
-        # sumlevel: ["nation", "FIPS", "CBSA", "COUNTYCD"]
+        sumlevel: ["nation", "FIPS", "CBSA", "COUNTYCD"]
         cip_depth: [2, 4, 6]
 
     type:
@@ -37,40 +37,45 @@ global:
             type: replace
             target: "."
             value: ""
-        # -
-        #     column: nation
-        #     type: set_val
-        #     value: "01000US"
-        # -
-        #     column: FIPS
-        #     type: zfill
-        #     size: 2
-        # -
-        #     column: CBSA
-        #     type: set_val
-        #     value: "XXXXX"
-        #     where:
-        #         column: "CBSA"
-        #         func: "eq"
-        #         value: -2
-        # -
-        #     column: CBSA
-        #     type: concat_and_fill
-        #     prefix: "31000US"
-        #     zfill: 5
-        # -
-        #     column: COUNTYCD
-        #     type: concat_and_fill
-        #     prefix: "05000US"
-        #     zfill: 5
-        # -
-        #     column: FIPS
-        #     type: concat_and_fill
-        #     prefix: "04000US"
-        # -
-        #     column: geo_id
-        #     type: set_val
-        #     value: "[<sumlevel>]"
+        - 
+            column: cip
+            type: replace
+            target: " "
+            value: ""
+        -
+            column: nation
+            type: set_val
+            value: "01000US"
+        -
+            column: FIPS
+            type: zfill
+            size: 2
+        -
+            column: CBSA
+            type: set_val
+            value: "XXXXX"
+            where:
+                column: "CBSA"
+                func: "eq"
+                value: -2
+        -
+            column: CBSA
+            type: concat_and_fill
+            prefix: "31000US"
+            zfill: 5
+        -
+            column: COUNTYCD
+            type: concat_and_fill
+            prefix: "05000US"
+            zfill: 5
+        -
+            column: FIPS
+            type: concat_and_fill
+            prefix: "04000US"
+        -
+            column: geo_id
+            type: set_val
+            value: "[<sumlevel>]"
         -
             column: cip
             type: slice
@@ -152,25 +157,8 @@ global:
         nonresident_women: "sum"
 
 tables:
-    # grads_yg:
-    #     pk: ["year", "geo_id"]
-
-    # grads_ygm:
-    #     pk: ["year", "geo_id", "cip"]
-    #     filter:
-    #         -
-    #             column: "cip"
-    #             func: "eq"
-    #             value: "99"
-    grads_ycu:
-        pk: ["year", "cip", "university"]
-        filter:
-            -
-                column: "cip"
-                func: "eq"
-                value: "99"
-    grads_ycud:
-        pk: ["year", "cip", "university", "degree"]
+    grads_ygc:
+        pk: ["year", "geo_id", "cip"]
         filter:
             -
                 column: "cip"

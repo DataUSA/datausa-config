@@ -11,7 +11,7 @@ global:
 
     join:
         source: "data/ipeds/hd<year>.zip"
-        left_on: university_id
+        left_on: university
         right_on: UNITID
         encoding: ISO-8859-1
 
@@ -91,7 +91,7 @@ global:
     rename:
         # COUNTYCD: county
         # CBSA: msa
-        UNITID: university_id
+        UNITID: university
         EFTOTLT: total
         EFTOTLM: men
         EFTOTLW: women
@@ -125,10 +125,10 @@ global:
 
 tables:
     enrollment_yu:
-        pk: ["year", "university_id"]
+        pk: ["year", "university"]
 
     enrollment_yg:
         pk: ["year", "geo_id"]
 
     enrollment_ygu:
-        pk: ["year", "geo_id", "university_id"]
+        pk: ["year", "geo_id", "university"]

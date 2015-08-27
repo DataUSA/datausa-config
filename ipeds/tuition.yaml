@@ -17,24 +17,33 @@ global:
     output : "data/output/ipeds/<year>"
 
     join:
-        na_values: ['.']
-        source: "data/ipeds/ic<year>_ay.zip"
-        left_on: university
-        right_on: UNITID
-        usecols: ["UNITID", "TUITION1", "TUITION2", "TUITION3", "TUITION5", "TUITION6", "TUITION7", "FEE1", "FEE2", "FEE3", "FEE5", "FEE6", "FEE7"]
-        rename:
-            TUITION1: district_tuition
-            FEE1: district_fee
-            TUITION2: state_tuition
-            FEE2: state_fee
-            TUITION3: oos_tuition
-            FEE3: oos_fee
-            TUITION5: district_tuition_grads
-            FEE5: district_fee_grads
-            TUITION6: state_tuition_grads
-            FEE6: state_fee_grads
-            TUITION7: oos_tuition_grads
-            FEE7: oos_fee_grads
+        -
+            source: "data/ipeds/hd<year>.zip"
+            left_on: university
+            right_on: UNITID
+            encoding: ISO-8859-1
+            usecols: ["UNITID", "SECTOR"]
+            rename:
+                SECTOR: sector
+        -
+            na_values: ['.']
+            source: "data/ipeds/ic<year>_ay.zip"
+            left_on: university
+            right_on: UNITID
+            usecols: ["UNITID", "TUITION1", "TUITION2", "TUITION3", "TUITION5", "TUITION6", "TUITION7", "FEE1", "FEE2", "FEE3", "FEE5", "FEE6", "FEE7"]
+            rename:
+                TUITION1: district_tuition
+                FEE1: district_fee
+                TUITION2: state_tuition
+                FEE2: state_fee
+                TUITION3: oos_tuition
+                FEE3: oos_fee
+                TUITION5: district_tuition_grads
+                FEE5: district_fee_grads
+                TUITION6: state_tuition_grads
+                FEE6: state_fee_grads
+                TUITION7: oos_tuition_grads
+                FEE7: oos_fee_grads
 
     web_paths:
         "ipeds/c": "https://nces.ed.gov/ipeds/datacenter/data/c<year>_a.zip"
@@ -50,6 +59,11 @@ global:
             column: major
             type: replace
             target: "."
+            value: ""
+        -
+            column: major
+            type: replace
+            target: " "
             value: ""
         -
             column: major
@@ -120,6 +134,22 @@ global:
 tables:
     tuition_ym:
         pk: ["year", "major"]
-
+        filter:
+            -
+                column: "major"
+                func: "eq"
+                value: "99"
     tuition_ymu:
         pk: ["year", "major", "university"]
+        filter:
+            -
+                column: "major"
+                func: "eq"
+                value: "99"
+    tuition_yms:
+        pk: ["year", "major", "sector"]
+        filter:
+            -
+                column: "major"
+                func: "eq"
+                value: "99"

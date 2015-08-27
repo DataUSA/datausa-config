@@ -21,7 +21,7 @@ global:
         "ipeds": "https://nces.ed.gov/ipeds/datacenter/data/c<year>_a.zip"
 
     transform:
-        course_id:
+        cip:
             -
                 type: replace
                 target: "."
@@ -36,7 +36,7 @@ global:
 
     rename:
         UNITID: university_id
-        CIPCODE: course_id
+        CIPCODE: major
         AWLEVEL: degree_id
         CRACE01: total_nonresident_men
         CRACE02: total_nonresident_women
@@ -65,7 +65,7 @@ global:
 
 tables:
     grads_yucd:
-        pk: ["year", "university_id", "course_id", "degree_id"]
+        pk: ["year", "university_id", "major", "degree_id"]
         agg:
             total: "sum"
             total_men: "sum"

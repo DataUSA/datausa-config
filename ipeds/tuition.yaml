@@ -1,28 +1,60 @@
 global:
     seperator: ","
-    name: ipeds
-    source : "data/ipeds/ic<year>_ay.zip"
+    name: ipeds_beta
     use_schema: True
-    force_column_uppercase:
-        exclude: ["year"]
-    index_col: False
-    # strip_column_whitespace: True
-
+    encoding: utf-8-sig
+    strip_column_whitespace: True
+    na_values: ['']
     source_vars:
         year:
-            start: 2005
+            start: 2013
             end: 2013
+        major_depth: [2, 4, 6]
 
-    output : "data/output/ipeds/tuition/<year>"
+    type:
+        CIPCODE: str
+    source : "data/ipeds/c<year>_a.zip"
+    output : "data/output/ipeds/<year>"
+
+    join:
+        na_values: ['.']
+        source: "data/ipeds/ic<year>_ay.zip"
+        left_on: university
+        right_on: UNITID
+        usecols: ["UNITID", "TUITION1", "TUITION2", "TUITION3", "TUITION5", "TUITION6", "TUITION7", "FEE1", "FEE2", "FEE3", "FEE5", "FEE6", "FEE7"]
+        rename:
+            TUITION1: district_tuition
+            FEE1: district_fee
+            TUITION2: state_tuition
+            FEE2: state_fee
+            TUITION3: oos_tuition
+            FEE3: oos_fee
+            TUITION5: district_tuition_grads
+            FEE5: district_fee_grads
+            TUITION6: state_tuition_grads
+            FEE6: state_fee_grads
+            TUITION7: oos_tuition_grads
+            FEE7: oos_fee_grads
 
     web_paths:
-        "ipeds": "https://nces.ed.gov/ipeds/datacenter/data/ic<year>_ay.zip"
-
-    na_values: ['.']
+        "ipeds/c": "https://nces.ed.gov/ipeds/datacenter/data/c<year>_a.zip"
+        "ipeds/hd": "https://nces.ed.gov/ipeds/datacenter/data/hd<year>.zip"
+        "ipeds/ic": "https://nces.ed.gov/ipeds/datacenter/data/ic<year>_ay.zip"
 
     fillna:
         mode: True
         value: 0
+
+    transform:
+        -
+            column: major
+            type: replace
+            target: "."
+            value: ""
+        -
+            column: major
+            type: slice
+            length: "<major_depth>"
 
     import_to_db: True
     db_settings:
@@ -31,46 +63,63 @@ global:
         host: 162.209.124.219
         db_name: datausa
 
+    deduplicate: True
     rename:
-        UNITID: university_id
-        TUIT1: district_tuition
-        TUITION1: district_tuition
-        FEE1: district_fee
-        TUITION2: state_tuition
-        TUIT2: state_tuition
-        FEE2: state_fee
-        TUITION3: oos_tuition
-        TUIT3: oos_tuition
-        FEE3: oos_fee
-        TUITION5: district_tuition_grads
-        TUIT5: district_tuition_grads
-        FEE5: district_fee_grads
-        TUITION6: state_tuition_grads
-        TUIT6: state_tuition_grads
-        FEE6: state_fee_grads
-        TUITION7: oos_tuition_grads
-        TUIT7: oos_tuition_grads
-        FEE7: oos_fee_grads
+        UNITID: university
+        CIPCODE: major
+        AWLEVEL: degree
+        CTOTALT: total
+        CTOTALM: men
+        CTOTALW: women
+        CAIANT: native
+        CAIANM: native_men
+        CAIANW: native_women
+        CASIAT: asian
+        CASIAM: asian_men
+        CASIAW: asian_women
+        CBKAAT: black
+        CBKAAM: black_men
+        CBKAAW: black_women
+        CHISPT: hispanic
+        CHISPM: hispanic_men
+        CHISPW: hispanic_women
+        CNHPIT: hawaiian
+        CNHPIM: hawaiian_men
+        CNHPIW: hawaiian_women
+        CWHITT: white
+        CWHITM: white_men
+        CWHITW: white_women
+        C2MORT: multi
+        C2MORM: multi_men
+        C2MORW: multi_women
+        CUNKNT: unknown
+        CUNKNM: unknown_men
+        CUNKNW: unknown_women
+        CNRALT: nonresident
+        CNRALM: nonresident_men
+        CNRALW: nonresident_women
 
     agg:
-        district_tuition: "sum"
-        district_fee: "sum"
-        state_tuition: "sum"
-        state_tuition: "sum"
-        state_fee: "sum"
-        oos_tuition: "sum"
-        oos_tuition: "sum"
-        oos_fee: "sum"
-        district_tuition_grads: "sum"
-        district_tuition_grads: "sum"
-        district_fee_grads: "sum"
-        state_tuition: "sum"
-        state_tuition_grads: "sum"
-        state_fee_grads: "sum"
-        oos_tuition_grads: "sum"
-        oos_fee_grads: "sum"
+        district_tuition: "median"
+        district_fee: "median"
+        state_tuition: "median"
+        state_tuition: "median"
+        state_fee: "median"
+        oos_tuition: "median"
+        oos_tuition: "median"
+        oos_fee: "median"
+        district_tuition_grads: "median"
+        district_tuition_grads: "median"
+        district_fee_grads: "median"
+        state_tuition: "median"
+        state_tuition_grads: "median"
+        state_fee_grads: "median"
+        oos_tuition_grads: "median"
+        oos_fee_grads: "median"
 
-    # columns: ["UNITID", "TUITION1", "TUITION2", "TUITION3", "TUITION5", "TUITION6", "TUITION7", "FEE1", "FEE2", "FEE3", "FEE5", "FEE6", "FEE7"]
 tables:
-    tuition_yu:
-        pk: ["year", "university_id"]
+    tuition_ym:
+        pk: ["year", "major"]
+
+    tuition_ymu:
+        pk: ["year", "major", "university"]

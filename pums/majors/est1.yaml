@@ -182,9 +182,5 @@ tables:
 
     ym:
         pk: ["year", "major"]
-        rca:
-            index: ["year"]
-            column: "major"
-            values: [num_ppl]
         values: *defaults
 

@@ -130,16 +130,17 @@ global:
         state_fee_grads: "median"
         oos_tuition_grads: "median"
         oos_fee_grads: "median"
+        total: "sum"
 
 tables:
-    tuition_ym:
+    tuition_yc:
         pk: ["year", "cip"]
         filter:
             -
                 column: "cip"
                 func: "eq"
                 value: "99"
-    tuition_ymu:
+    tuition_ycu:
         pk: ["year", "cip", "university"]
         filter:
             -

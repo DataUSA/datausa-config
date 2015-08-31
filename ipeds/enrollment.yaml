@@ -8,18 +8,32 @@ global:
     index_col: False
     strip_column_whitespace: True
     na_values: ['.', '. ']
+    type:
+        UNITID: "str"
 
     join:
-        source: "data/ipeds/hd<year>.zip"
-        left_on: university
-        right_on: UNITID
-        encoding: ISO-8859-1
+        -
+            source: "data/ipeds/hd<year>.zip"
+            left_on: university
+            right_on: UNITID
+            encoding: ISO-8859-1
+        -
+            source: "data/ipeds/c<year>_a.zip"
+            left_on: university
+            right_on: UNITID
+            usecols: ["UNITID", "CTOTALT", "CIPCODE"]
+            type:
+                CIPCODE: "str"
+                UNITID: "str"
+            rename:
+                CTOTALT: total_grads
+                CIPCODE: "cip"
+            how: "right"
 
     source_vars:
         year:
             start: 2013
             end: 2013
-        sumlevel: ["nation", "FIPS", "CBSA", "COUNTYCD"]
 
     output : "data/output/ipeds/enrollment/<year>"
 
@@ -74,7 +88,7 @@ global:
             type: set_val
             value: "[<sumlevel>]"
 
-    agg:
+    agg: &default_agg
         total: "sum"
         men: "sum"
         women: "sum"
@@ -128,7 +142,29 @@ tables:
         pk: ["year", "university"]
 
     enrollment_yg:
+        table_vars:
+            sumlevel: ["nation", "FIPS", "CBSA", "COUNTYCD"]
         pk: ["year", "geo_id"]
 
     enrollment_ygu:
+        table_vars:
+            sumlevel: ["nation", "FIPS", "CBSA", "COUNTYCD"]
         pk: ["year", "geo_id", "university"]
+
+    enrollment_ycu:
+        table_vars:
+            cip_depth: [2, 4, 6]
+        pk: ["year", "cip", "university"]
+        agg:
+            <<: *default_agg
+            total_grads: "sum"
+        transform:
+            -
+                column: cip
+                type: replace
+                target: "."
+                value: ""
+            -
+                column: cip
+                type: slice
+                length: "<cip_depth>"

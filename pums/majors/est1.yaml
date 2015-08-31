@@ -139,11 +139,23 @@ tables:
         pk: ["year", "major"]
         values: *defaults
 
-    # ygm:
-    #     pk: ["year", "geo_id", "major"]
-    #     rca:
-    #         index: ["year", "geo_id"]
-    #         column: "major"
-    #         values: [num_ppl]
-    #     sumlevel: <geo_level>
-    #     values: *defaults
+    ygm:
+        table_vars:
+            geo_level: ["nation", "state", "puma"]
+        pk: ["year", "geo_id", "major"]
+        rca:
+            index: ["year", "geo_id"]
+            column: "major"
+            values: [num_ppl]
+        sumlevel: <geo_level>
+
+    ygmd:
+        pk: ["year", "geo_id", "major", "degree"]
+        table_vars:
+            geo_level: ["nation", "state", "puma"]
+        rca:
+            index: ["year", "geo_id", "major"]
+            column: "degree"
+            values: [num_ppl]
+        sumlevel: <geo_level>
+        values: *defaults

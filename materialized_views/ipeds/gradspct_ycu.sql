@@ -1,0 +1,38 @@
+ SELECT 
+ 	yu.year,
+    yu.university,
+    ycu.cip,
+    ROUND(1.0 * ycu.total / NULLIF(yu.total,0), 4) AS pct_total,
+    ROUND(1.0 * ycu.men / NULLIF(yu.men,0), 4) AS pct_men,
+    ROUND(1.0 * ycu.women / NULLIF(yu.women,0), 4) AS pct_women,
+    ROUND(1.0 * ycu.native / NULLIF(yu.native,0), 4) AS pct_native,
+    ROUND(1.0 * ycu.native_men / NULLIF(yu.native_men,0), 4) AS pct_native_men,
+    ROUND(1.0 * ycu.native_women / NULLIF(yu.native_women,0), 4) AS pct_native_women,
+    ROUND(1.0 * ycu.asian / NULLIF(yu.asian,0), 4) AS pct_asian,
+    ROUND(1.0 * ycu.asian_men / NULLIF(yu.asian_men,0), 4) AS pct_asian_men,
+    ROUND(1.0 * ycu.asian_women / NULLIF(yu.asian_women,0), 4) AS pct_asian_women,
+    ROUND(1.0 * ycu.black / NULLIF(yu.black,0), 4) AS pct_black,
+    ROUND(1.0 * ycu.black_men / NULLIF(yu.black_men,0), 4) AS pct_black_men,
+    ROUND(1.0 * ycu.black_women / NULLIF(yu.black_women,0), 4) AS pct_black_women,
+    ROUND(1.0 * ycu.hispanic / NULLIF(yu.hispanic,0), 4) AS pct_hispanic,
+    ROUND(1.0 * ycu.hispanic_men / NULLIF(yu.hispanic_men,0), 4) AS pct_hispanic_men,
+    ROUND(1.0 * ycu.hispanic_women / NULLIF(yu.hispanic_women,0), 4) AS pct_hispanic_women,
+    ROUND(1.0 * ycu.hawaiian / NULLIF(yu.hawaiian,0), 4) AS pct_hawaiian,
+    ROUND(1.0 * ycu.hawaiian_men / NULLIF(yu.hawaiian_men,0), 4) AS pct_hawaiian_men,
+    ROUND(1.0 * ycu.hawaiian_women / NULLIF(yu.hawaiian_women,0), 4) AS pct_hawaiian_women,
+    ROUND(1.0 * ycu.white / NULLIF(yu.white,0), 4) AS pct_white,
+    ROUND(1.0 * ycu.white_men / NULLIF(yu.white_men,0), 4) AS pct_white_men,
+    ROUND(1.0 * ycu.white_women / NULLIF(yu.white_women,0), 4) AS pct_white_women,
+    ROUND(1.0 * ycu.multi / NULLIF(yu.multi,0), 4) AS pct_multi,
+    ROUND(1.0 * ycu.multi_men / NULLIF(yu.multi_men,0), 4) AS pct_multi_men,
+    ROUND(1.0 * ycu.multi_women / NULLIF(yu.multi_women,0), 4) AS pct_multi_women,
+    ROUND(1.0 * ycu.unknown / NULLIF(yu.unknown,0), 4) AS pct_unknown,
+    ROUND(1.0 * ycu.unknown_men / NULLIF(yu.unknown_men,0), 4) AS pct_unknown_men,
+    ROUND(1.0 * ycu.unknown_women / NULLIF(yu.unknown_women,0), 4) AS pct_unknown_women,
+    ROUND(1.0 * ycu.nonresident / NULLIF(yu.nonresident,0), 4) AS pct_nonresident,
+    ROUND(1.0 * ycu.nonresident_men / NULLIF(yu.nonresident_men,0), 4) AS pct_nonresident_men,
+    ROUND(1.0 * ycu.nonresident_women / NULLIF(yu.nonresident_women,0), 4) AS pct_nonresident_women
+   FROM ipeds_beta.grads_ycu ycu
+     LEFT JOIN ipeds_beta.grads_yu yu ON 
+     	yu.year = ycu.year AND
+     	yu.university = ycu.university;

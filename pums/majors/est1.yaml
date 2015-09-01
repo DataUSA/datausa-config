@@ -160,14 +160,12 @@ tables:
         sumlevel: <geo_level>
         values: *defaults
 
-    ygoc:
-        pk: ["year", "geo_id", "soc", "cip"]
-        depths:
-            soc: [0, 1, 2, 3]
+    ygc:
+        pk: ["year", "geo_id", "cip"]
         table_vars:
             geo_level: ["nation", "state", "puma"]
         rca:
-            index: ["year", "geo_id", "soc"]
+            index: ["year", "geo_id"]
             column: "cip"
             values: [num_ppl]
         sumlevel: <geo_level>

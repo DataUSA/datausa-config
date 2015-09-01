@@ -34,7 +34,7 @@ global:
         AGEP: age
         SEX: sex
         RAC1P: race
-        FOD1P: major
+        FOD1P: cip
         SCHL: degree
         NATIVITY: native
         POBP: birthplace
@@ -60,102 +60,115 @@ global:
     deduplicate: True
 
 tables:
-    yma:
-        pk: ["year", "major", "age"]
+    yca:
+        pk: ["year", "cip", "age"]
         rca:
-            index: ["year", "major"]
+            index: ["year", "cip"]
             column: "age"
             values: [num_ppl]
         values: *defaults
 
-    ymb:
-        pk: ["year", "major", "birthplace"]
+    ycb:
+        pk: ["year", "cip", "birthplace"]
         rca:
-            index: ["year", "major"]
+            index: ["year", "cip"]
             column: "birthplace"
             values: [num_ppl]
         values: *defaults
 
-    ymd:
-        pk: ["year", "major", "degree"]
+    ycd:
+        pk: ["year", "cip", "degree"]
         rca:
-            index: ["year", "major"]
+            index: ["year", "cip"]
             column: "degree"
             values: [num_ppl]
         values: *defaults
 
-    ymgb:
-        pk: ["year", "major", "geo_id", "birthplace"]
+    ycgb:
+        pk: ["year", "cip", "geo_id", "birthplace"]
         sumlevel: state
         rca:
-            index: ["year", "major", "geo_id"]
+            index: ["year", "cip", "geo_id"]
             column: "birthplace"
             values: [num_ppl]
         values: *defaults
 
-    ymn:
-        pk: ["year", "major", "native"]
+    ycn:
+        pk: ["year", "cip", "native"]
         rca:
-            index: ["year", "major"]
+            index: ["year", "cip"]
             column: "native"
             values: [num_ppl]
         values: *defaults
 
-    ymo:
-        pk: ["year", "major", "soc"]
+    yoc:
+        pk: ["year", "soc", "cip"]
         depths:
             soc: [0, 1, 2, 3]
         rca:
-            index: ["year", "major"]
-            column: "soc"
+            index: ["year", "soc"]
+            column: "cip"
             values: [num_ppl]
         values: *defaults
 
-    ymr:
-        pk: ["year", "major", "race"]
+    ycr:
+        pk: ["year", "cip", "race"]
         rca:
-            index: ["year", "major"]
+            index: ["year", "cip"]
             column: "race"
             values: [num_ppl]
         values: *defaults
 
-    yms:
-        pk: ["year", "major", "sex"]
+    ycs:
+        pk: ["year", "cip", "sex"]
         rca:
-            index: ["year", "major"]
+            index: ["year", "cip"]
             column: "sex"
             values: [num_ppl]
         values: *defaults
 
-    ymsr:
-        pk: ["year", "major", "sex", "race"]
+    ycsr:
+        pk: ["year", "cip", "sex", "race"]
         rca:
-            index: ["year", "major", "sex"]
+            index: ["year", "cip", "sex"]
             column: "race"
             values: [num_ppl]
         values: *defaults
 
-    ym:
-        pk: ["year", "major"]
+    yc:
+        pk: ["year", "cip"]
         values: *defaults
 
-    ygm:
+    ygc:
         table_vars:
             geo_level: ["nation", "state", "puma"]
-        pk: ["year", "geo_id", "major"]
+        pk: ["year", "geo_id", "cip"]
         rca:
             index: ["year", "geo_id"]
-            column: "major"
+            column: "cip"
             values: [num_ppl]
         sumlevel: <geo_level>
 
-    ygmd:
-        pk: ["year", "geo_id", "major", "degree"]
+    ygcd:
+        pk: ["year", "geo_id", "cip", "degree"]
         table_vars:
             geo_level: ["nation", "state", "puma"]
         rca:
-            index: ["year", "geo_id", "major"]
+            index: ["year", "geo_id", "cip"]
             column: "degree"
+            values: [num_ppl]
+        sumlevel: <geo_level>
+        values: *defaults
+
+    ygoc:
+        pk: ["year", "geo_id", "soc", "cip"]
+        depths:
+            soc: [0, 1, 2, 3]
+        table_vars:
+            geo_level: ["nation", "state", "puma"]
+        rca:
+            index: ["year", "geo_id", "soc"]
+            column: "cip"
             values: [num_ppl]
         sumlevel: <geo_level>
         values: *defaults

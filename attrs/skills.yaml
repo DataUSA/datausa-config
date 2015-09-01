@@ -1,0 +1,29 @@
+global:
+    seperator: '	'
+    name: attrs
+    source : "data/onet/SkillsMap.csv"
+    use_schema: True
+
+    output : "data/skills/attrs/"
+
+    web_paths:
+        "onet": "http://alumni.media.mit.edu/~jspeiser/ONET/SkillsMap.csv"
+
+    usecols: ["Element ID", "Element Name", "Data Value"]
+    import_to_db: True
+    db_settings:
+        user: postgres
+        password_env_var: DATAUSA_PW
+        host: 162.209.124.219
+        db_name: datausa
+
+    rename:
+        "Element ID": "id"
+        "Element Name": "name"
+        "Data Value": "avg_value"
+
+    agg: "mean"
+
+tables:
+    skill:
+        pk: ["id", "name"]

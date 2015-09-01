@@ -1,0 +1,64 @@
+global:
+    seperator: ","
+    name: onet
+    source : "data/onet/skills.txt"
+    use_schema: True
+
+    output : "data/output/onet/"
+    index_col: False
+
+    web_paths:
+        "onet": "http://alumni.media.mit.edu/~jspeiser/ONET/skills.txt"
+        "cip": "http://alumni.media.mit.edu/~jspeiser/ONET/onet_to_cip.csv"
+
+    join:
+        source: "data/onet/onet_to_cip.csv"
+        left_on: onetsoc
+        right_on: ONETCode
+        usecols: [ONETCode, CIPCode]
+        rename:
+            CIPCode: cip
+        type:
+            CIPCode: "str"
+        index_col: False
+
+    usecols: [ONETCODE, ELEMENTID, DATAVALUE]
+
+    agg:
+        value: mean
+
+    rename:
+        ONETCODE: onetsoc
+        ELEMENTID: skill
+        DATAVALUE: value
+
+    import_to_db: True
+    db_settings:
+        user: postgres
+        password_env_var: DATAUSA_PW
+        host: 162.209.124.219
+        db_name: datausa
+
+
+tables:
+    # skills_by_soc:
+    #     pk: ["soc", "skill"]
+    #     rca:
+    #         index: ["soc"]
+    #         column: "skill"
+    #         values: [value]
+
+    skills_by_cip:
+        pk_fill_nan: False
+        pk: ["cip", "skill"]
+        table_vars:
+            cip_depth: [2, 4, 6]
+        transform:
+            -
+                column: cip
+                type: slice
+                length: "<cip_depth>"
+        rca:
+            index: ["cip"]
+            column: "skill"
+            values: [value]

@@ -9,8 +9,6 @@ global:
         year:
             start: 2013
             end: 2013
-        # sumlevel: ["nation", "FIPS", "CBSA", "COUNTYCD"]
-        cip_depth: [2, 4, 6]
 
     type:
         CIPCODE: str
@@ -30,51 +28,6 @@ global:
     fillna:
         mode: True
         value: 0
-
-    transform:
-        - 
-            column: cip
-            type: replace
-            target: "."
-            value: ""
-        # -
-        #     column: nation
-        #     type: set_val
-        #     value: "01000US"
-        # -
-        #     column: FIPS
-        #     type: zfill
-        #     size: 2
-        # -
-        #     column: CBSA
-        #     type: set_val
-        #     value: "XXXXX"
-        #     where:
-        #         column: "CBSA"
-        #         func: "eq"
-        #         value: -2
-        # -
-        #     column: CBSA
-        #     type: concat_and_fill
-        #     prefix: "31000US"
-        #     zfill: 5
-        # -
-        #     column: COUNTYCD
-        #     type: concat_and_fill
-        #     prefix: "05000US"
-        #     zfill: 5
-        # -
-        #     column: FIPS
-        #     type: concat_and_fill
-        #     prefix: "04000US"
-        # -
-        #     column: geo_id
-        #     type: set_val
-        #     value: "[<sumlevel>]"
-        -
-            column: cip
-            type: slice
-            length: "<cip_depth>"
 
     import_to_db: True
     db_settings:
@@ -151,28 +104,78 @@ global:
         nonresident_men: "sum"
         nonresident_women: "sum"
 
-tables:
-    # grads_yg:
-    #     pk: ["year", "geo_id"]
 
-    # grads_ygm:
-    #     pk: ["year", "geo_id", "cip"]
-    #     filter:
-    #         -
-    #             column: "cip"
-    #             func: "eq"
-    #             value: "99"
+
+tables:
+    grads_yu:
+        pk: ["year", "university"]
+        filter:
+            -
+                column: "cip"
+                func: "eq"
+                value: "99"
+
+    grads_yud:
+        pk: ["year", "university", "degree"]
+        filter:
+            -
+                column: "cip"
+                func: "eq"
+                value: "99"
+
+
     grads_ycu:
         pk: ["year", "cip", "university"]
+        table_vars:
+            cip_depth: [2, 4, 6]
+        transform: &cip_transforms
+            -
+                column: cip
+                type: replace
+                target: "."
+                value: ""
+            -
+                column: cip
+                type: strip
+            -
+                column: cip
+                type: slice
+                length: "<cip_depth>"
         filter:
             -
                 column: "cip"
                 func: "eq"
                 value: "99"
+
     grads_ycud:
         pk: ["year", "cip", "university", "degree"]
+        table_vars:
+            cip_depth: [2, 4, 6]
         filter:
             -
                 column: "cip"
                 func: "eq"
                 value: "99"
+        transform: *cip_transforms
+
+    grads_ycd:
+        pk: ["year", "cip", "degree"]
+        table_vars:
+            cip_depth: [2, 4, 6]
+        filter:
+            -
+                column: "cip"
+                func: "eq"
+                value: "99"
+        transform: *cip_transforms
+
+    grads_yc:
+        pk: ["year", "cip"]
+        table_vars:
+            cip_depth: [2, 4, 6]
+        filter:
+            -
+                column: "cip"
+                func: "eq"
+                value: "99"
+        transform: *cip_transforms

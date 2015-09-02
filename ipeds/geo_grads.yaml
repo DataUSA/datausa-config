@@ -7,13 +7,21 @@ global:
     na_values: ['']
     source_vars:
         year:
-            start: 2013
+            start: 2012
             end: 2013
         sumlevel: ["nation", "FIPS", "CBSA", "COUNTYCD"]
         cip_depth: [2, 4, 6]
 
+    growth:
+        delta: 1
+        time_column: year
+        columns: [total]
+        start: 2012
+
     type:
         CIPCODE: str
+        cip: str
+
     source : "data/ipeds/c<year>_a.zip"
     output : "data/output/ipeds/<year>"
 

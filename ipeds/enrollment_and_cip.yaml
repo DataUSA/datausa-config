@@ -17,6 +17,18 @@ global:
             left_on: university
             right_on: UNITID
             encoding: ISO-8859-1
+        -
+            source: "data/ipeds/c<year>_a.zip"
+            left_on: university
+            right_on: UNITID
+            usecols: ["UNITID", "CTOTALT", "CIPCODE"]
+            type:
+                CIPCODE: "str"
+                UNITID: "str"
+            rename:
+                CTOTALT: total_grads
+                CIPCODE: "cip"
+            how: "right"
 
     source_vars:
         year:
@@ -75,7 +87,18 @@ global:
             column: geo_id
             type: set_val
             value: "[<sumlevel>]"
-
+        -
+            column: cip
+            type: replace
+            target: "."
+            value: ""
+        -
+            column: cip
+            type: strip
+        -
+            column: cip
+            type: slice
+            length: "<cip_depth>"
 
     agg: &default_agg
         total: "sum"
@@ -127,21 +150,15 @@ global:
         EFNRALW: nonresident_women
 
 tables:
-    enrollment_yu:
-        pk: ["year", "university"]
-
-    enrollment_yg:
+    enrollment_ycu:
         table_vars:
-            sumlevel: ["nation", "FIPS", "CBSA", "COUNTYCD"]
-        pk: ["year", "geo_id"]
-
-
-    enrollment_ygu:
-        table_vars:
-            sumlevel: ["nation", "FIPS", "CBSA", "COUNTYCD"]
-        pk: ["year", "geo_id"]
-
-    enrollment_ygu:
-        table_vars:
-            sumlevel: ["nation", "FIPS", "CBSA", "COUNTYCD"]
-        pk: ["year", "geo_id", "university"]
+            cip_depth: [2, 4, 6]
+        pk: ["year", "cip", "university"]
+        agg:
+            <<: *default_agg
+            total_grads: "sum"
+        filter:
+            -
+                column: "cip"
+                func: "eq"
+                value: "99"

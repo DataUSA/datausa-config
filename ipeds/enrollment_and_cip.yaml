@@ -53,40 +53,6 @@ global:
         db_name: datausa
 
     transform:
-        - 
-            column: nation
-            type: set_val
-            value: "01000US"
-        - 
-            column: FIPS
-            type: zfill
-            size: 2
-        -
-            column: CBSA
-            type: set_val
-            value: "XXXXX"
-            where:
-                column: "CBSA"
-                func: "eq"
-                value: -2
-        - 
-            column: CBSA
-            type: concat_and_fill
-            prefix: "31000US"
-            zfill: 5
-        - 
-            column: COUNTYCD
-            type: concat_and_fill
-            prefix: "05000US"
-            zfill: 5
-        - 
-            column: FIPS
-            type: concat_and_fill
-            prefix: "04000US"
-        -
-            column: geo_id
-            type: set_val
-            value: "[<sumlevel>]"
         -
             column: cip
             type: replace

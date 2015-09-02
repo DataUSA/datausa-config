@@ -13,7 +13,7 @@ global:
 
     join:
         source: "data/onet/onet_to_cip.csv"
-        left_on: onetsoc
+        left_on: soc
         right_on: ONETCode
         usecols: [ONETCode, CIPCode]
         rename:
@@ -28,7 +28,7 @@ global:
         value: mean
 
     rename:
-        ONETCODE: onetsoc
+        ONETCODE: soc
         ELEMENTID: skill
         DATAVALUE: value
 
@@ -41,12 +41,19 @@ global:
 
 
 tables:
-    # skills_by_soc:
-    #     pk: ["soc", "skill"]
-    #     rca:
-    #         index: ["soc"]
-    #         column: "skill"
-    #         values: [value]
+    skills_by_soc:
+        pk: ["soc", "skill"]
+        table_vars:
+            soc_depth: [2, 4, 6]
+        rca:
+            index: ["soc"]
+            column: "skill"
+            values: [value]
+        transform:
+            -
+                column: soc
+                type: slice
+                length: "<soc_depth>"
 
     skills_by_cip:
         pk_fill_nan: False

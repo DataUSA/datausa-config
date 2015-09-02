@@ -10,7 +10,6 @@ global:
             start: 2012
             end: 2013
         sumlevel: ["nation", "FIPS", "CBSA", "COUNTYCD"]
-        cip_depth: [2, 4, 6]
 
     growth:
         delta: 1
@@ -39,7 +38,7 @@ global:
         mode: True
         value: 0
 
-    transform:
+    gc_transform: &gc_transform
         - 
             column: cip
             type: replace
@@ -50,6 +49,11 @@ global:
             type: replace
             target: " "
             value: ""
+        -
+            column: cip
+            type: slice
+            length: "<cip_depth>"
+
         -
             column: nation
             type: set_val
@@ -84,10 +88,58 @@ global:
             column: geo_id
             type: set_val
             value: "[<sumlevel>]"
+
+    cip_transform: &cip_transform
+        -
+            column: cip
+            type: replace
+            target: "."
+            value: ""
+        -
+            column: cip
+            type: replace
+            target: " "
+            value: ""
         -
             column: cip
             type: slice
             length: "<cip_depth>"
+
+    transform: &geo_transform
+        -
+            column: nation
+            type: set_val
+            value: "01000US"
+        -
+            column: FIPS
+            type: zfill
+            size: 2
+        -
+            column: CBSA
+            type: set_val
+            value: "XXXXX"
+            where:
+                column: "CBSA"
+                func: "eq"
+                value: -2
+        -
+            column: CBSA
+            type: concat_and_fill
+            prefix: "31000US"
+            zfill: 5
+        -
+            column: COUNTYCD
+            type: concat_and_fill
+            prefix: "05000US"
+            zfill: 5
+        -
+            column: FIPS
+            type: concat_and_fill
+            prefix: "04000US"
+        -
+            column: geo_id
+            type: set_val
+            value: "[<sumlevel>]"
 
     import_to_db: True
     db_settings:
@@ -166,7 +218,31 @@ global:
 
 tables:
     grads_ygc:
+        table_vars:
+            cip_depth: [2, 4, 6]
+        # transform:
+            # *cip_transform
+            # - *geo_transform
         pk: ["year", "geo_id", "cip"]
+        filter:
+            -
+                column: "cip"
+                func: "eq"
+                value: "99"
+    grads_ygcd:
+        table_vars:
+            cip_depth: [2, 4, 6]
+        transform:
+            *gc_transform
+
+        pk: ["year", "geo_id", "cip", "degree"]
+        filter:
+            -
+                column: "cip"
+                func: "eq"
+                value: "99"
+    grads_ygu:
+        pk: ["year", "geo_id", "university"]
         filter:
             -
                 column: "cip"

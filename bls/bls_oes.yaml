@@ -15,7 +15,8 @@ where_us: &where_us
 
 global:
     seperator: ","
-    name: bls_oes
+    name: bls
+    use_schema: True
     source : "data/bls/oesm<year>all.zip"
     na_values: [".", "*", "**", "#"]
     filetype: excel
@@ -26,9 +27,7 @@ global:
     type:
         area: str
         naics: str
-
-    rename:
-        area: geo_id
+        area_type: int
 
     output : "data/output/bls/oes/<year>"
 
@@ -60,12 +59,27 @@ global:
             type: concat_and_fill
             prefix: "31000US"
             where: *where_msa
+        -
+            column: naics
+            type: rstrip
+            target: "0"
+            where:
+                column: naics
+                func: "ne"
+                value: "000000"
+        -
+            column: soc
+            type: replace
+            target: "-"
+            value: ""
 
     rename:
         "occ code": "soc"
         "emp_prse": "tot_emp_prse"
         "a_mean": "annual_mean_wage"
         "mean_prse": "annual_mean_wage_prse"
+        "area": "geo_id"
+        "group": "soc_level"
 
     import_to_db: True
     db_settings:
@@ -73,6 +87,16 @@ global:
         password_env_var: DATAUSA_PW
         host: 162.209.124.219
         db_name: datausa
+
+    filter:
+        -
+            column: "area_type"
+            func: "notin"
+            value: [1, 2, 4]
+        -
+            column: "own_code"
+            func: "ne"
+            value: 1235
 
 tables:
     oes_ygio:
@@ -97,6 +121,19 @@ tables:
             loc_quotient: sum
     oes_ygo:
         pk: ["year", "geo_id", "soc"]
+        filter:
+            - 
+                column: naics
+                func: "ne"
+                value: "000000"
+            -
+                column: "area_type"
+                func: "notin"
+                value: [1, 2, 4]
+            -
+                column: "own_code"
+                func: "ne"
+                value: 1235
         agg:
             tot_emp: sum
             annual_mean_wage: sum

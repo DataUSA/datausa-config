@@ -26,6 +26,9 @@ global:
             filename: "cbp05st.txt"
         "CBP": "econ20<year>/CBP_CSV"
 
+    rename:
+        fipstate: geo_id
+
     # type must be the original name of the column (before rename)
     type:
         naics: "str"
@@ -54,6 +57,25 @@ global:
         n500_999: "sum"
         n1000: "sum"
 
+    filter:
+        -
+            column: "lfo"
+            func: "eq"
+            value: "-"
+        -
+            column: geo_id
+            type: concat_and_fill
+            prefix: "01000US"
+            zfill: 2
+        -
+            column: year
+            type: add
+            value: 2000
+        -
+            column: naics
+            type: replace
+            target: "\/|-"
+            value: ""
     transform:
         df:
             type: frame_func
@@ -63,5 +85,5 @@ global:
 
 tables:
     ygi_state_firmsize:
-        pk: ["year", "geo", "naics"]
+        pk: ["year", "geo_id", "naics"]
 

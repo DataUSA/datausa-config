@@ -2,9 +2,9 @@ global:
     seperator: ","
     name: cbp
     use_schema: True
-    source : "$CENSUS_DATA/CBP/cbp<year>us.zip"
+    source : "data/cbp/cbp<year>us.zip"
     source_vars:
-        year: ["05", "06", "07", "08", "09", "10", "11", "12", "13"]
+        year: [13]
 
     output : "data/output/cbp/<year>"
     import_to_db: True
@@ -15,16 +15,16 @@ global:
         db_name: datausa
 
     ftp_paths:
-        "CBP/cbp07us.zip":
+        "cbp/cbp07us.zip":
             path: "econ20<year>/CBP_CSV"
             filename: "cbp<year>us.txt"
-        "CBP/cbp06us.zip":
+        "cbp/cbp06us.zip":
             path: "econ2006/CBP_CSV"
             filename: "cbp06us.txt"
-        "CBP/cbp05us.zip":
+        "cbp/cbp05us.zip":
             path: "econ2005/CBP_CSV"
             filename: "cbp05us.txt"
-        "CBP": "econ20<year>/CBP_CSV"
+        "cbp": "econ20<year>/CBP_CSV"
 
     # type must be the original name of the column (before rename)
     type:
@@ -55,12 +55,26 @@ global:
         n1000: "sum"
 
     transform:
-        df:
-            type: frame_func
-            func: "plugins.census.cbp.process"
-            mode: "nation"
+        -
+            column: geo_id
+            type: set_val
+            value: "01000US"
+        -
+            column: year
+            type: add
+            value: 2000
+        -
+            column: naics
+            type: replace
+            target: "\/|-"
+            value: ""
 
+    filter:
+        -
+            column: "lfo"
+            func: "eq"
+            value: "-"
 tables:
-    ygi_nation_firmsize:
-        pk: ["year", "geo", "naics"]
+    ygi:
+        pk: ["year", "geo_id", "naics"]
 

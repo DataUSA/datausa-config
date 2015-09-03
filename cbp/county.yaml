@@ -55,7 +55,11 @@ global:
             column: year
             type: add
             value: 2000
-
+        -
+            column: naics
+            type: replace
+            target: "\/|-"
+            value: ""
 tables:
     ygi:
         pk: ["year", "geo_id", "naics"]

@@ -1,0 +1,43 @@
+global:
+    source: "data/bls/growth/soc/occupation.xls"
+    web_paths: http://www.bls.gov/emp/ind-occ-matrix/occupation.xls
+    name: bls
+    use_schema: True
+    na_values: [".",]
+    skiprows: 3
+    output : "data/output/bls/growth/soc"
+    filetype: excel
+    sheetname: "Table 1.2"
+    rename:
+        "Unnamed: 0": "title"
+        "Unnamed: 1": "soc"
+        "Number": "change_thousands"
+        "Percent": "pct_change"
+        2012: emp_2012_thousands
+        2022: emp_2022_thousands
+        "2012.1": "emp_pct_2012"
+        "2022.1": "emp_pct_2022"
+        "Unnamed: 8" : "openings_thousands"
+
+    transform:
+        -
+            column: soc
+            type: replace
+            target: "-"
+            value: ""
+
+    agg: "sum"
+    import_to_db: True
+    db_settings:
+        user: postgres
+        password_env_var: DATAUSA_PW
+        host: 162.209.124.219
+        db_name: datausa
+    filter:
+        -
+            column: "soc"
+            func: "eq"
+            value: "!UNKNOWN!"
+tables:
+    growth_o:
+        pk: ["soc"]

@@ -23,16 +23,17 @@ global:
     source: "data/bls/20<year>_annual_singlefile.zip"
     web_paths: http://www.bls.gov/cew/data/files/20<year>/csv/20<year>_annual_singlefile.zip
     name: bls
+    use_schema: True
     na_values: [".", ]
     source_vars:
         year: ["14"]
     output : "data/output/bls/qcew/<year>"
     type:
         area_fips: str
-
+    nrows: 1000
     rename:
         industry_code: naics
-        area_fips: area
+        area_fips: geo_id
 
     transform:
         -
@@ -40,22 +41,22 @@ global:
             type: concat_and_fill
             prefix: "20"
         -
-            column: area
+            column: geo_id
             type: concat_and_fill
             prefix: "05000US"
             where: *where_county
         -
-            column: area
+            column: geo_id
             type: concat_and_fill
             prefix: "04000US"
             where: *where_state
         -
-            column: area
+            column: geo_id
             type: set_val
             value: "01000US"
             where: *where_us
         -
-            column: area
+            column: geo_id
             type: concat_and_fill
             prefix: "31000US"
             where: *where_msa
@@ -63,7 +64,7 @@ global:
 
 tables:
     qcew_ygi:
-        pk: ["year", "area", "naics", ]
+        pk: ["year", "geo_id", "naics"]
         agg:
             annual_avg_estabs: sum
             annual_avg_emplvl: sum

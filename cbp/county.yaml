@@ -2,9 +2,9 @@ global:
     seperator: ","
     name: cbp
     use_schema: True
-    source : "$CENSUS_DATA/CBP/cbp<year>co.zip"
+    source : "data/cbp/cbp<year>co.zip"
     source_vars:
-        year: ["05", "06", "07", "08", "09", "10", "11", "12", "13"]
+        year: [13]
 
     output : "data/output/cbp/<year>"
     import_to_db: True
@@ -14,21 +14,10 @@ global:
         host: 162.209.124.219
         db_name: datausa
 
-    ftp_paths:
-        "CBP/cbp07co.zip":
-            path: "econ20<year>/CBP_CSV"
-            filename: "cbp<year>co.txt"
-        "CBP/cbp06co.zip":
-            path: "econ2006/CBP_CSV"
-            filename: "cbp06co.txt"
-        "CBP/cbp05co.zip":
-            path: "econ2005/CBP_CSV"
-            filename: "cbp05co.txt"
-        "CBP": "econ20<year>/CBP_CSV"
+    web_paths: "ftp://ftp.census.gov/econ20<year>/CBP_CSV/cbp<year>co.zip"
 
-    # type must be the original name of the column (before rename)
-    type:
-        occp02 : "str"
+    rename: 
+        fipscty: geo_id
 
     agg:
         est: "sum"
@@ -53,12 +42,21 @@ global:
 
     transform:
         -
-            colname: dummy
-            type: frame_func
-            func: "plugins.census.cbp.process"
-            mode: "county"
+            column: fipstate
+            type: concat_and_fill
+            prefix: "05000US"
+            zfill: 2
+        -
+            column: geo_id
+            type: concat_and_fill
+            zfill: 3
+            prefix: "[fipstate]"
+        -
+            column: year
+            type: add
+            value: 2000
 
 tables:
-    ygi_county_firmsize:
-        pk: ["year", "geo", "naics"]
+    ygi:
+        pk: ["year", "geo_id", "naics"]
 

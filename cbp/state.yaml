@@ -71,7 +71,7 @@ global:
         -
             column: geo_id
             type: concat_and_fill
-            prefix: "01000US"
+            prefix: "04000US"
             zfill: 2
         -
             column: year
@@ -85,6 +85,6 @@ global:
 
 
 tables:
-    ygi_state_firmsize:
+    ygi:
         pk: ["year", "geo_id", "naics"]
 

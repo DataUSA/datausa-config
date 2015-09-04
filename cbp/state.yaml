@@ -87,4 +87,7 @@ global:
 tables:
     ygi:
         pk: ["year", "geo_id", "naics"]
-
+    rca:
+        index: ["year", "geo_id"]
+        column: "naics"
+        values: [emp]

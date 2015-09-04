@@ -74,6 +74,10 @@ global:
             column: "lfo"
             func: "eq"
             value: "-"
+        -
+            column: naics
+            func: eq
+            value: ""
 tables:
     ygi:
         pk: ["year", "geo_id", "naics"]

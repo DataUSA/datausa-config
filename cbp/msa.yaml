@@ -47,6 +47,12 @@ global:
         n1000_3: "sum"
         n1000_4: "sum"
 
+    filter:
+        -
+            column: naics
+            func: eq
+            value: ""
+
     transform:
         -
             column: geo_id
@@ -60,7 +66,7 @@ global:
         -
             column: naics
             type: replace
-            target: "\/|-"
+            target: "\\/|-"
             value: ""
 
 tables:

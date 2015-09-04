@@ -112,3 +112,24 @@ tables:
         values: *defaults
         gini: True
 
+    yis:
+        pk: ["year", "naics", "sex"]
+        depths:
+            naics: [0, 1, 2]
+        values: *defaults
+        rca:
+            index: ["year", "naics"]
+            column: "sex"
+            values: [avg_wage]
+
+     yir:
+        pk: ["year", "naics", "race"]
+        depths:
+            naics: [0, 1, 2]
+        values: *defaults
+        rca:
+            index: ["year", "naics"]
+            column: "race"
+            values: [avg_wage]
+
+ 

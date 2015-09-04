@@ -60,7 +60,7 @@ global:
     filter:
         -
             column: "lfo"
-            func: "eq"
+            func: "ne"
             value: "-"
         -
             column: naics
@@ -87,7 +87,15 @@ global:
 tables:
     ygi:
         pk: ["year", "geo_id", "naics"]
-    rca:
-        index: ["year", "geo_id"]
-        column: "naics"
-        values: [emp]
+    yg:
+        pk: ["year", "geo_id"]
+        filter:
+            -
+                column: "lfo"
+                func: "ne"
+                value: "-"
+            -
+                column: naics
+                func: ne
+                value: ""
+

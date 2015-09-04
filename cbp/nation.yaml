@@ -31,7 +31,7 @@ global:
         naics: "str"
         fipstate: "str"
         est: "int"
-        ap: "int"
+        ap: "float"
         ap_nf: "str"
         empflag: "str"
         emp: "int"
@@ -72,7 +72,7 @@ global:
     filter:
         -
             column: "lfo"
-            func: "eq"
+            func: "ne"
             value: "-"
         -
             column: naics
@@ -81,4 +81,15 @@ global:
 tables:
     ygi:
         pk: ["year", "geo_id", "naics"]
+    yg:
+        pk: ["year", "geo_id"]
+        filter:
+            -
+                column: "lfo"
+                func: "ne"
+                value: "-"
+            -
+                column: naics
+                func: ne
+                value: ""
 

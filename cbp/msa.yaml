@@ -72,4 +72,11 @@ global:
 tables:
     ygi:
         pk: ["year", "geo_id", "naics"]
+    yg:
+        pk: ["year", "geo_id"]
+        filter:
+            -
+                column: naics
+                func: ne
+                value: ""
 

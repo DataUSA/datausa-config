@@ -110,3 +110,5 @@ tables:
             naics: [0, 1, 2]
         wage_bin: True
         values: *defaults
+        gini: True
+

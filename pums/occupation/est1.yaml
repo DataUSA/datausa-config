@@ -56,5 +56,4 @@ tables:
         depths:
             soc: [0, 1, 2, 3]
         wage_bin: True
-        gini: True
         values: *defaults

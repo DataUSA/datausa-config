@@ -58,6 +58,7 @@ tables:
         depths:
             naics: [0, 1, 2]
         values: *defaults
+        gini: True
 
     yid:
         pk: ["year", "naics", "degree"]
@@ -110,7 +111,6 @@ tables:
             naics: [0, 1, 2]
         wage_bin: True
         values: *defaults
-        gini: True
 
     yis:
         pk: ["year", "naics", "sex"]
@@ -132,4 +132,3 @@ tables:
             column: "race"
             values: [avg_wage]
 
- 

@@ -122,7 +122,7 @@ tables:
             column: "sex"
             values: [avg_wage]
 
-     yir:
+    yir:
         pk: ["year", "naics", "race"]
         depths:
             naics: [0, 1, 2]

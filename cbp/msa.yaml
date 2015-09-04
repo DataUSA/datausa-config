@@ -4,7 +4,7 @@ global:
     use_schema: True
     source : "data/cbp/cbp<year>msa.zip"
     source_vars:
-        year: ["13"]
+        year: [13]
 
     output : "data/output/cbp/<year>"
     import_to_db: True

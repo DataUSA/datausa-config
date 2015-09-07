@@ -54,6 +54,11 @@ tables:
                 column: soc
                 type: slice
                 length: "<soc_depth>"
+            -
+                column: soc
+                type: ljust
+                size: 6
+                fillchar: "0"
 
     skills_by_cip:
         pk_fill_nan: False

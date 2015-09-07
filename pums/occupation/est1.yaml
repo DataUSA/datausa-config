@@ -31,7 +31,7 @@ global:
         AGEP: age
         SEX: sex
         RAC1P: race
-        FOD1P: major
+        FOD1P: cip
         SCHL: degree
     type:
         occp02: "str"

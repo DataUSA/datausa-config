@@ -138,7 +138,15 @@ tables:
     yc:
         pk: ["year", "cip"]
         values: *defaults
-
+        post_agg_transform:
+            -
+                column: avg_wage_rank
+                type: rank
+                target: avg_wage
+                where:
+                    column: num_records
+                    func: gt
+                    value: 5
     ygc:
         table_vars:
             geo_level: ["nation", "state", "puma"]

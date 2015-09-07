@@ -178,3 +178,12 @@ tables:
             values: [num_ppl]
         sumlevel: <geo_level>
         values: *defaults
+    yocd:
+        pk: ["year", "soc", "cip", "degree"]
+        depths:
+            soc: [0, 1, 2, 3]
+        rca:
+            index: ["year", "soc", "cip"]
+            column: "degree"
+            values: [num_ppl]
+        values: *defaults

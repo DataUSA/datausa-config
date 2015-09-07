@@ -57,12 +57,4 @@ tables:
             soc: [0, 1, 2, 3]
         wage_bin: True
         values: *defaults
-    yocd:
-        pk: ["year", "soc", "cip", "degree"]
-        depths:
-            soc: [0, 1, 2, 3]
-        rca:
-            index: ["year", "soc", "cip"]
-            column: "degree"
-            values: [num_ppl]
-        values: *defaults
+

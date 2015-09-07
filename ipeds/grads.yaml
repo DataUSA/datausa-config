@@ -178,4 +178,11 @@ tables:
                 column: "cip"
                 func: "eq"
                 value: "99"
+
         transform: *cip_transforms
+
+        post_agg_transform:
+            -
+                column: grads_rank
+                type: rank
+                target: grads_total

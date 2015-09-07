@@ -1,0 +1,24 @@
+global:
+    seperator: ","
+    name: bea
+    source : "data/io/make.xlsx"
+    use_schema: True
+    index_col: False
+    filetype: excel
+    sheetname: <year>
+    # skiprows: 5
+
+    source_vars:
+        year: ["2013"]
+
+    output : "data/output/bea/make/"
+
+    web_paths:
+        "make": "http://www.bea.gov/industry/xls/io-annual/IOMake_Before_Redefinitions_1997-2013_Summary.xlsx"
+        # "use": "http://www.bea.gov/industry/xls/io-annual/IOUse_Before_Redefinitions_PRO_1997-2013_Summary.xlsx"
+    agg: "sum"
+
+
+tables:
+    enrollment_yu:
+        pk: ["year"]

@@ -140,6 +140,11 @@ tables:
                 column: "cip"
                 func: "eq"
                 value: "99"
+        post_agg_transform:
+            -
+                column: oos_tuition_rank
+                type: rank
+                target: oos_tuition
     tuition_ycu:
         pk: ["year", "cip", "university"]
         filter:

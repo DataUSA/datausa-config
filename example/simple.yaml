@@ -1,0 +1,18 @@
+global:
+    seperator: ","
+    name: example
+    source : "data/mytest/<year>csv"
+    source_vars:
+        year: ["2013"]
+    output : "data/output/mytest/<year>"
+
+    web_paths: "http://alumni.media.mit.edu/~jspeiser/mytest/<year>.csv"
+
+tables:
+    test_table2:
+        pk: ["id"]
+        agg: "sum"
+
+    test_table3:
+        pk: ["id"]
+        agg: "nunique"

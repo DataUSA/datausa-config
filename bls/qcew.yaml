@@ -6,17 +6,17 @@ where_county: &where_county
 where_state: &where_state
     column: agglvl_code
     func: "eq"
-    value: 50
+    value: "50"
 
 where_msa: &where_msa
     column: agglvl_code
     func: "eq"
-    value: 40
+    value: "40"
 
 where_us: &where_us
     column: agglvl_code
     func: "eq"
-    value: 10
+    value: "10"
 
 
 global:
@@ -26,11 +26,13 @@ global:
     use_schema: True
     na_values: [".", ]
     source_vars:
-        year: ["14"]
+        year: [14]
+        geo_level: ["70"]
     output : "data/output/bls/qcew/<year>"
     type:
         area_fips: str
-    nrows: 1000
+        agglvl_code: str
+    nrows: 10000
     rename:
         industry_code: naics
         area_fips: geo_id
@@ -38,33 +40,59 @@ global:
     transform:
         -
             column: year
-            type: concat_and_fill
-            prefix: "20"
+            type: add
+            value: 2000
         -
             column: geo_id
             type: concat_and_fill
             prefix: "05000US"
-            where: *where_county
-        -
-            column: geo_id
-            type: concat_and_fill
-            prefix: "04000US"
-            where: *where_state
-        -
-            column: geo_id
-            type: set_val
-            value: "01000US"
-            where: *where_us
-        -
-            column: geo_id
-            type: concat_and_fill
-            prefix: "31000US"
-            where: *where_msa
+            where:
+                column: agglvl_code
+                func: eq
+                value: "70"
+        # -
+        #     column: geo_id
+        #     type: concat_and_fill
+        #     prefix: "04000US"
+        #     where: *where_state
+        # -
+        #     column: geo_id
+        #     type: set_val
+        #     value: "01000US"
+        #     where: *where_us
+        # -
+        #     column: geo_id
+        #     type: concat_and_fill
+        #     prefix: "31000US"
+        #     where: *where_msa
+
+    import_to_db: True
+    db_settings:
+        user: postgres
+        password_env_var: DATAUSA_PW
+        host: 162.209.124.219
+        db_name: datausa
+        type:
+            total_annual_wages: real
+            taxable_annual_wages: real
 
 
 tables:
     qcew_ygi:
         pk: ["year", "geo_id", "naics"]
+        filter:
+            -
+                column: size_code
+                func: "ne"
+                value: 0
+            - 
+                column: own_code
+                func: "ne"
+                value: 0
+            -
+                column: agglvl_code
+                func: "ne"
+                value: "<geo_level>"      
         agg:
             annual_avg_estabs: sum
             annual_avg_emplvl: sum
@@ -73,10 +101,8 @@ tables:
             taxable_annual_wages: sum
             annual_avg_wkly_wage: sum
             avg_annual_pay: sum
-            lq_annual_avg_estabs: sum
-            lq_annual_avg_emplvl: sum
-            lq_total_annual_wages: sum
-            lq_taxable_annual_wages: sum
-            lq_annual_contributions: sum
-            lq_annual_avg_wkly_wage: sum
-            lq_avg_annual_pay: sum
+
+        rca:
+            index: ["year", "geo_id"]
+            column: "naics"
+            values: [annual_avg_emplvl]

@@ -1,25 +1,26 @@
 where_county: &where_county
     column: agglvl_code
-    func: "eq"
-    value: 70
+    func: "isin"
+    value: ["74", "75", "76", "77", "78"]
 
 where_state: &where_state
     column: agglvl_code
-    func: "eq"
-    value: "50"
+    func: "isin"
+    value: ["54", "55", "56", "57", "58"]
 
 where_msa: &where_msa
     column: agglvl_code
-    func: "eq"
-    value: "40"
+    func: "isin"
+    value: ["44", "45", "46", "47", "48"]
 
 where_us: &where_us
     column: agglvl_code
-    func: "eq"
-    value: "10"
+    func: "isin"
+    value: ["14", "15", "16", "17", "18"]
 
 
 global:
+    #nrows: 150000
     source: "data/bls/20<year>_annual_singlefile.zip"
     web_paths: http://www.bls.gov/cew/data/files/20<year>/csv/20<year>_annual_singlefile.zip
     name: bls
@@ -27,14 +28,19 @@ global:
     na_values: [".", ]
     source_vars:
         year: [14]
-        geo_level: ["70"]
+        #naics_level: ["14", "15", "16", "17", "18", "44", "45", "46", "47", "48", "54", "55", "56", "57", "58", "74", "75", "76", "77", "78"]
+        #naics_level: ["44", "45", "46", "47", "48"]
+        naics_level: ["54", "55", "56", "57", "58"]
+        #naics_level: ["74", "75", "76", "77", "78"]
     output : "data/output/bls/qcew/<year>"
     type:
         area_fips: str
+        size_code: str
+        own_code: str
         agglvl_code: str
-    nrows: 10000
     rename:
         industry_code: naics
+        #naics_depths: [2, 4, 6]
         area_fips: geo_id
 
     transform:
@@ -44,28 +50,43 @@ global:
             value: 2000
         -
             column: geo_id
+            type: slice
+            start: 0
+            length: 2
+            where: *where_state
+        -
+            column: geo_id
+            type: concat_and_fill
+            prefix: "04000US"
+            where: *where_state
+        -
+            column: geo_id
             type: concat_and_fill
             prefix: "05000US"
-            where:
-                column: agglvl_code
-                func: eq
-                value: "70"
-        # -
-        #     column: geo_id
-        #     type: concat_and_fill
-        #     prefix: "04000US"
-        #     where: *where_state
-        # -
-        #     column: geo_id
-        #     type: set_val
-        #     value: "01000US"
-        #     where: *where_us
-        # -
-        #     column: geo_id
-        #     type: concat_and_fill
-        #     prefix: "31000US"
-        #     where: *where_msa
-
+            where: *where_county
+        -
+            column: geo_id
+            type: set_val
+            value: "01000US"
+            where: *where_us
+        -
+            column: geo_id
+            type: slice
+            start: 1
+            length: 4
+            where: *where_msa
+        -
+            column: geo_id
+            type: ljust
+            size: 5
+            fillchar: '0' 
+            where: *where_msa
+        -
+            column: geo_id
+            type: concat_and_fill
+            prefix: "31000US"
+            where: *where_msa
+ 
     import_to_db: True
     db_settings:
         user: postgres
@@ -75,24 +96,26 @@ global:
         type:
             total_annual_wages: real
             taxable_annual_wages: real
+            annual_contributions: real
 
 
 tables:
     qcew_ygi:
-        pk: ["year", "geo_id", "naics"]
+        pk: ["year", "geo_id", "naics", "naics_level"]
         filter:
-            -
-                column: size_code
-                func: "ne"
-                value: 0
-            - 
-                column: own_code
-                func: "ne"
-                value: 0
             -
                 column: agglvl_code
                 func: "ne"
-                value: "<geo_level>"      
+                value: "<naics_level>"
+            -
+                column: own_code
+                func: "ne"
+                value: "5"
+            -
+                column: size_code
+                func: "ne"
+                value: "0"
+            
         agg:
             annual_avg_estabs: sum
             annual_avg_emplvl: sum
@@ -102,7 +125,3 @@ tables:
             annual_avg_wkly_wage: sum
             avg_annual_pay: sum
 
-        rca:
-            index: ["year", "geo_id"]
-            column: "naics"
-            values: [annual_avg_emplvl]

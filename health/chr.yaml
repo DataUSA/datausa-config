@@ -11,10 +11,8 @@ global:
         year: ["2015"]
 
     output : "data/output/chr/<year>"
-
-    web_paths:
-        # "2014": "http://www.countyhealthrankings.org/sites/default/files/<year>%20CHR%20analytic%20data.csv"
-        "chr": "http://www.countyhealthrankings.org/sites/default/files/<year>%20CHR%20Analytic%20Data.csv"
+    thousands: ","
+    web_paths: "http://www.countyhealthrankings.org/sites/default/files/<year>%20CHR%20Analytic%20Data.csv"
 
     import_to_db: True
     db_settings:
@@ -53,19 +51,21 @@ global:
                 column: state
                 type: concat_and_fill
                 zfill: 2
-                # prefix: "05000US"
-            # -
-            #     column: polution_ppm
-            #     type: cast
-            #     as: float
-
             -
                 column: geo_id
                 type: "concat"
                 column0: prefix
                 column1: state
                 column2: county
-
+            -
+                column: state
+                type: drop
+            -
+                column: county
+                type: drop
+            -
+                column: prefix
+                type: drop
     agg: "sum"
 
     type:
@@ -92,9 +92,11 @@ global:
         "<desc> Denominator": "delete"
         "Coun<desc>": "delete"
         "Stat<desc>": "delete"
+        "<desc>Ratio": "delete"
 
     dropcols: ["Percent of population that is Native Hawaiian or Other Pacific Islander"]
 
 tables:
-    health_test5:
+    health_yg:
         pk: ["year", "geo_id", "sumlevel"]
+

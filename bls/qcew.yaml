@@ -16,7 +16,7 @@ where_msa: &where_msa
 where_us: &where_us
     column: agglvl_code
     func: "isin"
-    value: ["14", "15", "16", "17", "18"]
+    value: ["24", "25", "26", "27", "28"]
 
 
 global:
@@ -28,10 +28,7 @@ global:
     na_values: [".", ]
     source_vars:
         year: [14]
-        #naics_level: ["14", "15", "16", "17", "18", "44", "45", "46", "47", "48", "54", "55", "56", "57", "58", "74", "75", "76", "77", "78"]
-        #naics_level: ["44", "45", "46", "47", "48"]
-        naics_level: ["54", "55", "56", "57", "58"]
-        #naics_level: ["74", "75", "76", "77", "78"]
+        naics_level: ["44", "45", "46", "47", "48", "54", "55", "56", "57", "58", "74", "75", "76", "77", "78"]
     output : "data/output/bls/qcew/<year>"
     type:
         area_fips: str
@@ -86,7 +83,20 @@ global:
             type: concat_and_fill
             prefix: "31000US"
             where: *where_msa
- 
+        -
+            column: naics_level
+            type: slice
+            start: 1
+            length: 1
+        -
+            column: naics_level
+            type: cast
+            as: int
+        -
+            column: naics_level
+            type: add
+            value: -4
+
     import_to_db: True
     db_settings:
         user: postgres

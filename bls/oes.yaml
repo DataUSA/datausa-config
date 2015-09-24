@@ -1,17 +1,17 @@
 where_state: &where_state
-    column: "area_type"
+    column: area_type
     func: "eq"
-    value: 2
+    value: "2"
 
 where_msa: &where_msa
     column: area_type
     func: "eq"
-    value: 4
+    value: "4"
 
 where_us: &where_us
     column: area_type
     func: "eq"
-    value: 1
+    value: "1"
 
 global:
     seperator: ","
@@ -22,12 +22,12 @@ global:
     filetype: excel
     sheetname: All May 20<year> Data
     source_vars:
-        year: ["14"]
+        year: [14]
 
     type:
         area: str
         naics: str
-        area_type: int
+        area_type: str
 
     output : "data/output/bls/oes/<year>"
 
@@ -36,8 +36,8 @@ global:
     transform:
         -
             column: year
-            type: concat_and_fill
-            prefix: "20"
+            type: add
+            value: 2000
         -
             column: geo_id
             type: slice
@@ -77,9 +77,11 @@ global:
         "occ code": "soc"
         "emp_prse": "tot_emp_prse"
         "a_mean": "annual_mean_wage"
+        "h_mean": "hrly_mean_wage"
+        "a_median": "annual_median_wage"
+        "h_median": "hrly_median_wage"
         "mean_prse": "annual_mean_wage_prse"
         "area": "geo_id"
-        "group": "soc_level"
 
     import_to_db: True
     db_settings:
@@ -99,41 +101,62 @@ global:
             value: 1235
 
 tables:
-    oes_ygio:
-        pk: ["year", "geo_id", "naics", "soc"]
-        agg:
-            tot_emp: sum
-            annual_mean_wage: sum
-            annual_mean_wage_prse: sum
-            tot_emp: sum
-            tot_emp_prse: sum
-            jobs_1000: sum
-            loc_quotient: sum
-    oes_ygi:
-        pk: ["year", "geo_id", "naics"]
-        agg:
-            tot_emp: sum
-            annual_mean_wage: sum
-            annual_mean_wage_prse: sum
-            tot_emp: sum
-            tot_emp_prse: sum
-            jobs_1000: sum
-            loc_quotient: sum
+#     oes_ygio:
+#         pk: ["year", "geo_id", "naics", "soc"]
+#         agg:
+#             tot_emp: sum
+#             annual_mean_wage: sum
+#             annual_mean_wage_prse: sum
+#             tot_emp: sum
+#             tot_emp_prse: sum
+#             jobs_1000: sum
+#             loc_quotient: sum
+
+#     oes_ygi:
+#         pk: ["year", "geo_id", "naics"]
+#         filter:
+#             - 
+#                 column: naics
+#                 func: "eq"
+#                 value: "000000"
+#             -
+#                 column: "own_code"
+#                 func: "ne"
+#                 value: 1235
+#         agg:
+#             tot_emp: sum
+#             annual_mean_wage: sum
+#             annual_mean_wage_prse: sum
+#             tot_emp: sum
+#             tot_emp_prse: sum
+#             jobs_1000: sum
+#             loc_quotient: sum
+
     oes_ygo:
+        table_vars:
+            soc_level: ["major", "minor", "detail", "broad"]
+            geo_level: ["1", "2", "4"]
+
         pk: ["year", "geo_id", "soc"]
+
         filter:
             - 
                 column: naics
                 func: "ne"
                 value: "000000"
             -
-                column: "area_type"
-                func: "notin"
-                value: [1, 2, 4]
-            -
                 column: "own_code"
                 func: "ne"
                 value: 1235
+            -
+                column: group
+                func: "ne"
+                value: "<soc_level>"
+            -
+                column: area_type
+                func: "ne"
+                value: "<geo_level>"
+
         agg:
             tot_emp: sum
             annual_mean_wage: sum
@@ -142,3 +165,9 @@ tables:
             tot_emp_prse: sum
             jobs_1000: sum
             loc_quotient: sum
+
+        rca:
+            index: ["year", "geo_id"]
+            column: "soc"
+            values: [tot_emp]
+

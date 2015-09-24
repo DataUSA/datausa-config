@@ -20,7 +20,7 @@ global:
         password_env_var: DATAUSA_PW
         host: 162.209.124.219
         db_name: datausa
-
+    add_pks: True
     transform:
             -
                 column: county
@@ -66,6 +66,9 @@ global:
             -
                 column: prefix
                 type: drop
+            -
+                column: sumlevel
+                type: drop
     agg: "sum"
 
     type:
@@ -97,6 +100,6 @@ global:
     dropcols: ["Percent of population that is Native Hawaiian or Other Pacific Islander"]
 
 tables:
-    health_yg:
-        pk: ["year", "geo_id", "sumlevel"]
+    yg:
+        pk: ["year", "geo_id"]
 

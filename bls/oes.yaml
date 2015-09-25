@@ -28,6 +28,7 @@ global:
         area: str
         naics: str
         area_type: str
+        own_code: str
 
     output : "data/output/bls/oes/<year>"
 
@@ -90,16 +91,6 @@ global:
         host: 162.209.124.219
         db_name: datausa
 
-    filter:
-        -
-            column: "area_type"
-            func: "notin"
-            value: [1, 2, 4]
-        -
-            column: "own_code"
-            func: "ne"
-            value: 1235
-
     agg:
         tot_emp: sum
         avg_wage: sum
@@ -115,7 +106,7 @@ tables:
             soc_level: ["major", "minor", "detail", "broad"]
             geo_level: ["1", "2", "4"]
 
-        pk: ["year", "geo_id", "soc"]
+        pk: ["year", "geo_id", "soc", "soc_level"]
 
         filter:
             - 
@@ -125,7 +116,7 @@ tables:
             -
                 column: "own_code"
                 func: "ne"
-                value: 1235
+                value: "1235"
             -
                 column: group
                 func: "ne"
@@ -139,4 +130,24 @@ tables:
             index: ["year", "geo_id"]
             column: "soc"
             values: [tot_emp]
+
+    oes_yio:
+        pk: ["year", "naics", "soc"]
+        filter:
+            -
+                column: area_type
+                func: "ne"
+                value: "1"
+            -
+                column: own_code
+                func: "ne"
+                value: "5"
+            -
+                column: naics
+                func: "isin"
+                value: ["000001", "000000"]
+            -
+                column: soc
+                func: "eq"
+                value: "000000"
 

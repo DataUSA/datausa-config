@@ -125,7 +125,7 @@ tables:
                 column: size_code
                 func: "ne"
                 value: "0"
-            
+
         agg:
             annual_avg_estabs: sum
             annual_avg_emplvl: sum
@@ -134,4 +134,3 @@ tables:
             taxable_annual_wages: sum
             annual_avg_wkly_wage: sum
             avg_annual_pay: sum
-

@@ -76,11 +76,11 @@ global:
     rename:
         "occ code": "soc"
         "emp_prse": "tot_emp_prse"
-        "a_mean": "annual_mean_wage"
-        "h_mean": "hrly_mean_wage"
-        "a_median": "annual_median_wage"
-        "h_median": "hrly_median_wage"
-        "mean_prse": "annual_mean_wage_prse"
+        "a_mean": "avg_wage"
+        "h_mean": "avg_hourly_wage"
+        "a_median": "med_wage"
+        "h_median": "med_hourly_wage"
+        "mean_prse": "avg_wage_prse"
         "area": "geo_id"
 
     import_to_db: True
@@ -100,38 +100,16 @@ global:
             func: "ne"
             value: 1235
 
+    agg:
+        tot_emp: sum
+        avg_wage: sum
+        avg_wage_prse: sum
+        avg_hourly_wage: sum
+        tot_emp_prse: sum
+        jobs_1000: sum
+        loc_quotient: sum
+
 tables:
-#     oes_ygio:
-#         pk: ["year", "geo_id", "naics", "soc"]
-#         agg:
-#             tot_emp: sum
-#             annual_mean_wage: sum
-#             annual_mean_wage_prse: sum
-#             tot_emp: sum
-#             tot_emp_prse: sum
-#             jobs_1000: sum
-#             loc_quotient: sum
-
-#     oes_ygi:
-#         pk: ["year", "geo_id", "naics"]
-#         filter:
-#             - 
-#                 column: naics
-#                 func: "eq"
-#                 value: "000000"
-#             -
-#                 column: "own_code"
-#                 func: "ne"
-#                 value: 1235
-#         agg:
-#             tot_emp: sum
-#             annual_mean_wage: sum
-#             annual_mean_wage_prse: sum
-#             tot_emp: sum
-#             tot_emp_prse: sum
-#             jobs_1000: sum
-#             loc_quotient: sum
-
     oes_ygo:
         table_vars:
             soc_level: ["major", "minor", "detail", "broad"]
@@ -156,15 +134,6 @@ tables:
                 column: area_type
                 func: "ne"
                 value: "<geo_level>"
-
-        agg:
-            tot_emp: sum
-            annual_mean_wage: sum
-            annual_mean_wage_prse: sum
-            tot_emp: sum
-            tot_emp_prse: sum
-            jobs_1000: sum
-            loc_quotient: sum
 
         rca:
             index: ["year", "geo_id"]

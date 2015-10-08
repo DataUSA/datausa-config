@@ -1,0 +1,53 @@
+global:
+    name: bea
+    source : "data/bea/use_<industry_level>.json"
+    use_schema: True
+    filetype: json
+
+    source_vars:
+        year: [2013]
+        industry_level: [46, 47]
+
+    output : "data/output/bea/use/"
+    orient: record
+
+    preprocess:
+        func: "src.plugins.preprocess.bea_preprocess"
+        nesting: ['BEAAPI', 'Results', 'Data']
+
+    web_paths: "http://www.bea.gov/api/data/?UserID=25347C32-47A3-4764-8AD3-EF969B9003AF&method=GetData&DataSetName=InputOutput&Year=2013&tableID=<industry_level>&ResultFormat=json"
+
+    agg:
+        value_millions: sum
+
+    rename:
+        ColCode: industry_iocode
+        RowCode: commodity_iocode
+        DataValue: value_millions
+
+    import_to_db: True
+    db_settings:
+        user: postgres
+        password_env_var: DATAUSA_PW
+        host: 162.209.124.219
+        db_name: datausa
+    transform:
+        -
+            column: industry_level
+            type: set_val
+            value: 1
+            where:
+                column: industry_level
+                func: eq
+                value: 46
+        -
+            column: industry_level
+            type: set_val
+            value: 0
+            where:
+                column: industry_level
+                func: eq
+                value: 47
+tables:
+    use:
+        pk: ["year", "industry_iocode", "commodity_iocode", "industry_level"]

@@ -1,0 +1,21 @@
+global:
+    name: attrs
+    source : "data/bea/iocode_crosswalk.csv"
+    use_schema: True
+    filetype: csv
+
+    output : "data/output/bea/crosswalk/"
+
+    web_paths: "https://docs.google.com/spreadsheets/d/1lFdoJKXsrvCNwqJwIt1yXwuDAPAcgSiONC51GSONqko/export?format=csv&id"
+    usecols: ["iocode", "iocode_parent", "naics"]
+
+    import_to_db: True
+    db_settings:
+        user: postgres
+        password_env_var: DATAUSA_PW
+        host: 162.209.124.219
+        db_name: datausa
+
+tables:
+    iocode_crosswalk:
+        pk: ["iocode", "iocode_parent", "naics"]

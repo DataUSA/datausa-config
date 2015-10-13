@@ -34,6 +34,8 @@ global:
       - type: drop
         strict: NO
         column: [tbl, sumlevel, column, state, county]
+
+    post_agg_transform:
       - type: add
         column: under_5E
         values: ["[B06001_014E]", "[B06001_026E]", "[B06001_038E]"]

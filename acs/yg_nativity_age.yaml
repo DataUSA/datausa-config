@@ -39,39 +39,102 @@ global:
       - type: add
         column: under_5E
         values: ["[B06001_014E]", "[B06001_026E]", "[B06001_038E]"]
-      # - type: add
-      #   column: under_5M
-      #   values: ["[B06001_014M]", "[B06001_026M]", "[B06001_038M]"]
-      # - type: add
-      #   column: 5_to_17
-      #   values: ["B06001_015E", "B06001_027E", "B06001_039E"]
-      # - type: add
-      #   column: 18_to_24
-      #   values: ["B06001_016E", "B06001_028E", "B06001_040E"]
-      # - type: add
-      #   column: 25_to_34
-      #   values: ["B06001_017E", "B06001_029E", "B06001_041E"]
-      # - type: add
-      #   column: 35_to_44
-      #   values: ["B06001_018E", "B06001_030E", "B06001_042E"]
-      # - type: add
-      #   column: 45_to_54
-      #   values: ["B06001_019E", "B06001_031E", "B06001_043E"]
-      # - type: add
-      #   column: 55_to_59
-      #   values: ["B06001_020E", "B06001_032E", "B06001_044E"]
-      # - type: add
-      #   column: 60_to_61
-      #   values: ["B06001_021E", "B06001_033E", "B06001_045E"]
-      # - type: add
-      #   column: 62_to_64
-      #   values: ["B06001_022E", "B06001_034E", "B06001_046E"]
-      # - type: add
-      #   column: 65_to_74
-      #   values: ["B06001_023E", "B06001_035E", "B06001_047E"]
-      # - type: add
-      #   column: 75_and_over
-      #   values: ["B06001_024E", "B06001_036E", "B06001_048E"]
+        drop: YES
+      - type: combine_moes
+        confidence: 0.9
+        column: under_5M
+        values: ["B06001_014M", "B06001_026M", "B06001_038M"]
+        drop: YES
+      - type: add
+        column: 5_to_17E
+        values: ["[B06001_015E]", "[B06001_027E]", "[B06001_039E]"]
+        drop: YES
+      - type: combine_moes
+        confidence: 0.9
+        column: 5_to_17M
+        values: ["B06001_015M", "B06001_027M", "B06001_039M"]
+        drop: YES
+      - type: add
+        column: 18_to_24E
+        values: ["[B06001_016E]", "[B06001_028E]", "[B06001_040E]"]
+        drop: YES
+      - type: combine_moes
+        confidence: 0.9
+        column: 18_to_24M
+        values: ["B06001_016M", "B06001_028M", "B06001_040M"]
+        drop: YES
+      - type: add
+        column: 25_to_34E
+        values: ["[B06001_017E]", "[B06001_029E]", "[B06001_041E]"]
+        drop: YES
+      - type: combine_moes
+        confidence: 0.9
+        column: 25_to_34M
+        values: ["B06001_017M", "B06001_029M", "B06001_041M"]
+        drop: YES
+      - type: add
+        column: 35_to_44E
+        values: ["[B06001_018E]", "[B06001_030E]", "[B06001_042E]"]
+        drop: YES
+      - type: combine_moes
+        confidence: 0.9
+        column: 35_to_44M
+        values: ["B06001_018M", "B06001_030M", "B06001_042M"]
+        drop: YES
+      - type: add
+        column: 45_to_54E
+        values: ["[B06001_019E]", "[B06001_031E]", "[B06001_043E]"]
+        drop: YES
+      - type: combine_moes
+        confidence: 0.9
+        column: 45_to_54M
+        values: ["B06001_019M", "B06001_031M", "B06001_043M"]
+        drop: YES
+      - type: add
+        column: 55_to_59E
+        values: ["[B06001_020E]", "[B06001_032E]", "[B06001_044E]"]
+        drop: YES
+      - type: combine_moes
+        confidence: 0.9
+        column: 55_to_59M
+        values: ["B06001_020M", "B06001_032M", "B06001_044M"]
+        drop: YES
+      - type: add
+        column: 60_to_61E
+        values: ["[B06001_021E]", "[B06001_033E]", "[B06001_045E]"]
+        drop: YES
+      - type: combine_moes
+        confidence: 0.9
+        column: 60_to_61M
+        values: ["B06001_021M", "B06001_033M", "B06001_045M"]
+        drop: YES
+      - type: add
+        column: 62_to_64E
+        values: ["[B06001_022E]", "[B06001_034E]", "[B06001_046E]"]
+        drop: YES
+      - type: combine_moes
+        confidence: 0.9
+        column: 62_to_64M
+        values: ["B06001_022M", "B06001_034M", "B06001_046M"]
+        drop: YES
+      - type: add
+        column: 65_to_74E
+        values: ["[B06001_023E]", "[B06001_035E]", "[B06001_047E]"]
+        drop: YES
+      - type: combine_moes
+        confidence: 0.9
+        column: 65_to_74M
+        values: ["B06001_023M", "B06001_035M", "B06001_047M"]
+        drop: YES
+      - type: add
+        column: 75_and_overE
+        values: ["[B06001_024E]", "[B06001_036E]", "[B06001_048E]"]
+        drop: YES
+      - type: combine_moes
+        confidence: 0.9
+        column: 75_and_overM
+        values: ["B06001_024M", "B06001_036M", "B06001_048M"]
+        drop: YES
 
     rename:
       GEOID: geo_id

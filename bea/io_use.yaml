@@ -15,7 +15,7 @@ global:
         func: "src.plugins.preprocess.bea_preprocess"
         nesting: ['BEAAPI', 'Results', 'Data']
 
-    web_paths: "http://www.bea.gov/api/data/?UserID=25347C32-47A3-4764-8AD3-EF969B9003AF&method=GetData&DataSetName=InputOutput&Year=2013&tableID=<industry_level>&ResultFormat=json"
+    web_paths: "http://www.bea.gov/api/data/?UserID=25347C32-47A3-4764-8AD3-EF969B9003AF&method=GetData&DataSetName=InputOutput&Year=<year>&tableID=<industry_level>&ResultFormat=json"
 
     agg:
         value_millions: sum

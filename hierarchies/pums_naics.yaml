@@ -1,0 +1,22 @@
+global:
+    name: hierarchies
+    use_schema: True
+    source: "/Users/jspeiser/code/pandasplus/src/plugins/census/pums/data/class_hierarchy.xlsx"
+    sheetname: "Industry"
+    output : "data/output/hierarchy"
+    filetype: excel
+    rename:
+        NAICSP: naics
+        "Grand Parent": "grandparent"
+        "Parent": "parent"
+    import_to_db: True
+    db_settings:
+        user: postgres
+        password_env_var: DATAUSA_PW
+        host: 162.209.124.219
+        db_name: datausa
+    dropcols: ["Identity"]
+
+tables:
+    pums_naics:
+        pk: ["naics", "grandparent", "parent"]

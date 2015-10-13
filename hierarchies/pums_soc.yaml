@@ -1,0 +1,24 @@
+global:
+    name: hierarchies
+    use_schema: True
+    source: "/Users/jspeiser/code/pandasplus/src/plugins/census/pums/data/class_hierarchy.xlsx"
+    sheetname: "Occupation"
+    output : "data/output/hierarchy/soc2"
+    filetype: excel
+    rename:
+        SOCP: soc
+        "Great Grandparent": "great_grandparent"
+        "Grandparent": "grandparent"
+        "Parent ": "parent"
+    import_to_db: True
+    db_settings:
+        user: postgres
+        password_env_var: DATAUSA_PW
+        host: 162.209.124.219
+        db_name: datausa
+    dropcols: ["Identity", "Title"]
+
+tables:
+    pums_soc:
+        pk_fill_nan: NO
+        pk: ["soc", "great_grandparent", "grandparent", "parent"]

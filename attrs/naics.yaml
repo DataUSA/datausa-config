@@ -1,52 +1,36 @@
-# naics.yaml
-# 
 global:
     seperator: ","
     name: attrs
     use_schema: True
 
-    source : "data/naics/NAICS2012.txt"
-    output : "/Users/jspeiser/code/naics/"
+    source : "data/naics/naics_data.xls"
+    output : "data/output/naics/"
 
     web_paths:
-        "naics": "http://naics.us/v0/q?year=2012"
+        "naics": "http://www.census.gov/eos/www/naics/2012NAICS/2-digit_2012_Codes.xls"
 
     mode: json
 
-    # import_to_db: True
-    # db_settings:
-        # user: postgres
-        # password_env_var: DATAUSA_PW
-        # host: 162.209.124.219
-        # db_name: postgres
+    import_to_db: True
+    db_settings:
+        user: postgres
+        password_env_var: DATAUSA_PW
+        host: 162.209.124.219
+        db_name: datausa
 
-    # type:
-        # NAICS: "str"
-        # DESCRIPTION: "str"
+    sheetname: "tbl_2012_title_description_coun"
+    output : "data/output/hierarchy"
+    filetype: excel
 
-    # rename:
-    #     NAICS: id
-    #     DESCRIPTION: name
+    type:
+        "2012 NAICS US   Code": "str"
 
-    # transform:
-    #     id:
-    #         -
-    #             type: replace
-    #             target: "/"
-    #             value: ""
-    #         -
-    #             type: replace
-    #             target: "-"
-    #             value: ""
-    #         -
-    #             type: "conditional_map"
-    #             target: "id"
-    #             func: "lambda x: '0'"
-    #             condition: "df.id.str.len() == 0"
+    rename:
+        "2012 NAICS US   Code": id
+        "2012 NAICS US Title": name
 
-    # agg:
-    #     name: "sum"
-
+    dropcols: ["Seq. No."]
 tables:
-    cbp_naics:
-        pk: ["id"]
+    new_naics:
+        pk_fill_nan: False
+        pk: ["id", "name"]

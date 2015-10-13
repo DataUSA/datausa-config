@@ -1,24 +1,23 @@
-# python src/main.py ~/Sites/datausa-config/acs/example.yaml
 global:
     seperator: ","
     name: acs
     use_schema: True
-    source : "dataX/acs/<sumlevel>_<tbl>_<column>.json"
+    source : "data/acs/<sumlevel>_<tbl>_<column>.json"
     filetype: json
     source_vars:
         sumlevel: ["state", "county"]
         tbl: ["B05006"]
         column:
           start: 1
-          end: 10
+          end: 161
           zfill: 3
 
     preprocess:
       func: "src.plugins.preprocess.acs_preprocess"
 
-    output : "dataX/output/acs/<sumlevel>_<tbl>_<column>"
+    output : "data/output/acs/<sumlevel>_<tbl>_<column>"
 
-    web_paths: "http://api.census.gov/data/2013/acs5?get=GEOID,<tbl>_<column>E,<tbl>_<column>M&for=<sumlevel>&key=87ad380a38312afe749c7f7f552a2c114445a454"
+    web_paths: "http://api.census.gov/data/2013/acs5?get=GEOID,<tbl>_<column>E,<tbl>_<column>M&for=<sumlevel>&key=$ACS_KEY"
     concat: YES
 
     # rename:
@@ -31,6 +30,7 @@ global:
 
     transform:
       - type: drop
+        strict: NO
         column: [tbl, sumlevel, column, state, county]
 
     rename:

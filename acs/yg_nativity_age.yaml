@@ -1,0 +1,81 @@
+global:
+    seperator: ","
+    name: acs
+    use_schema: True
+    source : "data/acs/<sumlevel>_<tbl>_<column>.json"
+    filetype: json
+    source_vars:
+        sumlevel: ["state", "county"]
+        tbl: ["B06001"]
+        column:
+          start: 14
+          end: 60
+          zfill: 3
+
+    preprocess:
+      func: "src.plugins.preprocess.acs_preprocess"
+
+    output : "data/output/acs/<sumlevel>_<tbl>_<column>"
+
+    web_paths: "http://api.census.gov/data/2013/acs5?get=GEOID,<tbl>_<column>E,<tbl>_<column>M&for=<sumlevel>&key=$ACS_KEY"
+    concat: YES
+
+    import_to_db: True
+    db_settings:
+        user: postgres
+        password_env_var: DATAUSA_PW
+        host: 162.209.124.219
+        db_name: datausa
+
+    regex_drop:
+        "B06001_0(25|37|49)<e_m>": "delete"
+
+    transform:
+      - type: drop
+        strict: NO
+        column: [tbl, sumlevel, column, state, county]
+      - type: add
+        column: under_5E
+        values: ["[B06001_014E]", "[B06001_026E]", "[B06001_038E]"]
+      # - type: add
+      #   column: under_5M
+      #   values: ["[B06001_014M]", "[B06001_026M]", "[B06001_038M]"]
+      # - type: add
+      #   column: 5_to_17
+      #   values: ["B06001_015E", "B06001_027E", "B06001_039E"]
+      # - type: add
+      #   column: 18_to_24
+      #   values: ["B06001_016E", "B06001_028E", "B06001_040E"]
+      # - type: add
+      #   column: 25_to_34
+      #   values: ["B06001_017E", "B06001_029E", "B06001_041E"]
+      # - type: add
+      #   column: 35_to_44
+      #   values: ["B06001_018E", "B06001_030E", "B06001_042E"]
+      # - type: add
+      #   column: 45_to_54
+      #   values: ["B06001_019E", "B06001_031E", "B06001_043E"]
+      # - type: add
+      #   column: 55_to_59
+      #   values: ["B06001_020E", "B06001_032E", "B06001_044E"]
+      # - type: add
+      #   column: 60_to_61
+      #   values: ["B06001_021E", "B06001_033E", "B06001_045E"]
+      # - type: add
+      #   column: 62_to_64
+      #   values: ["B06001_022E", "B06001_034E", "B06001_046E"]
+      # - type: add
+      #   column: 65_to_74
+      #   values: ["B06001_023E", "B06001_035E", "B06001_047E"]
+      # - type: add
+      #   column: 75_and_over
+      #   values: ["B06001_024E", "B06001_036E", "B06001_048E"]
+
+    rename:
+      GEOID: geo_id
+
+tables:
+  "yg_nativity_age":
+    pk: ["geo_id"]
+    agg: sum
+

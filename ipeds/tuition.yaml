@@ -145,6 +145,10 @@ tables:
                 column: oos_tuition_rank
                 type: rank
                 target: oos_tuition
+            -
+                column: state_tuition_rank
+                type: rank
+                target: state_tuition
     tuition_ycu:
         pk: ["year", "cip", "university"]
         filter:
@@ -181,3 +185,4 @@ tables:
                 column: "cip"
                 func: "eq"
                 value: "99"
+

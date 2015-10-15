@@ -1,0 +1,39 @@
+inherits: "acs/acs_template.yaml"
+global:
+    source_vars:
+        tbl: ["C24010"]
+        column:
+          start: 1
+          end: 3
+          zfill: 3
+        sumlevel: ["state"]
+      
+    # transform:
+    #   - type: melt
+    #     column: df
+    #     id_vars: ["year", "geo"]
+    #     value_vars: ["C24010_003E", "C24010_003M"]
+    #     value_name: "value"
+    #     var_name: "management"
+    #   - type: pivot_table
+    #     column: df
+    #     values: ["value"]
+    #     index: ["year", "geo"]
+    #     columns: ["management"]
+    transform:
+        - type: concat_and_fill
+          column: tmp
+          prefix: "_"
+          column1: column
+tables:
+  "ygo":
+    pk: ["year", "geo", "soc"]
+    agg: sum
+
+# df = pd.DataFrame({'GEOID': ['16000US0100100', '16000US0100124', '16000US0100460'],
+#                    'C24010_004E': [1, 2, 3],
+#                    'C24010_004M': [1, 2, 3],
+#                    'state': [1, 2, 3],
+#                    'place': [1, 2, 3]})
+# melted = pd.melt(df, id_vars=["GEOID"], value_vars=["C24010_004E", "C24010_004M"], value_name="value", var_name="management")
+# pivoted = pd.pivot_table(melted, values=["value"], index=['GEOID'], columns=['management'])

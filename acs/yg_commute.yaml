@@ -7,10 +7,10 @@ global:
     source_vars:
         year: [2013]
         sumlevel: ["state", "county"]
-        tbl: ["B16001"]
+        tbl: ["B19001"]
         column:
           start: 1
-          end: 119
+          end: 13
           zfill: 3
 
     preprocess:
@@ -28,13 +28,6 @@ global:
         host: 162.209.124.219
         db_name: datausa
 
-    regex_drop:
-        "B16001_0(04|05|07|08|10|11|13|14|16|17|19)<e_m>": "delete"
-        "B16001_0(20|22|23|25|26|28|29|31|32|34|35|37|38|40|41|43|44|46|47|49)<e_m>": "delete"
-        "B16001_0(50|52|53|55|56|58|59|61|62|64|65|67|68|70|71|73|74|76|77|79)<e_m>": "delete"
-        "B16001_(080|082|083|085|086|088|089|091|092|094|095|097|098|100|101|103|104|106|107|109)<e_m>": "delete"
-        "B16001_(110|112|113|115|116|118|119)<e_m>": "delete"
-
     transform:
       - type: drop
         strict: NO
@@ -44,6 +37,6 @@ global:
       GEOID: geo
 
 tables:
-  "yg_lang":
+  "yg_commute":
     pk: ["year", "geo"]
     agg: sum

@@ -5,6 +5,7 @@ global:
     source : "data/acs/<sumlevel>_<tbl>_<column>.json"
     filetype: json
     source_vars:
+        year: [2013]
         sumlevel: ["state", "county"]
         tbl: ["B03002"]
         column:
@@ -17,7 +18,7 @@ global:
 
     output : "data/output/acs/<sumlevel>_<tbl>_<column>"
 
-    web_paths: "http://api.census.gov/data/2013/acs5?get=GEOID,<tbl>_<column>E,<tbl>_<column>M&for=<sumlevel>&key=$ACS_KEY"
+    web_paths: "http://api.census.gov/data/<year>/acs5?get=GEOID,<tbl>_<column>E,<tbl>_<column>M&for=<sumlevel>&key=$ACS_KEY"
     concat: YES
 
     import_to_db: True
@@ -36,10 +37,10 @@ global:
         column: [tbl, sumlevel, column, state, county]
 
     rename:
-      GEOID: geo_id
+      GEOID: geo
 
 tables:
   "yg_race":
-    pk: ["geo_id"]
+    pk: ["year", "geo"]
     agg: sum
 

@@ -49,7 +49,8 @@ global:
         password_env_var: DATAUSA_PW
         host: 162.209.124.219
         db_name: datausa
-
+        type:
+            degree: text
 tables:
     yow:
         pk: ["year", "soc", "wage_bin"]

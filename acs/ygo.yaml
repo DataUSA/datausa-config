@@ -1,45 +1,37 @@
 inherits: "acs/acs_template.yaml"
 global:
-    concat: NO
-    source_vars:
-        tbl: ["C24010"]
-        column:
-          start: 1
-          end: 3
-          zfill: 3
-        sumlevel: ["state"]
+  concat: NO
+  source_vars:
+    tbl: ["C24010"]
+    column:
+      start: 1
+      end: 3
+      zfill: 3
+    sumlevel: ["state"]
 
-    # transform:
-    #   - type: melt
-    #     column: df
-    #     id_vars: ["year", "geo"]
-    #     value_vars: ["C24010_003E", "C24010_003M"]
-    #     value_name: "value"
-    #     var_name: "management"
-    #   - type: pivot_table
-    #     column: df
-    #     values: ["value"]
-    #     index: ["year", "geo"]
-    #     columns: ["management"]
+  transform:
+    - type: set_val
+      column: tmp
+      value: "_"
+    - type: zfill
+      size: 3
+      column: column
+    - type: concat
+      column: census_id
+      column0: tbl
+      column1: tmp
+      column2: column
+    - type: rename
+      column: "C24010_<column>E"
+      value: "num_emp"
+    - type: rename
+      column: "C24010_<column>M"
+      value: "num_emp_moe"
+    - type: join
+      source: acs/occupation_crosswalk.csv
+      left_on: census_id
+      right_on: census_id
 
-    transform:
-        - type: set_val
-          column: tmp
-          value: "_"
-        - type: zfill
-          size: 3
-          column: column
-        - type: concat
-          column: soc
-          column0: tbl
-          column1: tmp
-          column2: column
-        - type: rename
-          column: "C24010_<column>E"
-          value: "num_emp"
-        - type: rename
-          column: "C24010_<column>M"
-          value: "num_emp_moe"
 tables:
   "ygo":
     pk: ["year", "geo", "soc"]
@@ -47,10 +39,3 @@ tables:
       num_emp: "sum"
       num_emp_moe: "sum"
 
-# df = pd.DataFrame({'GEOID': ['16000US0100100', '16000US0100124', '16000US0100460'],
-#                    'C24010_004E': [1, 2, 3],
-#                    'C24010_004M': [1, 2, 3],
-#                    'state': [1, 2, 3],
-#                    'place': [1, 2, 3]})
-# melted = pd.melt(df, id_vars=["GEOID"], value_vars=["C24010_004E", "C24010_004M"], value_name="value", var_name="management")
-# pivoted = pd.pivot_table(melted, values=["value"], index=['GEOID'], columns=['management'])

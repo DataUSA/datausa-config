@@ -1,24 +1,30 @@
-inherits: "acs/acs_template.yaml"
+# inherits: "acs/acs_template.yaml"
 global:
+    preprocess:
+      func: "src.plugins.preprocess.acs_preprocess"
     concat: NO
     use_schema: True
     source: "data/acs/<sumlevel>.json"
     output: "data/output/acs/yg/"
     source_vars:
+        year: [2013]
         sumlevel:
-          - "us"
+          # - "us"
           - "state"
-          - "county"
-          - "metropolitan statistical area/micropolitan statistical area"
-          - "place"
-          - "zip+code+tabulation+area"
-          - "public+use+microdata+area"
-    web_paths: "http://api.census.gov/data/<year>/acs5?get=GEOID,B01002_001E,B01002_001M,B01003_001E,B01003_001M,B19013_001E,B19013_001M&for=<sumlevel>&key=$ACS_KEY"
+          # - "county"
+          # - "metropolitan statistical area/micropolitan statistical area"
+          # - "place"
+          # - "zip+code+tabulation+area"
+          # - "public+use+microdata+area"
+    web_paths: "http://api.census.gov/data/<year>/acs5?get=GEOID,B01002_001E,B01002_001M,B01003_001E,B01003_001M,B19013_001E,B19013_001M,B08006_001E,B08136_001E,B05001_006E&for=<sumlevel>&key=$ACS_KEY"
     db_settings:
       type:
         income: real
         income_moe: real
     transform:
+        - type: set_val
+          column: tmp
+          value: "_"
         - type: rename
           column: "B01002_001E"
           value: "age"
@@ -37,6 +43,15 @@ global:
         - type: rename
           column: "B19013_001M"
           value: "income_moe"
+        - type: rename
+          column: "B08136_001E"
+          value: "mean_commute_minutes"
+        - type: rename
+          column: "B08006_001E"
+          value: "num_commuters"
+        - type: rename
+          column: "B05001_006E"
+          value: "non_us_citizens"
         - type: rank
           column: "age_rank"
           target: age
@@ -46,6 +61,18 @@ global:
         - type: rank
           column: "income_rank"
           target: income
+        - type: div
+          column: "mean_commute_minutes"
+          value: "[num_commuters]"
+        - type: div
+          column: "non_us_citizens"
+          value: "[pop]"
+        - type: set_val
+          colunm: us_citizens
+          value: "1"
+        # - type: sub
+        #   column: "us_citizens"
+        #   value: "[non_us_citizens]"
         - type: drop
           strict: NO
           column:
@@ -60,6 +87,7 @@ global:
             - "zip code tabulation area"
             - "public use microdata area"
             - "tract"
+            - "num_commuters"
 
 tables:
   "yg":

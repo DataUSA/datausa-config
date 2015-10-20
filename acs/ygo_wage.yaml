@@ -1,0 +1,48 @@
+inherits: "acs/acs_template.yaml"
+global:
+
+    concat: NO
+    source_vars:
+        tbl: ["B24011"]
+        column:
+          start: 1
+          end: 36
+          zfill: 3
+
+    import_to_db: True
+    transform:
+        - type: set_val
+          column: tmp
+          value: "_"
+        - type: zfill
+          size: 3
+          column: column
+        - type: concat
+          column: census_id
+          column0: tbl
+          column1: tmp
+          column2: column
+        - type: rename
+          column: "B24011_<column>E"
+          value: "wage"
+        - type: rename
+          column: "B24011_<column>M"
+          value: "wage_moe"
+        - type: join
+          source: acs/helpers/acs_5year_B24011_crosswalk.csv
+          settings:
+            filetype: csv
+          left_on: census_id
+          right_on: census_id
+          how: left
+    db_settings:
+      type:
+        wage: real
+        wage_moe: real
+          
+tables:
+  "ygo_wage":
+    pk: ["year", "geo", "soc"]
+    agg:
+      wage: "sum"
+      wage_moe: "sum"

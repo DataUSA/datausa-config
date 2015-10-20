@@ -1,0 +1,13 @@
+inherits: "acs/acs_template.yaml"
+global:
+    source_vars:
+        tbl: ["B17001"]
+        column:
+          start: 1
+          end: 30
+          zfill: 3
+
+tables:
+  "yg_poverty":
+    pk: ["year", "geo"]
+    agg: sum

@@ -1,82 +1,56 @@
+inherits: "acs/acs_template.yaml"
 global:
-    seperator: ","
-    name: acs
-    use_schema: True
-    source : "data/acs/<sumlevel>_<tbl>_<column>.json"
-    filetype: json
-    source_vars:
-        year: [2013]
-        sumlevel: ["state", "county"]
-        tbl: ["B21002"]
-        column:
-          start: 1
-          end: 12
-          zfill: 3
+  source_vars:
+    tbl: ["B21002"]
+    column:
+      start: 1
+      end: 12
+      zfill: 3
 
-    preprocess:
-      func: "src.plugins.preprocess.acs_preprocess"
+  post_agg_transform:
+    - type: add
+      column: koreaE
+      values: ["[B21002_010E]", "[B21002_011E]"]
+      drop: YES
+    - type: combine_moes
+      confidence: 0.9
+      column: koreaM
+      values: ["B21002_010M", "B21002_011M"]
+      drop: YES
+    - type: add
+      column: vietnamE
+      values: ["[B21002_007E]", "[B21002_008E]", "[B21002_009E]"]
+      drop: YES
+    - type: combine_moes
+      confidence: 0.9
+      column: vietnamM
+      values: ["B21002_007M", "B21002_008M", "B21002_009M"]
+      drop: YES
+    - type: add
+      column: gulf90sE
+      values: ["[B21002_005E]", "[B21002_006E]"]
+      drop: YES
+    - type: combine_moes
+      confidence: 0.9
+      column: gulf90sM
+      values: ["B21002_005M", "B21002_006M"]
+      drop: YES
+    - type: add
+      column: gulf01E
+      values: ["[B21002_002E]", "[B21002_003E]", "[B21002_004E]"]
+      drop: YES
+    - type: combine_moes
+      confidence: 0.9
+      column: gulf01M
+      values: ["B21002_002M", "B21002_003M", "B21002_004M"]
+      drop: YES
 
-    output : "data/output/acs/<sumlevel>_<tbl>_<column>"
-
-    web_paths: "http://api.census.gov/data/<year>/acs5?get=GEOID,<tbl>_<column>E,<tbl>_<column>M&for=<sumlevel>&key=$ACS_KEY"
-    concat: YES
-
-    import_to_db: True
-    db_settings:
-        user: postgres
-        password_env_var: DATAUSA_PW
-        host: 162.209.124.219
-        db_name: datausa
-
-    transform:
-      - type: drop
-        strict: NO
-        column: [tbl, sumlevel, column, state, county]
-
-    post_agg_transform:
-      - type: add
-        column: koreaE
-        values: ["[B21002_010E]", "[B21002_011E]"]
-        drop: YES
-      - type: combine_moes
-        confidence: 0.9
-        column: koreaM
-        values: ["B21002_010M", "B21002_011M"]
-        drop: YES
-      - type: add
-        column: vietnamE
-        values: ["[B21002_007E]", "[B21002_008E]", "[B21002_009E]"]
-        drop: YES
-      - type: combine_moes
-        confidence: 0.9
-        column: vietnamM
-        values: ["B21002_007M", "B21002_008M", "B21002_009M"]
-        drop: YES
-      - type: add
-        column: gulf90sE
-        values: ["[B21002_005E]", "[B21002_006E]"]
-        drop: YES
-      - type: combine_moes
-        confidence: 0.9
-        column: gulf90sM
-        values: ["B21002_005M", "B21002_006M"]
-        drop: YES
-      - type: add
-        column: gulf01E
-        values: ["[B21002_002E]", "[B21002_003E]", "[B21002_004E]"]
-        drop: YES
-      - type: combine_moes
-        confidence: 0.9
-        column: gulf01M
-        values: ["B21002_002M", "B21002_003M", "B21002_004M"]
-        drop: YES
-
-    rename:
-      GEOID: geo
-      B21002_001E: totalE
-      B21002_001M: totalM
-      B21002_012E: wwiiE
-      B21002_012M: wwiiM
+  rename:
+    GEOID: geo
+    B21002_001E: totalE
+    B21002_001M: totalM
+    B21002_012E: wwiiE
+    B21002_012M: wwiiM
 
 tables:
   "yg_conflict":

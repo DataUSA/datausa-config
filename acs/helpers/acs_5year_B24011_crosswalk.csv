@@ -1,0 +1,37 @@
+census_id,depth,name,soc
+B24011_001,0,Total:,total
+B24011_002,0,"Management, business, science, and arts occupations:",110000-290000
+B24011_003,1,"Management, business, and financial occupations:",110000-130000
+B24011_004,2,Management occupations,110000
+B24011_005,2,Business and financial operations occupations,130000
+B24011_006,1,"Computer, engineering, and science occupations:",150000-190000
+B24011_007,2,Computer and mathematical occupations,150000
+B24011_008,2,Architecture and engineering occupations,170000
+B24011_009,2,"Life, physical, and social science occupations",190000
+B24011_010,1,"Education, legal, community service, arts, and media occupations:",210000-270000
+B24011_011,2,Community and social service occupations,210000
+B24011_012,2,Legal occupations,230000
+B24011_013,2,"Education, training, and library occupations",250000
+B24011_014,2,"Arts, design, entertainment, sports, and media occupations",270000
+B24011_015,1,Healthcare practitioners and technical occupations:,290000
+B24011_016,2,Health diagnosing and treating practitioners and other technical occupations,
+B24011_017,2,Health technologists and technicians,292090
+B24011_018,0,Service occupations:,310000-390000
+B24011_019,1,Healthcare support occupations,310000
+B24011_020,1,Protective service occupations:,330000
+B24011_021,2,"Fire fighting and prevention, and other protective service workers including supervisors",331021
+B24011_022,2,Law enforcement workers including supervisors,331012
+B24011_023,1,Food preparation and serving related occupations,350000
+B24011_024,1,Building and grounds cleaning and maintenance occupations,370000
+B24011_025,1,Personal care and service occupations,390000
+B24011_026,0,Sales and office occupations:,410000-430000
+B24011_027,1,Sales and related occupations,410000
+B24011_028,1,Office and administrative support occupations,430000
+B24011_029,0,"Natural resources, construction, and maintenance occupations:",450000-490000
+B24011_030,1,"Farming, fishing, and forestry occupations",450000
+B24011_031,1,Construction and extraction occupations,470000
+B24011_032,1,"Installation, maintenance, and repair occupations",490000
+B24011_033,0,"Production, transportation, and material moving occupations:",510000-530000
+B24011_034,1,Production occupations,510000
+B24011_035,1,Transportation occupations,531000-536000
+B24011_036,1,Material moving occupations,537000

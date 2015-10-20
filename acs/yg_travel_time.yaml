@@ -1,0 +1,13 @@
+inherits: "acs/acs_template.yaml"
+global:
+    source_vars:
+        tbl: ["B08303"]
+        column:
+          start: 1
+          end: 13
+          zfill: 3
+
+tables:
+  "yg_travel_time":
+    pk: ["year", "geo"]
+    agg: sum

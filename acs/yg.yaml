@@ -1,21 +1,23 @@
 inherits: "acs/acs_template.yaml"
 global:
+    concat: NO
     use_schema: True
-    source: "data/acs/<sumlevel>_<tbl>_<column>.json"
+    source: "data/acs/<sumlevel>.json"
+    output: "data/output/acs/yg/"
     source_vars:
-        tbl: ["B01002","B01003","B19013"]
-        column:
-          start: 1
-          end: 1
-          zfill: 3
         sumlevel:
+          - "us"
           - "state"
           - "county"
-          - "metropolitan+statistical+area/micropolitan+statistical+area"
+          - "metropolitan statistical area/micropolitan statistical area"
           - "place"
           - "zip+code+tabulation+area"
           - "public+use+microdata+area"
-
+    web_paths: "http://api.census.gov/data/<year>/acs5?get=GEOID,B01002_001E,B01002_001M,B01003_001E,B01003_001M,B19013_001E,B19013_001M&for=<sumlevel>&key=$ACS_KEY"
+    db_settings:
+      type:
+        income: real
+        income_moe: real
     transform:
         - type: rename
           column: "B01002_001E"
@@ -35,9 +37,19 @@ global:
         - type: rename
           column: "B19013_001M"
           value: "income_moe"
+        - type: rank
+          column: "age_rank"
+          target: age
+        - type: rank
+          column: "pop_rank"
+          target: pop
+        - type: rank
+          column: "income_rank"
+          target: income
         - type: drop
           strict: NO
           column:
+            - us
             - tbl
             - sumlevel
             - column
@@ -49,7 +61,6 @@ global:
             - "public use microdata area"
             - "tract"
 
-          
 tables:
   "yg":
     pk: ["year", "geo"]

@@ -1,11 +1,9 @@
-# inherits: "acs/acs_template.yaml"
+inherits: "acs/acs_template.yaml"
 global:
-    preprocess:
-      func: "src.plugins.preprocess.acs_preprocess"
     concat: NO
     use_schema: True
-    source: "data/acs/<sumlevel>.json"
-    output: "data/output/acs/yg/"
+    source: "data/acs/<year>_<sumlevel>.json"
+    output: "data/output/acs/yg/<year>/<sumlevel>"
     source_vars:
         year: [2013]
         sumlevel:
@@ -68,11 +66,11 @@ global:
           column: "non_us_citizens"
           value: "[pop]"
         - type: set_val
-          colunm: us_citizens
-          value: "1"
-        # - type: sub
-        #   column: "us_citizens"
-        #   value: "[non_us_citizens]"
+          column: us_citizens
+          value: 1
+        - type: sub
+          column: "us_citizens"
+          value: "[non_us_citizens]"
         - type: drop
           strict: NO
           column:

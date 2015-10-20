@@ -2,20 +2,23 @@ inherits: "acs/acs_template.yaml"
 global:
 
     concat: NO
+    name: acs_3year
+    use_schema: True
+    source: "data/acs_3year/<sumlevel>_<tbl>_<column>.json"
     source_vars:
-        tbl: ["C24010"]
+        tbl: ["B24030"]
         column:
-          start: 1
-          end: 3
+          start: 3
+          end: 104
           zfill: 3
         sumlevel:
           - "state"
           - "county"
           - "place"
-          - "zip+code+tabulation+area"
+          # - "zip+code+tabulation+area"
           - "public+use+microdata+area"
-    web_paths: "http://api.census.gov/data/<year>/acs5?get=GEOID,<tbl>_<column>E,<tbl>_<column>M,<tbl>_<column+36z3>E,<tbl>_<column+36z3>M&for=<sumlevel>&key=$ACS_KEY"
-    output: "data/acs/<tbl>/<sumlevel>/<column>"
+    web_paths: "http://api.census.gov/data/<year>/acs3?get=GEOID,<tbl>_<column>E,<tbl>_<column>M,<tbl>_<column+104z3>E,<tbl>_<column+104z3>M&for=<sumlevel>&key=$ACS_KEY"
+    output: "data/acs_3year/<tbl>/<sumlevel>/<column>"
 
     import_to_db: True
     transform:
@@ -31,16 +34,16 @@ global:
           column1: tmp
           column2: column
         - type: rename
-          column: "C24010_<column>E"
+          column: "B24030_<column>E"
           value: "num_emp_male"
         - type: rename
-          column: "C24010_<column+36z3>E"
+          column: "B24030_<column+104z3>E"
           value: "num_emp_female"
         - type: rename
-          column: "C24010_<column>M"
+          column: "B24030_<column>M"
           value: "num_emp_male_moe"
         - type: rename
-          column: "C24010_<column+36z3>M"
+          column: "B24030_<column+104z3>M"
           value: "num_emp_female_moe"
         - type: add
           column: num_emp
@@ -50,15 +53,16 @@ global:
           column: num_emp_moe
           values: ["num_emp_male_moe", "num_emp_female_moe"]
         - type: join
-          source: acs_5year_C24010_crosswalk.csv
+          source: acs/helpers/acs_3year_B24030_crosswalk.csv
           settings:
             filetype: csv
           left_on: census_id
           right_on: census_id
+          how: left
           
 tables:
-  "ygo":
-    pk: ["year", "geo", "soc"]
+  "ygi":
+    pk: ["year", "geo", "naics"]
     agg:
       num_emp: "sum"
       num_emp_moe: "sum"
@@ -66,10 +70,3 @@ tables:
       num_emp_female: "sum"
       num_emp_male_moe: "sum"
       num_emp_female_moe: "sum"
-# df = pd.DataFrame({'GEOID': ['16000US0100100', '16000US0100124', '16000US0100460'],
-#                    'C24010_004E': [1, 2, 3],
-#                    'C24010_004M': [1, 2, 3],
-#                    'state': [1, 2, 3],
-#                    'place': [1, 2, 3]})
-# melted = pd.melt(df, id_vars=["GEOID"], value_vars=["C24010_004E", "C24010_004M"], value_name="value", var_name="management")
-# pivoted = pd.pivot_table(melted, values=["value"], index=['GEOID'], columns=['management'])

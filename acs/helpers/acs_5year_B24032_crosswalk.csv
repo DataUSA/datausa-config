@@ -1,0 +1,27 @@
+census_id,name,naics
+B24032_002,"Agriculture, forestry, fishing and hunting, and mining:",11-21
+B24032_003,"Agriculture, forestry, fishing and hunting",11
+B24032_004,"Mining, quarrying, and oil and gas extraction",21
+B24032_005,"Construction",23
+B24032_006,"Manufacturing",31-33
+B24032_007,"Wholesale trade",42
+B24032_008,"Retail trade",44-45
+B24032_009,"Transportation and warehousing, and utilities:","48-49,22"
+B24032_010,"Transportation and warehousing",48-49
+B24032_011,"Utilities",22
+B24032_012,"Information",51
+B24032_013,"Finance and insurance, and real estate and rental and leasing:","52,53"
+B24032_014,"Finance and insurance",52
+B24032_015,"Real estate and rental and leasing",53
+B24032_016,"Professional, scientific, and management, and administrative and waste management services:",54-56
+B24032_017,"Professional, scientific, and technical services",54
+B24032_018,"Management of companies and enterprises",55
+B24032_019,"Administrative and support and waste management services",56
+B24032_020,"Educational services, and health care and social assistance:","61-62"
+B24032_021,"Educational services",61
+B24032_022,"Health care and social assistance",62
+B24032_023,"Arts, entertainment, and recreation, and accommodations and food services",71-72
+B24032_024,"Arts, entertainment, and recreation",71
+B24032_025,"Accommodation and food services",72
+B24032_026,"Other services except public administration",81
+B24032_027,"Public administration",92

@@ -1,0 +1,69 @@
+inherits: "acs/acs_template.yaml"
+global:
+
+    concat: NO
+    source_vars:
+        tbl: ["B24032"]
+        column:
+          start: 2
+          end: 26
+          zfill: 3
+        sumlevel:
+          - "state"
+          - "county"
+          - "place"
+          - "zip+code+tabulation+area"
+          - "public+use+microdata+area"
+    web_paths: "http://api.census.gov/data/<year>/acs5?get=GEOID,<tbl>_<column>E,<tbl>_<column>M,<tbl>_<column+27z3>E,<tbl>_<column+27z3>M&for=<sumlevel>&key=$ACS_KEY"
+    output: "data/acs/<tbl>/<sumlevel>/<column>"
+
+    import_to_db: True
+    transform:
+        - type: set_val
+          column: tmp
+          value: "_"
+        - type: zfill
+          size: 3
+          column: column
+        - type: concat
+          column: census_id
+          column0: tbl
+          column1: tmp
+          column2: column
+        - type: rename
+          column: "B24032_<column>E"
+          value: "wage_male"
+        - type: rename
+          column: "B24032_<column+27z3>E"
+          value: "wage_female"
+        - type: rename
+          column: "B24032_<column>M"
+          value: "wage_male_moe"
+        - type: rename
+          column: "B24032_<column+27z3>M"
+          value: "wage_female_moe"
+        - type: add
+          column: wage
+          values: ["[wage_male]", "[wage_female]"]
+        - type: combine_moes
+          confidence: 0.9
+          column: wage_moe
+          values: ["wage_male_moe", "wage_female_moe"]
+        - type: join
+          source: acs/helpers/acs_5year_B24032_crosswalk.csv
+          settings:
+            filetype: csv
+          left_on: census_id
+          right_on: census_id
+          how: left
+          
+tables:
+  "ygi":
+    pk: ["year", "geo", "naics"]
+    agg:
+      wage: "sum"
+      wage_moe: "sum"
+      wage_male: "sum"
+      wage_female: "sum"
+      wage_male_moe: "sum"
+      wage_female_moe: "sum"

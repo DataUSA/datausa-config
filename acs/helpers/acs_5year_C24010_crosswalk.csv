@@ -1,0 +1,36 @@
+census_id,depth,name,soc
+C24010_003E,0,"Management, business, science, and arts occupations:",110000-290000
+C24010_004E,1,"Management, business, and financial occupations:",110000-130000
+C24010_005E,2,Management occupations,110000
+C24010_006E,2,Business and financial operations occupations,130000
+C24010_007E,1,"Computer, engineering, and science occupations:",150000-190000
+C24010_008E,2,Computer and mathematical occupations,150000
+C24010_009E,2,Architecture and engineering occupations,170000
+C24010_010E,2,"Life, physical, and social science occupations",190000
+C24010_011E,1,"Education, legal, community service, arts, and media occupations:",210000-270000
+C24010_012E,2,Community and social service occupations,210000
+C24010_013E,2,Legal occupations,230000
+C24010_014E,2,"Education, training, and library occupations",250000
+C24010_015E,2,"Arts, design, entertainment, sports, and media occupations",270000
+C24010_016E,1,Healthcare practitioners and technical occupations:,290000
+C24010_017E,2,Health diagnosing and treating practitioners and other technical occupations
+C24010_018E,2,Health technologists and technicians,292090
+C24010_019E,0,Service occupations:,310000-390000
+C24010_020E,1,Healthcare support occupations,310000
+C24010_021E,1,Protective service occupations:,330000
+C24010_022E,2,"Fire fighting and prevention, and other protective service workers including supervisors",331021
+C24010_023E,2,Law enforcement workers including supervisors,331012
+C24010_024E,1,Food preparation and serving related occupations,350000
+C24010_025E,1,Building and grounds cleaning and maintenance occupations,370000
+C24010_026E,1,Personal care and service occupations,390000
+C24010_027E,0,Sales and office occupations:,410000-430000
+C24010_028E,1,Sales and related occupations,410000
+C24010_029E,1,Office and administrative support occupations,430000
+C24010_030E,0,"Natural resources, construction, and maintenance occupations:",450000-490000
+C24010_031E,1,"Farming, fishing, and forestry occupations",450000
+C24010_032E,1,Construction and extraction occupations,470000
+C24010_033E,1,"Installation, maintenance, and repair occupations",490000
+C24010_034E,0,"Production, transportation, and material moving occupations:",510000-530000
+C24010_035E,1,Production occupations,510000
+C24010_036E,1,Transportation occupations,531000-536000
+C24010_037E,1,Material moving occupations,537000

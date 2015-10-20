@@ -13,7 +13,7 @@ C24010_013E,2,Legal occupations,230000
 C24010_014E,2,"Education, training, and library occupations",250000
 C24010_015E,2,"Arts, design, entertainment, sports, and media occupations",270000
 C24010_016E,1,Healthcare practitioners and technical occupations:,290000
-C24010_017E,2,Health diagnosing and treating practitioners and other technical occupations
+C24010_017E,2,Health diagnosing and treating practitioners and other technical occupations,"291199,299000"
 C24010_018E,2,Health technologists and technicians,292090
 C24010_019E,0,Service occupations:,310000-390000
 C24010_020E,1,Healthcare support occupations,310000

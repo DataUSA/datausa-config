@@ -4,9 +4,11 @@ import pandas as pd
 @click.command()
 @click.argument('tbl', type=str)
 @click.argument('estimate', type=str, default='5')
-def fetch_crosswalk(tbl, estimate):
+@click.option('--gender/--no-gender', default=False)
+def fetch_crosswalk(tbl, estimate, gender):
     acs = pd.read_json('http://api.census.gov/data/2013/acs{}/variables.json'.format(estimate))
     col = 0
+    desc_offset = 2 if gender else 1
     lookup = {}
     while True:
         col += 1
@@ -17,11 +19,11 @@ def fetch_crosswalk(tbl, estimate):
             break
         desc = row['variables']['label']
         desc = desc.split("!!")
-        if len(desc) < 2:
+        if len(desc) < desc_offset:
             continue
-        depth = len(desc) - 2
+        depth = len(desc) - desc_offset
         if desc[-1] not in lookup:
-            lookup[desc[-1]] = ['{}_{}E'.format(tbl, zfilled_col), depth, desc[-1]]
+            lookup[desc[-1]] = ['{}_{}'.format(tbl, zfilled_col), depth, desc[-1]]
     if lookup.values():
         with open('acs_{}year_{}_crosswalk.csv'.format(estimate, tbl), 'w') as csvfile:
             csvwriter = csv.writer(csvfile)

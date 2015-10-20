@@ -1,75 +1,68 @@
 inherits: "acs/acs_template.yaml"
 global:
 
-    concat: NO
-    source_vars:
-        tbl: ["C24010"]
-        column:
-          start: 1
-          end: 3
-          zfill: 3
-        sumlevel:
-          - "state"
-          - "county"
-          - "place"
-          - "zip+code+tabulation+area"
-          - "public+use+microdata+area"
-    web_paths: "http://api.census.gov/data/<year>/acs5?get=GEOID,<tbl>_<column>E,<tbl>_<column>M,<tbl>_<column+36z3>E,<tbl>_<column+36z3>M&for=<sumlevel>&key=$ACS_KEY"
-    output: "data/acs/<tbl>/<sumlevel>/<column>"
+  concat_border: "sumlevel" 
+  source: "data/output/test/<sumlevel>_<tbl>_<column>_<year>.json"
+  source_vars:
+    year: [2013]
+    tbl: ["C24010"]
+    sumlevel:
+      # - "county"
+      - "place"
+      # - "public+use+microdata+area"
+      # - "metropolitan+statistical+area/micropolitan+statistical+area"
+    column:
+      start: 3
+      end: 73
+      zfill: 3
+      exclude: [38]
 
-    import_to_db: True
-    transform:
-        - type: set_val
-          column: tmp
-          value: "_"
-        - type: zfill
-          size: 3
-          column: column
-        - type: concat
-          column: census_id
-          column0: tbl
-          column1: tmp
-          column2: column
-        - type: rename
-          column: "C24010_<column>E"
-          value: "num_emp_male"
-        - type: rename
-          column: "C24010_<column+36z3>E"
-          value: "num_emp_female"
-        - type: rename
-          column: "C24010_<column>M"
-          value: "num_emp_male_moe"
-        - type: rename
-          column: "C24010_<column+36z3>M"
-          value: "num_emp_female_moe"
-        - type: add
-          column: num_emp
-          values: ["[num_emp_male]", "[num_emp_female]"]
-        - type: combine_moes
-          confidence: 0.9
-          column: num_emp_moe
-          values: ["num_emp_male_moe", "num_emp_female_moe"]
-        - type: join
-          source: acs_5year_C24010_crosswalk.csv
-          settings:
-            filetype: csv
-          left_on: census_id
-          right_on: census_id
-          
+  expand_vars:
+    column:
+      start: 3
+      end: 73
+      exclude: [38]
+      zfill: 3
+      joiner: ","
+
+  web_paths: "http://api.census.gov/data/<year>/acs5?get=GEOID,<tbl>_<column>E,<tbl>_<column>M&for=<sumlevel>&key=$ACS_KEY"
+  output: "data/acs/<tbl>/<year>/<sumlevel>/<column>/"
+  # fillna:
+  import_to_db: False
+  transform:
+    - type: plugin
+      func: src.plugins.census.acs.helper.ygo
+      value_vars: ["{column:<tbl>_<column>E}", "{column:<tbl>_<column>M}"]
+      offset: 36
+      midpoint: 38
+    - type: add
+      column: num_emp
+      values: ["[num_emp_male]", "[num_emp_female]"]
+    - type: combine_moes
+      confidence: 0.9
+      column: num_emp_moe
+      values: ["num_emp_moe_male", "num_emp_moe_female"]
+    - type: rca
+      index: ["year", "geo"]
+      column: "census_id"
+      values: [num_emp]
+    - type: drop
+      column: index
+    - type: join
+      source: acs/helpers/acs_5year_C24010_crosswalk.csv
+      settings:
+        filetype: csv
+        left_on: census_id
+        right_on: census_id
+        how: left
+        usecols: [census_id, soc]
+    - type: drop
+      column: census_id
+
+  rename:
+      GEOID: geo
+
 tables:
-  "ygo":
+  ygo:
     pk: ["year", "geo", "soc"]
-    agg:
-      num_emp: "sum"
-      num_emp_moe: "sum"
-      num_emp_male: "sum"
-      num_emp_female: "sum"
-      num_emp_male_moe: "sum"
-      num_emp_female_moe: "sum"
-# df = pd.DataFrame({'GEOID': ['16000US0100100', '16000US0100124', '16000US0100460'],
-#                    'C24010_004E': [1, 2, 3],
-#                    'C24010_004M': [1, 2, 3],
-#                    'state': [1, 2, 3],
-#                    'place': [1, 2, 3]})
-# melted = pd.melt(df, id_vars=["GEOID"], value_vars=["C24010_004E", "C24010_004M"], value_name="value", var_name="management")
-# pivoted = pd.pivot_table(melted, values=["value"], index=['GEOID'], columns=['management'])
+    agg: sum

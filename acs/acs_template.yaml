@@ -23,6 +23,7 @@ global:
     concat: YES
 
     import_to_db: True
+    add_pks: True
     db_settings:
         user: postgres
         password_env_var: DATAUSA_PW

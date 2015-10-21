@@ -3,11 +3,17 @@ global:
     name: acs
     use_schema: True
     source : "data/acs/<sumlevel>_<tbl>_<column>.json"
-    output: "data/output/acs/yg_lang/"
+    output: "data/output/yglang/<year>/<sumlevel>/<tbl>/<column>/"
+    concat_border: "sumlevel"
     filetype: json
     source_vars:
         year: [2013]
-        sumlevel: ["county"]
+        sumlevel:
+            - us
+            - state
+            - "county"
+            - "place"
+            - "public+use+microdata+area"
         tbl: ["B16001"]
         column:
           start: 2
@@ -32,10 +38,7 @@ global:
     preprocess:
       func: "src.plugins.preprocess.acs_preprocess"
 
-    output : "data/output/acs/<sumlevel>_<tbl>_<column>"
-
     web_paths: "http://api.census.gov/data/<year>/acs5?get=GEOID,<tbl>_<column>E,<tbl>_<column>M&for=<sumlevel>&key=$ACS_KEY"
-    concat: YES
 
     import_to_db: True
     db_settings:
@@ -55,10 +58,12 @@ global:
           index: ["year", "geo"]
           column: "language"
           values: [num_speakers]
+        - type: drop
+          column: index
     rename:
       GEOID: geo
 
 tables:
-  "yg_lang_beta":
+  "ygl_speakers":
     pk: ["year", "geo", "language"]
     agg: sum

@@ -1,0 +1,27 @@
+census_id,naics,name
+B24031_002,11-21,"Agriculture, forestry, fishing and hunting, and mining:"
+B24031_003,11,"Agriculture, forestry, fishing and hunting"
+B24031_004,21,"Mining, quarrying, and oil and gas extraction"
+B24031_005,23,Construction
+B24031_006,31-33,Manufacturing
+B24031_007,42,Wholesale trade
+B24031_008,44-45,Retail trade
+B24031_009,"48-49,22","Transportation and warehousing, and utilities:"
+B24031_010,48-49,Transportation and warehousing
+B24031_011,22,Utilities
+B24031_012,51,Information
+B24031_013,52-53,"Finance and insurance, and real estate and rental and leasing:"
+B24031_014,52,Finance and insurance
+B24031_015,53,Real estate and rental and leasing
+B24031_016,54-56,"Professional, scientific, and management, and administrative and waste management services:"
+B24031_017,54,"Professional, scientific, and technical services"
+B24031_018,55,"Management of companies and enterprises"
+B24031_019,56,"Administrative and support and waste management services"
+B24031_020,61-62,"Educational services, and health care and social assistance:"
+B24031_021,61,"Educational services"
+B24031_022,62,"Health care and social assistance"
+B24031_023,71-72,"Arts, entertainment, and recreation, and accommodations and food services"
+B24031_024,71,"Arts, entertainment, and recreation"
+B24031_025,72,"Accommodation and food services"
+B24031_026,81,"Other services except public administration"
+B24031_027,92,"Public administration"

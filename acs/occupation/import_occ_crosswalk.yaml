@@ -2,7 +2,7 @@ global:
     seperator: ","
     use_schema: True
     name: attrs
-    source: "acs_5year_C24010_crosswalk.csv"
+    source: "acs/occupation/acs_5year_C24010_crosswalk.csv"
     filetype: csv
     output: tmp
 
@@ -18,11 +18,11 @@ global:
           source: "acs_3year_B24010_crosswalk.csv"
           settings:
             filetype: csv
-            usecols: [idtest, name, depth]
-          left_on: [idtest, name, depth]
-          right_on: [idtest, name, depth]
+            usecols: [id, name, depth]
+          left_on: [id, name, depth]
+          right_on: [id, name, depth]
           how: outer
-    usecols: [idtest, name, depth]
+    usecols: [id, name, depth]
 
 tables:
   acs_occ:

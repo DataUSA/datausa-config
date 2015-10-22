@@ -1,37 +1,37 @@
-census_id,depth,name,soc
+col,depth,name,id
 B24011_001,0,Total:,total
-B24011_002,0,"Management, business, science, and arts occupations:",110000-290000
-B24011_003,1,"Management, business, and financial occupations:",110000-130000
-B24011_004,2,Management occupations,110000
-B24011_005,2,Business and financial operations occupations,130000
-B24011_006,1,"Computer, engineering, and science occupations:",150000-190000
-B24011_007,2,Computer and mathematical occupations,150000
-B24011_008,2,Architecture and engineering occupations,170000
-B24011_009,2,"Life, physical, and social science occupations",190000
-B24011_010,1,"Education, legal, community service, arts, and media occupations:",210000-270000
-B24011_011,2,Community and social service occupations,210000
-B24011_012,2,Legal occupations,230000
-B24011_013,2,"Education, training, and library occupations",250000
-B24011_014,2,"Arts, design, entertainment, sports, and media occupations",270000
-B24011_015,1,Healthcare practitioners and technical occupations:,290000
-B24011_016,2,Health diagnosing and treating practitioners and other technical occupations,
-B24011_017,2,Health technologists and technicians,292090
-B24011_018,0,Service occupations:,310000-390000
-B24011_019,1,Healthcare support occupations,310000
-B24011_020,1,Protective service occupations:,330000
-B24011_021,2,"Fire fighting and prevention, and other protective service workers including supervisors",331021
-B24011_022,2,Law enforcement workers including supervisors,331012
-B24011_023,1,Food preparation and serving related occupations,350000
-B24011_024,1,Building and grounds cleaning and maintenance occupations,370000
-B24011_025,1,Personal care and service occupations,390000
-B24011_026,0,Sales and office occupations:,410000-430000
-B24011_027,1,Sales and related occupations,410000
-B24011_028,1,Office and administrative support occupations,430000
-B24011_029,0,"Natural resources, construction, and maintenance occupations:",450000-490000
-B24011_030,1,"Farming, fishing, and forestry occupations",450000
-B24011_031,1,Construction and extraction occupations,470000
-B24011_032,1,"Installation, maintenance, and repair occupations",490000
-B24011_033,0,"Production, transportation, and material moving occupations:",510000-530000
-B24011_034,1,Production occupations,510000
-B24011_035,1,Transportation occupations,531000-536000
-B24011_036,1,Material moving occupations,537000
+B24011_002,0,"Management, business, science, and arts occupations:",2f37598edd1c37fbe6ad25acb2e937f700f05bb5
+B24011_003,1,"Management, business, and financial occupations:",68894c217284870eaec5f912b1daa2791c5bfba5
+B24011_004,2,Management occupations,a79c29902cfb6e678fe09b5cbb2fb031e9b081d3
+B24011_005,2,Business and financial operations occupations,da7785f119d1cd19a42a9e9bdb0954d03775fe40
+B24011_006,1,"Computer, engineering, and science occupations:",51f76cb40c9e8ce95f8acd422bbf6f33c5aa8800
+B24011_007,2,Computer and mathematical occupations,423f9def5153ad935302d326b6c3330300b3c4db
+B24011_008,2,Architecture and engineering occupations,81f0a53015adcca94294585fc345ff33165efbee
+B24011_009,2,"Life, physical, and social science occupations",007d96cf4985f9b282c48e5143a94a8281bc27bf
+B24011_010,1,"Education, legal, community service, arts, and media occupations:",e57ce5473bf74ab40e810855d1f5fcd512fd3d22
+B24011_011,2,Community and social service occupations,4258e9ef8f695c5494b808a26990763754b2c5f6
+B24011_012,2,Legal occupations,6ae46dfae31fdbbff2bc890f28b8c9f72a5d9c7f
+B24011_013,2,"Education, training, and library occupations",b9ccc5bc50175656e0a403c40bdf5aa169c782b8
+B24011_014,2,"Arts, design, entertainment, sports, and media occupations",472d6c29268e6528cd429f7b10716d7ed0f4d89f
+B24011_015,1,Healthcare practitioners and technical occupations:,6446d0b08827a4eee19fcd82b24b99b47bdaf079
+B24011_016,2,Health diagnosing and treating practitioners and other technical occupations,f6822b348a25dd214c672f9f6721b6f7e8075b65
+B24011_017,2,Health technologists and technicians,ce4dc6aa5c6d45b43c1525a744f3c8c2720a6bc2
+B24011_018,0,Service occupations:,a265dbfcc4a1e7343952d068d1cdce43e072f921
+B24011_019,1,Healthcare support occupations,aa0d217604d8451c83ec6f9bd63624c9cfc87a35
+B24011_020,1,Protective service occupations:,78cd6d8c6a2856b744769fb05711c149abc7acdc
+B24011_021,2,"Fire fighting and prevention, and other protective service workers including supervisors",2e2caf80675f55d96001b3e8656da894812ab4ee
+B24011_022,2,Law enforcement workers including supervisors,95a8bd046820717e01058d0cfb846ea0696ce2aa
+B24011_023,1,Food preparation and serving related occupations,f9aba8d02bc8b9624f1ed2eb454cb16fc55412d5
+B24011_024,1,Building and grounds cleaning and maintenance occupations,76c60e170c2e1fdfbaeb2a74ebf268a51d8b0643
+B24011_025,1,Personal care and service occupations,f8dfb80394489289a5a1e7ff759a74070b72d6c3
+B24011_026,0,Sales and office occupations:,8faa3d457c2eefb34b311beb2d23a4b0d613f7ef
+B24011_027,1,Sales and related occupations,9f1a52bcc8d67c314b3bf282ba05ba313a754686
+B24011_028,1,Office and administrative support occupations,7ab038d0272d9df6aef54b68d8e06c67762530f6
+B24011_029,0,"Natural resources, construction, and maintenance occupations:",382fbb76ee7171547c4b06900ea025bc7450c193
+B24011_030,1,"Farming, fishing, and forestry occupations",d7d6281d603d76fb3e0b0853f152570a16ebb24c
+B24011_031,1,Construction and extraction occupations,66e9ea88300b82889a83c4fa01142d379dfbdbbc
+B24011_032,1,"Installation, maintenance, and repair occupations",538c0cc9fdfc2ce1f5f3e8ba4d5132e8f1017b64
+B24011_033,0,"Production, transportation, and material moving occupations:",906e0cb878bcec6cdbee7cd12ca75558a3e96198
+B24011_034,1,Production occupations,3e73cd78e1d24ac693f35d2c293d62a8dd923e1c
+B24011_035,1,Transportation occupations,c1a24feca0e6d26e91758a5d09ca5464ce056bc6
+B24011_036,1,Material moving occupations,da339c4ba5a6af5e5060a6f538cf7c8482132b55

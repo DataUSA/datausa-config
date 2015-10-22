@@ -7,10 +7,11 @@ global:
     year: [2013]
     tbl: ["C24010"]
     sumlevel:
-      # - "county"
+      - "state"
+      - "county"
       - "place"
-      # - "public+use+microdata+area"
-      # - "metropolitan+statistical+area/micropolitan+statistical+area"
+      - "public+use+microdata+area"
+      - "metropolitan+statistical+area/micropolitan+statistical+area"
     column:
       start: 3
       end: 73
@@ -27,8 +28,7 @@ global:
 
   web_paths: "http://api.census.gov/data/<year>/acs5?get=GEOID,<tbl>_<column>E,<tbl>_<column>M&for=<sumlevel>&key=$ACS_KEY"
   output: "data/acs/<tbl>/<year>/<sumlevel>/<column>/"
-  # fillna:
-  import_to_db: False
+
   transform:
     - type: plugin
       func: src.plugins.census.acs.helper.ygo
@@ -49,20 +49,24 @@ global:
     - type: drop
       column: index
     - type: join
-      source: acs/helpers/acs_5year_C24010_crosswalk.csv
+      source: acs/occupation/acs_5year_C24010_crosswalk.csv
       settings:
         filetype: csv
-        left_on: census_id
-        right_on: census_id
-        how: left
-        usecols: [census_id, soc]
+        usecols: [id, col]
+      left_on: census_id
+      right_on: col
+      how: left
+    - type: rename
+      column: id
+      value: acs_occ
+
     - type: drop
-      column: census_id
+      column: [census_id, col]
 
   rename:
       GEOID: geo
 
 tables:
-  ygo:
-    pk: ["year", "geo", "soc"]
+  ygo_num_emp:
+    pk: ["year", "geo", "acs_occ"]
     agg: sum

@@ -7,22 +7,20 @@ global:
     source_vars:
         year: [2013]
         sumlevel:
-          # - "us"
+          - "us"
           - "state"
-          # - "county"
-          # - "metropolitan statistical area/micropolitan statistical area"
-          # - "place"
-          # - "zip+code+tabulation+area"
-          # - "public+use+microdata+area"
-    web_paths: "http://api.census.gov/data/<year>/acs5?get=GEOID,B01002_001E,B01002_001M,B01003_001E,B01003_001M,B19013_001E,B19013_001M,B08006_001E,B08136_001E,B05001_006E&for=<sumlevel>&key=$ACS_KEY"
+          - "county"
+          - "metropolitan statistical area/micropolitan statistical area"
+          - "place"
+          - "zip+code+tabulation+area"
+          - "public+use+microdata+area"
+    web_paths: "http://api.census.gov/data/<year>/acs5?get=GEOID,B01002_001E,B01002_001M,B01003_001E,B01003_001M,B19013_001E,B19013_001M,B08006_001E,B08136_001E,B05001_006E,B25003_001E,B25003_002E,B25077_001E,B25077_001M&for=<sumlevel>&key=$ACS_KEY"
     db_settings:
       type:
         income: real
         income_moe: real
+        median_property_value: real
     transform:
-        - type: set_val
-          column: tmp
-          value: "_"
         - type: rename
           column: "B01002_001E"
           value: "age"
@@ -50,6 +48,18 @@ global:
         - type: rename
           column: "B05001_006E"
           value: "non_us_citizens"
+        - type: rename
+          column: "B25003_001E"
+          value: "num_housing_units"
+        - type: rename
+          column: "B25003_002E"
+          value: "owner_occupied_housing_units"
+        - type: rename
+          column: "B25077_001E"
+          value: "median_property_value"
+        - type: rename
+          column: "B25077_001M"
+          value: "median_property_value_moe"
         - type: rank
           column: "age_rank"
           target: age
@@ -71,6 +81,9 @@ global:
         - type: sub
           column: "us_citizens"
           value: "[non_us_citizens]"
+        - type: div
+          column: "owner_occupied_housing_units"
+          value: "[num_housing_units]"
         - type: drop
           strict: NO
           column:
@@ -86,6 +99,7 @@ global:
             - "public use microdata area"
             - "tract"
             - "num_commuters"
+            - "num_housing_units"
 
 tables:
   "yg":

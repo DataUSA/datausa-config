@@ -32,9 +32,13 @@ global:
           source: acs/helpers/acs_5year_B24011_crosswalk.csv
           settings:
             filetype: csv
+            usecols: [id, col]
           left_on: census_id
-          right_on: census_id
+          right_on: col
           how: left
+        - type: rename
+          column: id
+          value: acs_occ
     db_settings:
       type:
         wage: real
@@ -42,7 +46,7 @@ global:
           
 tables:
   "ygo_wage":
-    pk: ["year", "geo", "soc"]
+    pk: ["year", "geo", "acs_occ"]
     agg:
       wage: "sum"
       wage_moe: "sum"

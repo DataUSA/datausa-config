@@ -60,7 +60,28 @@ tables:
             naics: [0, 1, 2]
         values: *defaults
         gini: True
-
+        post_agg_transform:
+            - column: avg_wage_rank
+              type: rank
+              target: avg_wage
+              where:
+                column: num_records
+                func: gt
+                value: 5
+            - column: num_ppl_rank
+              type: rank
+              target: num_ppl
+              where:
+                column: num_records
+                func: gt
+                value: 5
+            - column: avg_age_rank
+              type: rank
+              target: avg_age
+              where:
+                column: num_records
+                func: gt
+                value: 5
     yid:
         pk: ["year", "naics", "degree"]
         depths:

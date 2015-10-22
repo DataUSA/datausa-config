@@ -12,14 +12,14 @@ global:
         password_env_var: DATAUSA_PW
         host: 162.209.124.219
         db_name: datausa
-    
+
     join:
       source: "acs_3year_B24010_crosswalk.csv"
       settings:
         filetype: csv
         left_on: idtest
         right_on: idtest
-        how: outer
+      how: outer
 
 tables:
   acs_occ:

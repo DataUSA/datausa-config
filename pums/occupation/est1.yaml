@@ -74,7 +74,7 @@ tables:
         values: *defaults
 
     yoas:
-        pk: ["year", "soc", "age" "sex"]
+        pk: ["year", "soc", "age", "sex"]
         depths:
             soc: [0, 1, 2, 3]
         values: *defaults

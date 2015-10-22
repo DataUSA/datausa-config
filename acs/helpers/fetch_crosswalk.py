@@ -1,4 +1,4 @@
-import sys, csv, click
+import sys, csv, click, hashlib
 import pandas as pd
 
 @click.command()
@@ -23,10 +23,11 @@ def fetch_crosswalk(tbl, estimate, gender):
             continue
         depth = len(desc) - desc_offset
         if desc[-1] not in lookup:
-            lookup[desc[-1]] = ['{}_{}'.format(tbl, zfilled_col), depth, desc[-1]]
+            lookup[desc[-1]] = ['{}_{}'.format(tbl, zfilled_col), depth, desc[-1], hashlib.sha1(desc[-1]).hexdigest()]
     if lookup.values():
         with open('acs_{}year_{}_crosswalk.csv'.format(estimate, tbl), 'w') as csvfile:
             csvwriter = csv.writer(csvfile)
+            csvwriter.writerow(['col', 'depth', 'name', 'id'])
             csvwriter.writerows(sorted(lookup.values(), key=lambda x: x[0]))
     else:
         print 'NO DATA FOUND'

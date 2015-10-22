@@ -1,0 +1,157 @@
+col,depth,name,idtest
+B24010_003,0,"Management, business, science, and arts occupations:",2f37598edd1c37fbe6ad25acb2e937f700f05bb5
+B24010_004,1,"Management, business, and financial occupations:",68894c217284870eaec5f912b1daa2791c5bfba5
+B24010_005,2,Management occupations:,f9694cc8a0bb193ff6a2e365ad783c37b81cf70a
+B24010_006,3,Top executives,8f4983f7fe2a12ab0639e78e5c82ae66065220fb
+B24010_007,3,"Advertising, marketing, promotions, public relations, and sales managers",c93cc0688e3d862c5c8ae264cb1d997a93cadaf5
+B24010_008,3,Financial managers,0aed98723491dbc6c0466cc7e05d9736da1ce7b6
+B24010_009,3,Human resources managers,58437d1a363b18d4ebf758f3ddfeea4d20d8c719
+B24010_010,3,Operations specialties managers except financial managers and human resources managers,b68fd45bdee0b1cea272e26944d9547ed4eb3af3
+B24010_011,3,"Farmers, ranchers, and other agricultural managers",933327c3b8b556bf85ab7b549ee8c0320f2611aa
+B24010_012,3,"Other management occupations except farmers, ranchers, and other agricultural managers",17c6a58b22dfdc1aa22cbb7e6a41e07d97c28d8c
+B24010_013,2,Business and financial operations occupations:,9dcb8d8acee71dde5ffba878f46784383175f9fc
+B24010_014,3,Human resources workers,77d361038442eecd9f8a5097816d038bfa69f070
+B24010_015,3,Other business operations specialists,a80de92bafc1f210e4e1d30acff71544d7594572
+B24010_016,3,Financial specialists:,608336be162d8d7454b8fd6ed86461cf9a73bed8
+B24010_017,4,Accountants and auditors,ead3302d181c49616dafdcf514ea876d3f7bddce
+B24010_018,4,Other financial specialists,f7e5264324f3f9925d79e8e07ca6c3482a4828a5
+B24010_019,1,"Computer, engineering, and science occupations:",51f76cb40c9e8ce95f8acd422bbf6f33c5aa8800
+B24010_020,2,Computer and mathematical occupations:,02b492733edf3637e3e4836e67c5935457f8b621
+B24010_021,3,Computer occupations:,b60f7eca093f0b86c4801b05898c407462156f7b
+B24010_022,4,Computer and information research scientists and analysts,cab9cc855ed351eeaf2da777f8e90b7f65c4fa1d
+B24010_023,4,Software developers and programmers,231da6e7714216dbe083c31c009f80d3e1a0e917
+B24010_024,4,Database and systems administrators and network architects,31d7b76bb484046c5752e52bc209c59feb699c62
+B24010_025,4,"Miscellaneous computer occupations, including computer support specialists",84d0680a161b7471c0c13ce34d990aac9f544fdf
+B24010_026,3,Mathematical science occupations,e77321c4f8361d5474d81478e590a85b98e7e202
+B24010_027,2,Architecture and engineering occupations:,6fe0b9c26c8cc3c759db64ae252be94138531e79
+B24010_028,3,"Architects, surveyors, and cartographers",6c93a9d219373cf9023d1a264885e59efa189efa
+B24010_029,3,Engineers,c6c5065c1bfcbe5a92a51b70c5f6c848daa71167
+B24010_030,3,"Drafters, engineering, and mapping technicians",9337dce5559aa1affa84462f14d699946ea84cad
+B24010_031,2,"Life, physical, and social science occupations:",3010aca5ff22b57ca20735e137237e6d774c10a4
+B24010_032,3,Life and physical scientists,befe5680d16c7dcf1d39d2821b17078e61f73348
+B24010_033,3,Social scientists and related workers,26fcb710f1017cc7d9964e2ad06b4d64739cf941
+B24010_034,3,"Life, physical, and social science technicians",589424211a77165afd4a7ae975672ed138551b84
+B24010_035,1,"Education, legal, community service, arts, and media occupations:",e57ce5473bf74ab40e810855d1f5fcd512fd3d22
+B24010_036,2,Community and social service occupations:,c19470e8ec376420d25870cbd4db7ebba038bf53
+B24010_037,3,"Counselors, social workers, and other community and social service specialists",c4967d3b1d8a2ea384151c4b5d6b6523f8ad9853
+B24010_038,3,Religious workers,d7d03614596694daefacc8d01145b0474655f877
+B24010_039,2,Legal occupations:,b75b146b427851ea0b334854dc3a5ee3b362c9ad
+B24010_040,3,Lawyers and judicial law clerks,677310afacdff390c7a1cfbf431b6da22ebeebd8
+B24010_041,3,"Judges, magistrates, and other judicial workers",d1c2be25a2a0b8e5675d6ac06d2bd40fd1c58251
+B24010_042,3,Legal support workers,b9f6426dc273ae9d8da48102a9c26ca172e36614
+B24010_043,2,"Education, training, and library occupations:",9f7059e8df2c0ff46bf95af307baa7bb5905607f
+B24010_044,3,Postsecondary teachers,659aafe484cb97e3f81928ef10c45290e9891f11
+B24010_045,3,"Primary, secondary, and special education school teachers:",90a6b1cfddb11fd09a4e2c5eb20b0d2e39570cb1
+B24010_046,4,Preschool and kinder,843db0f83a6e4f7495b2828cd8657066943096fb
+B24010_047,4,Elementary and middl,0a25c1627693a76f7a2dea1b9cf77a0aa925ea0b
+B24010_048,4,Secondary school tea,b1f94456c9c4723bebcdadee07b2d45f21a303d7
+B24010_049,4,Special education te,b1a25354755097bb28320ed3189f05940e8969b1
+B24010_050,3,"Librarians, curators, and archivists",2b4e194a916a30a88b0a090b7f92e6a761321764
+B24010_051,3,"Other teachers and instructors, education, training, and library occupations",1494675dfc50168ab65125f3a9b913d4d38dd4cd
+B24010_052,2,"Arts, design, entertainment, sports, and media occupations:",ea171482d983b9745fbcb12bc2e8bc85a27829f9
+B24010_053,3,Art and design workers,eef4bddac38af7d45db3de03e1d4a74c91e5e512
+B24010_054,3,"Entertainers and performers, sports, and related workers",dd901da0b365631d00ac567ee5c18e87de324098
+B24010_055,3,Media and communication equipment workers,c03ff4a8b01c08ec462c63ee225fe048be4f2f0b
+B24010_056,1,Healthcare practitioners and technical occupations:,6446d0b08827a4eee19fcd82b24b99b47bdaf079
+B24010_057,2,Health diagnosing and treating practitioners and other technical occupations:,46038f77ff12e0ee6e47b68ec6e67e71341d7809
+B24010_058,3,Physicians and surgeons,75e4191cc9db3e236eddcf8561c23a2a0e2b5354
+B24010_059,3,Therapists,f312c5ab0554fedc10b7ccdb27fa1d520dfb9a62
+B24010_060,3,Registered nurses,105e48c30cddef95b22ef2e7a12df7e97d2c07eb
+B24010_061,3,"Nurses, all other",cd7596b2a975a044c7d1b3cb3d63a79111023ecd
+B24010_062,3,Other health diagnosing and treating practitioners and technic,d7404e7eacec30806a88fbfc90e65e7929981274
+B24010_063,2,Health technologists and technicians,ce4dc6aa5c6d45b43c1525a744f3c8c2720a6bc2
+B24010_064,0,Service occupations:,a265dbfcc4a1e7343952d068d1cdce43e072f921
+B24010_065,1,Healthcare support occupations:,e0d2638a5fa3e5d1e7e42bda6f9b5fd0e330b3f1
+B24010_066,2,"Nursing, psychiatric, and home health aides",f5bcea00e2b5f94923ad5359e7810c59e21ce499
+B24010_067,2,Occupational and physical therapist assistants and aides,5938f5ed4ac07a6b46bc7dfda327ae88266d69ad
+B24010_068,2,Other healthcare support occupations,0f69e0a58ec266e258db353e324b63ff21a0a0ca
+B24010_069,1,Protective service occupations:,78cd6d8c6a2856b744769fb05711c149abc7acdc
+B24010_070,2,First-line supervisors of law enforcement workers,c6de683149e082127f631a78bf6b11a695405119
+B24010_071,2,First-line supervisors of fire fighting and prevention workers,2fb59ab818d1c4ad05e11be9684dd12c80916cf4
+B24010_072,2,"First-line supervisors of protective service workers, all other",d6e56fb75e659d65d18a8884dddc71de2336dd2b
+B24010_073,2,Fire fighting and prevention workers,0d611c15cf01d7fc94206050c743d364776b73ef
+B24010_074,2,Law enforcement workers,3da98889de69ff4f7aba5b09bc71cad1de13559f
+B24010_075,2,Other protective service workers,3db6def8a8a59a87e05481c17bd6908aa71d5447
+B24010_076,1,Food preparation and serving related occupations:,1161c6b48e2985a376c1a94dcdee5eeeef7f498d
+B24010_077,2,First-line supervisors of food preparation and serving workers,bfc5700b5a6c97979641e2c9ea8962a891929a9c
+B24010_078,2,Cooks and food preparation workers,a07f4941e77e31fdecf5c2a62639cc5d91dc9c4f
+B24010_079,2,Waiters and waitresses,610bb863c38b35ae29d96523bfc64ffe7f170727
+B24010_080,2,Food and beverage serving workers except waiters/waitresses,29fe7e6bc6fe10b5c085d336ab6209bb8d451d9b
+B24010_081,2,Other food preparation and serving related workers,3b77432c18582699aaba3036fd2c1606cf269f5c
+B24010_082,1,Building and grounds cleaning and maintenance occupations:,55030536974b6975a5d1bd1ebf0b83571d0dd884
+B24010_083,2,First-line supervisors of housekeeping and janitorial workers,09512aaaa9c7f3575e214443869d76aae991a5d8
+B24010_084,2,"First-line supervisors of landscaping, lawn service, and groundskeeping workers",39dea6c58f8b92cf94887c353774e066e89b6574
+B24010_085,2,Building cleaning and pest control workers,b5439230555f96478fb44af42572ab10c3e6e376
+B24010_086,2,Grounds maintenance workers,d820e7ed87e2c4087b6045dc7e8e1dccaa48c1b8
+B24010_087,1,Personal care and service occupations:,a5fa733bf53ac139c20eb011fa446651dda81484
+B24010_088,2,First-line supervisors of personal care and service workers,694e8fb50f7683cad45f0ffa2658f31a46c26cc4
+B24010_089,2,Personal appearance workers,4253bc650dbe592d4d4796749e8a5f591bc66241
+B24010_090,2,"Baggage porters and concierges, and tour and travel guides",a7b59f14942351841fa008c3e3dece34f85c2f15
+B24010_091,2,Child care workers,3ad093ed1e157ad16eba04df32661aec11b25fff
+B24010_092,2,"Other personal care and service workers except personal appearance, baggage porters, concierges, and child care workers",487dc6b900ce41720219492a9c215aaaa835a0db
+B24010_093,0,Sales and office occupations:,8faa3d457c2eefb34b311beb2d23a4b0d613f7ef
+B24010_094,1,Sales and related occupations:,cad3feade58123ecb4c0e34c4b9747f36441cf1d
+B24010_095,2,First-line supervisors of retail sales workers,3921b4e960fdfde986b54f8d396e2bd10c0036e3
+B24010_096,2,First-line supervisors of non-retail sales workers,06b363edefd502d61f8e50b6d9906c81946f428f
+B24010_097,2,Cashiers,6854b1faf8b7b9b1cbc09e90c58136405790256a
+B24010_098,2,Retail sales workers except cashiers,6fe1d7f02f60f811c95748a3ee1a2a4b62670c01
+B24010_099,2,"Sales representatives, services",91a33a988e56ba9ced2d74745d4c9d06e86c9dcc
+B24010_100,2,"Sales representatives, wholesale and manufacturing",99ad9caee20f357d59a915dc2bfc572e0a941012
+B24010_101,2,Other sales and related workers,49c43464eebe36b37d449ce9e55d9538baa3cfa9
+B24010_102,1,Office and administrative support occupations:,a9fb1120f3dc67553b4bf00878d5d5df7014c7bf
+B24010_103,2,First-line supervisors of office and administrative support workers,704510822730ebf381c977d13d7271118e3f7a03
+B24010_104,2,Communications equipment operators,76d0ebabe899267f0af61c0e09d23b5f847a04e7
+B24010_105,2,"Financial clerks except bookkeeping, accounting, and auditing clerks",451aa5e9c1924fc94327def34e3c4a407d1355dd
+B24010_106,2,"Bookkeeping, accounting, and auditing clerks",d8b66990caaaa15f1348efe83868fcfb0c191722
+B24010_107,2,Information and record clerks except customer service representatives,e871dee6f59b087868c0c4437b50af4e705ed9cc
+B24010_108,2,Customer service representatives,78b9dc77be67fa8b5e8783bd991307c892e84d77
+B24010_109,2,"Material recording, scheduling, dispatching, and distributing workers",589cbc8c66cc8dbb06b50898af3110c04e2de76e
+B24010_110,2,Secretaries and administrative assistants,68b40985f345b90e601ee1ab779b23dda3b91097
+B24010_111,2,Other office and administrative support workers,085d5c9d41d8e7d11d8cc136c16675879aa648a0
+B24010_112,0,"Natural resources, construction, and maintenance occupations:",382fbb76ee7171547c4b06900ea025bc7450c193
+B24010_113,1,"Farming, fishing, and forestry occupations:",cfc306a78546baeeea59cd8f393aaf8848c5b435
+B24010_114,2,"First-line supervisors of farming, fishing, and forestry workers",dc41cf0255931969c67d93bdcf143bb198829320
+B24010_115,2,Agricultural workers,89f2505dc87ffb855d0e3baaa906acde1abab654
+B24010_116,2,"Fishing and hunting, and forest, conservation, and logging workers",ef81ce5dba80419d497c63c7f4796251a8ae9cbc
+B24010_117,1,Construction and extraction occupations:,6d523ae40d2c063dc5748be8373c6585e6f10f78
+B24010_118,2,First-line supervisors of construction and extraction workers,e10a0945eee05b9735d628c93c2676cdfbdd1b17
+B24010_119,2,Carpenters,82da00c6d0e9dfee21e8bb27a4e829186366f781
+B24010_120,2,Construction laborers,50dd753d33f2f12acd4579c0ed470a327ad0b05e
+B24010_121,2,Electricians,536663daed99fa43002cc3de99f357ba294709bf
+B24010_122,2,Painters and paperhangers,d62a0a41c482b3e4332f728af83333301742f028
+B24010_123,2,"Pipelayers, plumbers, pipefitters, and steamfitters",4dd963f60065506502db3e57e069d5b916bfb80e
+B24010_124,2,"Construction trades workers except carpenters, electricians, painters, plumbers, and construction laborers",1236c2b5af98bdd7ac9489917798c6757218b361
+B24010_125,2,Other construction workers and helpers,2275675e08ee2bed130db98b85c260a048c23322
+B24010_126,2,Extraction workers,7b06964ab8f0155840bcaf7a0853900855ff79dd
+B24010_127,1,"Installation, maintenance, and repair occupations:",4238ea4bf772ce6b9b3eda420793b7ebb2e98ffe
+B24010_128,2,"First-line supervisors of mechanics, installers, and repairers",9733287809d4759dbdd56900ed620f07e5b7152e
+B24010_129,2,"Vehicle and mobile equipment mechanics, installers, and repairers",9d5d264544eaab8ef553b9cdf8aaaf9cde23f42b
+B24010_130,2,"Other installation, maintenance, and repair occupations including electrical and electronic equipment mechanics, installers, and repa",407d2ef059477b9e98ba5c773a6e279dc704d988
+B24010_131,0,"Production, transportation, and material moving occupations:",906e0cb878bcec6cdbee7cd12ca75558a3e96198
+B24010_132,1,Production occupations:,52ec84c10c07078f54100005ad4ebbc9abdbad52
+B24010_133,2,First-line supervisors of production and operating workers,020ee25b66be8aa1b99ef701ce0681425d0dcda4
+B24010_134,2,Assemblers and fabricators,fd36bda1e5abdd23e56edc2e907615216264df99
+B24010_135,2,Food processing workers,552ad79134f2e28c52012277f64b7c2c3b9e64a1
+B24010_136,2,Metal workers and plastic workers,9732ebb7a824d9eb73f32690187eee77096e325b
+B24010_137,2,Printing workers,ad39fae842ab11db5217261781f6c859a8b14b96
+B24010_138,2,"Textile, apparel, and furnishings workers",f147d335dfd3cf32e8ec7c22f3b9d800f772c8df
+B24010_139,2,Woodworkers,f564ad9d8e8cf89cae1e6b680f27f8182b39f176
+B24010_140,2,Plant and system operators,442f0e0acb037952cbd9d63d47687a5566959c36
+B24010_141,2,Other production occupations,b7e719fbc715bfc548e45a60b52d1ef8c4f9a0c3
+B24010_142,1,Transportation occupations:,90bb2cfd55c1fb075393b38ae73585e40cbbc2fa
+B24010_143,2,Supervisors of transportation and material moving workers,b6410f26eab99c3c91be50b25bcde63a4b516df5
+B24010_144,2,Air transportation workers,d55088998458f18954a9cc8d8581e43dddcd42ee
+B24010_145,2,Rail and water transportation workers,8c73b2953462bde5b8f9027ca45850cafc753f3e
+B24010_146,2,Bus drivers,a6aeb0110d9fec247f40c5060ded7f2387756c14
+B24010_147,2,Driver/sales workers and truck drivers,63f269d3763d3836002772a4d67124563fd0d678
+B24010_148,2,Motor vehicle operators except bus and truck drivers,0fcbb6133739d99d66791bd04275fa1345b1137b
+B24010_149,2,Other transportation workers,85a142cb3988d932dbd1f14a76512fe947058b8f
+B24010_150,1,Material moving occupations:,dc8e99aadedba73857e2b3af3fb4f7ce08a54f34
+B24010_151,2,"Laborers and material movers, hand",8fefa99116d951568b3ba2009bc1705122ede5e6
+B24010_152,2,"Material moving workers except supervisors and laborers and material movers, hand",f10beca4d06577dc55f5d2228e8d359b904c64bc
+B24010_197,4,Preschool and kind,1c2bec6f7dab7f635a08f9d896eec375cbb429a5
+B24010_198,4,Elementary and mid,0f27bf38b6a4cbe17ef18d6c0615ef690282334f
+B24010_199,4,Secondary school t,ebcc29689191c7924fdb8d5643a2ff5bdeafc1c7
+B24010_200,4,Special education ,ccec77f7a1c87e71869f5262ce960baf9ace428f
+B24010_213,3,Other health diagnosing and treating practitioners and techn,72b08ddde33982603cb3fc5c7b3fe1a5193fc7e8
+B24010_281,2,"Other installation, maintenance, and repair occupations including electrical and electronic equipment mechanics, installers, and re",184d56b6057f4f6ccf98fbbeaf695f5ffab98f43

@@ -1,0 +1,26 @@
+global:
+    seperator: ","
+    use_schema: True
+    name: attrs
+    source: "acs_5year_C24010_crosswalk.csv"
+    filetype: csv
+    output: tmp
+
+    import_to_db: True
+    db_settings:
+        user: postgres
+        password_env_var: DATAUSA_PW
+        host: 162.209.124.219
+        db_name: datausa
+    
+    join:
+      source: "acs_3year_B24010_crosswalk.csv"
+      settings:
+        filetype: csv
+        left_on: idtest
+        right_on: idtest
+        how: outer
+
+tables:
+  acs_occ:
+    pk: [col, depth, name, idtest]

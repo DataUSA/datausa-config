@@ -40,6 +40,8 @@ global:
         occp10 : "str"
         ST: "str"
         AGEP: "int"
+        RAC1P: "str"
+        SEX: "str"
 
     agg: "sum"
 
@@ -59,3 +61,14 @@ tables:
         wage_bin: True
         values: *defaults
 
+    yor:
+        pk: ["year", "soc", "race"]
+        depths:
+            soc: [0, 1, 2, 3]
+        values: *defaults
+
+    yos:
+        pk: ["year", "soc", "sex"]
+        depths:
+            soc: [0, 1, 2, 3]
+        values: *defaults

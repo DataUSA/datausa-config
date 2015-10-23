@@ -43,6 +43,7 @@ global:
         occp10 : "str"
         ST: "str"
         AGEP: "int"
+        SEX: "str"
 
     agg: "sum"
 
@@ -62,6 +63,11 @@ tables:
            index: ["year", "geo_id"]
            column: "degree"
            values: [num_ppl]
+       sumlevel: <geo_level>
+       values: *defaults
+
+    ygs:
+       pk: ["year", "geo_id", "sex"]
        sumlevel: <geo_level>
        values: *defaults
 

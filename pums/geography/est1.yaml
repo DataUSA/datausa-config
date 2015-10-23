@@ -26,7 +26,7 @@ global:
     archive_files: "csv"
     strip_column_whitespace: True
     force_column_uppercase:
-        exclude: ["year", "est", "geo_id", "naics", "num_households", "num_ppl", "num_records"]
+        exclude: ["year", "est", "geo", "naics", "num_households", "num_ppl", "num_records"]
     output : "/tmp/pums_output/<year>/<est>/"
     web_paths:
         pums: "http://ftp.census.gov/acs<year>_<est>yr/pums/csv_pus.zip"
@@ -51,53 +51,53 @@ global:
     db_settings:
         user: postgres
         password_env_var: DATAUSA_PW
-        host: 162.209.124.219
+        host: 162.209.124.219geo
         db_name: datausa
         type:
             degree: text
         deduplicate: True
 tables:
     ygd:
-       pk: ["year", "geo_id", "degree"]
+       pk: ["year", "geo", "degree"]
        rca:
-           index: ["year", "geo_id"]
+           index: ["year", "geo"]
            column: "degree"
            values: [num_ppl]
        sumlevel: <geo_level>
        values: *defaults
 
     ygs:
-       pk: ["year", "geo_id", "sex"]
+       pk: ["year", "geo", "sex"]
        sumlevel: <geo_level>
        values: *defaults
 
     ygi:
-        pk: ["year", "geo_id", "naics"]
+        pk: ["year", "geo", "naics"]
         depths:
             naics: [0, 1, 2]
         rca:
-            index: ["year", "geo_id"]
+            index: ["year", "geo"]
             column: "naics"
             values: [num_ppl]
         sumlevel: <geo_level>
         values: *defaults
 
     ygio:
-        pk: ["year", "geo_id", "naics", "soc"]
+        pk: ["year", "geo", "naics", "soc"]
         depths:
             soc: [0, 1, 2, 3]
             naics: [0, 1, 2]
         rca:
-            index: ["year", "geo_id", "naics"]
+            index: ["year", "geo", "naics"]
             column: "soc"
             values: [num_ppl]
         sumlevel: <geo_level>
         values: *defaults
 
     ygmd:
-        pk: ["year", "geo_id", "major", "degree"]
+        pk: ["year", "geo", "major", "degree"]
         rca:
-            index: ["year", "geo_id", "major"]
+            index: ["year", "geo", "major"]
             column: "degree"
             values: [num_ppl]
         sumlevel: <geo_level>

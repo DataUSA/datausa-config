@@ -1,42 +1,27 @@
+inherits: "acs/acs_template.yaml"
 global:
-    seperator: ","
-    name: acs
-    use_schema: True
-    source : "data/acs/<sumlevel>_<tbl>_<column>.json"
-    filetype: json
     source_vars:
-        year: [2013]
-        sumlevel: ["state", "county"]
         tbl: ["B25102"]
         column:
           start: 3
-          end: 8
+          end: 7
           zfill: 3
-
-    preprocess:
-      func: "src.plugins.preprocess.acs_preprocess"
-
-    output : "data/output/acs/<sumlevel>_<tbl>_<column>"
-
-    web_paths: "http://api.census.gov/data/<year>/acs5?get=GEOID,<tbl>_<column>E,<tbl>_<column>M&for=<sumlevel>&key=$ACS_KEY"
-    concat: YES
-
-    import_to_db: True
-    db_settings:
-        user: postgres
-        password_env_var: DATAUSA_PW
-        host: 162.209.124.219
-        db_name: datausa
-
-    transform:
-      - type: drop
-        strict: NO
-        column: [tbl, sumlevel, column, state, county]
 
     rename:
       GEOID: geo
+      B25102_003E: property_tax_800to1500E
+      B25102_003M: property_tax_800to1500M
+      B25102_004E: property_tax_1500to2000E
+      B25102_004M: property_tax_1500to2000M
+      B25102_005E: property_tax_2000to3000E
+      B25102_005M: property_tax_2000to3000M
+      B25102_006E: property_tax_3000moreE
+      B25102_006M: property_tax_3000moreM
+      B25102_007E: property_tax_noneE
+      B25102_007M: property_tax_noneM
 
 tables:
   "yg_property_tax":
     pk: ["year", "geo"]
     agg: sum
+

@@ -6,6 +6,44 @@ global:
           start: 1
           end: 17
           zfill: 3
+    
+    rename:
+      GEOID: geo
+      B19001_001E: totalhouseholdsE
+      B19001_001M: totalhouseholdsM
+      B19001_002E: incomeless10E
+      B19001_002M: incomeless10M
+      B19001_003E: income10to15E
+      B19001_003M: income10to15M
+      B19001_004E: income15to20E
+      B19001_004M: income15to20M
+      B19001_005E: income20to25E
+      B19001_005M: income20to25M
+      B19001_006E: income25to30E
+      B19001_006M: income25to30M
+      B19001_007E: income30to35E
+      B19001_007M: income30to35M
+      B19001_008E: income35to40E
+      B19001_008M: income35to40M
+      B19001_009E: income40to45E
+      B19001_009M: income40to45M
+      B19001_010E: income45to50E
+      B19001_010M: income45to50M
+      B19001_011E: income50to60E
+      B19001_011M: income50to60M
+      B19001_012E: income60to75E
+      B19001_012M: income60to75M
+      B19001_013E: income75to100E
+      B19001_013M: income75to100M
+      B19001_014E: income100to125E
+      B19001_014M: income100to125M
+      B19001_015E: income125to150E
+      B19001_015M: income125to150M
+      B19001_016E: income150to200E
+      B19001_016M: income150to200M
+      B19001_017E: income200moreE
+      B19001_017M: income200moreM
+      
 
 tables:
   "yg_income_distribution":

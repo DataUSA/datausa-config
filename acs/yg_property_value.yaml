@@ -1,40 +1,64 @@
+inherits: "acs/acs_template.yaml"
 global:
-    seperator: ","
-    name: acs
-    use_schema: True
-    source : "data/acs/<sumlevel>_<tbl>_<column>.json"
-    filetype: json
     source_vars:
-        year: [2013]
-        sumlevel: ["state", "county"]
         tbl: ["B25075"]
         column:
           start: 1
           end: 25
           zfill: 3
 
-    preprocess:
-      func: "src.plugins.preprocess.acs_preprocess"
-
-    output : "data/output/acs/<sumlevel>_<tbl>_<column>"
-
-    web_paths: "http://api.census.gov/data/<year>/acs5?get=GEOID,<tbl>_<column>E,<tbl>_<column>M&for=<sumlevel>&key=$ACS_KEY"
-    concat: YES
-
-    import_to_db: True
-    db_settings:
-        user: postgres
-        password_env_var: DATAUSA_PW
-        host: 162.209.124.219
-        db_name: datausa
-
-    transform:
-      - type: drop
-        strict: NO
-        column: [tbl, sumlevel, column, state, county]
-
     rename:
       GEOID: geo
+      B25075_001E: total_owner_occupied_housin_unitsE
+      B25075_001M: total_owner_occupied_housin_unitsM
+      B25075_002E: property_val_less10kE
+      B25075_002M: property_val_less10kM
+      B25075_003E: property_val_10kto15kE
+      B25075_003M: property_val_10kto15kM
+      B25075_004E: property_val_15kto20kE
+      B25075_004M: property_val_15kto20kM
+      B25075_005E: property_val_20kto25kE
+      B25075_005M: property_val_20kto25kM
+      B25075_006E: property_val_25kto30kE
+      B25075_006M: property_val_25kto30kM
+      B25075_007E: property_val_30kto35kE
+      B25075_007M: property_val_30kto35kM
+      B25075_008E: property_val_35kto40kE
+      B25075_008M: property_val_35kto40kM
+      B25075_009E: property_val_40kto50kE
+      B25075_009M: property_val_40kto50kM
+      B25075_010E: property_val_50kto60kE
+      B25075_010M: property_val_50kto60kM
+      B25075_011E: property_val_60kto70kE
+      B25075_011M: property_val_60kto70kM
+      B25075_012E: property_val_70kto80kE
+      B25075_012M: property_val_70kto80kM
+      B25075_013E: property_val_80kto90kE
+      B25075_013M: property_val_80kto90kM
+      B25075_014E: property_val_90kto100kE
+      B25075_014M: property_val_90kto100kM
+      B25075_015E: property_val_100kto125kE
+      B25075_015M: property_val_100kto125kM
+      B25075_016M: property_val_125kto150kM
+      B25075_016E: property_val_125kto150kE
+      B25075_017M: property_val_150kto175kM
+      B25075_017E: property_val_150kto175kE
+      B25075_018M: property_val_175kto200kM
+      B25075_018E: property_val_175kto200kE
+      B25075_019M: property_val_200kto250kM
+      B25075_029E: property_val_200kto250kE
+      B25075_020M: property_val_250kto300kM
+      B25075_020E: property_val_250kto300kE
+      B25075_021M: property_val_300kto400kM
+      B25075_021E: property_val_300kto400kE
+      B25075_022M: property_val_400kto500kM
+      B25075_022E: property_val_400kto500kE
+      B25075_023M: property_val_500kto750kE
+      B25075_023E: property_val_500kto750kM
+      B25075_024E: property_val_750kto1ME
+      B25075_024M: property_val_750kto1MM
+      B25075_025E: property_val_1MormoreE
+      B25075_025M: property_val_1MormoreM
 
 tables:
   "yg_property_value":

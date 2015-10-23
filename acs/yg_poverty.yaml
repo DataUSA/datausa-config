@@ -7,6 +7,70 @@ global:
           end: 30
           zfill: 3
 
+    rename:
+      GEOID: geo
+      B17001_001E: pop_poverty_statusE
+      B17001_001M: pop_poverty_statusM
+      B17001_002E: income_below_povertyE
+      B17001_002M: income_below_povertyM
+      B17001_003E: poverty_male_E
+      B17001_003M: poverty_male_M
+      B17001_004E: poverty_male_under5E
+      B17001_004M: poverty_male_under5M
+      B17001_005E: poverty_male_5E
+      B17001_005M: poverty_male_5M
+      B17001_006E: poverty_male_6to11E
+      B17001_006M: poverty_male_6to11M
+      B17001_007E: poverty_male_12to14E
+      B17001_007M: poverty_male_12to14M
+      B17001_008E: poverty_male_15E
+      B17001_008M: poverty_male_15M
+      B17001_009E: poverty_male_16to17E
+      B17001_009M: poverty_male_16to17M
+      B17001_010E: poverty_male_18to24E
+      B17001_010M: poverty_male_18to24M
+      B17001_011E: poverty_male_25to34E
+      B17001_011M: poverty_male_25to34M
+      B17001_012E: poverty_male_35to44E
+      B17001_012M: poverty_male_35to44M
+      B17001_013E: poverty_male_45to54E
+      B17001_013M: poverty_male_45to54M
+      B17001_014E: poverty_male_55to64E
+      B17001_014M: poverty_male_55to64M
+      B17001_015E: poverty_male_65to74E
+      B17001_015M: poverty_male_65to74M
+      B17001_016E: poverty_male_75olderE
+      B17001_016M: poverty_male_75olderM
+      B17001_017E: poverty_female_E
+      B17001_017M: poverty_female_M
+      B17001_018E: poverty_female_under5E
+      B17001_018M: poverty_female_under5M
+      B17001_019E: poverty_female_5E
+      B17001_019M: poverty_female_5M
+      B17001_020E: poverty_female_6to11E
+      B17001_020M: poverty_female_6to11M
+      B17001_021E: poverty_female_12to14E
+      B17001_021M: poverty_female_12to14M
+      B17001_022E: poverty_female_15E
+      B17001_022M: poverty_female_15M
+      B17001_023E: poverty_female_16to17E
+      B17001_023M: poverty_female_16to17M
+      B17001_024E: poverty_female_18to24E
+      B17001_024M: poverty_female_18to24M
+      B17001_025E: poverty_female_25to34E
+      B17001_025M: poverty_female_25to34M
+      B17001_026E: poverty_female_35to44E
+      B17001_026M: poverty_female_35to44M
+      B17001_027E: poverty_female_45to54E
+      B17001_027M: poverty_female_45to54M
+      B17001_028E: poverty_female_55to64E
+      B17001_028M: poverty_female_55to64M
+      B17001_029E: poverty_female_65to74E
+      B17001_029M: poverty_female_65to74M
+      B17001_030E: poverty_female_75olderE
+      B17001_030M: poverty_female_75olderM
+      
+
 tables:
   "yg_poverty":
     pk: ["year", "geo"]

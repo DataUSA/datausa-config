@@ -12,129 +12,129 @@ global:
 
     post_agg_transform:
       - type: add
-        column: us_under_5E
+        column: us_under_5
         values: ["[B06001_014E]", "[B06001_026E]", "[B06001_038E]"]
         drop: YES
       - type: combine_moes
         confidence: 0.9
-        column: us_under_5M
+        column: us_under_5_moe
         values: ["B06001_014M", "B06001_026M", "B06001_038M"]
         drop: YES
       - type: add
-        column: us_5_to_17E
+        column: us_5_to_17
         values: ["[B06001_015E]", "[B06001_027E]", "[B06001_039E]"]
         drop: YES
       - type: combine_moes
         confidence: 0.9
-        column: us_5_to_17M
+        column: us_5_to_17_moe
         values: ["B06001_015M", "B06001_027M", "B06001_039M"]
         drop: YES
       - type: add
-        column: us_18_to_24E
+        column: us_18_to_24
         values: ["[B06001_016E]", "[B06001_028E]", "[B06001_040E]"]
         drop: YES
       - type: combine_moes
         confidence: 0.9
-        column: us_18_to_24M
+        column: us_18_to_24_moe
         values: ["B06001_016M", "B06001_028M", "B06001_040M"]
         drop: YES
       - type: add
-        column: us_25_to_34E
+        column: us_25_to_34
         values: ["[B06001_017E]", "[B06001_029E]", "[B06001_041E]"]
         drop: YES
       - type: combine_moes
         confidence: 0.9
-        column: us_25_to_34M
+        column: us_25_to_34_moe
         values: ["B06001_017M", "B06001_029M", "B06001_041M"]
         drop: YES
       - type: add
-        column: us_35_to_44E
+        column: us_35_to_44
         values: ["[B06001_018E]", "[B06001_030E]", "[B06001_042E]"]
         drop: YES
       - type: combine_moes
         confidence: 0.9
-        column: us_35_to_44M
+        column: us_35_to_44_moe
         values: ["B06001_018M", "B06001_030M", "B06001_042M"]
         drop: YES
       - type: add
-        column: us_45_to_54E
+        column: us_45_to_54
         values: ["[B06001_019E]", "[B06001_031E]", "[B06001_043E]"]
         drop: YES
       - type: combine_moes
         confidence: 0.9
-        column: us_45_to_54M
+        column: us_45_to_54_moe
         values: ["B06001_019M", "B06001_031M", "B06001_043M"]
         drop: YES
       - type: add
-        column: us_55_to_59E
+        column: us_55_to_59
         values: ["[B06001_020E]", "[B06001_032E]", "[B06001_044E]"]
         drop: YES
       - type: combine_moes
         confidence: 0.9
-        column: us_55_to_59M
+        column: us_55_to_59_moe
         values: ["B06001_020M", "B06001_032M", "B06001_044M"]
         drop: YES
       - type: add
-        column: us_60_to_61E
+        column: us_60_to_61
         values: ["[B06001_021E]", "[B06001_033E]", "[B06001_045E]"]
         drop: YES
       - type: combine_moes
         confidence: 0.9
-        column: us_60_to_61M
+        column: us_60_to_61_moe
         values: ["B06001_021M", "B06001_033M", "B06001_045M"]
         drop: YES
       - type: add
-        column: us_62_to_64E
+        column: us_62_to_64
         values: ["[B06001_022E]", "[B06001_034E]", "[B06001_046E]"]
         drop: YES
       - type: combine_moes
         confidence: 0.9
-        column: us_62_to_64M
+        column: us_62_to_64_moe
         values: ["B06001_022M", "B06001_034M", "B06001_046M"]
         drop: YES
       - type: add
-        column: us_65_to_74E
+        column: us_65_to_74
         values: ["[B06001_023E]", "[B06001_035E]", "[B06001_047E]"]
         drop: YES
       - type: combine_moes
         confidence: 0.9
-        column: us_65_to_74M
+        column: us_65_to_74_moe
         values: ["B06001_023M", "B06001_035M", "B06001_047M"]
         drop: YES
       - type: add
-        column: us_75_and_overE
+        column: us_75_and_over
         values: ["[B06001_024E]", "[B06001_036E]", "[B06001_048E]"]
         drop: YES
       - type: combine_moes
         confidence: 0.9
-        column: us_75_and_overM
+        column: us_75_and_over_moe
         values: ["B06001_024M", "B06001_036M", "B06001_048M"]
         drop: YES
 
     rename:
       GEOID: geo
-      B06001_050E: foreign_under_5E
-      B06001_050M: foreign_under_5M
-      B06001_051E: foreign_5_to_17E
-      B06001_051M: foreign_5_to_17M
-      B06001_052E: foreign_18_to_24E
-      B06001_052M: foreign_18_to_24M
-      B06001_053E: foreign_25_to_34E
-      B06001_053M: foreign_25_to_34M
-      B06001_054E: foreign_35_to_44E
-      B06001_054M: foreign_35_to_44M
-      B06001_055E: foreign_45_to_54E
-      B06001_055M: foreign_45_to_54M
-      B06001_056E: foreign_55_to_59E
-      B06001_056M: foreign_55_to_59M
-      B06001_057E: foreign_60_to_61E
-      B06001_057M: foreign_60_to_61M
-      B06001_058E: foreign_62_to_64E
-      B06001_058M: foreign_62_to_64M
-      B06001_059E: foreign_65_to_74M
-      B06001_059M: foreign_65_to_74E
-      B06001_060E: foreign_75_and_olderM
-      B06001_060M: foreign_75_and_olderE
+      B06001_050E: foreign_under_5
+      B06001_050M: foreign_under_5_moe
+      B06001_051E: foreign_5_to_17
+      B06001_051M: foreign_5_to_17_moe
+      B06001_052E: foreign_18_to_24
+      B06001_052M: foreign_18_to_24_moe
+      B06001_053E: foreign_25_to_34
+      B06001_053M: foreign_25_to_34_moe
+      B06001_054E: foreign_35_to_44
+      B06001_054M: foreign_35_to_44_moe
+      B06001_055E: foreign_45_to_54
+      B06001_055M: foreign_45_to_54_moe
+      B06001_056E: foreign_55_to_59
+      B06001_056M: foreign_55_to_59_moe
+      B06001_057E: foreign_60_to_61
+      B06001_057M: foreign_60_to_61_moe
+      B06001_058E: foreign_62_to_64
+      B06001_058M: foreign_62_to_64_moe
+      B06001_059E: foreign_65_to_74
+      B06001_059M: foreign_65_to_74_moe
+      B06001_060E: foreign_75_and_older
+      B06001_060M: foreign_75_and_older_moe
 
 tables:
   "yg_nativity_age":

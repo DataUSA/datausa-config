@@ -9,16 +9,16 @@ global:
 
     rename:
       GEOID: geo
-      B25102_003E: property_tax_800to1500E
-      B25102_003M: property_tax_800to1500M
-      B25102_004E: property_tax_1500to2000E
-      B25102_004M: property_tax_1500to2000M
-      B25102_005E: property_tax_2000to3000E
-      B25102_005M: property_tax_2000to3000M
-      B25102_006E: property_tax_3000moreE
-      B25102_006M: property_tax_3000moreM
-      B25102_007E: property_tax_noneE
-      B25102_007M: property_tax_noneM
+      B25102_003E: property_tax_800to1500
+      B25102_003M: property_tax_800to1500_moe
+      B25102_004E: property_tax_1500to2000
+      B25102_004M: property_tax_1500to2000_moe
+      B25102_005E: property_tax_2000to3000
+      B25102_005M: property_tax_2000to3000_moe
+      B25102_006E: property_tax_3000more
+      B25102_006M: property_tax_3000more_moe
+      B25102_007E: property_tax_none
+      B25102_007M: property_tax_none_moe
 
 tables:
   "yg_property_tax":

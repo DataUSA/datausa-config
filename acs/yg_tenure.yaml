@@ -6,6 +6,15 @@ global:
           start: 1
           end: 3
           zfill: 3
+    
+    rename:
+      GEOID: geo
+      B25003_001E: households
+      B25003_001M: households_moe
+      B25003_002E: households_owner_occupied
+      B25003_002M: households_owner_occupied_moe
+      B25003_003E: households_renter_occupied
+      B25003_003M: households_renter_occupied_moe
 
 tables:
   "yg_tenure":

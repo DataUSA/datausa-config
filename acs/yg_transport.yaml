@@ -1,42 +1,59 @@
+inherits: "acs/acs_template.yaml"
 global:
-    seperator: ","
-    name: acs
-    use_schema: True
-    source : "data/acs/<sumlevel>_<tbl>_<column>.json"
-    filetype: json
     source_vars:
-        year: [2013]
-        sumlevel: ["state", "county"]
         tbl: ["B08301"]
         column:
           start: 1
           end: 21
           zfill: 3
 
-    preprocess:
-      func: "src.plugins.preprocess.acs_preprocess"
-
-    output : "data/output/acs/<sumlevel>_<tbl>_<column>"
-
-    web_paths: "http://api.census.gov/data/<year>/acs5?get=GEOID,<tbl>_<column>E,<tbl>_<column>M&for=<sumlevel>&key=$ACS_KEY"
-    concat: YES
-
-    import_to_db: True
-    db_settings:
-        user: postgres
-        password_env_var: DATAUSA_PW
-        host: 162.209.124.219
-        db_name: datausa
-
-    transform:
-      - type: drop
-        strict: NO
-        column: [tbl, sumlevel, column, state, county]
-
     rename:
       GEOID: geo
-
+      B08301_001E: workers
+      B08301_001M: workers_moe
+      B08301_002E: transport_cartruckorvan
+      B08301_002M: transport_cartruckorvan_moe
+      B08301_003E: transport_drove
+      B08301_003M: transport_drove_moe
+      B08301_004E: transport_carpooled
+      B08301_004M: transport_carpooled_moe
+      B08301_005E: transport_carpooled_2_person
+      B08301_005M: transport_carpooled_2_person_moe
+      B08301_006E: transport_carpooled_3_person
+      B08301_006M: transport_carpooled_3_person_moe
+      B08301_007E: transport_carpooled_4_person
+      B08301_007M: transport_carpooled_4_person_moe
+      B08301_008E: transport_carpooled_5_6_person
+      B08301_008M: transport_carpooled_5_6_person_moe
+      B08301_009E: transport_carpooled_7_more_person
+      B08301_009M: transport_carpooled_7_more_person_moe
+      B08301_010E: transport_publictrans
+      B08301_010M: transport_publictrans_moe
+      B08301_011E: transport_publictrans_bus
+      B08301_011M: transport_publictrans_bus_moe
+      B08301_012E: transport_publictrans_streetcar
+      B08301_012M: transport_publictrans_streetcar_moe
+      B08301_013E: transport_publictrans_subway
+      B08301_013M: transport_publictrans_subway_moe
+      B08301_014E: transport_publictrans_rail
+      B08301_014M: transport_publictrans_rail_moe
+      B08301_015E: transport_publictrans_ferry
+      B08301_015M: transport_publictrans_ferry_moe
+      B08301_016E: transport_taxi
+      B08301_016M: transport_taxi_moe
+      B08301_017E: transport_motorcycle
+      B08301_017M: transport_motorcycle_moe
+      B08301_018E: transport_bicycle
+      B08301_018M: transport_bicycle_moe
+      B08301_019E: transport_walked
+      B08301_019M: transport_walked_moe
+      B08301_020E: transport_other
+      B08301_020M: transport_other_moe
+      B08301_021E: transport_home
+      B08301_021M: transport_home_moe
+      
 tables:
   "yg_transport":
     pk: ["year", "geo"]
     agg: sum
+

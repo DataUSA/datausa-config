@@ -48,150 +48,263 @@ income_moe,B19013_001M,Median Household Income Margin of Error
 income,B19013_001E,Median Household Income
 totalhouseholdsE,B19001_001E,"Total Number of Households"
 totalhouseholdsM,B19001_001M,"Total Number of Households Margin of Error"
-incomeless10E,B19001_002E,"Less than $10,000"
-incomeless10M,B19001_002M,"Less than $10,000 Margin of Error"
-income10to15E,B19001_003E,"$10,000 to $14,999"
-income10to15M,B19001_003M,"$10,000 to $14,999 Margin of Error"
-income15to20E,B19001_004E,"$15,000 to $19,999"
-income15to20M,B19001_004M,"$15,000 to $19,999 Margin of Error"
-income20to25E,B19001_005E,"$20,000 to $24,999"
-income20to25M,B19001_005M,"$20,000 to $24,999 Margin of Error"
-income25to30E,B19001_006E,"$25,000 to $29,999"
-income25to30M,B19001_006M,"$25,000 to $29,999 Margin of Error"
-income30to35E,B19001_007E,"$30,000 to $34,999"
-income30to35M,B19001_007M,"$30,000 to $34,999 Margin of Error"
-income35to40E,B19001_008E,"$35,000 to $39,999"
-income35to40M,B19001_008M,"$35,000 to $39,999 Margin of Error"
-income40to45E,B19001_009E,"$40,000 to $44,999"
-income40to45M,B19001_009M,"$40,000 to $44,999 Margin of Error"
-income45to50E,B19001_010E,"$45,000 to $49,999"
-income45to50M,B19001_010M,"$45,000 to $49,999 Margin of Error"
-income50to60E,B19001_011E,"$50,000 to $59,999"
-income50to60M,B19001_011M,"$50,000 to $59,999 Margin of Error"
-income60to75E,B19001_012E,"$60,000 to $74,999"
-income60to75M,B19001_012M,"$60,000 to $74,999 Margin of Error"
-income75to100E,B19001_013E,"$75,000 to $99,999"
-income75to100M,B19001_013M,"$75,000 to $99,999 Margin of Error"
-income100to125E,B19001_014E,"$100,000 to $124,999"
-income100to125M,B19001_014M,"$100,000 to $124,999 Margin of Error"
-income125to150E,B19001_015E,"$125,000 to $149,999"
-income125to150M,B19001_015M,"$125,000 to $149,999 Margin of Error"
-income150to200E,B19001_016E,"$150,000 to $199,999"
-income150to200M,B19001_016M,"$150,000 to $199,999 Margin of Error"
-income200moreE,B19001_017E,"$200,000 or more"
-income200moreM,B19001_017M,"$200,000 or more Margin of Error"
-us_under_5E,"B06001_014E,B06001_026E,B06001_038E",US Citizen Under 5 Years
-us_under_5M,"B06001_014M,B06001_026M,B06001_038M",US Citizen Under 5 Years Margin of Error
-us_5_to_17E,"B06001_015E,B06001_027E,B06001_039E",US Citizen Under 5 to 17 Years
-us_5_to_17M,"B06001_015M,B06001_027M,B06001_039M",US Citizen Under 5 to 17 Years Margin of Error
-us_18_to_24E,"B06001_016E,B06001_028E,B06001_040E",US Citizen 18 to 24 Years
-us_18_to_24M,"B06001_016M,B06001_028M,B06001_040M",US Citizen 18 to 24 Years Margin of Error
-us_25_to_34E,"B06001_017E,B06001_029E,B06001_041E",US Citizen 25 to 34 Years
-us_25_to_34M,"B06001_017E,B06001_029E,B06001_041E",US Citizen 25 to 34 Years Margin of Error
-us_35_to_44E,"B06001_018E,B06001_030E,B06001_042E",US Citizen 35 to 44 Years
-us_35_to_44M,"B06001_018M,B06001_030M,B06001_042M",US Citizen 35 to 44 Years Margin of Error
-us_45_to_54E,"B06001_019E,B06001_031E,B06001_043E",US Citizen 45 to 54 Years
-us_45_to_54M,"B06001_019M,B06001_031M,B06001_043M",US Citizen 45 to 54 Years Margin of Error
-us_55_to_59E,"B06001_020E,B06001_032E,B06001_044E",US Citizen 55 to 59 Years
-us_55_to_59M,"B06001_020M,B06001_032M,B06001_044M",US Citizen 55 to 59 Years Margin of Error
-us_60_to_61E,"B06001_021E,B06001_033E,B06001_045E",US Citizen 60 and 61 Years
-us_60_to_61M,"B06001_021M,B06001_033M,B06001_045M",US Citizen 60 and 61 Years Margin of Error
-us_62_to_64E,"B06001_022E,B06001_034E,B06001_046E",US Citizen 62 to 64 Years
-us_62_to_64M,"B06001_022M,B06001_034M,B06001_046M",US Citizen 62 to 64 Years Margin of Error
-us_65_to_74E,"B06001_023E,B06001_035E,B06001_047E",US Citizen 65 to 74 Years
-us_65_to_74M,"B06001_023M,B06001_035M,B06001_047M",US Citizen 65 to 74 Years Margin of Error
-us_75_and_overE,"B06001_024E,B06001_036E,B06001_048E",US Citizen 75 years and over
-us_75_and_overM,"B06001_024M,B06001_036M,B06001_048M",US Citizen 75 years and over Margin of Error
-foreign_under_5E,B06001_050E,Foreign Under 5 Years
-foreign_under_5M,B06001_050M,Foreign Under 5 Years Margin of Error
-foreign_5_to_17E,B06001_051E,Foreign Under 5 to 17 Years
-foreign_5_to_17M,B06001_051M,Foreign Under 5 to 17 Years Margin of Error
-foreign_18_to_24E,B06001_052E,Foreign 18 to 24 Years
-foreign_18_to_24M,B06001_052M,Foreign 18 to 24 Years Margin of Error
-foreign_25_to_34E,B06001_053E,Foreign 25 to 34 Years
-foreign_25_to_34M,B06001_053M,Foreign 25 to 34 Years Margin of Error
-foreign_35_to_44E,B06001_054E,Foreign 35 to 44 Years
-foreign_35_to_44M,B06001_054M,Foreign 35 to 44 Years Margin of Error
-foreign_45_to_54E,B06001_055E,Foreign 45 to 54 Years
-foreign_45_to_54M,B06001_055M,Foreign 45 to 54 Years Margin of Error
-foreign_55_to_59E,B06001_056E,Foreign 55 to 59 Years
-foreign_55_to_59M,B06001_056M,Foreign 55 to 59 Years Margin of Error
-foreign_60_to_61E,B06001_057E,Foreign 60 and 61 Years
-foreign_60_to_61M,B06001_057M,Foreign 60 and 61 Years Margin of Error
-foreign_62_to_64E,B06001_058E,Foreign 62 to 64 Years
-foreign_62_to_64M,B06001_058M,Foreign 62 to 64 Years Margin of Error
-foreign_65_to_74M,B06001_059E,Foreign 65 to 74 Years
-foreign_65_to_74E,B06001_059M,Foreign 65 to 74 Years Margin of Error
-foreign_75_and_olderM,B06001_060E,Foreign 75 years and over
-foreign_75_and_olderE,B06001_060M,Foreign 75 years and over Margin of Error
-pop_poverty_statusE,B17001_001E,Population for Whom Poverty Status Is Determined
-pop_poverty_statusM,B17001_001M,Population for Whom Poverty Status Is Determined Margin of Error
-income_below_povertyE,B17001_002E,Income in the Past 12 Months Below Poverty Level
-income_below_povertyM,B17001_002M,Income in the Past 12 Months Below Poverty Level Margin of Error
-poverty_male_E,B17001_003E,Males with Income in the Past 12 Months Below Poverty Level
-poverty_male_M,B17001_003M,Males with Income in the Past 12 Months Below Poverty Level Margin of Error
-poverty_male_under5E,B17001_004E,Males Under 5 Years with Income in the Past 12 Months Below Poverty Level
-poverty_male_under5M,B17001_004M,Males Under 5 Years with Income in the Past 12 Months Below Poverty Level Margin of Error
-poverty_male_5E,B17001_005E,Males 5 Years with Income in the Past 12 Months Below Poverty Level
-poverty_male_5M,B17001_005M,Males 5 Years with Income in the Past 12 Months Below Poverty Level Margin of Error
-poverty_male_6to11E,B17001_006E,Males 6 to 11 Years with Income in the Past 12 Months Below Poverty Level
-poverty_male_6to11M,B17001_006M,Males 6 to 11 Years with Income in the Past 12 Months Below Poverty Level Margin of Error
-poverty_male_12to14E,B17001_007E,Males 12 to 14 Years with Income in the Past 12 Months Below Poverty Level
-poverty_male_12to14M,B17001_007M,Males 12 to 14 Years with Income in the Past 12 Months Below Poverty Level Margin of Error
-poverty_male_15E,B17001_008E,Males 15 Years with Income in the Past 12 Months Below Poverty Level
-poverty_male_15M,B17001_008M,Males 15 Years with Income in the Past 12 Months Below Poverty Level Margin of Error
-poverty_male_16to17E,B17001_009E,Males 16 and 17 Years with Income in the Past 12 Months Below Poverty Level
-poverty_male_16to17M,B17001_009M,Males 16 and 17 Years with Income in the Past 12 Months Below Poverty Level Margin of Error
-poverty_male_18to24E,B17001_010E,Males 18 to 24 Years with Income in the Past 12 Months Below Poverty Level
-poverty_male_18to24M,B17001_010M,Males 18 to 24 Years with Income in the Past 12 Months Below Poverty Level Margin of Error
-poverty_male_25to34E,B17001_011E,Males 25 to 34 Years with Income in the Past 12 Months Below Poverty Level
-poverty_male_25to34M,B17001_011M,Males 25 to 34 Years with Income in the Past 12 Months Below Poverty Level Margin of Error
-poverty_male_35to44E,B17001_012E,Males 35 to 44 Years with Income in the Past 12 Months Below Poverty Level
-poverty_male_35to44M,B17001_012M,Males 35 to 44 Years with Income in the Past 12 Months Below Poverty Level Margin of Error
-poverty_male_45to54E,B17001_013E,Males 45 to 54 Years with Income in the Past 12 Months Below Poverty Level
-poverty_male_45to54M,B17001_013M,Males 45 to 54 Years with Income in the Past 12 Months Below Poverty Level Margin of Error
-poverty_male_55to64E,B17001_014E,Males 55 to 64 Years with Income in the Past 12 Months Below Poverty Level
-poverty_male_55to64M,B17001_014M,Males 55 to 64 Years with Income in the Past 12 Months Below Poverty Level Margin of Error
-poverty_male_65to74E,B17001_015E,Males 65 to 74 Years with Income in the Past 12 Months Below Poverty Level
-poverty_male_65to74M,B17001_015M,Males 65 to 74 Years with Income in the Past 12 Months Below Poverty Level Margin of Error
-poverty_male_75olderE,B17001_016E,Males 75 Years and Older with Income in the Past 12 Months Below Poverty Level
-poverty_male_75olderM,B17001_016M,Males 75 Years and Older with Income in the Past 12 Months Below Poverty Level Margin of Error
-poverty_female_E,B17001_017E,Females with Income in the Past 12 Months Below Poverty Level
-poverty_female_M,B17001_017M,Females with Income in the Past 12 Months Below Poverty Level Margin of Error
-poverty_female_under5E,B17001_018E,Females Under 5 Years with Income in the Past 12 Months Below Poverty Level
-poverty_female_under5M,B17001_018M,Females Under 5 Years with Income in the Past 12 Months Below Poverty Level Margin of Error
-poverty_female_5E,B17001_019E,Females 5 Years with Income in the Past 12 Months Below Poverty Level
-poverty_female_5M,B17001_019M,Females 5 Years with Income in the Past 12 Months Below Poverty Level Margin of Error
-poverty_female_6to11E,B17001_020E,Females 6 to 11 Years with Income in the Past 12 Months Below Poverty Level
-poverty_female_6to11M,B17001_020M,Females 6 to 11 Years with Income in the Past 12 Months Below Poverty Level Margin of Error
-poverty_female_12to14E,B17001_021E,Females 12 to 14 Years with Income in the Past 12 Months Below Poverty Level
-poverty_female_12to14M,B17001_021M,Females 12 to 14 Years with Income in the Past 12 Months Below Poverty Level Margin of Error
-poverty_female_15E,B17001_022E,Females 15 Years with Income in the Past 12 Months Below Poverty Level
-poverty_female_15M,B17001_022M,Females 15 Years with Income in the Past 12 Months Below Poverty Level Margin of Error
-poverty_female_16to17E,B17001_023E,Females 16 and 17 Years with Income in the Past 12 Months Below Poverty Level
-poverty_female_16to17M,B17001_023M,Females 16 and 17 Years with Income in the Past 12 Months Below Poverty Level Margin of Error
-poverty_female_18to24E,B17001_024E,Females 18 to 24 Years with Income in the Past 12 Months Below Poverty Level
-poverty_female_18to24M,B17001_024M,Females 18 to 24 Years with Income in the Past 12 Months Below Poverty Level Margin of Error
-poverty_female_25to34E,B17001_025E,Females 25 to 34 Years with Income in the Past 12 Months Below Poverty Level
-poverty_female_25to34M,B17001_025M,Females 25 to 34 Years with Income in the Past 12 Months Below Poverty Level Margin of Error
-poverty_female_35to44E,B17001_026E,Females 35 to 44 Years with Income in the Past 12 Months Below Poverty Level
-poverty_female_35to44M,B17001_026M,Females 35 to 44 Years with Income in the Past 12 Months Below Poverty Level Margin of Error
-poverty_female_45to54E,B17001_027E,Females 45 to 54 Years with Income in the Past 12 Months Below Poverty Level
-poverty_female_45to54M,B17001_027M,Females 45 to 54 Years with Income in the Past 12 Months Below Poverty Level Margin of Error
-poverty_female_55to64E,B17001_028E,Females 55 to 64 Years with Income in the Past 12 Months Below Poverty Level
-poverty_female_55to64M,B17001_028M,Females 55 to 64 Years with Income in the Past 12 Months Below Poverty Level Margin of Error
-poverty_female_65to74E,B17001_029E,Females 65 to 74 Years with Income in the Past 12 Months Below Poverty Level
-poverty_female_65to74M,B17001_029M,Females 65 to 74 Years with Income in the Past 12 Months Below Poverty Level Margin of Error
-poverty_female_75olderE,B17001_030E,Females 75 Years and Older with Income in the Past 12 Months Below Poverty Level
-poverty_female_75olderM,B17001_030M,Females 75 Years and Older with Income in the Past 12 Months Below Poverty Level Margin of Error
-property_tax_800to1500E,B25102_003E,Real Estate Taxes Paid Less than $800
-property_tax_800to1500M,B25102_003M,Real Estate Taxes Paid Less than $800 Margin of Error
-property_tax_1500to2000E,B25102_004E,Real Estate Taxes Paid $800 to $1,499
-property_tax_1500to2000M,B25102_004M,Real Estate Taxes Paid $800 to $1,499 Margin of Error
-property_tax_2000to3000E,B25102_005E,Real Estate Taxes Paid $1,500 to $1,999
-property_tax_2000to3000M,B25102_005M,Real Estate Taxes Paid $1,500 to $1,999 Margin of Error
-property_tax_3000moreE,B25102_006E,Real Estate Taxes Paid $3,000 or More
-property_tax_3000moreM,B25102_006M,Real Estate Taxes Paid $3,000 or More Margin of Error
-property_tax_noneE,B25102_007E,No Real Estate Taxes Paid
-property_tax_noneM,B25102_007M,No Real Estate Taxes Paid Margin of Error
-
+incomeless10,B19001_002E,"Less than $10,000"
+incomeless10_moe,B19001_002M,"Less than $10,000 Margin of Error"
+income10to15,B19001_003E,"$10,000 to $14,999"
+income10to15_moe,B19001_003M,"$10,000 to $14,999 Margin of Error"
+income15to20,B19001_004E,"$15,000 to $19,999"
+income15to20_moe,B19001_004M,"$15,000 to $19,999 Margin of Error"
+income20to25,B19001_005E,"$20,000 to $24,999"
+income20to25_moe,B19001_005M,"$20,000 to $24,999 Margin of Error"
+income25to30,B19001_006E,"$25,000 to $29,999"
+income25to30_moe,B19001_006M,"$25,000 to $29,999 Margin of Error"
+income30to35,B19001_007E,"$30,000 to $34,999"
+income30to35_moe,B19001_007M,"$30,000 to $34,999 Margin of Error"
+income35to40,B19001_008E,"$35,000 to $39,999"
+income35to40_moe,B19001_008M,"$35,000 to $39,999 Margin of Error"
+income40to45,B19001_009E,"$40,000 to $44,999"
+income40to45_moe,B19001_009M,"$40,000 to $44,999 Margin of Error"
+income45to50,B19001_010E,"$45,000 to $49,999"
+income45to50_moe,B19001_010M,"$45,000 to $49,999 Margin of Error"
+income50to60,B19001_011E,"$50,000 to $59,999"
+income50to60_moe,B19001_011M,"$50,000 to $59,999 Margin of Error"
+income60to75,B19001_012E,"$60,000 to $74,999"
+income60to75_moe,B19001_012M,"$60,000 to $74,999 Margin of Error"
+income75to100,B19001_013E,"$75,000 to $99,999"
+income75to100_moe,B19001_013M,"$75,000 to $99,999 Margin of Error"
+income100to125,B19001_014E,"$100,000 to $124,999"
+income100to125_moe,B19001_014M,"$100,000 to $124,999 Margin of Error"
+income125to150,B19001_015E,"$125,000 to $149,999"
+income125to150_moe,B19001_015M,"$125,000 to $149,999 Margin of Error"
+income150to200,B19001_016E,"$150,000 to $199,999"
+income150to200_moe,B19001_016M,"$150,000 to $199,999 Margin of Error"
+income200more,B19001_017E,"$200,000 or more"
+income200more_moe,B19001_017M,"$200,000 or more Margin of Error"
+us_under_5,"B06001_014E,B06001_026E,B06001_038E",US Citizen Under 5 Years
+us_under_5_moe,"B06001_014M,B06001_026M,B06001_038M",US Citizen Under 5 Years Margin of Error
+us_5_to_17,"B06001_015E,B06001_027E,B06001_039E",US Citizen Under 5 to 17 Years
+us_5_to_17_moe,"B06001_015M,B06001_027M,B06001_039M",US Citizen Under 5 to 17 Years Margin of Error
+us_18_to_24,"B06001_016E,B06001_028E,B06001_040E",US Citizen 18 to 24 Years
+us_18_to_24_moe,"B06001_016M,B06001_028M,B06001_040M",US Citizen 18 to 24 Years Margin of Error
+us_25_to_34,"B06001_017E,B06001_029E,B06001_041E",US Citizen 25 to 34 Years
+us_25_to_34_moe,"B06001_017E,B06001_029E,B06001_041E",US Citizen 25 to 34 Years Margin of Error
+us_35_to_44,"B06001_018E,B06001_030E,B06001_042E",US Citizen 35 to 44 Years
+us_35_to_44_moe,"B06001_018M,B06001_030M,B06001_042M",US Citizen 35 to 44 Years Margin of Error
+us_45_to_54,"B06001_019E,B06001_031E,B06001_043E",US Citizen 45 to 54 Years
+us_45_to_54_moe,"B06001_019M,B06001_031M,B06001_043M",US Citizen 45 to 54 Years Margin of Error
+us_55_to_59,"B06001_020E,B06001_032E,B06001_044E",US Citizen 55 to 59 Years
+us_55_to_59_moe,"B06001_020M,B06001_032M,B06001_044M",US Citizen 55 to 59 Years Margin of Error
+us_60_to_61,"B06001_021E,B06001_033E,B06001_045E",US Citizen 60 and 61 Years
+us_60_to_61_moe,"B06001_021M,B06001_033M,B06001_045M",US Citizen 60 and 61 Years Margin of Error
+us_62_to_64,"B06001_022E,B06001_034E,B06001_046E",US Citizen 62 to 64 Years
+us_62_to_64_moe,"B06001_022M,B06001_034M,B06001_046M",US Citizen 62 to 64 Years Margin of Error
+us_65_to_74,"B06001_023E,B06001_035E,B06001_047E",US Citizen 65 to 74 Years
+us_65_to_74_moe,"B06001_023M,B06001_035M,B06001_047M",US Citizen 65 to 74 Years Margin of Error
+us_75_and_over,"B06001_024E,B06001_036E,B06001_048E",US Citizen 75 years and over
+us_75_and_over_moe,"B06001_024M,B06001_036M,B06001_048M",US Citizen 75 years and over Margin of Error
+foreign_under_5,B06001_050E,Foreign Under 5 Years
+foreign_under_5_moe,B06001_050M,Foreign Under 5 Years Margin of Error
+foreign_5_to_17,B06001_051E,Foreign Under 5 to 17 Years
+foreign_5_to_17_moe,B06001_051M,Foreign Under 5 to 17 Years Margin of Error
+foreign_18_to_24,B06001_052E,Foreign 18 to 24 Years
+foreign_18_to_24_moe,B06001_052M,Foreign 18 to 24 Years Margin of Error
+foreign_25_to_34,B06001_053E,Foreign 25 to 34 Years
+foreign_25_to_34_moe,B06001_053M,Foreign 25 to 34 Years Margin of Error
+foreign_35_to_44,B06001_054E,Foreign 35 to 44 Years
+foreign_35_to_44_moe,B06001_054M,Foreign 35 to 44 Years Margin of Error
+foreign_45_to_54,B06001_055E,Foreign 45 to 54 Years
+foreign_45_to_54_moe,B06001_055M,Foreign 45 to 54 Years Margin of Error
+foreign_55_to_59,B06001_056E,Foreign 55 to 59 Years
+foreign_55_to_59_moe,B06001_056M,Foreign 55 to 59 Years Margin of Error
+foreign_60_to_61,B06001_057E,Foreign 60 and 61 Years
+foreign_60_to_61_moe,B06001_057M,Foreign 60 and 61 Years Margin of Error
+foreign_62_to_64,B06001_058E,Foreign 62 to 64 Years
+foreign_62_to_64_moe,B06001_058M,Foreign 62 to 64 Years Margin of Error
+foreign_65_to_74,B06001_059E,Foreign 65 to 74 Years
+foreign_65_to_74_moe,B06001_059M,Foreign 65 to 74 Years Margin of Error
+foreign_75_and_older,B06001_060E,Foreign 75 years and over
+foreign_75_and_older_moe,B06001_060M,Foreign 75 years and over Margin of Error
+pop_poverty_status,B17001_001E,Population for Whom Poverty Status Is Determined
+pop_poverty_status_moe,B17001_001M,Population for Whom Poverty Status Is Determined Margin of Error
+income_below_poverty,B17001_002E,Income in the Past 12 Months Below Poverty Level
+income_below_poverty_moe,B17001_002M,Income in the Past 12 Months Below Poverty Level Margin of Error
+poverty_male,B17001_003E,Males with Income in the Past 12 Months Below Poverty Level
+poverty_male_moe,B17001_003M,Males with Income in the Past 12 Months Below Poverty Level Margin of Error
+poverty_male_under5,B17001_004E,Males Under 5 Years with Income in the Past 12 Months Below Poverty Level
+poverty_male_under5_moe,B17001_004M,Males Under 5 Years with Income in the Past 12 Months Below Poverty Level Margin of Error
+poverty_male_5,B17001_005E,Males 5 Years with Income in the Past 12 Months Below Poverty Level
+poverty_male_5_moe,B17001_005M,Males 5 Years with Income in the Past 12 Months Below Poverty Level Margin of Error
+poverty_male_6to11,B17001_006E,Males 6 to 11 Years with Income in the Past 12 Months Below Poverty Level
+poverty_male_6to11_moe,B17001_006M,Males 6 to 11 Years with Income in the Past 12 Months Below Poverty Level Margin of Error
+poverty_male_12to14,B17001_007E,Males 12 to 14 Years with Income in the Past 12 Months Below Poverty Level
+poverty_male_12to14_moe,B17001_007M,Males 12 to 14 Years with Income in the Past 12 Months Below Poverty Level Margin of Error
+poverty_male_15,B17001_008E,Males 15 Years with Income in the Past 12 Months Below Poverty Level
+poverty_male_15_moe,B17001_008M,Males 15 Years with Income in the Past 12 Months Below Poverty Level Margin of Error
+poverty_male_16to17,B17001_009E,Males 16 and 17 Years with Income in the Past 12 Months Below Poverty Level
+poverty_male_16to17_moe,B17001_009M,Males 16 and 17 Years with Income in the Past 12 Months Below Poverty Level Margin of Error
+poverty_male_18to24,B17001_010E,Males 18 to 24 Years with Income in the Past 12 Months Below Poverty Level
+poverty_male_18to24_moe,B17001_010M,Males 18 to 24 Years with Income in the Past 12 Months Below Poverty Level Margin of Error
+poverty_male_25to34,B17001_011E,Males 25 to 34 Years with Income in the Past 12 Months Below Poverty Level
+poverty_male_25to34_moe,B17001_011M,Males 25 to 34 Years with Income in the Past 12 Months Below Poverty Level Margin of Error
+poverty_male_35to44,B17001_012E,Males 35 to 44 Years with Income in the Past 12 Months Below Poverty Level
+poverty_male_35to44_moe,B17001_012M,Males 35 to 44 Years with Income in the Past 12 Months Below Poverty Level Margin of Error
+poverty_male_45to54,B17001_013E,Males 45 to 54 Years with Income in the Past 12 Months Below Poverty Level
+poverty_male_45to54_moe,B17001_013M,Males 45 to 54 Years with Income in the Past 12 Months Below Poverty Level Margin of Error
+poverty_male_55to64,B17001_014E,Males 55 to 64 Years with Income in the Past 12 Months Below Poverty Level
+poverty_male_55to64_moe,B17001_014M,Males 55 to 64 Years with Income in the Past 12 Months Below Poverty Level Margin of Error
+poverty_male_65to74,B17001_015E,Males 65 to 74 Years with Income in the Past 12 Months Below Poverty Level
+poverty_male_65to74_moe,B17001_015M,Males 65 to 74 Years with Income in the Past 12 Months Below Poverty Level Margin of Error
+poverty_male_75older,B17001_016E,Males 75 Years and Older with Income in the Past 12 Months Below Poverty Level
+poverty_male_75older_moe,B17001_016M,Males 75 Years and Older with Income in the Past 12 Months Below Poverty Level Margin of Error
+poverty_female,B17001_017E,Females with Income in the Past 12 Months Below Poverty Level
+poverty_female_moe,B17001_017M,Females with Income in the Past 12 Months Below Poverty Level Margin of Error
+poverty_female_under5,B17001_018E,Females Under 5 Years with Income in the Past 12 Months Below Poverty Level
+poverty_female_under5_moe,B17001_018M,Females Under 5 Years with Income in the Past 12 Months Below Poverty Level Margin of Error
+poverty_female_5,B17001_019E,Females 5 Years with Income in the Past 12 Months Below Poverty Level
+poverty_female_5_moe,B17001_019M,Females 5 Years with Income in the Past 12 Months Below Poverty Level Margin of Error
+poverty_female_6to11,B17001_020E,Females 6 to 11 Years with Income in the Past 12 Months Below Poverty Level
+poverty_female_6to11_moe,B17001_020M,Females 6 to 11 Years with Income in the Past 12 Months Below Poverty Level Margin of Error
+poverty_female_12to14,B17001_021E,Females 12 to 14 Years with Income in the Past 12 Months Below Poverty Level
+poverty_female_12to14_moe,B17001_021M,Females 12 to 14 Years with Income in the Past 12 Months Below Poverty Level Margin of Error
+poverty_female_15,B17001_022E,Females 15 Years with Income in the Past 12 Months Below Poverty Level
+poverty_female_15_moe,B17001_022M,Females 15 Years with Income in the Past 12 Months Below Poverty Level Margin of Error
+poverty_female_16to17,B17001_023E,Females 16 and 17 Years with Income in the Past 12 Months Below Poverty Level
+poverty_female_16to17_moe,B17001_023M,Females 16 and 17 Years with Income in the Past 12 Months Below Poverty Level Margin of Error
+poverty_female_18to24,B17001_024E,Females 18 to 24 Years with Income in the Past 12 Months Below Poverty Level
+poverty_female_18to24_moe,B17001_024M,Females 18 to 24 Years with Income in the Past 12 Months Below Poverty Level Margin of Error
+poverty_female_25to34,B17001_025E,Females 25 to 34 Years with Income in the Past 12 Months Below Poverty Level
+poverty_female_25to34_moe,B17001_025M,Females 25 to 34 Years with Income in the Past 12 Months Below Poverty Level Margin of Error
+poverty_female_35to44,B17001_026E,Females 35 to 44 Years with Income in the Past 12 Months Below Poverty Level
+poverty_female_35to44_moe,B17001_026M,Females 35 to 44 Years with Income in the Past 12 Months Below Poverty Level Margin of Error
+poverty_female_45to54,B17001_027E,Females 45 to 54 Years with Income in the Past 12 Months Below Poverty Level
+poverty_female_45to54_moe,B17001_027M,Females 45 to 54 Years with Income in the Past 12 Months Below Poverty Level Margin of Error
+poverty_female_55to64,B17001_028E,Females 55 to 64 Years with Income in the Past 12 Months Below Poverty Level
+poverty_female_55to64_moe,B17001_028M,Females 55 to 64 Years with Income in the Past 12 Months Below Poverty Level Margin of Error
+poverty_female_65to74,B17001_029E,Females 65 to 74 Years with Income in the Past 12 Months Below Poverty Level
+poverty_female_65to74_moe,B17001_029M,Females 65 to 74 Years with Income in the Past 12 Months Below Poverty Level Margin of Error
+poverty_female_75older,B17001_030E,Females 75 Years and Older with Income in the Past 12 Months Below Poverty Level
+poverty_female_75older_moe,B17001_030M,Females 75 Years and Older with Income in the Past 12 Months Below Poverty Level Margin of Error
+property_tax_800to1500,B25102_003E,Real Estate Taxes Paid Less than $800
+property_tax_800to1500_moe,B25102_003M,Real Estate Taxes Paid Less than $800 Margin of Error
+property_tax_1500to2000,B25102_004E,Real Estate Taxes Paid $800 to $1,499
+property_tax_1500to2000_moe,B25102_004M,Real Estate Taxes Paid $800 to $1,499 Margin of Error
+property_tax_2000to3000,B25102_005E,Real Estate Taxes Paid $1,500 to $1,999
+property_tax_2000to3000_moe,B25102_005M,Real Estate Taxes Paid $1,500 to $1,999 Margin of Error
+property_tax_3000more,B25102_006E,Real Estate Taxes Paid $3,000 or More
+property_tax_3000more_moe,B25102_006M,Real Estate Taxes Paid $3,000 or More Margin of Error
+property_tax_none,B25102_007E,No Real Estate Taxes Paid
+property_tax_none_moe,B25102_007M,No Real Estate Taxes Paid Margin of Error
+total_owner_occupied_housin_units,B25075_001E,
+total_owner_occupied_housin_units_moe,B25075_001M,
+property_val_less10k,B25075_002E,
+property_val_less10k_moe,B25075_002M,
+property_val_10kto15k,B25075_003E,
+property_val_10kto15k_moe,B25075_003M,
+property_val_15kto20k,B25075_004E,
+property_val_15kto20k_moe,B25075_004M,
+property_val_20kto25k,B25075_005E,
+property_val_20kto25k_moe,B25075_005M,
+property_val_25kto30k,B25075_006E,
+property_val_25kto30k_moe,B25075_006M,
+property_val_30kto35k,B25075_007E,
+property_val_30kto35k_moe,B25075_007M,
+property_val_35kto40k,B25075_008E,
+property_val_35kto40k_moe,B25075_008M,
+property_val_40kto50k,B25075_009E,
+property_val_40kto50k_moe,B25075_009M,
+property_val_50kto60k,B25075_010E,
+property_val_50kto60k_moe,B25075_010M,
+property_val_60kto70k,B25075_011E,
+property_val_60kto70k_moe,B25075_011M,
+property_val_70kto80k,B25075_012E,
+property_val_70kto80k_moe,B25075_012M,
+property_val_80kto90k,B25075_013E,
+property_val_80kto90k_moe,B25075_013M,
+property_val_90kto100k,B25075_014E,
+property_val_90kto100k_moe,B25075_014M,
+property_val_100kto125k,B25075_015E,
+property_val_100kto125k_moe,B25075_015M,
+property_val_125kto150k,B25075_016E,
+property_val_125kto150k_moe,B25075_016M,
+property_val_150kto175k,B25075_017E,
+property_val_150kto175k_moe,B25075_017M,
+property_val_175kto200k,B25075_018E,
+property_val_175kto200k_moe,B25075_018M,
+property_val_200kto250k,B25075_019E,
+property_val_200kto250k_moe,B25075_029M,
+property_val_250kto300k,B25075_020E,
+property_val_250kto300k_moe,B25075_020M,
+property_val_300kto400k,B25075_021E,
+property_val_300kto400k_moe,B25075_021M,
+property_val_400kto500k,B25075_022E,
+property_val_400kto500k_moe,B25075_022M,
+property_val_500kto750k,B25075_023E,
+property_val_500kto750k_moe,B25075_023M,
+property_val_750kto1M,B25075_024E,
+property_val_750kto1M_moe,B25075_024M,
+property_val_1Mormore,B25075_025E,
+property_val_1Mormore_moe,B25075_025M,
+pop_white,B03002_003E,
+pop_white_moe,B03002_003M,
+pop_black,B03002_004E,
+pop_black_moe,B03002_004M,
+pop_native,B03002_005E,
+pop_native_moe,B03002_005M,
+pop_asian,B03002_006E,
+pop_asian_moe,B03002_006M,
+pop_hawaiian,B03002_007E,
+pop_hawaiian_moe,B03002_007M,
+pop_other,B03002_008E,
+pop_other_moe,B03002_008M,
+pop_2ormore,B03002_009E,
+pop_2ormore_moe,B03002_009M,
+pop_latino,B03002_012E,
+pop_latino_moe,B03002_012M,
+households,B25003_001E,
+households_moe,B25003_001M,
+households_owner_occupied,B25003_002E,
+households_owner_occupied_moe,B25003_002M,
+households_renter_occupied,B25003_003E,
+households_renter_occupied_moe,B25003_003M,
+workers,B08301_001E,
+workers_moe,B08301_001M,
+transport_cartruckorvan,B08301_002E,
+transport_cartruckorvan_moe,B08301_002M,
+transport_drove,B08301_003E,
+transport_drove_moe,B08301_003M,
+transport_carpooled,B08301_004E,
+transport_carpooled_moe,B08301_004M,
+transport_carpooled_2_person,B08301_005E,
+transport_carpooled_2_person_moe,B08301_005M,
+transport_carpooled_3_person,B08301_006E,
+transport_carpooled_3_person_moe,B08301_006M,
+transport_carpooled_4_person,B08301_007E,
+transport_carpooled_4_person_moe,B08301_007M,
+transport_carpooled_5_6_person,B08301_008E,
+transport_carpooled_5_6_person_moe,B08301_008M,
+transport_carpooled_7_more_person,B08301_009E,
+transport_carpooled_7_more_person_moe,B08301_009M,
+transport_publictrans,B08301_010E,
+transport_publictrans_moe,B08301_010M,
+transport_publictrans_bus,B08301_011E,
+transport_publictrans_bus_moe,B08301_011M,
+transport_publictrans_streetcar,B08301_012E,
+transport_publictrans_streetcar_moe,B08301_012M,
+transport_publictrans_subway,B08301_013E,
+transport_publictrans_subway_moe,B08301_013M,
+transport_publictrans_rail,B08301_014E,
+transport_publictrans_rail_moe,B08301_014M,
+transport_publictrans_ferry,B08301_015E,
+transport_publictrans_ferry_moe,B08301_015M,
+transport_taxi,B08301_016E,
+transport_taxi_moe,B08301_016M,
+transport_motorcycle,B08301_017E,
+transport_motorcycle_moe,B08301_017M,
+transport_bicycle,B08301_018E,
+transport_bicycle_moe,B08301_018M,
+transport_walked,B08301_019E,
+transport_walked_moe,B08301_019M,
+transport_other,B08301_020E,
+transport_other_moe,B08301_020M,
+transport_home,B08301_021E,
+transport_home_moe,B08301_021M,

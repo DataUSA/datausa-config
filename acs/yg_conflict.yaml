@@ -9,48 +9,48 @@ global:
 
   post_agg_transform:
     - type: add
-      column: koreaE
+      column: korea
       values: ["[B21002_010E]", "[B21002_011E]"]
       drop: YES
     - type: combine_moes
       confidence: 0.9
-      column: koreaM
+      column: korea_moe
       values: ["B21002_010M", "B21002_011M"]
       drop: YES
     - type: add
-      column: vietnamE
+      column: vietnam
       values: ["[B21002_007E]", "[B21002_008E]", "[B21002_009E]"]
       drop: YES
     - type: combine_moes
       confidence: 0.9
-      column: vietnamM
+      column: vietnam_moe
       values: ["B21002_007M", "B21002_008M", "B21002_009M"]
       drop: YES
     - type: add
-      column: gulf90sE
+      column: gulf90s
       values: ["[B21002_005E]", "[B21002_006E]"]
       drop: YES
     - type: combine_moes
       confidence: 0.9
-      column: gulf90sM
+      column: gulf90s_moe
       values: ["B21002_005M", "B21002_006M"]
       drop: YES
     - type: add
-      column: gulf01E
+      column: gulf01
       values: ["[B21002_002E]", "[B21002_003E]", "[B21002_004E]"]
       drop: YES
     - type: combine_moes
       confidence: 0.9
-      column: gulf01M
+      column: gulf01_moe
       values: ["B21002_002M", "B21002_003M", "B21002_004M"]
       drop: YES
 
   rename:
     GEOID: geo
-    B21002_001E: totalE
-    B21002_001M: totalM
-    B21002_012E: wwiiE
-    B21002_012M: wwiiM
+    B21002_001E: total
+    B21002_001M: total_moe
+    B21002_012E: wwii
+    B21002_012M: wwii_moe
 
 tables:
   "yg_conflict":

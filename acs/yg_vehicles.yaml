@@ -1,41 +1,27 @@
+inherits: "acs/acs_template.yaml"
 global:
-    seperator: ","
-    name: acs
-    use_schema: True
-    source : "data/acs/<sumlevel>_<tbl>_<column>.json"
-    filetype: json
     source_vars:
-        year: [2013]
-        sumlevel: ["state", "county"]
         tbl: ["B08014"]
         column:
           start: 2
-          end: 6
+          end: 7
           zfill: 3
-
-    preprocess:
-      func: "src.plugins.preprocess.acs_preprocess"
-
-    output : "data/output/acs/<sumlevel>_<tbl>_<column>"
-
-    web_paths: "http://api.census.gov/data/<year>/acs5?get=GEOID,<tbl>_<column>E,<tbl>_<column>M&for=<sumlevel>&key=$ACS_KEY"
-    concat: YES
-
-    import_to_db: True
-    db_settings:
-        user: postgres
-        password_env_var: DATAUSA_PW
-        host: 162.209.124.219
-        db_name: datausa
-
-    transform:
-      - type: drop
-        strict: NO
-        column: [tbl, sumlevel, column, state, county]
 
     rename:
       GEOID: geo
-
+      B08014_002E: vehicles_none
+      B08014_002M: vehicles_none_moe
+      B08014_003E: vehicles_1
+      B08014_003M: vehicles_1_moe
+      B08014_004E: vehicles_2
+      B08014_004M: vehicles_2_moe
+      B08014_005E: vehicles_3
+      B08014_005M: vehicles_3_moe
+      B08014_006E: vehicles_4
+      B08014_006M: vehicles_4_moe
+      B08014_007E: vehicles_5ormore
+      B08014_007M: vehicles_5ormore_moe
+      
 tables:
   "yg_vehicles":
     pk: ["year", "geo"]

@@ -7,6 +7,35 @@ global:
           end: 13
           zfill: 3
 
+    rename:
+      GEOID: geo
+      B08303_001E: workers
+      B08303_001M: workers_moe
+      B08303_002E: travel_lessthan5
+      B08303_002M: travel_lessthan5_moe
+      B08303_003E: travel_5to9
+      B08303_003M: travel_5to9_moe
+      B08303_004E: travel_10to14
+      B08303_004M: travel_10to14_moe
+      B08303_005E: travel_15to19
+      B08303_005M: travel_15to19_moe
+      B08303_006E: travel_20to24
+      B08303_006M: travel_20to24_moe
+      B08303_007E: travel_25to29
+      B08303_007M: travel_25to29_moe
+      B08303_008E: travel_30to34
+      B08303_008M: travel_30to34_moe
+      B08303_009E: travel_35to39
+      B08303_009M: travel_35to39_moe
+      B08303_010E: travel_40to44
+      B08303_010M: travel_40to44_moe
+      B08303_011E: travel_45to59
+      B08303_011M: travel_45to59_moe
+      B08303_012E: travel_60to89
+      B08303_012M: travel_60to89_moe
+      B08303_013E: travel_90ormore
+      B08303_013M: travel_90ormore_moe
+
 tables:
   "yg_travel_time":
     pk: ["year", "geo"]

@@ -3,17 +3,18 @@ global:
     name: acs_3year
     use_schema: True
     concat_border: "sumlevel"
-    source : "data/acs/ygi_emp/<year>_<sumlevel>_<column>.json"
-    output : "data/output/acs/ygi_emp/<year>/<sumlevel>/<column>"
+    source: "data/acs/ygi_emp/<year>_<sumlevel>_<column>.json"
+    output: "data/output/acs/ygi_emp/<year>/<sumlevel>/<column>"
     
     filetype: json
     source_vars:
+        tbl: B24030
         year: [2013]
         sumlevel:
             - us
-            - state
-            - county
-            - place
+            # - state
+            # - county
+            # - place
 
         column:
           start: 3
@@ -32,7 +33,7 @@ global:
       func: "src.plugins.preprocess.acs_preprocess"
 
 
-    web_paths: "http://api.census.gov/data/<year>/acs3?get=GEOID,B24030_<column>E,B24030_<column>M&for=<sumlevel>&key=$ACS_KEY"
+    web_paths: "http://api.census.gov/data/<year>/acs3?get=GEOID,<tbl>_<column>E,<tbl>_<column>M&for=<sumlevel>&key=$ACS_KEY"
     concat: YES
 
     import_to_db: True
@@ -43,20 +44,43 @@ global:
         db_name: datausa
 
     transform:
+      - type: set_val
+        column: tmp
+        value: "<tbl>_"
+      - type: zfill
+        size: 3
+        column: column
+      - type: concat
+        column: census_id
+        column0: tmp
+        column1: column
       - type: plugin
         func: src.plugins.census.acs.helper.ygi
         value_vars: ["{column:B24030_<column>E}", "{column:B24030_<column>M}"]
+      - type: join
+        source: acs/industry/acs_3year_B24030_crosswalk.csv
+        settings:
+          filetype: csv
+          usecols: [id, col]
+        left_on: census_id
+        right_on: col
+        how: left
       - type: rca
         index: ["year", "geo"]
         column: "census_id"
         values: [num_emp]
+      - type: rename
+        column: id
+        value: acs_ind
       - type: drop
-        column: "index"
+        column: ["index"]
+        # column: ["index", "census_id", "col"]
+
     rename:
       GEOID: geo
 
 tables:
-  "ygi_emp":
-    pk: ["year", "geo", "census_id"]
+  "ygi_num_emp":
+    pk: ["year", "geo", "acs_ind"]
     agg: sum
 

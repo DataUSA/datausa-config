@@ -55,7 +55,7 @@ global:
       GEOID: geo
 
 tables:
-  "ygi_emp":
+  "ygi_wage":
     pk: ["year", "geo", "census_id"]
     agg: sum
 

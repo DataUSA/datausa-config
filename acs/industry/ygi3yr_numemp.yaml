@@ -57,6 +57,8 @@ global:
       - type: plugin
         func: src.plugins.census.acs.helper.ygi
         value_vars: ["{column:B24030_<column>E}", "{column:B24030_<column>M}"]
+        midpoint: 106
+        offset: 104
       - type: join
         source: acs/industry/acs_3year_B24030_crosswalk.csv
         settings:

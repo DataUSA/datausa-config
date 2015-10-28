@@ -1,0 +1,34 @@
+global:
+    seperator: ","
+    use_schema: True
+    name: attrs
+    source: "acs/industry/acs_3year_B24030_crosswalk.csv"
+    type:
+      acs_ind: str
+    filetype: csv
+    output: tmp
+
+    import_to_db: True
+    db_settings:
+        user: postgres
+        password_env_var: DATAUSA_PW
+        host: 162.209.124.219
+        db_name: datausa
+
+    rename:
+      acs_ind: id
+
+    # transform:
+    #     - type: join
+    #       source: "acs_3year_B24030_crosswalk.csv"
+    #       settings:
+    #         filetype: csv
+    #         usecols: [acs_ind, name, depth]
+    #       left_on: [acs_ind, name, depth]
+    #       right_on: [acs_ind, name, depth]
+    #       how: outer
+    # usecols: [acs_ind, name, depth]
+
+tables:
+  acs_ind:
+    pk: [acs_ind, name, depth]

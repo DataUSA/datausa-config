@@ -1,104 +1,187 @@
-col,depth,name,id
-B24030_003,0,"Agriculture, forestry, fishing and hunting, and mining:",f5ec8ad15abc7f177567c1a490a8f1ab8bea9ef4
-B24030_004,1,"Agriculture, forestry, fishing and hunting",8441ce35443f0c0292be65b2ac9cd201794d4635
-B24030_005,1,"Mining, quarrying, and oil and gas extraction",4f365c28fbc50125b296ed41b1378b3c074ba162
-B24030_006,0,Construction,da33e1b7e0c4eae1911ee4a15280f0990e1a6115
-B24030_007,0,Manufacturing:,7c4d1584203077a88e82d9a13667934703902d4f
-B24030_008,1,Food,35b259290ec3acbb839d14cd18752dfb010f79ec
-B24030_009,1,Beverage and tobacco products,d2b1997e984064698e49fd9037950d44c3f82f91
-B24030_010,1,Textile mills and textile products,6f8db35b468db4219923ac75aa86f2449a469456
-B24030_011,1,Apparel,63428419d2575ba6dc9559759982049d4f32cc2b
-B24030_012,1,Leather and allied products,ed8b8f4a285fc831139232e1aa5fcdda5737a0d8
-B24030_013,1,Wood products,b312de4b61205d8b0e5fa30efc3ebe2a2bca2a82
-B24030_014,1,Paper,22d507f2ba74e43593de3ae3f550bf202c076adc
-B24030_015,1,Printing and related support activities,5eec00995c9a8b6bb09aaee18168a1be4b8abe73
-B24030_016,1,Petroleum and coal products,bedd6b19d3672ce05102a605424221b8ce748c1c
-B24030_017,1,Chemicals,ae0d3308055f20135d94de5f7f2e47f06ab7b2ba
-B24030_018,1,Plastics and rubber products,0e92b084bf40bd227c54124290b0f5a01eca2b86
-B24030_019,1,Nonmetallic mineral products,597bdc96f70583d182a995086fcac39af5a2b4d6
-B24030_020,1,Metal and metal products,08a172a9a20165a0b7650128eba185d5c399c2c5
-B24030_021,1,Machinery,53162117f4f1026ff6f316fc3d91900c244eb701
-B24030_022,1,Computer and electronic products,dcd60746bf3c5c5b22905c5cc72e3495207be04d
-B24030_023,1,"Electrical equipment, appliances, and components",3a4d72764b2cbffd907f633ef70b7e668aea0703
-B24030_024,1,Transportation equipment,72d16ed0cce77c4908fb926227e5e598a130a8dd
-B24030_025,1,Furniture and related product manufacturing,1d7d16f5ffb91873fa34991fc1793ec16a3bbef5
-B24030_026,1,Miscellaneous manufacturing,f990504149b55299c9106d9d9b645510c046adc5
-B24030_027,0,Wholesale trade:,e224d10bb24fc8b91462256392a79022ae3217e3
-B24030_028,1,Motor vehicle and motor vehicle parts and supplies merchant wholesalers,fc259c5d2f836c7740aa168996c9a7b220281991
-B24030_029,1,Furniture and home furnishing merchant wholesalers,24fdf376b29ded835c5a80128500c4fc4ae5f680
-B24030_030,1,Lumber and other construction materials merchant wholesalers,1ad5b1161498124d96421cd0635f30f2e261df93
-B24030_031,1,Professional and commercial equipment and supplies merchant wholesalers,582e206c8608b060cf061087bf5676f6a9add9e2
-B24030_032,1,"Metals and minerals, except petroleum, merchant wholesalers",890d287f5b75c774ebcc31653e772bf4e26febd8
-B24030_033,1,Household appliances and electrical and electronic goods merchant wholesalers,390053b47e5c3369dee10d282b04c620511eb858
-B24030_034,1,"Hardware, and plumbing and heating equipment, and supplies merchant wholesalers",f1c392b83b5f7bc13594e57caac7f29daa37b6ad
-B24030_035,1,"Machinery, equipment, and supplies merchant wholesalers",e7e566e793c7b6719d8fa8e8e1000f773e265379
-B24030_036,1,Recyclable material merchant wholesalers,4208fda8ec967837632cd13252e3b14d523bbaac
-B24030_037,1,Miscellaneous durable goods merchant wholesalers,c0c817a36652ff2a66fb48db8ff35a0315f0fd50
-B24030_038,1,Paper and paper products merchant wholesalers,17e5931b20ea5f8901351af484b66a38766e21f4
-B24030_039,1,"Drugs, sundries, and chemical and allied products merchant wholesalers",fe7c1521f3f330c3abc82501c1224858ab3e2c92
-B24030_040,1,"Apparel, piece goods, and notions merchant wholesalers",15c81012f445008077b7f513d63b79260be22f8e
-B24030_041,1,Grocery and related product merchant wholesalers,d8dc19a5367ba311991c3eb2945654b904c50bf4
-B24030_042,1,Farm product raw material merchant wholesalers,b21bd01928336f1f2bca0d4a28649bb5927c71ae
-B24030_043,1,Petroleum and petroleum products merchant wholesalers,92d37df025d0194014a659d4e281563386543140
-B24030_044,1,Alcoholic beverages merchant wholesalers,39cc53cefc84e1ea4903ca704d7c18e0ceb1d296
-B24030_045,1,Farm supplies merchant wholesalers,139a8478fb105e652fa0cc1ed06a2fd40f4f2055
-B24030_046,1,Miscellaneous nondurable goods merchant wholesalers,4d9ec290931dae7d22ffdb521a81073c18d57f8f
-B24030_047,1,Wholesale electronic markets and agents and brokers,06eb17ccd98610025876752d3c6f02462e3a8534
-B24030_048,0,Retail trade:,dd7baaf22b2726ad813eaf6e695601f5b816e14a
-B24030_049,1,Motor vehicle and parts dealers,ef6a81551c34d4980fccb849ff9a9b32d09082d2
-B24030_050,1,"Furniture and home furnishings, and household appliance stores",6829705161d3557c15080f072ead0304a9ac2be0
-B24030_051,1,Electronics stores,11361067ea318dcc176519e9d938ab5d3f5b31db
-B24030_052,1,Building material and garden equipment and supplies dealers,cf3fc7b03f8df0575f0eecb6159e9942e63cc8cd
-B24030_053,1,Food and beverage stores,fdbb1426df822393f0187a57595d3bee25644941
-B24030_054,1,Pharmacies and drug stores,4d06645fa825852359f66165d3d2965b771d1d04
-B24030_055,1,"Health and personal care, except drug, stores",d24defd96cbba1a287ccdf5646b9cb46a7e3fd7e
-B24030_056,1,Gasoline stations,ead36cf519128acfdbda71638c5454037dfda2b6
-B24030_057,1,"Clothing and accessories, including shoe, stores",76f5e04ac8d4fad610e7229802e1ad69d66a502e
-B24030_058,1,"Jewelry, luggage, and leather goods stores",a3f2f292f1a3dc4135b072f4d20dcd18a34e0648
-B24030_059,1,"Sporting goods, and hobby and toy stores",f6108b41a0b7840a130d8edaefc38d7caa2c686d
-B24030_060,1,"Sewing, needlework, and piece goods stores",253f1b5ab251944a60539d8b827632cc71d3f2d6
-B24030_061,1,Musical instrument and supplies stores,54b231b70839ba3c08baee4445dd24e5185b17ef
-B24030_062,1,Book stores and news dealers,5046ce8fb7b672f11bc035c0d9fd27ff5e99f96a
-B24030_063,1,Department and other general merchandise stores,f78b1a1c9f3c6e1f96d526394bd2d91d57a73bb1
-B24030_064,1,Retail florists,2bc89859f2dc9494d48752cf02298e96b8089c8c
-B24030_065,1,Office supplies and stationery stores,77cb055b058b60130e9115527106b7b109f83d6a
-B24030_066,1,"Used merchandise, gift, novelty, and souvenir, and other miscellaneous stores",d16a3c4626ca97a06c180afd4c060b63715f8656
-B24030_067,1,Electronic shopping and mail-order houses,50765d07543f237d4f6990ae57eaacca90f23393
-B24030_068,1,Vending machine operators,2b3bd6905cb8e1f8985a71021224fde6daf243ca
-B24030_069,1,Fuel dealers,d596ad1d9f4862879cd583225528d0970625a810
-B24030_070,1,Other direct selling establishments,cc35c1566dfbeffae5a8f889295b98f68c84ee9c
-B24030_071,0,"Transportation and warehousing, and utilities:",7c493de919198b0582d3b910d24c49a080a6d517
-B24030_072,1,Transportation and warehousing:,2a93056663c8f45d846979e5f5a46f211de47335
-B24030_073,2,Air transportation,ba4506af0c96580343d6eadc25b11aebe0054f2f
-B24030_074,2,Rail transportation,1464a45f67ceacc06ff556c68663d521896978b1
-B24030_075,2,Water transportation,27b3aa0335600a0342b4e5b3b46c6ea81cf1f234
-B24030_076,2,Truck transportation,37ac562f86f5f8cbef0551ede5b8c2c0f8674a05
-B24030_077,2,U. S. Postal service,8339d4915d16806d81746a97d22f681d5e4adde1
-B24030_078,2,"Other transportation, and support activities, and couriers",81ad2fa3bafdd420be294c506f587afcca1065c8
-B24030_079,2,Warehousing and storage,7ef7487d5e8b84812e920c9fca31129cdf9e9307
-B24030_080,1,Utilities,18fdc5ee8b1f8fba8dabaa933373c0483ab7fad7
-B24030_081,0,Information:,cf82ab48f747a5f8fc2b3da324b530f9f4d9da17
-B24030_082,1,"Publishing, and motion picture and sound recording industries",37def4353f0bea62193cf737bbdeaaf8c190981d
-B24030_083,1,"Broadcasting, internet publishing, and telecommunications services",296c8f4bddde5a012e03aad5787b2c26db347e94
-B24030_084,1,"Data processing, libraries, and other information services",32745aedd1e51f617097a2731328fdd5c3d6311b
-B24030_085,0,"Finance and insurance, and real estate and rental and leasing:",1b5e5f1123b44fa363af99fe5391d58aa9b08194
-B24030_086,1,Finance and insurance,614fcf49f521afa8cf155fa27c26707e6c7e0f50
-B24030_087,1,Real estate and rental and leasing,31c656dee7f31bdabf6dbea2ae210b631091e5b6
-B24030_088,0,"Professional, scientific, and management, and administrative and waste management services:",43d5031072494a3f9fe2e08fdaf0eec991f4ff6e
-B24030_089,1,"Professional, scientific, and technical services",dafd665eeba871b793bf32a46ba51db7681a1e48
-B24030_090,1,Management of companies and enterprises,16ff524bfa9fd089d087aa1e74239734034a4541
-B24030_091,1,Administrative and support and waste management services,5b0f15cc3c57ac48984475abd9856df55dc98d9a
-B24030_092,0,"Educational services, and health care and social assistance:",23c16bc7fc7964df517d2572b5e35461b2d64976
-B24030_093,1,Educational services,a5451efd43929b7e426ec79346a69e75df8fe67d
-B24030_094,1,Health care and social assistance:,d5ace315a462c437314e15df4b7505bbcdedf983
-B24030_095,2,Health care,af981e57d94053261df3a250ddcbf11d065a64d1
-B24030_096,2,Social assistance,80ff84b1f1b03b33c0e1daf947951d42d64269df
-B24030_097,0,"Arts, entertainment, and recreation, and accommodation and food services:",9b31a1e876154938f105848a0ea9d61909d359d9
-B24030_098,1,"Arts, entertainment, and recreation",bab6177f1f6e09ba834e4a218e3b38dc5cfc8886
-B24030_099,1,Accommodation and food services,2eb3f9fe8cdc5d4e9c0e636da9084d7c9f5e1eea
-B24030_100,0,"Other services, except public administration:",da83d8bc27e6ebefbc44d0db064776093a1f8981
-B24030_101,1,Repair and maintenance,4b382d8182ebc5b57fbf50d02b58947d19eb9e29
-B24030_102,1,Personal and laundry services,93c5eb7853c307fc2ae8b671d8172c087956bd07
-B24030_103,1,"Religious, grantmaking, civic, professional, and similar organizations",218a22eb42891967206ad139dd86cfe56fbfa906
-B24030_104,1,Private households,02b42459657ab68ffac1d3f713e9524dd4cdf010
-B24030_105,0,Public administration,894a2c027f922ad3f72aa13450a5f8c2bdfbc52b
+acs_ind,col,depth,name
+00,B24030_003,0,"Agriculture, forestry, fishing and hunting, and mining:"
+0000,B24030_004,1,"Agriculture, forestry, fishing and hunting"
+000000,B24030_004a,1,"Agriculture, forestry, fishing and hunting"
+0001,B24030_005,1,"Mining, quarrying, and oil and gas extraction"
+000100,B24030_005a,1,"Mining, quarrying, and oil and gas extraction"
+01,B24030_006,0,Construction
+0100,B24030_006a,0,Construction
+010000,B24030_006b,0,Construction
+02,B24030_007,0,Manufacturing:
+0200,B24030_008,1,Food
+020000,B24030_008a,1,Food
+0201,B24030_009,1,Beverage and tobacco products
+020100,B24030_009a,1,Beverage and tobacco products
+0202,B24030_010,1,Textile mills and textile products
+020200,B24030_010a,1,Textile mills and textile products
+0203,B24030_011,1,Apparel
+020300,B24030_011a,1,Apparel
+0204,B24030_012,1,Leather and allied products
+020400,B24030_012a,1,Leather and allied products
+0205,B24030_013,1,Wood products
+020500,B24030_013a,1,Wood products
+0206,B24030_014,1,Paper
+020600,B24030_014a,1,Paper
+0207,B24030_015,1,Printing and related support activities
+020700,B24030_015a,1,Printing and related support activities
+0208,B24030_016,1,Petroleum and coal products
+020800,B24030_016a,1,Petroleum and coal products
+0209,B24030_017,1,Chemicals
+020900,B24030_017a,1,Chemicals
+0210,B24030_018,1,Plastics and rubber products
+021000,B24030_018a,1,Plastics and rubber products
+0211,B24030_019,1,Nonmetallic mineral products
+021100,B24030_019a,1,Nonmetallic mineral products
+0212,B24030_020,1,Metal and metal products
+021200,B24030_020a,1,Metal and metal products
+0213,B24030_021,1,Machinery
+021300,B24030_021a,1,Machinery
+0214,B24030_022,1,Computer and electronic products
+021400,B24030_022a,1,Computer and electronic products
+0215,B24030_023,1,"Electrical equipment, appliances, and components"
+021500,B24030_023a,1,"Electrical equipment, appliances, and components"
+0216,B24030_024,1,Transportation equipment
+021600,B24030_024a,1,Transportation equipment
+0217,B24030_025,1,Furniture and related product manufacturing
+021700,B24030_025a,1,Furniture and related product manufacturing
+0218,B24030_026,1,Miscellaneous manufacturing
+021800,B24030_026a,1,Miscellaneous manufacturing
+03,B24030_027,0,Wholesale trade:
+0300,B24030_028,1,Motor vehicle and motor vehicle parts and supplies merchant wholesalers
+030000,B24030_028a,1,Motor vehicle and motor vehicle parts and supplies merchant wholesalers
+0301,B24030_029,1,Furniture and home furnishing merchant wholesalers
+030100,B24030_029a,1,Furniture and home furnishing merchant wholesalers
+0302,B24030_030,1,Lumber and other construction materials merchant wholesalers
+030200,B24030_030a,1,Lumber and other construction materials merchant wholesalers
+0303,B24030_031,1,Professional and commercial equipment and supplies merchant wholesalers
+030300,B24030_031a,1,Professional and commercial equipment and supplies merchant wholesalers
+0304,B24030_032,1,"Metals and minerals, except petroleum, merchant wholesalers"
+030400,B24030_032a,1,"Metals and minerals, except petroleum, merchant wholesalers"
+0305,B24030_033,1,Household appliances and electrical and electronic goods merchant wholesalers
+030500,B24030_033a,1,Household appliances and electrical and electronic goods merchant wholesalers
+0306,B24030_034,1,"Hardware, and plumbing and heating equipment, and supplies merchant wholesalers"
+030600,B24030_034a,1,"Hardware, and plumbing and heating equipment, and supplies merchant wholesalers"
+0307,B24030_035,1,"Machinery, equipment, and supplies merchant wholesalers"
+030700,B24030_035a,1,"Machinery, equipment, and supplies merchant wholesalers"
+0308,B24030_036,1,Recyclable material merchant wholesalers
+030800,B24030_036a,1,Recyclable material merchant wholesalers
+0309,B24030_037,1,Miscellaneous durable goods merchant wholesalers
+030900,B24030_037a,1,Miscellaneous durable goods merchant wholesalers
+0310,B24030_038,1,Paper and paper products merchant wholesalers
+031000,B24030_038a,1,Paper and paper products merchant wholesalers
+0311,B24030_039,1,"Drugs, sundries, and chemical and allied products merchant wholesalers"
+031100,B24030_039a,1,"Drugs, sundries, and chemical and allied products merchant wholesalers"
+0312,B24030_040,1,"Apparel, piece goods, and notions merchant wholesalers"
+031200,B24030_040a,1,"Apparel, piece goods, and notions merchant wholesalers"
+0313,B24030_041,1,Grocery and related product merchant wholesalers
+031300,B24030_041a,1,Grocery and related product merchant wholesalers
+0314,B24030_042,1,Farm product raw material merchant wholesalers
+031400,B24030_042a,1,Farm product raw material merchant wholesalers
+0315,B24030_043,1,Petroleum and petroleum products merchant wholesalers
+031500,B24030_043a,1,Petroleum and petroleum products merchant wholesalers
+0316,B24030_044,1,Alcoholic beverages merchant wholesalers
+031600,B24030_044a,1,Alcoholic beverages merchant wholesalers
+0317,B24030_045,1,Farm supplies merchant wholesalers
+031700,B24030_045a,1,Farm supplies merchant wholesalers
+0318,B24030_046,1,Miscellaneous nondurable goods merchant wholesalers
+031800,B24030_046a,1,Miscellaneous nondurable goods merchant wholesalers
+0319,B24030_047,1,Wholesale electronic markets and agents and brokers
+031900,B24030_047a,1,Wholesale electronic markets and agents and brokers
+04,B24030_048,0,Retail trade:
+0400,B24030_049,1,Motor vehicle and parts dealers
+040000,B24030_049a,1,Motor vehicle and parts dealers
+0401,B24030_050,1,"Furniture and home furnishings, and household appliance stores"
+040100,B24030_050a,1,"Furniture and home furnishings, and household appliance stores"
+0402,B24030_051,1,Electronics stores
+040200,B24030_051a,1,Electronics stores
+0403,B24030_052,1,Building material and garden equipment and supplies dealers
+040300,B24030_052a,1,Building material and garden equipment and supplies dealers
+0404,B24030_053,1,Food and beverage stores
+040400,B24030_053a,1,Food and beverage stores
+0405,B24030_054,1,Pharmacies and drug stores
+040500,B24030_054a,1,Pharmacies and drug stores
+0406,B24030_055,1,"Health and personal care, except drug, stores"
+040600,B24030_055a,1,"Health and personal care, except drug, stores"
+0407,B24030_056,1,Gasoline stations
+040700,B24030_056a,1,Gasoline stations
+0408,B24030_057,1,"Clothing and accessories, including shoe, stores"
+040800,B24030_057a,1,"Clothing and accessories, including shoe, stores"
+0409,B24030_058,1,"Jewelry, luggage, and leather goods stores"
+040900,B24030_058a,1,"Jewelry, luggage, and leather goods stores"
+0410,B24030_059,1,"Sporting goods, and hobby and toy stores"
+041000,B24030_059a,1,"Sporting goods, and hobby and toy stores"
+0411,B24030_060,1,"Sewing, needlework, and piece goods stores"
+041100,B24030_060a,1,"Sewing, needlework, and piece goods stores"
+0412,B24030_061,1,Musical instrument and supplies stores
+041200,B24030_061a,1,Musical instrument and supplies stores
+0413,B24030_062,1,Book stores and news dealers
+041300,B24030_062a,1,Book stores and news dealers
+0414,B24030_063,1,Department and other general merchandise stores
+041400,B24030_063a,1,Department and other general merchandise stores
+0415,B24030_064,1,Retail florists
+041500,B24030_064a,1,Retail florists
+0416,B24030_065,1,Office supplies and stationery stores
+041600,B24030_065a,1,Office supplies and stationery stores
+0417,B24030_066,1,"Used merchandise, gift, novelty, and souvenir, and other miscellaneous stores"
+041700,B24030_066a,1,"Used merchandise, gift, novelty, and souvenir, and other miscellaneous stores"
+0418,B24030_067,1,Electronic shopping and mail-order houses
+041800,B24030_067a,1,Electronic shopping and mail-order houses
+0419,B24030_068,1,Vending machine operators
+041900,B24030_068a,1,Vending machine operators
+0420,B24030_069,1,Fuel dealers
+042000,B24030_069a,1,Fuel dealers
+0421,B24030_070,1,Other direct selling establishments
+042100,B24030_070a,1,Other direct selling establishments
+05,B24030_071,0,"Transportation and warehousing, and utilities:"
+0500,B24030_072,1,Transportation and warehousing:
+050000,B24030_073,2,Air transportation
+050001,B24030_074,2,Rail transportation
+050002,B24030_075,2,Water transportation
+050003,B24030_076,2,Truck transportation
+050004,B24030_077,2,U. S. Postal service
+050005,B24030_078,2,"Other transportation, and support activities, and couriers"
+050006,B24030_079,2,Warehousing and storage
+0501,B24030_080,1,Utilities
+050100,B24030_080a,1,Utilities
+06,B24030_081,0,Information:
+0600,B24030_082,1,"Publishing, and motion picture and sound recording industries"
+060000,B24030_082a,1,"Publishing, and motion picture and sound recording industries"
+0601,B24030_083,1,"Broadcasting, internet publishing, and telecommunications services"
+060100,B24030_083a,1,"Broadcasting, internet publishing, and telecommunications services"
+0602,B24030_084,1,"Data processing, libraries, and other information services"
+060200,B24030_084a,1,"Data processing, libraries, and other information services"
+07,B24030_085,0,"Finance and insurance, and real estate and rental and leasing:"
+0700,B24030_086,1,Finance and insurance
+070000,B24030_086a,1,Finance and insurance
+0701,B24030_087,1,Real estate and rental and leasing
+070100,B24030_087a,1,Real estate and rental and leasing
+08,B24030_088,0,"Professional, scientific, and management, and administrative and waste management services:"
+0800,B24030_089,1,"Professional, scientific, and technical services"
+080000,B24030_089a,1,"Professional, scientific, and technical services"
+0801,B24030_090,1,Management of companies and enterprises
+080100,B24030_090a,1,Management of companies and enterprises
+0802,B24030_091,1,Administrative and support and waste management services
+080200,B24030_091a,1,Administrative and support and waste management services
+09,B24030_092,0,"Educational services, and health care and social assistance:"
+0900,B24030_093,1,Educational services
+090000,B24030_093a,1,Educational services
+0901,B24030_094,1,Health care and social assistance:
+090100,B24030_095,2,Health care
+090101,B24030_096,2,Social assistance
+10,B24030_097,0,"Arts, entertainment, and recreation, and accommodation and food services:"
+1000,B24030_098,1,"Arts, entertainment, and recreation"
+100000,B24030_098a,1,"Arts, entertainment, and recreation"
+1001,B24030_099,1,Accommodation and food services
+100100,B24030_099a,1,Accommodation and food services
+11,B24030_100,0,"Other services, except public administration:"
+1100,B24030_101,1,Repair and maintenance
+110000,B24030_101a,1,Repair and maintenance
+1101,B24030_102,1,Personal and laundry services
+110100,B24030_102a,1,Personal and laundry services
+1102,B24030_103,1,"Religious, grantmaking, civic, professional, and similar organizations"
+110200,B24030_103a,1,"Religious, grantmaking, civic, professional, and similar organizations"
+1103,B24030_104,1,Private households
+110300,B24030_104a,1,Private households
+12,B24030_105,0,Public administration
+1200,B24030_105a,0,Public administration
+120000,B24030_105b,0,Public administration

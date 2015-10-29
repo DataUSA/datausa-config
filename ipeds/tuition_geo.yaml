@@ -112,6 +112,7 @@ global:
         CNRALT: nonresident
         CNRALM: nonresident_men
         CNRALW: nonresident_women
+        num_universities: nunique
 
     agg:
         district_tuition: "median"
@@ -140,9 +141,7 @@ tables:
                 column: num_universities
                 type: clone
                 source: university
-        agg:
-            <<: *global_agg
-            num_universities: nunique
+
         filter:
             -
                 column: "cip"

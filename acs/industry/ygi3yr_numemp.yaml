@@ -5,7 +5,7 @@ global:
     concat_border: "sumlevel"
     source: "data/acs/ygi_emp/<year>_<sumlevel>_<column>.json"
     output: "data/output/acs/ygi_emp/<year>/<sumlevel>/<column>"
-    
+
     filetype: json
     source_vars:
         tbl: B24030
@@ -15,6 +15,8 @@ global:
             - state
             - county
             - place
+            - "metropolitan+statistical+area/micropolitan+statistical+area"
+            - "public+use+microdata+area"
 
         column:
           start: 3
@@ -75,7 +77,7 @@ global:
       GEOID: geo
 
 tables:
-  "ygi_num_emp2":
+  "ygi_num_emp":
     pk: ["year", "geo", "acs_ind"]
     agg: sum
 

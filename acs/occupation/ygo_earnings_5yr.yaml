@@ -17,10 +17,10 @@ global:
         sumlevel:
           - us
           - state
-          # - county
-          # - place
-          # - "metropolitan+statistical+area/micropolitan+statistical+area"
-          # - "public+use+microdata+area"
+          - county
+          - place
+          - "metropolitan+statistical+area/micropolitan+statistical+area"
+          - "public+use+microdata+area"
     
     expand_vars:
       column:

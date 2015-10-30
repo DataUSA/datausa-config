@@ -11,8 +11,8 @@ global:
       GEOID: geo
       B08303_001E: workers
       B08303_001M: workers_moe
-      B08303_002E: travel_lessthan5
-      B08303_002M: travel_lessthan5_moe
+      B08303_002E: travel_less5
+      B08303_002M: travel_less5_moe
       B08303_003E: travel_5to9
       B08303_003M: travel_5to9_moe
       B08303_004E: travel_10to14
@@ -33,8 +33,8 @@ global:
       B08303_011M: travel_45to59_moe
       B08303_012E: travel_60to89
       B08303_012M: travel_60to89_moe
-      B08303_013E: travel_90ormore
-      B08303_013M: travel_90ormore_moe
+      B08303_013E: travel_90over
+      B08303_013M: travel_90over_moe
 
 tables:
   "yg_travel_time":

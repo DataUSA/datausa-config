@@ -1,0 +1,19 @@
+global:
+    name: attrs
+    source : "data/crosswalks/pums_naics_to_iocode.csv"
+    use_schema: True
+
+    output : "data/crosswalks/iocode/"
+
+    web_paths: "https://docs.google.com/spreadsheets/d/1pBdEQjSrug52tQIn65QUuH7I_l_27Eyg1F9HcVYl8Qs/export?format=csv"
+
+    import_to_db: False
+    db_settings:
+        user: postgres
+        password_env_var: DATAUSA_PW
+        host: 162.209.124.219
+        db_name: datausa
+
+tables:
+    naics_to_io:
+        pk: ["pums_naics", "name", "iocode"]

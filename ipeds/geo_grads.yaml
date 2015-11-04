@@ -8,6 +8,7 @@ global:
     source_vars:
         year: [2012, 2013]
         sumlevel: ["040", "050", "160", "310", "010"]
+        # sumlevel: ["010"]
 
     growth:
         delta: 1
@@ -29,7 +30,9 @@ global:
             left_on: university
             right_on: UNITID
             encoding: ISO-8859-1
-
+            rename:
+                SECTOR: sector
+            how: left
 
     web_paths:
         "ipeds/c": "https://nces.ed.gov/ipeds/datacenter/data/c<year>_a.zip"
@@ -50,41 +53,41 @@ global:
             type: replace
             target: " "
             value: ""
-        -
-            column: cip
-            type: slice
-            length: "<cip_depth>"
+        # -
+        #     column: cip
+        #     type: slice
+        #     length: "<cip_depth>"
         -   type: plugin
             func: src.plugins.ipeds.location.geo_locate
             sumlevel: "<sumlevel>"
             webpath: "http://alumni.media.mit.edu/~jspeiser/university_geo.csv"
 
-    transform:
-        -
-            column: nation
-            type: set_val
-            value: "01000US"
-        -
-            column: cip
-            type: replace
-            target: "."
-            value: ""
-        -
-            column: cip
-            type: replace
-            target: " "
-            value: ""
-        -
-            column: cip
-            type: slice
-            length: "<cip_depth>"
-        -   type: plugin
-            func: src.plugins.ipeds.location.geo_locate
-            sumlevel: "<sumlevel>"
-            webpath: "http://alumni.media.mit.edu/~jspeiser/university_geo.csv"
-            rca:
-                index: ["year", "geo"]
-                column: "cip"
+    # transform:
+    #     -
+    #         column: nation
+    #         type: set_val
+    #         value: "01000US"
+    #     -
+    #         column: cip
+    #         type: replace
+    #         target: "."
+    #         value: ""
+    #     -
+    #         column: cip
+    #         type: replace
+    #         target: " "
+    #         value: ""
+    #     -
+    #         column: cip
+    #         type: slice
+    #         length: "<cip_depth>"
+    #     -   type: plugin
+    #         func: src.plugins.ipeds.location.geo_locate
+    #         sumlevel: "<sumlevel>"
+    #         webpath: "http://alumni.media.mit.edu/~jspeiser/university_geo.csv"
+    #         rca:
+    #             index: ["year", "geo"]
+    #             column: "cip"
 
     import_to_db: True
     db_settings:
@@ -164,7 +167,29 @@ global:
         grads_nonresident_women: "sum"
 
 tables:
-    grads_ygc2:
+    grads_ygs:
+        transform:
+            -
+                column: cip
+                type: replace
+                target: "."
+                value: ""
+            -
+                column: cip
+                type: replace
+                target: " "
+                value: ""
+            -   type: plugin
+                func: src.plugins.ipeds.location.geo_locate
+                sumlevel: "<sumlevel>"
+                webpath: "http://alumni.media.mit.edu/~jspeiser/university_geo.csv"
+        pk: ["year", "geo", "sector"]
+        filter:
+            -
+                column: "cip"
+                func: "eq"
+                value: "99"
+    grads_ygc:
         table_vars:
             cip_depth: [2, 4, 6]
         pk: ["year", "geo", "cip"]
@@ -173,7 +198,7 @@ tables:
                 column: "cip"
                 func: "eq"
                 value: "99"
-    grads_ygcd2:
+    grads_ygcd:
         table_vars:
             cip_depth: [2, 4, 6]
         transform:
@@ -210,7 +235,7 @@ tables:
                 column: "cip"
                 func: "eq"
                 value: "99"
-    grads_ygu2:
+    grads_ygu:
         transform:
             *gc_transform
         pk: ["year", "geo", "university"]

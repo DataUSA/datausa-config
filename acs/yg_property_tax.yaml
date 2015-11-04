@@ -4,21 +4,23 @@ global:
         tbl: ["B25102"]
         column:
           start: 3
-          end: 7
+          end: 8
           zfill: 3
 
     rename:
       GEOID: geo
-      B25102_003E: property_tax_800to1500
-      B25102_003M: property_tax_800to1500_moe
-      B25102_004E: property_tax_1500to2000
-      B25102_004M: property_tax_1500to2000_moe
-      B25102_005E: property_tax_2000to3000
-      B25102_005M: property_tax_2000to3000_moe
-      B25102_006E: property_tax_3000more
-      B25102_006M: property_tax_3000more_moe
-      B25102_007E: property_tax_none
-      B25102_007M: property_tax_none_moe
+      B25102_003E: propertytax_less800
+      B25102_003M: propertytax_less800_moe
+      B25102_004E: propertytax_800to1500
+      B25102_004M: propertytax_800to1500_moe
+      B25102_005E: propertytax_1500to2000
+      B25102_005M: propertytax_1500to2000_moe
+      B25102_006E: propertytax_2000to3000
+      B25102_006M: propertytax_2000to3000_moe
+      B25102_007E: propertytax_3000over
+      B25102_007M: propertytax_3000over_moe
+      B25102_008E: propertytax_none
+      B25102_008M: propertytax_none_moe
 
 tables:
   "yg_property_tax":

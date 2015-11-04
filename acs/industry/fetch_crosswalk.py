@@ -46,7 +46,7 @@ def fetch_crosswalk(tbl, estimate, gender):
     if lookup.values():
         with open('acs_{}year_{}_crosswalk.csv'.format(estimate, tbl), 'w') as csvfile:
             csvwriter = csv.writer(csvfile)
-            csvwriter.writerow(['id','col', 'depth', 'name'])
+            csvwriter.writerow(['acs_ind','col', 'depth', 'name'])
             csvwriter.writerows(sorted(lookup.values(), key=lambda x: x[0]))
     else:
         print 'NO DATA FOUND'

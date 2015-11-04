@@ -19,8 +19,8 @@ global:
       B08014_005M: vehicles_3_moe
       B08014_006E: vehicles_4
       B08014_006M: vehicles_4_moe
-      B08014_007E: vehicles_5ormore
-      B08014_007M: vehicles_5ormore_moe
+      B08014_007E: vehicles_5over
+      B08014_007M: vehicles_5over_moe
       
 tables:
   "yg_vehicles":

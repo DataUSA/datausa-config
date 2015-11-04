@@ -2,7 +2,9 @@ global:
     seperator: ","
     use_schema: True
     name: attrs
-    source: "acs/occupation/acs_5year_C24010_crosswalk.csv"
+    source: "acs/occupation/acs_3year_B24010_crosswalk.csv"
+    type:
+      acs_occ: str
     filetype: csv
     output: tmp
 
@@ -13,17 +15,20 @@ global:
         host: 162.209.124.219
         db_name: datausa
 
-    transform:
-        - type: join
-          source: "acs_3year_B24010_crosswalk.csv"
-          settings:
-            filetype: csv
-            usecols: [id, name, depth]
-          left_on: [id, name, depth]
-          right_on: [id, name, depth]
-          how: outer
-    usecols: [id, name, depth]
+    rename:
+      acs_ind: id
+
+    # transform:
+    #     - type: join
+    #       source: "acs_3year_B24010_crosswalk.csv"
+    #       settings:
+    #         filetype: csv
+    #         usecols: [id, name, depth]
+    #       left_on: [id, name, depth]
+    #       right_on: [id, name, depth]
+    #       how: outer
+    # usecols: [id, name, depth]
 
 tables:
   acs_occ:
-    pk: [idtest, name, depth]
+    pk: [acs_occ, name, depth]

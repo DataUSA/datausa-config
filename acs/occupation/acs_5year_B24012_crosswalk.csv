@@ -1,0 +1,98 @@
+acs_occ,col,depth,name
+00,B24012_003,0,"Management, business, science, and arts occupations:"
+0000,B24012_004,1,"Management, business, and financial occupations:"
+000000,B24012_005,2,Management occupations
+00000000,B24012_005a,3,Management occupations
+0000000000,B24012_005b,4,Management occupations
+000001,B24012_006,2,Business and financial operations occupations
+00000100,B24012_006a,3,Business and financial operations occupations
+0000010000,B24012_006b,4,Business and financial operations occupations
+0001,B24012_007,1,"Computer, engineering, and science occupations:"
+000100,B24012_008,2,Computer and mathematical occupations
+00010000,B24012_008a,3,Computer and mathematical occupations
+0001000000,B24012_008b,4,Computer and mathematical occupations
+000101,B24012_009,2,Architecture and engineering occupations
+00010100,B24012_009a,3,Architecture and engineering occupations
+0001010000,B24012_009b,4,Architecture and engineering occupations
+000102,B24012_010,2,"Life, physical, and social science occupations"
+00010200,B24012_010a,3,"Life, physical, and social science occupations"
+0001020000,B24012_010b,4,"Life, physical, and social science occupations"
+0002,B24012_011,1,"Education, legal, community service, arts, and media occupations:"
+000200,B24012_012,2,Community and social service occupations
+00020000,B24012_012a,3,Community and social service occupations
+0002000000,B24012_012b,4,Community and social service occupations
+000201,B24012_013,2,Legal occupations
+00020100,B24012_013a,3,Legal occupations
+0002010000,B24012_013b,4,Legal occupations
+000202,B24012_014,2,"Education, training, and library occupations"
+00020200,B24012_014a,3,"Education, training, and library occupations"
+0002020000,B24012_014b,4,"Education, training, and library occupations"
+000203,B24012_015,2,"Arts, design, entertainment, sports, and media occupations"
+00020300,B24012_015a,3,"Arts, design, entertainment, sports, and media occupations"
+0002030000,B24012_015b,4,"Arts, design, entertainment, sports, and media occupations"
+0003,B24012_016,1,Healthcare practitioners and technical occupations:
+000300,B24012_017,2,Health diagnosing and treating practitioners and other technical occupations
+00030000,B24012_017a,3,Health diagnosing and treating practitioners and other technical occupations
+0003000000,B24012_017b,4,Health diagnosing and treating practitioners and other technical occupations
+000301,B24012_018,2,Health technologists and technicians
+00030100,B24012_018a,3,Health technologists and technicians
+0003010000,B24012_018b,4,Health technologists and technicians
+01,B24012_019,0,Service occupations:
+0100,B24012_020,1,Healthcare support occupations
+010000,B24012_020a,2,Healthcare support occupations
+01000000,B24012_020b,3,Healthcare support occupations
+0100000000,B24012_020c,4,Healthcare support occupations
+0101,B24012_021,1,Protective service occupations:
+010100,B24012_022,2,"Fire fighting and prevention, and other protective service workers including supervisors"
+01010000,B24012_022a,3,"Fire fighting and prevention, and other protective service workers including supervisors"
+0101000000,B24012_022b,4,"Fire fighting and prevention, and other protective service workers including supervisors"
+010101,B24012_023,2,Law enforcement workers including supervisors
+01010100,B24012_023a,3,Law enforcement workers including supervisors
+0101010000,B24012_023b,4,Law enforcement workers including supervisors
+0102,B24012_024,1,Food preparation and serving related occupations
+010200,B24012_024a,2,Food preparation and serving related occupations
+01020000,B24012_024b,3,Food preparation and serving related occupations
+0102000000,B24012_024c,4,Food preparation and serving related occupations
+0103,B24012_025,1,Building and grounds cleaning and maintenance occupations
+010300,B24012_025a,2,Building and grounds cleaning and maintenance occupations
+01030000,B24012_025b,3,Building and grounds cleaning and maintenance occupations
+0103000000,B24012_025c,4,Building and grounds cleaning and maintenance occupations
+0104,B24012_026,1,Personal care and service occupations
+010400,B24012_026a,2,Personal care and service occupations
+01040000,B24012_026b,3,Personal care and service occupations
+0104000000,B24012_026c,4,Personal care and service occupations
+02,B24012_027,0,Sales and office occupations:
+0200,B24012_028,1,Sales and related occupations
+020000,B24012_028a,2,Sales and related occupations
+02000000,B24012_028b,3,Sales and related occupations
+0200000000,B24012_028c,4,Sales and related occupations
+0201,B24012_029,1,Office and administrative support occupations
+020100,B24012_029a,2,Office and administrative support occupations
+02010000,B24012_029b,3,Office and administrative support occupations
+0201000000,B24012_029c,4,Office and administrative support occupations
+03,B24012_030,0,"Natural resources, construction, and maintenance occupations:"
+0300,B24012_031,1,"Farming, fishing, and forestry occupations"
+030000,B24012_031a,2,"Farming, fishing, and forestry occupations"
+03000000,B24012_031b,3,"Farming, fishing, and forestry occupations"
+0300000000,B24012_031c,4,"Farming, fishing, and forestry occupations"
+0301,B24012_032,1,Construction and extraction occupations
+030100,B24012_032a,2,Construction and extraction occupations
+03010000,B24012_032b,3,Construction and extraction occupations
+0301000000,B24012_032c,4,Construction and extraction occupations
+0302,B24012_033,1,"Installation, maintenance, and repair occupations"
+030200,B24012_033a,2,"Installation, maintenance, and repair occupations"
+03020000,B24012_033b,3,"Installation, maintenance, and repair occupations"
+0302000000,B24012_033c,4,"Installation, maintenance, and repair occupations"
+04,B24012_034,0,"Production, transportation, and material moving occupations:"
+0400,B24012_035,1,Production occupations
+040000,B24012_035a,2,Production occupations
+04000000,B24012_035b,3,Production occupations
+0400000000,B24012_035c,4,Production occupations
+0401,B24012_036,1,Transportation occupations
+040100,B24012_036a,2,Transportation occupations
+04010000,B24012_036b,3,Transportation occupations
+0401000000,B24012_036c,4,Transportation occupations
+0402,B24012_037,1,Material moving occupations
+040200,B24012_037a,2,Material moving occupations
+04020000,B24012_037b,3,Material moving occupations
+0402000000,B24012_037c,4,Material moving occupations

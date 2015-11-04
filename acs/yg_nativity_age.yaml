@@ -12,129 +12,129 @@ global:
 
     post_agg_transform:
       - type: add
-        column: us_under_5
+        column: nativity_us_under5
         values: ["[B06001_014E]", "[B06001_026E]", "[B06001_038E]"]
         drop: YES
       - type: combine_moes
         confidence: 0.9
-        column: us_under_5_moe
+        column: nativity_us_under5_moe
         values: ["B06001_014M", "B06001_026M", "B06001_038M"]
         drop: YES
       - type: add
-        column: us_5_to_17
+        column: nativity_us_5_to_17
         values: ["[B06001_015E]", "[B06001_027E]", "[B06001_039E]"]
         drop: YES
       - type: combine_moes
         confidence: 0.9
-        column: us_5_to_17_moe
+        column: nativity_us_5to17_moe
         values: ["B06001_015M", "B06001_027M", "B06001_039M"]
         drop: YES
       - type: add
-        column: us_18_to_24
+        column: nativity_us_18to24
         values: ["[B06001_016E]", "[B06001_028E]", "[B06001_040E]"]
         drop: YES
       - type: combine_moes
         confidence: 0.9
-        column: us_18_to_24_moe
+        column: nativity_us_18to24_moe
         values: ["B06001_016M", "B06001_028M", "B06001_040M"]
         drop: YES
       - type: add
-        column: us_25_to_34
+        column: nativity_us_25to34
         values: ["[B06001_017E]", "[B06001_029E]", "[B06001_041E]"]
         drop: YES
       - type: combine_moes
         confidence: 0.9
-        column: us_25_to_34_moe
+        column: nativity_us_25to34_moe
         values: ["B06001_017M", "B06001_029M", "B06001_041M"]
         drop: YES
       - type: add
-        column: us_35_to_44
+        column: nativity_us_35to44
         values: ["[B06001_018E]", "[B06001_030E]", "[B06001_042E]"]
         drop: YES
       - type: combine_moes
         confidence: 0.9
-        column: us_35_to_44_moe
+        column: nativity_us_35to44_moe
         values: ["B06001_018M", "B06001_030M", "B06001_042M"]
         drop: YES
       - type: add
-        column: us_45_to_54
+        column: nativity_us_45to54
         values: ["[B06001_019E]", "[B06001_031E]", "[B06001_043E]"]
         drop: YES
       - type: combine_moes
         confidence: 0.9
-        column: us_45_to_54_moe
+        column: nativity_us_45to54_moe
         values: ["B06001_019M", "B06001_031M", "B06001_043M"]
         drop: YES
       - type: add
-        column: us_55_to_59
+        column: nativity_us_55to59
         values: ["[B06001_020E]", "[B06001_032E]", "[B06001_044E]"]
         drop: YES
       - type: combine_moes
         confidence: 0.9
-        column: us_55_to_59_moe
+        column: nativity_us_55to59_moe
         values: ["B06001_020M", "B06001_032M", "B06001_044M"]
         drop: YES
       - type: add
-        column: us_60_to_61
+        column: nativity_us_60to61
         values: ["[B06001_021E]", "[B06001_033E]", "[B06001_045E]"]
         drop: YES
       - type: combine_moes
         confidence: 0.9
-        column: us_60_to_61_moe
+        column: nativity_us_60to61_moe
         values: ["B06001_021M", "B06001_033M", "B06001_045M"]
         drop: YES
       - type: add
-        column: us_62_to_64
+        column: nativity_us_62to64
         values: ["[B06001_022E]", "[B06001_034E]", "[B06001_046E]"]
         drop: YES
       - type: combine_moes
         confidence: 0.9
-        column: us_62_to_64_moe
+        column: nativity_us_62to64_moe
         values: ["B06001_022M", "B06001_034M", "B06001_046M"]
         drop: YES
       - type: add
-        column: us_65_to_74
+        column: nativity_us_65to74
         values: ["[B06001_023E]", "[B06001_035E]", "[B06001_047E]"]
         drop: YES
       - type: combine_moes
         confidence: 0.9
-        column: us_65_to_74_moe
+        column: nativity_us_65to74_moe
         values: ["B06001_023M", "B06001_035M", "B06001_047M"]
         drop: YES
       - type: add
-        column: us_75_and_over
+        column: nativity_us_75over
         values: ["[B06001_024E]", "[B06001_036E]", "[B06001_048E]"]
         drop: YES
       - type: combine_moes
         confidence: 0.9
-        column: us_75_and_over_moe
+        column: nativity_us_75over_moe
         values: ["B06001_024M", "B06001_036M", "B06001_048M"]
         drop: YES
 
     rename:
       GEOID: geo
-      B06001_050E: foreign_under_5
-      B06001_050M: foreign_under_5_moe
-      B06001_051E: foreign_5_to_17
-      B06001_051M: foreign_5_to_17_moe
-      B06001_052E: foreign_18_to_24
-      B06001_052M: foreign_18_to_24_moe
-      B06001_053E: foreign_25_to_34
-      B06001_053M: foreign_25_to_34_moe
-      B06001_054E: foreign_35_to_44
-      B06001_054M: foreign_35_to_44_moe
-      B06001_055E: foreign_45_to_54
-      B06001_055M: foreign_45_to_54_moe
-      B06001_056E: foreign_55_to_59
-      B06001_056M: foreign_55_to_59_moe
-      B06001_057E: foreign_60_to_61
-      B06001_057M: foreign_60_to_61_moe
-      B06001_058E: foreign_62_to_64
-      B06001_058M: foreign_62_to_64_moe
-      B06001_059E: foreign_65_to_74
-      B06001_059M: foreign_65_to_74_moe
-      B06001_060E: foreign_75_and_older
-      B06001_060M: foreign_75_and_older_moe
+      B06001_050E: nativity_foreign_under5
+      B06001_050M: nativity_foreign_under5_moe
+      B06001_051E: nativity_foreign_5to17
+      B06001_051M: nativity_foreign_5to17_moe
+      B06001_052E: nativity_foreign_18to24
+      B06001_052M: nativity_foreign_18to24_moe
+      B06001_053E: nativity_foreign_25to34
+      B06001_053M: nativity_foreign_25to34_moe
+      B06001_054E: nativity_foreign_35to44
+      B06001_054M: nativity_foreign_35to44_moe
+      B06001_055E: nativity_foreign_45to54
+      B06001_055M: nativity_foreign_45to54_moe
+      B06001_056E: nativity_foreign_55to59
+      B06001_056M: nativity_foreign_55to59_moe
+      B06001_057E: nativity_foreign_60to61
+      B06001_057M: nativity_foreign_60to61_moe
+      B06001_058E: nativity_foreign_62to64
+      B06001_058M: nativity_foreign_62to64_moe
+      B06001_059E: nativity_foreign_65to74
+      B06001_059M: nativity_foreign_65to74_moe
+      B06001_060E: nativity_foreign_75over
+      B06001_060M: nativity_foreign_75over_moe
 
 tables:
   "yg_nativity_age":

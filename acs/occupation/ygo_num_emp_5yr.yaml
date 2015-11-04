@@ -1,0 +1,60 @@
+global:
+    concat_border: "sumlevel"
+    name: acs
+    use_schema: True
+    source: "data/acs/<year>_<tbl>_<column>_<sumlevel>.json"
+    output: "data/output/acs/<year>/<tbl>/<column>/<sumlevel>"
+    filetype: json
+
+    source_vars:
+        year: [2013]
+        tbl: ["C24010"]
+        column:
+          start: 3
+          exclude: [38]
+          end: 73
+          zfill: 3
+        sumlevel:
+          - us
+          # - state
+          - county
+          - place
+          - "metropolitan+statistical+area/micropolitan+statistical+area"
+          - "public+use+microdata+area"
+    
+    expand_vars:
+      column:
+        start: 3
+        exclude: [38]
+        end: 73
+        zfill: 3
+    preprocess:
+      func: "src.plugins.preprocess.acs_preprocess"
+    web_paths: "http://api.census.gov/data/<year>/acs5?get=GEOID,<tbl>_<column>E,<tbl>_<column>M&for=<sumlevel>&key=$ACS_KEY"
+
+    import_to_db: True
+    db_settings:
+        user: postgres
+        password_env_var: DATAUSA_PW
+        host: 162.209.124.219
+        db_name: datausa
+        type:
+          num_emp: real
+          num_emp_male: real
+          num_emp_female: real
+    
+    transform:
+      - type: plugin
+        func: src.plugins.census.acs.helper.ygo
+        value_vars: ["{column:<tbl>_<column>E}", "{column:<tbl>_<column>M}"]
+        offset: 36
+        midpoint: 38
+        join: acs/occupation/acs_5year_C24010_crosswalk.csv
+
+    rename:
+      GEOID: geo
+
+tables:
+  "ygo_num_emp":
+    pk: ["year", "geo", "acs_occ"]
+    agg: "sum"

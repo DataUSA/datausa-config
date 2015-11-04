@@ -39,8 +39,8 @@ global:
       B17001_014M: poverty_male_55to64_moe
       B17001_015E: poverty_male_65to74
       B17001_015M: poverty_male_65to74_moe
-      B17001_016E: poverty_male_75older
-      B17001_016M: poverty_male_75older_moe
+      B17001_016E: poverty_male_75over
+      B17001_016M: poverty_male_75over_moe
       B17001_017E: poverty_female
       B17001_017M: poverty_female_moe
       B17001_018E: poverty_female_under5
@@ -67,8 +67,8 @@ global:
       B17001_028M: poverty_female_55to64_moe
       B17001_029E: poverty_female_65to74
       B17001_029M: poverty_female_65to74_moe
-      B17001_030E: poverty_female_75older
-      B17001_030M: poverty_female_75older_moe
+      B17001_030E: poverty_female_75over
+      B17001_030M: poverty_female_75over_moe
       
 
 tables:

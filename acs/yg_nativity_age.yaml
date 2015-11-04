@@ -1,11 +1,12 @@
 inherits: "acs/acs_template.yaml"
 global:
+    source: "data/acs/<sumlevel>_<column>.json"
     source_vars:
-        tbl: ["B06001"]
-        column:
-          start: 14
-          end: 60
-          zfill: 3
+        column: ['B06001_014', 'B06001_015', 'B06001_016', 'B06001_017', 'B06001_018', 'B06001_019', 'B06001_020', 'B06001_021', 'B06001_022', 'B06001_023', 'B06001_024', 'B06001_025', 'B06001_026', 'B06001_027', 'B06001_028', 'B06001_029', 'B06001_030', 'B06001_031', 'B06001_032', 'B06001_033', 'B06001_034', 'B06001_035', 'B06001_036', 'B06001_037', 'B06001_038', 'B06001_039', 'B06001_040', 'B06001_041', 'B06001_042', 'B06001_043', 'B06001_044', 'B06001_045', 'B06001_046', 'B06001_047', 'B06001_048', 'B06001_049', 'B06001_050', 'B06001_051', 'B06001_052', 'B06001_053', 'B06001_054', 'B06001_055', 'B06001_056', 'B06001_057', 'B06001_058', 'B06001_059', 'B06001_060', 'B05004_004', 'B05004_007']
+
+    output: "data/output/acs/<sumlevel>_<column>"
+    
+    web_paths: "http://api.census.gov/data/<year>/acs5?get=GEOID,<column>E,<column>M&for=<sumlevel>&key=$ACS_KEY"
 
     regex_drop:
         "B06001_0(25|37|49)<e_m>": "delete"
@@ -135,6 +136,10 @@ global:
       B06001_059M: nativity_foreign_65to74_moe
       B06001_060E: nativity_foreign_75over
       B06001_060M: nativity_foreign_75over_moe
+      B05004_004E: nativity_us
+      B05004_004M: nativity_us_moe
+      B05004_007E: nativity_foreign
+      B05004_007M: nativity_foreign_moe
 
 tables:
   "yg_nativity_age":

@@ -46,6 +46,7 @@ global:
           - "zip code tabulation area"
           - "public use microdata area"
           - "tract"
+          - "race"
 
     rename:
       GEOID: geo

@@ -115,4 +115,5 @@ tables:
             index: ["year", "geo"]
             column: "birthplace"
             values: [num_ppl]
+        sumlevel: <geo_level>
         values: *defaults

@@ -1,0 +1,73 @@
+global:
+    seperator: ","
+    name: acs
+    use_schema: True
+    concat_border: "sumlevel"
+    source: "data/acs/ygi_emp/<year>_<tbl>_<sumlevel>_<column>.json"
+    output: "data/output/acs/ygi_emp/<year>/<tbl>/<sumlevel>/<column>"
+
+    filetype: json
+    source_vars:
+        tbl: C24030
+        year: [2013]
+        sumlevel:
+            - us
+            - state
+            - county
+            - place
+            - "metropolitan+statistical+area/micropolitan+statistical+area"
+            - "public+use+microdata+area"
+
+        column:
+          start: 3
+          end: 55
+          exclude: [29]
+          zfill: 3
+
+    expand_vars:
+        column:
+          start: 3
+          end: 55
+          exclude: [29]
+          zfill: 3
+
+    preprocess:
+      func: "src.plugins.preprocess.acs_preprocess"
+
+
+    web_paths: "http://api.census.gov/data/<year>/acs5?get=GEOID,<tbl>_<column>E,<tbl>_<column>M&for=<sumlevel>&key=$ACS_KEY"
+    concat: YES
+
+    import_to_db: True
+    db_settings:
+        user: postgres
+        password_env_var: DATAUSA_PW
+        host: 162.209.124.219
+        db_name: datausa
+
+    transform:
+      - type: set_val
+        column: tmp
+        value: "<tbl>_"
+      - type: zfill
+        size: 3
+        column: column
+      - type: concat
+        column: census_id
+        column0: tmp
+        column1: column
+      - type: plugin
+        func: src.plugins.census.acs.helper.ygi
+        value_vars: ["{column:C24030_<column>E}", "{column:C24030_<column>M}"]
+        midpoint: 29
+        offset: 27
+        join: acs/industry/acs_5year_C24030_crosswalk.csv
+        deepest: 4
+
+    rename:
+      GEOID: geo
+
+tables:
+  "ygi_num_emp":
+    pk: ["year", "geo", "acs_ind"]
+    agg: sum

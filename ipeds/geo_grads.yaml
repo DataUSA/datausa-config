@@ -7,8 +7,7 @@ global:
     na_values: ['']
     source_vars:
         year: [2012, 2013]
-        sumlevel: ["040", "050", "160", "310", "010"]
-        # sumlevel: ["010"]
+        sumlevel: [795] #["040", "050", "160", "310", "010", "795"]
 
     growth:
         delta: 1
@@ -62,32 +61,6 @@ global:
             sumlevel: "<sumlevel>"
             webpath: "http://alumni.media.mit.edu/~jspeiser/university_geo.csv"
 
-    # transform:
-    #     -
-    #         column: nation
-    #         type: set_val
-    #         value: "01000US"
-    #     -
-    #         column: cip
-    #         type: replace
-    #         target: "."
-    #         value: ""
-    #     -
-    #         column: cip
-    #         type: replace
-    #         target: " "
-    #         value: ""
-    #     -
-    #         column: cip
-    #         type: slice
-    #         length: "<cip_depth>"
-    #     -   type: plugin
-    #         func: src.plugins.ipeds.location.geo_locate
-    #         sumlevel: "<sumlevel>"
-    #         webpath: "http://alumni.media.mit.edu/~jspeiser/university_geo.csv"
-    #         rca:
-    #             index: ["year", "geo"]
-    #             column: "cip"
 
     import_to_db: True
     db_settings:
@@ -190,6 +163,28 @@ tables:
                 func: "eq"
                 value: "99"
     grads_ygc:
+        transform:
+            - 
+                column: cip
+                type: replace
+                target: "."
+                value: ""
+            - 
+                column: cip
+                type: replace
+                target: " "
+                value: ""
+            -
+                column: cip
+                type: slice
+                length: "<cip_depth>"
+            -   type: plugin
+                func: src.plugins.ipeds.location.geo_locate
+                sumlevel: "<sumlevel>"
+                webpath: "http://alumni.media.mit.edu/~jspeiser/university_geo.csv"
+                rca:
+                    index: ["year", "geo"]
+                    column: "cip"
         table_vars:
             cip_depth: [2, 4, 6]
         pk: ["year", "geo", "cip"]

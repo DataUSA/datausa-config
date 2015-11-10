@@ -81,6 +81,7 @@ tables:
 
     yo:
         pk: ["year", "soc"]
+        gini: True
         depths:
             soc: [0, 1, 2, 3]
         values: *defaults
@@ -106,3 +107,4 @@ tables:
                 column: num_records
                 func: gt
                 value: 5
+

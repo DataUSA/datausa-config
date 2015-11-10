@@ -5,7 +5,7 @@ global:
     concat_border: "sumlevel"
     source : "data/acs/ygi_emp/<year>_<sumlevel>_<column>.json"
     output : "data/output/acs/ygi_emp/<year>/<sumlevel>/<column>"
-    
+
     filetype: json
     source_vars:
         year: [2013]
@@ -14,6 +14,8 @@ global:
             - state
             - county
             - place
+            - "metropolitan+statistical+area/micropolitan+statistical+area"
+            - "public+use+microdata+area"
 
         column:
           start: 3

@@ -1,0 +1,23 @@
+global:
+    seperator: ","
+    use_schema: True
+    name: attrs
+    source: "data/geo-data/zip_to_<sumlevel>.csv"
+    source_vars:
+        sumlevel: ["puma", "county", "place", "msa"]
+    output: "data/output/geo-data/"
+    web_paths: "http://alumni.media.mit.edu/~jspeiser/geo-data/zip_to_<sumlevel>.csv"
+
+    import_to_db: False
+    db_settings:
+        user: postgres
+        password_env_var: DATAUSA_PW
+        host: postgres.datawheel.us
+        db_name: datausa
+
+    transform:
+        - type: drop
+          column: sumlevel
+tables:
+    zip_lookup:
+        pk: ["child_geoid", "parent_geoid", "percent_covered", "parent_area"]

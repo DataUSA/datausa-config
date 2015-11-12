@@ -13,6 +13,7 @@ global:
             - state
             - "county"
             - "place"
+            - "metropolitan+statistical+area/micropolitan+statistical+area"
             - "public+use+microdata+area"
         tbl: ["B16001"]
         column:

@@ -7,7 +7,7 @@ global:
     na_values: ['']
     source_vars:
         year: [2013]
-        sumlevel: ["040", "050", "160", "310", "010"]
+        sumlevel: ["040", "050", "160", "310", "010", "795"]
 
     type:
         CIPCODE: str

@@ -58,6 +58,12 @@ global:
             degree: text
         deduplicate: True
 tables:
+    yg:
+        pk: ["year", "geo"]
+        sumlevel: <geo_level>
+        values: *defaults
+        gini: True
+
     ygd:
        pk: ["year", "geo", "degree"]
        rca:
@@ -115,5 +121,19 @@ tables:
             index: ["year", "geo"]
             column: "birthplace"
             values: [num_ppl]
+        sumlevel: <geo_level>
+        values: *defaults
+
+    ygor:
+        pk: ["year", "geo", "soc", "race"]
+        depths:
+            soc: [0, 1, 2, 3]
+        sumlevel: <geo_level>
+        values: *defaults
+
+    ygos:
+        pk: ["year", "geo", "soc", "sex"]
+        depths:
+            soc: [0, 1, 2, 3]
         sumlevel: <geo_level>
         values: *defaults

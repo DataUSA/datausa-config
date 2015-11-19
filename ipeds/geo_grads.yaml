@@ -7,7 +7,7 @@ global:
     na_values: ['']
     source_vars:
         year: [2012, 2013]
-        sumlevel: [795] #["040", "050", "160", "310", "010", "795"]
+        sumlevel: ["040", "050", "160", "310", "010", "795"]
 
     growth:
         delta: 1
@@ -140,6 +140,28 @@ global:
         grads_nonresident_women: "sum"
 
 tables:
+    grads_yg2:
+        transform:
+            -
+                column: cip
+                type: replace
+                target: "."
+                value: ""
+            -
+                column: cip
+                type: replace
+                target: " "
+                value: ""
+            -   type: plugin
+                func: src.plugins.ipeds.location.geo_locate
+                sumlevel: "<sumlevel>"
+                webpath: "http://alumni.media.mit.edu/~jspeiser/university_geo.csv"
+        pk: ["year", "geo"]
+        filter:
+            -
+                column: "cip"
+                func: "eq"
+                value: "99"
     grads_ygs:
         transform:
             -

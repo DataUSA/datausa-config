@@ -1,14 +1,14 @@
 global:
     seperator: ","
-    name: ipeds_beta
+    name: ipeds
     use_schema: True
     encoding: utf-8-sig
     strip_column_whitespace: True
     na_values: ['']
     source_vars:
         year:
-            start: 2013
-            end: 2013
+            start: 2014
+            end: 2014
         cip_depth: [2, 4, 6]
 
     type:

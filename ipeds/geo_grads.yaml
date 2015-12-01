@@ -1,19 +1,19 @@
 global:
     seperator: ","
-    name: ipeds_beta
+    name: ipeds
     use_schema: True
     encoding: utf-8-sig
     strip_column_whitespace: True
     na_values: ['']
     source_vars:
-        year: [2012, 2013]
+        year: [2013, 2014]
         sumlevel: ["040", "050", "160", "310", "010", "795"]
 
     growth:
         delta: 1
         time_column: year
         columns: [grads_total]
-        start: 2012
+        start: 2013
         make_inf_nan: True
 
     type:
@@ -70,6 +70,9 @@ global:
         db_name: datausa
         type:
             degree: text
+            sector: text
+            university: text
+            cip: text
 
     deduplicate: True
     rename:
@@ -140,7 +143,7 @@ global:
         grads_nonresident_women: "sum"
 
 tables:
-    grads_yg2:
+    grads_yg:
         transform:
             -
                 column: cip

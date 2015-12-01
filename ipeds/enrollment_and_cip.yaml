@@ -1,6 +1,6 @@
 global:
     seperator: ","
-    name: ipeds_beta
+    name: ipeds
     source : "data/ipeds/ef<year>a.zip"
     use_schema: True
     force_column_uppercase:
@@ -32,8 +32,8 @@ global:
 
     source_vars:
         year:
-            start: 2013
-            end: 2013
+            start: 2014
+            end: 2014
 
     output : "data/output/ipeds/enrollment/<year>"
 

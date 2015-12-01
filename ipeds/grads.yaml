@@ -1,14 +1,14 @@
 global:
     seperator: ","
-    name: ipeds_beta
+    name: ipeds
     use_schema: True
     encoding: utf-8-sig
     strip_column_whitespace: True
     na_values: ['']
     source_vars:
         year:
-            start: 2013
-            end: 2013
+            start: 2014
+            end: 2014
 
     type:
         CIPCODE: str
@@ -37,6 +37,8 @@ global:
         db_name: datausa
         type:
             degree: text
+            university: text
+
     deduplicate: True
     rename:
         UNITID: university
@@ -108,22 +110,6 @@ global:
 
 
 tables:
-    grads_yu:
-        pk: ["year", "university"]
-        filter:
-            -
-                column: "cip"
-                func: "eq"
-                value: "99"
-
-    grads_yud:
-        pk: ["year", "university", "degree"]
-        filter:
-            -
-                column: "cip"
-                func: "eq"
-                value: "99"
-
 
     grads_ycu:
         pk: ["year", "cip", "university"]
@@ -147,17 +133,6 @@ tables:
                 column: "cip"
                 func: "eq"
                 value: "99"
-
-    grads_ycud:
-        pk: ["year", "cip", "university", "degree"]
-        table_vars:
-            cip_depth: [2, 4, 6]
-        filter:
-            -
-                column: "cip"
-                func: "eq"
-                value: "99"
-        transform: *cip_transforms
 
     grads_ycd:
         pk: ["year", "cip", "degree"]

@@ -79,6 +79,8 @@ global:
         type:
             degree: text
             sector: text
+            university: text
+
     deduplicate: True
     rename:
         UNITID: university

@@ -110,6 +110,26 @@ global:
 
 
 tables:
+    grads_yu:
+        pk: ["year", "university"]
+        transform:
+            -
+                column: cip
+                type: replace
+                target: "."
+                value: ""
+            -
+                column: cip
+                type: strip
+            -
+                column: cip
+                type: slice
+                length: "<cip_depth>"
+        filter:
+            -
+                column: "cip"
+                func: "eq"
+                value: "99"
 
     grads_ycu:
         pk: ["year", "cip", "university"]

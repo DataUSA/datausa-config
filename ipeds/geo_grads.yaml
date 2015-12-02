@@ -207,9 +207,10 @@ tables:
                 func: src.plugins.ipeds.location.geo_locate
                 sumlevel: "<sumlevel>"
                 webpath: "http://alumni.media.mit.edu/~jspeiser/university_geo.csv"
-                rca:
-                    index: ["year", "geo"]
-                    column: "cip"
+        rca:
+            index: ["year", "geo"]
+            column: "cip"
+            values: [grads_total]
         table_vars:
             cip_depth: [2, 4, 6]
         pk: ["year", "geo", "cip"]
@@ -244,10 +245,10 @@ tables:
                 func: src.plugins.ipeds.location.geo_locate
                 sumlevel: "<sumlevel>"
                 webpath: "http://alumni.media.mit.edu/~jspeiser/university_geo.csv"
-                rca:
-                    index: ["year", "geo", "cip"]
-                    column: "degree"
-
+        rca:
+            index: ["year", "geo", "cip"]
+            column: "degree"
+            values: [grads_total]
 
         pk: ["year", "geo", "cip", "degree"]
         filter:

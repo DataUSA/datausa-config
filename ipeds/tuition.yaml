@@ -78,41 +78,42 @@ global:
         db_name: datausa
         type:
             degree: text
+            sector: text
     deduplicate: True
     rename:
         UNITID: university
         CIPCODE: cip
         AWLEVEL: degree
-        CTOTALT: total
-        CTOTALM: men
-        CTOTALW: women
-        CAIANT: native
-        CAIANM: native_men
-        CAIANW: native_women
-        CASIAT: asian
-        CASIAM: asian_men
-        CASIAW: asian_women
-        CBKAAT: black
-        CBKAAM: black_men
-        CBKAAW: black_women
-        CHISPT: hispanic
-        CHISPM: hispanic_men
-        CHISPW: hispanic_women
-        CNHPIT: hawaiian
-        CNHPIM: hawaiian_men
-        CNHPIW: hawaiian_women
-        CWHITT: white
-        CWHITM: white_men
-        CWHITW: white_women
-        C2MORT: multi
-        C2MORM: multi_men
-        C2MORW: multi_women
-        CUNKNT: unknown
-        CUNKNM: unknown_men
-        CUNKNW: unknown_women
-        CNRALT: nonresident
-        CNRALM: nonresident_men
-        CNRALW: nonresident_women
+        CTOTALT: grads_total
+        CTOTALM: grads_men
+        CTOTALW: grads_women
+        CAIANT: grads_native
+        CAIANM: grads_native_men
+        CAIANW: grads_native_women
+        CASIAT: grads_asian
+        CASIAM: grads_asian_men
+        CASIAW: grads_asian_women
+        CBKAAT: grads_black
+        CBKAAM: grads_black_men
+        CBKAAW: grads_black_women
+        CHISPT: grads_hispanic
+        CHISPM: grads_hispanic_men
+        CHISPW: grads_hispanic_women
+        CNHPIT: grads_hawaiian
+        CNHPIM: grads_hawaiian_men
+        CNHPIW: grads_hawaiian_women
+        CWHITT: grads_white
+        CWHITM: grads_white_men
+        CWHITW: grads_white_women
+        C2MORT: grads_multi
+        C2MORM: grads_multi_men
+        C2MORW: grads_multi_women
+        CUNKNT: grads_unknown
+        CUNKNM: grads_unknown_men
+        CUNKNW: grads_unknown_women
+        CNRALT: grads_nonresident
+        CNRALM: grads_nonresident_men
+        CNRALW: grads_nonresident_women
 
     agg: &global_agg
         district_tuition: "median"
@@ -131,7 +132,7 @@ global:
         state_fee_grads: "median"
         oos_tuition_grads: "median"
         oos_fee_grads: "median"
-        total: "sum"
+        grads_total: "sum"
 
 tables:
     tuition_yc:

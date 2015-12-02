@@ -121,10 +121,6 @@ tables:
             -
                 column: cip
                 type: strip
-            -
-                column: cip
-                type: slice
-                length: "<cip_depth>"
         filter:
             -
                 column: "cip"

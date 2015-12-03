@@ -1,0 +1,12 @@
+inherits: ["acs/acs_template.yaml", "acs/yg_nativity_age.yaml"]
+global:
+  name: acs_1year
+  source: "data/acs_1year/<sumlevel>_<column>.json"
+  output: "data/acs_1year/<sumlevel>/<column>"
+  source_vars:
+    year: [2014]
+    sumlevel:
+      - "us"
+      - "state"
+  web_paths: "http://api.census.gov/data/<year>/acs1?get=GEOID,<column>E,<column>M&for=<sumlevel>&key=$ACS_KEY"
+

@@ -1,0 +1,53 @@
+# inherits: ["acs/acs_template.yaml", "acs/yg_race.yaml"]
+# global:
+#   name: acs_1year
+#   source: "data/acs_1year/<sumlevel>_<tbl><column>.json"
+#   output: "data/acs_1year/<sumlevel>/<tbl><column>"
+#   source_vars:
+#     year: [2014]
+#     sumlevel:
+#       - "us"
+  # web_paths: "http://api.census.gov/data/<year>/acs1?get=GEOID,<column>E,<column>M&for=<sumlevel>&key=$ACS_KEY"
+#
+
+inherits: "acs/acs_template.yaml"
+global:
+    name: acs_1year
+    source: "data/acs_1year/<sumlevel>_<tbl><column>.json"
+    output: "data/acs_1year/<sumlevel>/<tbl><column>"
+    web_paths: "http://api.census.gov/data/<year>/acs1?get=GEOID,<column>E,<column>M&for=<sumlevel>&key=$ACS_KEY"
+    source_vars:
+        tbl: ["B03002"]
+        column:
+          start: 3
+          end: 12
+          exclude: [10,11]
+          zfill: 3
+        year: [2014]
+        sumlevel:
+          - "us"
+
+    rename:
+      GEOID: geo
+      B03002_003E: pop_white
+      B03002_003M: pop_white_moe
+      B03002_004E: pop_black
+      B03002_004M: pop_black_moe
+      B03002_005E: pop_native
+      B03002_005M: pop_native_moe
+      B03002_006E: pop_asian
+      B03002_006M: pop_asian_moe
+      B03002_007E: pop_hawaiian
+      B03002_007M: pop_hawaiian_moe
+      B03002_008E: pop_other
+      B03002_008M: pop_other_moe
+      B03002_009E: pop_2ormore
+      B03002_009M: pop_2ormore_moe
+      B03002_012E: pop_latino
+      B03002_012M: pop_latino_moe
+
+tables:
+  "yg_race":
+    pk: ["year", "geo"]
+    agg: sum
+

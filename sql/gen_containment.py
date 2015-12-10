@@ -57,4 +57,4 @@ for parent, child in containments:
 
 table_name_no_dot = table_name.replace(".", "_")
 print "CREATE INDEX {}_idx_child_geoid ON {} (child_geoid);".format(table_name_no_dot, table_name)
-print "CREATE INDEX {}_idx_parent_geoid ON attrs.geo_containment (parent_geoid);".format(table_name_no_dot, table_name)
+print "CREATE INDEX {}_idx_parent_geoid ON {} (parent_geoid);".format(table_name_no_dot, table_name)

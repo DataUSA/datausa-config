@@ -11,6 +11,7 @@ CREATE TABLE {} (
 # list of child/parent
 containments = [
     ("310", "040"),
+    ("160", "040"),
 
     ("160", "050"),
 

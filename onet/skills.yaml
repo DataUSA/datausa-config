@@ -22,7 +22,7 @@ global:
             CIPCode: "str"
         index_col: False
 
-    usecols: [ONETCODE, ELEMENTID, DATAVALUE]
+    usecols: [ONETCODE, ELEMENTID, DATAVALUE, SCALEID]
 
     agg:
         value: mean
@@ -38,6 +38,7 @@ global:
         password_env_var: DATAUSA_PW
         host: 162.209.124.219
         db_name: datausa
+
 
 
 tables:
@@ -59,6 +60,10 @@ tables:
                 type: ljust
                 size: 6
                 fillchar: "0"
+        filter:
+            - column: SCALEID
+              func: eq
+              value: IM
 
     skills_by_cip:
         pk_fill_nan: False

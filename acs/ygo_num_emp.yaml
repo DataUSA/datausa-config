@@ -2,7 +2,7 @@ inherits: "acs/acs_template.yaml"
 global:
 
   concat_border: "sumlevel" 
-  source: "data/output/test/<sumlevel>_<tbl>_<column>_<year>.json"
+  source: "data/output/acs_5yr/<sumlevel>_<tbl>_<column>_<year>.json"
   source_vars:
     year: [2013]
     tbl: ["C24010"]

@@ -1,10 +1,11 @@
 global:
     seperator: ","
     name: attrs
-    source : "/Users/jspeiser/Downloads/census_geo_containment.csv"
+    source : "data/geocontainment/new_geo_containment.csv"
     use_schema: True
     output : "data/output/geocontainment/"
 
+    web_paths: "http://alumni.media.mit.edu/~jspeiser/new_geo_containment.csv"
 
     import_to_db: True
     db_settings:
@@ -15,4 +16,4 @@ global:
 
 tables:
     geo_containment:
-        pk: ["child_geoid","parent_geoid","percent_covered"]
+        pk: ["child_geoid","parent_geoid","percent_covered", "area_covered"]

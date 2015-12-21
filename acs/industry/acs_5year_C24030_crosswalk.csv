@@ -1,0 +1,34 @@
+acs_ind,col,depth,name
+00,C24030_003,0,"Agriculture, forestry, fishing and hunting, and mining:"
+0000,C24030_004,1,"Agriculture, forestry, fishing and hunting"
+0001,C24030_005,1,"Mining, quarrying, and oil and gas extraction"
+01,C24030_006,0,Construction
+0100,C24030_006a,1,Construction
+02,C24030_007,0,Manufacturing:
+0200,C24030_007a,1,Manufacturing:
+03,C24030_008,0,Wholesale trade:
+0300,C24030_008a,1,Wholesale trade:
+04,C24030_009,0,Retail trade:
+0400,C24030_009a,1,Retail trade:
+05,C24030_010,0,"Transportation and warehousing, and utilities:"
+0500,C24030_011,1,Transportation and warehousing:
+0501,C24030_012,1,Utilities
+06,C24030_013,0,Information:
+0600,C24030_013a,1,Information:
+07,C24030_014,0,"Finance and insurance, and real estate and rental and leasing:"
+0700,C24030_015,1,Finance and insurance
+0701,C24030_016,1,Real estate and rental and leasing
+08,C24030_017,0,"Professional, scientific, and management, and administrative and waste management services:"
+0800,C24030_018,1,"Professional, scientific, and technical services"
+0801,C24030_019,1,Management of companies and enterprises
+0802,C24030_020,1,Administrative and support and waste management services
+09,C24030_021,0,"Educational services, and health care and social assistance:"
+0900,C24030_022,1,Educational services
+0901,C24030_023,1,Health care and social assistance:
+10,C24030_024,0,"Arts, entertainment, and recreation, and accommodation and food services:"
+1000,C24030_025,1,"Arts, entertainment, and recreation"
+1001,C24030_026,1,Accommodation and food services
+11,C24030_027,0,"Other services, except public administration:"
+1100,C24030_027a,1,"Other services, except public administration:"
+12,C24030_028,0,Public administration
+1200,C24030_028a,1,Public administration

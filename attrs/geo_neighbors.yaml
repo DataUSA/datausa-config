@@ -1,0 +1,18 @@
+global:
+    seperator: ","
+    name: attrs
+    source: "data/mygeo/geo_neighbors.csv"
+    web_paths: "http://alumni.media.mit.edu/~jspeiser/geo-data/geo_neighbors.csv"
+    use_schema: True
+    output : "data/output/geoneighbors/"
+
+    import_to_db: True
+    db_settings:
+        user: postgres
+        password_env_var: DATAUSA_PW
+        host: 162.209.124.219
+        db_name: datausa
+
+tables:
+    geo_neighbors:
+        pk: ["geo","neighbor"]

@@ -14,12 +14,13 @@ global:
           - "place"
           - "zip+code+tabulation+area"
           - "public+use+microdata+area"
-    web_paths: "http://api.census.gov/data/<year>/acs5?get=GEOID,B01002_001E,B01002_001M,B01003_001E,B01003_001M,B19013_001E,B19013_001M,B08006_001E,B08136_001E,B05001_006E,B25003_001E,B25003_002E,B25077_001E,B25077_001M&for=<sumlevel>&key=$ACS_KEY"
+    web_paths: "http://api.census.gov/data/<year>/acs5?get=GEOID,B01002_001E,B01002_001M,B01003_001E,B01003_001M,B19013_001E,B19013_001M,B08006_001E,B08136_001E,B05001_006E,B25003_001E,B25003_002E,B25077_001E,B25077_001M,B16001_001E,B16001_002E&for=<sumlevel>&key=$ACS_KEY"
     db_settings:
       type:
         income: real
         income_moe: real
         median_property_value: real
+        median_property_value_moe: real
     transform:
         - type: rename
           column: "B01002_001E"
@@ -84,6 +85,16 @@ global:
         - type: div
           column: "owner_occupied_housing_units"
           value: "[num_housing_units]"
+        - type: sub
+          column: "B16001_001E"
+          value: "[B16001_002E]"
+        - type: div
+          column: "B16001_001E"
+          value: "[B16001_002E]"
+        - type: rename
+          column: "B16001_001E"
+          value: "non_eng_speakers_pct"
+
         - type: drop
           strict: NO
           column:
@@ -100,6 +111,7 @@ global:
             - "tract"
             - "num_commuters"
             - "num_housing_units"
+            - "B16001_002E"
 
 tables:
   "yg":

@@ -1,0 +1,27 @@
+acs_ind,col,depth,name
+00,B24031_002,0,"Agriculture, forestry, fishing and hunting, and mining:"
+0000,B24031_003,1,"Agriculture, forestry, fishing and hunting"
+0001,B24031_004,1,"Mining, quarrying, and oil and gas extraction"
+01,B24031_005,0,Construction
+02,B24031_006,0,Manufacturing:
+03,B24031_007,0,Wholesale trade:
+04,B24031_008,0,Retail trade:
+05,B24031_009,0,"Transportation and warehousing, and utilities:"
+0500,B24031_010,1,Transportation and warehousing:
+0501,B24031_011,1,Utilities
+06,B24031_012,0,Information:
+07,B24031_013,0,"Finance and insurance, and real estate and rental and leasing:"
+0700,B24031_014,1,Finance and insurance
+0701,B24031_015,1,Real estate and rental and leasing
+08,B24031_016,0,"Professional, scientific, and management, and administrative and waste management services:"
+0800,B24031_017,1,"Professional, scientific, and technical services"
+0801,B24031_018,1,Management of companies and enterprises
+0802,B24031_019,1,Administrative and support and waste management services
+09,B24031_020,0,"Educational services, and health care and social assistance:"
+0900,B24031_021,1,Educational services
+0901,B24031_022,1,Health care and social assistance:
+10,B24031_023,0,"Arts, entertainment, and recreation, and accommodation and food services:"
+1000,B24031_024,1,"Arts, entertainment, and recreation"
+1001,B24031_025,1,Accommodation and food services
+11,B24031_026,0,"Other services, except public administration:"
+12,B24031_027,0,Public administration

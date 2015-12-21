@@ -1,21 +1,14 @@
 global:
     seperator: ","
     name: attrs
-    source : "/tmp/zdata/ipeds/hd<year>.zip"
+    encoding: "ISO-8859-1"
+    source : "$HOME/data_output/ipeds/hd<year>.zip"
     use_schema: True
-    encoding: False
-    strip_column_whitespace: True
-    output : "/tmp/zdata/output/ipeds/hd/<year>"
-    force_column_uppercase:
-        to_exclude: []
-    web_paths:
-        "ipeds": "https://nces.ed.gov/ipeds/datacenter/data/hd<year>.zip"
+    output : "$HOME/data_output/ipeds/hd/<year>"
+    archive_files: "csv"
+    web_paths: "https://nces.ed.gov/ipeds/datacenter/data/hd<year>.zip"
     source_vars:
-        year:
-            start: 2005
-            end: 2013
-
-    concat: YES
+        year: [2014]
 
     import_to_db: True
     db_settings:
@@ -23,14 +16,19 @@ global:
         password_env_var: DATAUSA_PW
         host: 162.209.124.219
         db_name: datausa
+        type:
+          id: "text"
+          lat: "double precision"
+          lng: "double precision"
 
     type:
         FIPS: "str"
-        fips: "str"
         COUNTYCD: "str"
         CBSA: "str"
         UNITID: "str"
-        countycd: "str"
+        LONGITUD: "float"
+        LATITUDE: "float"
+        INSTNM: "ascii"
 
     rename:
         UNITID: id
@@ -41,50 +39,46 @@ global:
         WEBADDR: url
         INSTCAT: category
         SECTOR: sector
-        # F1SYSCOD: parent_code
         LONGITUD: lng
         LATITUDE: lat
 
     transform:
-        state:
-            -
-                type: "concat_and_fill"
-                prefix: "04000US"
-                zfill: 2
-
-        county:
-            -
-                type: "ifmissing"
-                default: "XXXXX"
-
-            -
-                type: "concat_and_fill"
-                prefix: "05000US"
-                zfill: 5
-        msa:
-            -
-                type: "ifmissing"
-                default: "XXXXX"
-            -
-                type: "concat_and_fill"
-                prefix: "31000US"
-                zfill: 5
-        id:
-            -
-                type: "cast"
-                as: str
-        lat:
-            type: ifmissing
-            default: None
-        lng:
-            type: ifmissing
-            default: None
+            - column: is_stem
+              type: set_val
+              value: 1
+            - column: state
+              type: "concat_and_fill"
+              prefix: "04000US"
+              zfill: 2
+            - column: county
+              type: "ifmissing"
+              default: "XXXXX"
+            - column: county
+              type: "concat_and_fill"
+              prefix: "05000US"
+              zfill: 5
+            - column: msa
+              type: "ifmissing"
+              default: "XXXXX"
+            - column: msa
+              type: "concat_and_fill"
+              prefix: "31000US"
+              zfill: 5
+            - column: id
+              type: "cast"
+              as: str
+            - column: lat
+              type: ifmissing
+              default: None
+            - column: lng
+              type: ifmissing
+              default: None
 
     agg:
         url: "any"
-        lat: "any"
-        lng: "any"
+        is_stem: "sum"
+
 
 tables:
-    ztest_university2:
-        pk: ["year", "id", "name", "state", "county", "msa", "category", "sector"] #, "parent_code"]
+    university:
+        pk: ["year", "id", "name", "state", "county", "msa", "category", "sector", "lat", "lng"]

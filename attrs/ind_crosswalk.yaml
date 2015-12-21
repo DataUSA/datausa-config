@@ -1,0 +1,19 @@
+global:
+    type:
+        acs_ind: str
+    seperator: ","
+    use_schema: True
+    name: attrs
+    source : "data/source/attrs/ind_crosswalk.csv"
+    output : "data/output/attrs/"
+    web_paths: "https://docs.google.com/spreadsheets/d/12QxdbTUueWYsepwnCFLetl0gNwjVKFQ9YBdBVoC54z0/export?format=csv&id=2"
+    import_to_db: True
+    db_settings:
+        user: postgres
+        password_env_var: DATAUSA_PW
+        host: postgres.datawheel.us
+        db_name: datausa
+
+tables:
+    ind_crosswalk2:
+        pk: [acs_ind, level, pums_naics]

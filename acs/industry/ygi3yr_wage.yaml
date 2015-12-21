@@ -1,5 +1,6 @@
+inherits: "acs/acs_template.yaml"
 global:
-    seperator: ","
+    concat: NO
     name: acs_3year
     use_schema: True
     concat_border: "sumlevel"
@@ -25,39 +26,52 @@ global:
 
     expand_vars:
         column:
-          start: 3
-          end: 209
-          exclude: [106]
+          start: 2
+          end: 27
           zfill: 3
-
-    preprocess:
-      func: "src.plugins.preprocess.acs_preprocess"
-
-    web_paths: "http://api.census.gov/data/<year>/acs3?get=GEOID,B24031_<column>E,B24031_<column>M&for=<sumlevel>&key=$ACS_KEY"
-    concat: YES
-
-    import_to_db: True
-    db_settings:
-        user: postgres
-        password_env_var: DATAUSA_PW
-        host: 162.209.124.219
-        db_name: datausa
-
+    
     transform:
-      - type: plugin
-        func: src.plugins.census.acs.helper.ygi
-        value_vars: ["{column:B24030_<column>E}", "{column:B24030_<column>M}"]
-      - type: rca
-        index: ["year", "geo"]
-        column: "census_id"
-        values: [num_emp]
-      - type: drop
-        column: "index"
-    rename:
-      GEOID: geo
+        - type: set_val
+          column: tmp
+          value: "_"
+        - type: zfill
+          size: 3
+          column: column
+        - type: concat
+          column: census_id
+          column0: tbl
+          column1: tmp
+          column2: column
+        - type: rename
+          column: "<tbl>_<column>E"
+          value: "med_earnings"
+        - type: rename
+          column: "<tbl>_<column>M"
+          value: "med_earnings_moe"
+        - type: join
+          source: acs/industry/acs_3year_B24031_crosswalk.csv
+          settings:
+            filetype: csv
+            usecols: [acs_ind, col]
+            type:
+              acs_ind: str
+          left_on: census_id
+          right_on: col
+          how: left
+        - type: rename
+          column: id
+          value: acs_ind
+    
+    db_settings:
+      type:
+        med_earnings: real
+        med_earnings_moe: real
+
 
 tables:
-  "ygi_wage":
-    pk: ["year", "geo", "census_id"]
-    agg: sum
+  "ygi_med_earnings":
+    pk: ["year", "geo", "acs_ind"]
+    agg:
+      med_earnings: sum
+      med_earnings_moe: sum
 

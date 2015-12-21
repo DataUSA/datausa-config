@@ -28,7 +28,7 @@ global:
       joiner: ","
 
   web_paths: "http://api.census.gov/data/<year>/acs5?get=GEOID,<tbl>_<column>E,<tbl>_<column>M&for=<sumlevel>&key=$ACS_KEY"
-  output: "data/acs/<tbl>/<year>/<sumlevel>/<column>/"
+  output: "data/acs_5yr/<tbl>/<year>/<sumlevel>/<column>/"
 
   transform:
     - type: plugin
@@ -36,38 +36,12 @@ global:
       value_vars: ["{column:<tbl>_<column>E}", "{column:<tbl>_<column>M}"]
       offset: 36
       midpoint: 38
-    - type: add
-      column: num_emp
-      values: ["[num_emp_male]", "[num_emp_female]"]
-    - type: combine_moes
-      confidence: 0.9
-      column: num_emp_moe
-      values: ["num_emp_moe_male", "num_emp_moe_female"]
-    - type: rca
-      index: ["year", "geo"]
-      column: "census_id"
-      values: [num_emp]
-    - type: drop
-      column: index
-    - type: join
-      source: acs/occupation/acs_5year_C24010_crosswalk.csv
-      settings:
-        filetype: csv
-        usecols: [id, col]
-      left_on: census_id
-      right_on: col
-      how: left
-    - type: rename
-      column: id
-      value: acs_occ
-
-    - type: drop
-      column: [census_id, col]
+      join: acs/occupation/acs_5year_C24010_crosswalk.csv
 
   rename:
       GEOID: geo
 
 tables:
-  ygo_num_emp:
+  ygo_num_emp_new:
     pk: ["year", "geo", "acs_occ"]
     agg: sum

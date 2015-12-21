@@ -1,52 +1,55 @@
 global:
-    seperator: ","
-    name: acs
-    use_schema: True
-    source: "data/acs/<sumlevel>_<tbl>_<column>.json"
-    filetype: json
-    source_vars:
-        year: [2013]
-        sumlevel:
-          - "us"
-          - "state"
-          - "county"
-          - "metropolitan+statistical+area/micropolitan+statistical+area"
-          - "place"
-          - "zip+code+tabulation+area"
-          - "public+use+microdata+area"
+  seperator: ","
+  name: acs_<estimate>yr
+  use_schema: True
+  source: "data/acs_<estimate>yr/<sumlevel>_<tbl>_<column>.json"
+  filetype: json
+  source_vars:
+    estimate: [1, 5]
+    year: [2013, 2014]
+    sumlevel:
+      - "us"
+      - "state"
+      - "county"
+      - "metropolitan+statistical+area/micropolitan+statistical+area"
+      - "place"
+      - "public+use+microdata+area"
+      # - "zip+code+tabulation+area"
 
-    preprocess:
-      func: "src.plugins.preprocess.acs_preprocess"
+  preprocess:
+    func: "src.plugins.preprocess.acs_preprocess"
 
-    output: "data/output/acs/<sumlevel>_<tbl>_<column>"
+  output: "data/output/acs_<estimate>yr/<sumlevel>_<tbl>_<column>"
 
-    web_paths: "http://api.census.gov/data/<year>/acs5?get=GEOID,<tbl>_<column>E,<tbl>_<column>M&for=<sumlevel>&key=$ACS_KEY"
-    concat: YES
+  web_paths: "http://api.census.gov/data/<year>/acs<estimate>?get=GEOID,<tbl>_<column>E,<tbl>_<column>M&for=<sumlevel>&key=$ACS_KEY"
+  concat: YES
+  concat_border: estimate
 
-    import_to_db: True
-    add_pks: True
-    db_settings:
-        user: postgres
-        password_env_var: DATAUSA_PW
-        host: 162.209.124.219
-        db_name: datausa
+  import_to_db: True
+  add_pks: True
+  db_settings:
+    user: postgres
+    password_env_var: DATAUSA_PW
+    host: 162.209.124.219
+    db_name: datausa
 
-    transform:
-      - type: drop
-        strict: NO
-        column:
-          - tbl
-          - sumlevel
-          - column
-          - "us"
-          - "state"
-          - "county"
-          - "metropolitan statistical area/micropolitan statistical area"
-          - "place"
-          - "zip code tabulation area"
-          - "public use microdata area"
-          - "tract"
-          - "race"
+  transform:
+    - type: drop
+      strict: NO
+      column:
+        - tbl
+        - sumlevel
+        - column
+        - estimate
+        - "us"
+        - "state"
+        - "county"
+        - "metropolitan statistical area/micropolitan statistical area"
+        - "place"
+        - "zip code tabulation area"
+        - "public use microdata area"
+        - "tract"
+        - "race"
 
-    rename:
-      GEOID: geo
+  rename:
+    GEOID: geo

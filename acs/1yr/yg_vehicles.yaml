@@ -1,0 +1,12 @@
+inherits: ["acs/yg_vehicles.yaml", "acs/acs_template.yaml"]
+global:
+  name: acs_1year
+  source: "data/acs_1yr/<sumlevel>_<tbl>_<column>.json"
+  output: "data/output/acs_1yr/<year>/<sumlevel>/<tbl>/<column>/"
+  source_vars:
+    year: [2014]
+    sumlevel:
+      - "us"
+      - "state"
+  web_paths: "http://api.census.gov/data/<year>/acs1?get=GEOID,<tbl>_<column>E,<tbl>_<column>M&for=<sumlevel>&key=$ACS_KEY"
+

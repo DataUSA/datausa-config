@@ -1,13 +1,20 @@
 global:
     seperator: ","
-    name: acs
+    name: acs_<estimate>yr
     use_schema: True
-    source : "data/acs/<sumlevel>_<tbl>_<column>.json"
-    output: "data/output/yglang/<year>/<sumlevel>/<tbl>/<column>/"
-    concat_border: "sumlevel"
+    source: "data/acs_<estimate>yr/<sumlevel>_<tbl>_<column>.json"
+    output: "data/output/acs_<estimate>yr/<sumlevel>_<tbl>_<column>"
+    # concat_border: ["sumlevel", "estimate"]
+    source_vars_nesting:
+        estimate:
+          sumlevel:
+            - year
+            - tbl
+            - column
     filetype: json
     source_vars:
-        year: [2013]
+        estimate: [1, 5]
+        year: [2013, 2014]
         sumlevel:
             - us
             - state
@@ -39,7 +46,7 @@ global:
     preprocess:
       func: "src.plugins.preprocess.acs_preprocess"
 
-    web_paths: "http://api.census.gov/data/<year>/acs5?get=GEOID,<tbl>_<column>E,<tbl>_<column>M&for=<sumlevel>&key=$ACS_KEY"
+    web_paths: "http://api.census.gov/data/<year>/acs<estimate>?get=GEOID,<tbl>_<column>E,<tbl>_<column>M&for=<sumlevel>&key=$ACS_KEY"
 
     import_to_db: True
     db_settings:

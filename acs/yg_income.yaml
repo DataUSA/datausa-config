@@ -9,12 +9,12 @@ global:
           end: 1
           zfill: 3
     web_paths: "http://api.census.gov/data/<year>/acs5?get=GEOID,<tbl><race>_<column>E,<tbl><race>_<column>M&for=<sumlevel>&key=$ACS_KEY"
-    output: "data/acs_3year/<tbl><race>/<sumlevel>/<column>"
+    output: "data/acs_5year/<tbl><race>/<sumlevel>/<column>"
     
     transform:
         - type: drop
           strict: NO
-          column: [tbl, sumlevel, column, state, race]
+          column: [tbl, sumlevel, column, state, race, tract]
         - type: rename
           column: "B19013_001E"
           value: "income"

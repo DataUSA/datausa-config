@@ -1,13 +1,20 @@
 global:
-    concat_border: "sumlevel"
-    name: acs
+    # concat_border: "sumlevel"
+    name: acs_<estimate>yr
     use_schema: True
-    source: "data/acs/<year>_<tbl>_<column>_<sumlevel>.json"
-    output: "data/output/acs/<year>/<tbl>/<column>/<sumlevel>"
+    source: "data/acs_<estimate>yr/<year>_<sumlevel>_<tbl>_<column>.json"
+    output: "data/output/acs_<estimate>yr/<year>_<sumlevel>_<tbl>_<column>"
     filetype: json
+    source_vars_nesting:
+        estimate:
+          sumlevel:
+            year:
+              - tbl
+              - column
 
     source_vars:
-        year: [2013]
+        estimate: [1, 5]
+        year: [2013, 2014]
         tbl: ["C24010"]
         column:
           start: 3
@@ -16,7 +23,7 @@ global:
           zfill: 3
         sumlevel:
           - us
-          # - state
+          - state
           - county
           - place
           - "metropolitan+statistical+area/micropolitan+statistical+area"
@@ -30,7 +37,7 @@ global:
         zfill: 3
     preprocess:
       func: "src.plugins.preprocess.acs_preprocess"
-    web_paths: "http://api.census.gov/data/<year>/acs5?get=GEOID,<tbl>_<column>E,<tbl>_<column>M&for=<sumlevel>&key=$ACS_KEY"
+    web_paths: "http://api.census.gov/data/<year>/acs<estimate>?get=GEOID,<tbl>_<column>E,<tbl>_<column>M&for=<sumlevel>&key=$ACS_KEY"
 
     import_to_db: True
     db_settings:

@@ -6,9 +6,9 @@ global:
     output: "data/output/acs_<estimate>yr/<year>_<sumlevel>_<tbl>_<column>"
     filetype: json
     source_vars_nesting:
-        estimate:
-          sumlevel:
-            year:
+        year:
+          estimate:
+            sumlevel:
               - tbl
               - column
 

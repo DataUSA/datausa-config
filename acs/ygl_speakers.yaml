@@ -6,11 +6,11 @@ global:
     output: "data/output/acs_<estimate>yr/<sumlevel>_<tbl>_<column>"
     # concat_border: ["sumlevel", "estimate"]
     source_vars_nesting:
-        estimate:
-          sumlevel:
-            - year
-            - tbl
-            - column
+        year:
+          estimate:
+            sumlevel:
+              - tbl
+              - column
     filetype: json
     source_vars:
         estimate: [1, 5]

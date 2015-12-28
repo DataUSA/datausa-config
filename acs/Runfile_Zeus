@@ -1,2 +1,6 @@
 run:
  - "ygl_speakers.yaml"
+ - "occupation/ygo_earnings.yaml"
+ - "occupation/ygo_num_emp.yaml"
+ - "industry/ygi_num_emp.yaml"
+ 

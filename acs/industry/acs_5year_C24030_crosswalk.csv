@@ -5,16 +5,16 @@ acs_ind,col,depth,name
 01,C24030_006,0,Construction
 0100,C24030_006a,1,Construction
 02,C24030_007,0,Manufacturing:
-0200,C24030_007a,1,Manufacturing:
+020x,C24030_007a,1,Manufacturing:
 03,C24030_008,0,Wholesale trade:
-0300,C24030_008a,1,Wholesale trade:
+030x,C24030_008a,1,Wholesale trade:
 04,C24030_009,0,Retail trade:
-0400,C24030_009a,1,Retail trade:
+040x,C24030_009a,1,Retail trade:
 05,C24030_010,0,"Transportation and warehousing, and utilities:"
 0500,C24030_011,1,Transportation and warehousing:
 0501,C24030_012,1,Utilities
 06,C24030_013,0,Information:
-0600,C24030_013a,1,Information:
+060x,C24030_013a,1,Information:
 07,C24030_014,0,"Finance and insurance, and real estate and rental and leasing:"
 0700,C24030_015,1,Finance and insurance
 0701,C24030_016,1,Real estate and rental and leasing
@@ -29,6 +29,6 @@ acs_ind,col,depth,name
 1000,C24030_025,1,"Arts, entertainment, and recreation"
 1001,C24030_026,1,Accommodation and food services
 11,C24030_027,0,"Other services, except public administration:"
-1100,C24030_027a,1,"Other services, except public administration:"
+110x,C24030_027a,1,"Other services, except public administration:"
 12,C24030_028,0,Public administration
 1200,C24030_028a,1,Public administration

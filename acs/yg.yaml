@@ -1,20 +1,26 @@
 inherits: "acs/acs_template.yaml"
 global:
     concat: NO
+    concat_border: NO
     use_schema: True
-    source: "data/acs/<year>_<sumlevel>.json"
-    output: "data/output/acs/yg/<year>/<sumlevel>"
+    name: acs_<estimate>yr
+    source: "data/acs_<estimate>yr/<year>_<sumlevel>.json"
+    output: "data/output/acs_<estimate>yr/yg/<year>/<sumlevel>"
+    source_vars_nesting:
+        year:
+          estimate:
+            - sumlevel
     source_vars:
-        year: [2013]
+        estimate: [5]
+        year: [2014]
         sumlevel:
           - "us"
           - "state"
           - "county"
           - "metropolitan statistical area/micropolitan statistical area"
           - "place"
-          - "zip+code+tabulation+area"
           - "public+use+microdata+area"
-    web_paths: "http://api.census.gov/data/<year>/acs5?get=GEOID,B01002_001E,B01002_001M,B01003_001E,B01003_001M,B19013_001E,B19013_001M,B08006_001E,B08136_001E,B05001_006E,B25003_001E,B25003_002E,B25077_001E,B25077_001M,B16001_001E,B16001_002E&for=<sumlevel>&key=$ACS_KEY"
+    web_paths: "http://api.census.gov/data/<year>/acs<estimate>?get=GEOID,B01002_001E,B01002_001M,B01003_001E,B01003_001M,B19013_001E,B19013_001M,B08006_001E,B08136_001E,B05001_006E,B25003_001E,B25003_002E,B25077_001E,B25077_001M,B16001_001E,B16001_002E&for=<sumlevel>&key=$ACS_KEY"
     db_settings:
       type:
         income: real

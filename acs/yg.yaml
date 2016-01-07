@@ -9,10 +9,10 @@ global:
     source_vars_nesting:
         year:
           estimate:
-            - sumlevel
+            sumlevel: []
     source_vars:
-        estimate: [5]
-        year: [2014]
+        estimate: [1, 5]
+        year: [2013, 2014]
         sumlevel:
           - "us"
           - "state"

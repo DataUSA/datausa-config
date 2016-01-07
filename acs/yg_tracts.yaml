@@ -1,13 +1,19 @@
 inherits: ["acs/acs_template.yaml", "acs/yg.yaml"]
 global:
     source: "data/acs_<estimate>yr/<year>_<state>_<sumlevel>.json"
+    source_vars_nesting:
+        year:
+          estimate:
+            sumlevel: ['state']
     source_vars:
         state: ["01","02","04","05","06","08","09","10","11","12","13","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","44","45","46","47","48","49","50","51","53","54","55","56","72"]
+        estimate: [5]
+        year: [2013, 2014]
         sumlevel:
           - "tract"
     
     output: "data/output/acs_<estimate>yr/yg/<year>/<state>_<sumlevel>"
-    web_paths: "http://api.census.gov/data/<year>/acs5?get=GEOID,B01002_001E,B01002_001M,B01003_001E,B01003_001M,B19013_001E,B19013_001M,B08006_001E,B08136_001E,B05001_006E,B25003_001E,B25003_002E,B25077_001E,B25077_001M,B16001_001E,B16001_002E&for=<sumlevel>&in=state:<state>&key=$ACS_KEY"
+    web_paths: "http://api.census.gov/data/<year>/acs<estimate>?get=GEOID,B01002_001E,B01002_001M,B01003_001E,B01003_001M,B19013_001E,B19013_001M,B08006_001E,B08136_001E,B05001_006E,B25003_001E,B25003_002E,B25077_001E,B25077_001M,B16001_001E,B16001_002E&for=<sumlevel>&in=state:<state>&key=$ACS_KEY"
 
 tables:
   "yg":

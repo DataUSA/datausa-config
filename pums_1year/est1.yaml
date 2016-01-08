@@ -1,5 +1,7 @@
 source: "$HOME/Documents/data/2014/1"
 output: "$HOME/Documents/pums_output/"
+name: "pums_1yr"
+year: 2014
 
 global:
     files: ["ss14pusa.csv", "ss14pusb.csv"]

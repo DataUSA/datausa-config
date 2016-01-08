@@ -97,8 +97,12 @@ tables:
         pk: ["year", "geo", "sex"]
 
     ygb:
+        universe: over_5
         pk: ["year", "geo", "birthplace"]
-
+        rca:
+            index: ["year", "geo"]
+            column: "birthplace"
+            values: ["num_ppl"]
     ygos:
         pk: ["year", "geo", "soc", "sex"]
 

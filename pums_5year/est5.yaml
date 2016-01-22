@@ -1,0 +1,212 @@
+source: "$HOME/Documents/data/2014/5"
+output: "$HOME/Documents/pums_output/2014/5"
+name: "pums_5yr"
+year: 2014
+pums_mode: 5
+
+global:
+    files: ["ss14pusa.csv"]
+    vars: ["WAGP", "AGEP", "WKHP", "PWGTP"]
+
+    sumlevels:
+        geo: ["nation", "state", "puma"]
+        soc: [0, 1, 2, 3]
+        naics: [0, 1, 2]
+
+tables:
+    yg:
+        pk: ["year", "geo"]
+        vars: ["WAGP", "AGEP", "WKHP", "PWGTP"]
+        gini: True
+        rank:
+            - target: avg_wage
+              colname: avg_wage_rank
+            - target: avg_age
+              colname: avg_age_rank
+            - target: num_ppl
+              colname: num_ppl_rank
+    ygd:
+        pk: ["year", "geo", "degree"]
+        vars: ["WAGP", "AGEP", "WKHP", "PWGTP"]
+        rca:
+            index: ["year", "geo"]
+            column: "degree"
+            values: ["num_ppl"]
+    ygr:
+        pk: ["year", "geo", "race"]
+        vars: ["WAGP", "AGEP", "WKHP", "PWGTP"]
+
+    ygi:
+        pk: ["year", "geo", "naics"]
+        vars: ["WAGP", "AGEP", "WKHP", "PWGTP"]
+        rca:
+            index: ["year", "geo"]
+            column: "naics"
+            values: ["num_ppl"]
+    ygio:
+        pk: ["year", "geo", "naics", "soc"]
+        vars: ["WAGP", "AGEP", "WKHP", "PWGTP"]
+        rca:
+            index: ["year", "geo", "naics"]
+            column: "soc"
+            values: ["num_ppl"]
+
+    yo:
+        pk: ["year", "soc", "soc_level"]
+        gini: True
+        rank:
+            - target: avg_wage
+              colname: avg_wage_rank
+            - target: avg_age
+              colname: avg_age_rank
+            - target: num_ppl
+              colname: num_ppl_rank
+
+    yow:
+        pk: ["year", "soc", "wage_bin"]
+
+    yos:
+        pk: ["year", "soc", "sex"]
+
+    yod:
+        pk: ["year", "soc", "degree"]
+        rca:
+            index: ["year", "soc"]
+            column: "degree"
+            values: ["num_ppl"]
+
+    yor:
+        pk: ["year", "soc", "race"]
+
+    yoas:
+        pk: ["year", "soc", "age", "sex"]
+
+    ygo:
+        pk: ["year", "geo", "soc"]
+        rca:
+            index: ["year", "geo"]
+            column: "soc"
+            values: ["num_ppl"]
+
+    ygw:
+        pk: ["year", "geo", "wage_bin"]
+
+    ygor:
+        pk: ["year", "geo", "soc", "race"]
+
+    ygs:
+        pk: ["year", "geo", "sex"]
+
+    ygb:
+        universe: over_5
+        pk: ["year", "geo", "birthplace"]
+        rca:
+            index: ["year", "geo"]
+            column: "birthplace"
+            values: ["num_ppl"]
+    ygos:
+        pk: ["year", "geo", "soc", "sex"]
+
+    yi:
+        pk: ["year", "naics", "naics_level"]
+        gini: True
+        rank:
+            - target: avg_wage
+              colname: avg_wage_rank
+            - target: avg_age
+              colname: avg_age_rank
+            - target: num_ppl
+              colname: num_ppl_rank
+
+    yc:
+        pk: ["year", "cip"]
+        rank:
+            - target: avg_wage
+              colname: avg_wage_rank
+            - target: avg_age
+              colname: avg_age_rank
+            - target: num_ppl
+              colname: num_ppl_rank
+    ygc:
+        pk: ["year", "geo", "cip"]
+        rca:
+            index: ["year", "geo"]
+            column: "cip"
+            values: ["num_ppl"]
+
+    yca:
+        pk: ["year", "cip", "age"]
+        rca:
+            index: ["year", "cip"]
+            column: "age"
+            values: ["num_ppl"]
+
+    ycb:
+        pk: ["year", "cip", "birthplace"]
+        rca:
+            index: ["year", "cip"]
+            column: "birthplace"
+            values: ["num_ppl"]
+    ycd:
+        pk: ["year", "cip", "degree"]
+        rca:
+            index: ["year", "cip"]
+            column: "degree"
+            values: ["num_ppl"]
+    yoc:
+        pk: ["year", "soc", "cip"]
+        rca:
+            index: ["year", "soc"]
+            column: "cip"
+            values: ["num_ppl"]
+    yic:
+        pk: ["year", "naics", "cip"]
+        rca:
+            index: ["year", "naics"]
+            column: "cip"
+            values: ["num_ppl"]
+    ycs:
+        pk: ["year", "cip", "sex"]
+        rca:
+            index: ["year", "cip"]
+            column: "sex"
+            values: ["num_ppl"]
+    yio:
+        pk: ["year", "naics", "soc"]
+        rca:
+            index: ["year", "naics"]
+            column: "soc"
+            values: ["num_ppl"]
+
+    yior:
+        pk: ["year", "naics", "soc", "race"]
+
+    yios:
+        pk: ["year", "naics", "soc", "sex"]
+
+    yocd:
+        pk: ["year", "soc", "cip", "degree"]
+        rca:
+            index: ["year", "soc", "cip"]
+            column: "degree"
+            values: ["num_ppl"]
+    yid:
+        pk: ["year", "naics", "degree"]
+        rca:
+            index: ["year", "naics"]
+            column: "degree"
+            values: ["num_ppl"]
+    yir:
+        pk: ["year", "naics", "race"]
+        rca:
+            index: ["year", "naics"]
+            column: "race"
+            values: ["num_ppl"]
+    yis:
+        pk: ["year", "naics", "sex"]
+        rca:
+            index: ["year", "naics"]
+            column: "sex"
+            values: ["num_ppl"]
+    yiw:
+        pk: ["year", "naics", "wage_bin"]

@@ -103,6 +103,9 @@ global:
         type: filter
         func: "ne"
         value: "-"
+      - column: naics_code
+        type: rename
+        value: naics
 tables:
-    ces:
-        pk: ["year", "series_id", "period", "naics_code", "seasonal"]
+    ces_yi:
+        pk: ["year", "series_id", "period", "naics", "seasonal"]

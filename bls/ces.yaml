@@ -1,0 +1,108 @@
+global:
+    separator: "\t"
+    filetype: csv
+    name: bls
+    source : "data/bls/test/ce.data.0.AllCESSeries"
+    use_schema: True
+
+    index_col: False
+    strip_column_whitespace: True
+    type:
+      year: int
+      value: float
+
+    output : "data/bls/test/output"
+    thousands: ","
+    web_paths:
+        "AllCESSeries": "http://download.bls.gov/pub/time.series/ce/ce.data.0.AllCESSeries"
+        "ce.industry": "http://download.bls.gov/pub/time.series/ce/ce.industry"
+
+    import_to_db: True
+    db_settings:
+        user: postgres
+        password_env_var: DATAUSA_PW
+        host: 162.209.124.219
+        db_name: datausa
+
+    filter:
+      - column: period
+        func: "ne"
+        value: "M13"
+      - column: year
+        func: "lt"
+        value: 2013
+
+    transform:
+      - column: data_type
+        type: clone
+        source: series_id
+      - column: seasonal
+        type: clone
+        source: series_id
+      - column: series_id
+        type: slice
+        start: 3
+        length: 8
+      - column: seasonal
+        type: slice
+        start: 2
+        length: 1
+      - column: data_type
+        type: slice
+        start: 11
+        length: 2
+      - column: dummy
+        type: join
+        source: "data/bls/test/ce.industry"
+        left_on: "series_id"
+        right_on: "industry_code"
+        settings:
+          usecols: ["industry_code", "naics_code"]
+          filetype: "csv"
+          separator: "\t"
+          type:
+            "industry_code": "str"
+      - column: naics_code
+        type: set_val
+        value: "31-33"
+        where:
+          column: "series_id"
+          func: "eq"
+          value: "30000000"
+      - column: data_type
+        type: filter
+        func: "isin"
+        value: ["01", "02", "03"]
+      - column: data_type
+        type: set_val
+        value: "employees_thousands"
+        where:
+          column: data_type
+          func: "eq"
+          value: "01"
+      - column: data_type
+        type: set_val
+        value: "avg_wkly_hrs"
+        where:
+          column: data_type
+          func: "eq"
+          value: "02"
+      - column: data_type
+        type: set_val
+        value: "avg_hrly_earnings"
+        where:
+          column: data_type
+          func: "eq"
+          value: "03"
+      - type: pivot_table
+        columns: ['data_type']
+        values: value
+        index: ["year", "series_id", "period", "naics_code", "seasonal"]
+        should_stack: NO
+      - column: naics_code
+        type: filter
+        func: "ne"
+        value: "-"
+tables:
+    ces:
+        pk: ["year", "series_id", "period", "naics_code", "seasonal"]

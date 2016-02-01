@@ -27,6 +27,7 @@ global:
         income_moe: real
         median_property_value: real
         median_property_value_moe: real
+        non_eng_speakers_pct: real
     transform:
         - type: rename
           column: "B01002_001E"
@@ -91,14 +92,17 @@ global:
         - type: div
           column: "owner_occupied_housing_units"
           value: "[num_housing_units]"
+        - type: clone
+          column: "total_noneng_speakers"
+          source: "B16001_001E"
         - type: sub
-          column: "B16001_001E"
+          column: "total_noneng_speakers"
           value: "[B16001_002E]"
         - type: div
-          column: "B16001_001E"
-          value: "[B16001_002E]"
+          column: "total_noneng_speakers"
+          value: "[B16001_001E]"
         - type: rename
-          column: "B16001_001E"
+          column: "total_noneng_speakers"
           value: "non_eng_speakers_pct"
 
         - type: drop
@@ -117,6 +121,7 @@ global:
             - "tract"
             - "num_commuters"
             - "num_housing_units"
+            - "B16001_001E"
             - "B16001_002E"
 
 tables:

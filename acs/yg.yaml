@@ -20,7 +20,7 @@ global:
           - "metropolitan statistical area/micropolitan statistical area"
           - "place"
           - "public+use+microdata+area"
-    web_paths: "http://api.census.gov/data/<year>/acs<estimate>?get=GEOID,B01002_001E,B01002_001M,B01003_001E,B01003_001M,B19013_001E,B19013_001M,B08006_001E,B08136_001E,B05001_006E,B25003_001E,B25003_002E,B25077_001E,B25077_001M,B16001_001E,B16001_002E&for=<sumlevel>&key=$ACS_KEY"
+    web_paths: "http://api.census.gov/data/<year>/acs<estimate>?get=GEOID,B01002_001E,B01002_001M,B01003_001E,B01003_001M,B19013_001E,B19013_001M,B08006_001E,B08013_001E,B05001_006E,B25003_001E,B25003_002E,B25077_001E,B25077_001M,B16001_001E,B16001_002E&for=<sumlevel>&key=$ACS_KEY"
     db_settings:
       type:
         income: real
@@ -48,7 +48,7 @@ global:
           column: "B19013_001M"
           value: "income_moe"
         - type: rename
-          column: "B08136_001E"
+          column: "B08013_001E"
           value: "mean_commute_minutes"
         - type: rename
           column: "B08006_001E"

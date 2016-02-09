@@ -13,7 +13,7 @@ global:
           - "tract"
     
     output: "data/output/acs_<estimate>yr/yg/<year>/<state>_<sumlevel>"
-    web_paths: "http://api.census.gov/data/<year>/acs<estimate>?get=GEOID,B01002_001E,B01002_001M,B01003_001E,B01003_001M,B19013_001E,B19013_001M,B08006_001E,B08136_001E,B05001_006E,B25003_001E,B25003_002E,B25077_001E,B25077_001M,B16001_001E,B16001_002E&for=<sumlevel>&in=state:<state>&key=$ACS_KEY"
+    web_paths: "http://api.census.gov/data/<year>/acs<estimate>?get=GEOID,B01002_001E,B01002_001M,B01003_001E,B01003_001M,B19013_001E,B19013_001M,B08006_001E,B08013_001E,B05001_006E,B25003_001E,B25003_002E,B25077_001E,B25077_001M,B16001_001E,B16001_002E&for=<sumlevel>&in=state:<state>&key=$ACS_KEY"
 
 tables:
   "yg":

@@ -24,15 +24,15 @@ global:
         host: 162.209.124.219
         db_name: datausa
 
-    filter:
-      - column: period
-        func: "ne"
-        value: "M13"
-      - column: year
-        func: "lt"
-        value: 2013
-
     transform:
+      - type: filter
+        column: period
+        func: "eq"
+        value: "M13"
+      - type: filter
+        column: year
+        func: "gt"
+        value: 2012
       - column: data_type
         type: clone
         source: series_id
@@ -107,5 +107,5 @@ global:
         type: rename
         value: naics
 tables:
-    ces_yi:
+    ces_yi2:
         pk: ["year", "series_id", "period", "naics", "seasonal"]

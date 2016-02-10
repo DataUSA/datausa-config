@@ -1,5 +1,5 @@
 -- state stats
-SELECT ( SELECT max(yg.year) AS max
+CREATE TABLE stats.state AS (SELECT ( SELECT max(yg.year) AS max
           FROM acs_1yr.yg) AS year,
    a.id AS geo,
    ( SELECT tmp.pos
@@ -30,7 +30,7 @@ SELECT ( SELECT max(yg.year) AS max
           FROM attrs.geo_neighbors
          WHERE geo_neighbors.geo = a.id::text) AS state_neighbors
   FROM attrs.geo_names a
- WHERE a.id::text ~~ '04000US%'::text;
+ WHERE a.id::text ~~ '04000US%'::text);
 
 -- msa stats
 CREATE TABLE stats.msa AS (SELECT a.id AS geo,

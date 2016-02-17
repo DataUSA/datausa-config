@@ -1,27 +1,27 @@
 -- state stats
 CREATE TABLE stats.state AS (SELECT ( SELECT max(yg.year) AS max
-          FROM acs_1yr.yg) AS year,
+          FROM acs_5yr.yg) AS year,
    a.id AS geo,
    ( SELECT tmp.pos
           FROM ( SELECT yg.geo,
                    yg.pop,
                    rank() OVER (PARTITION BY "left"(yg.geo, 3) ORDER BY yg.pop DESC) AS pos
-                  FROM acs_1yr.yg
+                  FROM acs_5yr.yg
                  WHERE yg.year = (( SELECT max(yg_1.year) AS max
-                          FROM acs_1yr.yg yg_1)) AND yg.geo LIKE '040%') tmp
+                          FROM acs_5yr.yg yg_1)) AND yg.geo LIKE '040%') tmp
          WHERE tmp.geo = a.id::text) AS state_rank,
    ARRAY( SELECT yg.geo
-          FROM acs_1yr.yg
+          FROM acs_5yr.yg
          WHERE yg.year = (( SELECT max(yg_1.year) AS max
-                  FROM acs_1yr.yg yg_1)) AND (yg.geo IN ( SELECT geo_containment.child_geoid
+                  FROM acs_5yr.yg yg_1)) AND (yg.geo IN ( SELECT geo_containment.child_geoid
                   FROM attrs.geo_containment
                  WHERE geo_containment.child_geoid LIKE '16000' || substr(a.id, 6 ,4) || '%'  ))
          ORDER BY yg.pop DESC
         LIMIT 3) AS top_places,
         ARRAY( SELECT yg.geo
-               FROM acs_1yr.yg
+               FROM acs_5yr.yg
               WHERE yg.year = (( SELECT max(yg_1.year) AS max
-                       FROM acs_1yr.yg yg_1)) AND (yg.geo IN ( SELECT geo_containment.child_geoid
+                       FROM acs_5yr.yg yg_1)) AND (yg.geo IN ( SELECT geo_containment.child_geoid
                        FROM attrs.geo_containment
                       WHERE geo_containment.child_geoid LIKE '05000' || substr(a.id, 6 ,4) || '%'  ))
               ORDER BY yg.pop DESC
@@ -35,14 +35,14 @@ CREATE TABLE stats.state AS (SELECT ( SELECT max(yg.year) AS max
 -- msa stats
 CREATE TABLE stats.msa AS (SELECT a.id AS geo,
    ARRAY( SELECT yg.geo
-          FROM acs_1yr.yg
+          FROM acs_5yr.yg
          WHERE (yg.geo IN ( SELECT geo_containment.child_geoid
                   FROM attrs.geo_containment
                  WHERE geo_containment.parent_geoid = a.id::text AND geo_containment.child_geoid ~~ '050%'::text)) and year = 2013
          ORDER BY yg.pop DESC
         LIMIT 3) AS top_counties,
    ARRAY( SELECT yg.geo
-          FROM acs_1yr.yg
+          FROM acs_5yr.yg
          WHERE (yg.geo IN ( SELECT geo_containment.child_geoid
                   FROM attrs.geo_containment
                  WHERE geo_containment.parent_geoid = a.id::text AND geo_containment.child_geoid ~~ '160%'::text) and year = 2013 )

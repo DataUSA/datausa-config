@@ -21,7 +21,7 @@ global:
         cip: str
 
     source : "data/ipeds/c<year>_a.zip"
-    output : "data/output/ipeds/<year>"
+    output : "data/output/ipeds/<year>/<sumlevel>/"
 
     join:
         -
@@ -73,6 +73,7 @@ global:
             sector: text
             university: text
             cip: text
+            grads_total_growth: real
 
     deduplicate: True
     rename:
@@ -264,4 +265,36 @@ tables:
             -
                 column: "cip"
                 func: "eq"
+                value: "99"
+    grads_ygd:
+        transform:
+            -
+                column: nation
+                type: set_val
+                value: "01000US"
+            -
+                column: cip
+                type: replace
+                target: "."
+                value: ""
+            -
+                column: cip
+                type: replace
+                target: " "
+                value: ""
+
+            -   type: plugin
+                func: src.plugins.ipeds.location.geo_locate
+                sumlevel: "<sumlevel>"
+                webpath: "http://alumni.media.mit.edu/~jspeiser/university_geo.csv"
+        rca:
+            index: ["year", "geo"]
+            column: "degree"
+            values: [grads_total]
+
+        pk: ["year", "geo", "degree"]
+        filter:
+            -
+                column: "cip"
+                func: "ne"
                 value: "99"

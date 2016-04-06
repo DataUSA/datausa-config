@@ -2,7 +2,7 @@ global:
   seperator: ","
   name: acs_<estimate>yr
   use_schema: True
-  source: "data/acs_<estimate>yr/<sumlevel>_<tbl>_<column>.json"
+  source: "data/acs_<estimate>yr/<year>_<sumlevel>_<tbl>_<column>.json"
   filetype: json
   source_vars:
     estimate: [1, 5]
@@ -19,7 +19,7 @@ global:
   preprocess:
     func: "src.plugins.preprocess.acs_preprocess"
 
-  output: "data/output/acs_<estimate>yr/<sumlevel>_<tbl>_<column>"
+  output: "data/output/acs_<estimate>yr/<year>_<sumlevel>_<tbl>_<column>"
 
   web_paths: "http://api.census.gov/data/<year>/acs<estimate>?get=GEOID,<tbl>_<column>E,<tbl>_<column>M&for=<sumlevel>&key=$ACS_KEY"
   concat: YES

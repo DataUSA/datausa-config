@@ -2,8 +2,8 @@ global:
     seperator: ","
     name: acs_<estimate>yr
     use_schema: True
-    source: "data/acs_<estimate>yr/<sumlevel>_<tbl>_<column>.json"
-    output: "data/output/acs_<estimate>yr/<sumlevel>_<tbl>_<column>"
+    source: "data/acs_<estimate>yr/<year>_<sumlevel>_<tbl>_<column>.json"
+    output: "data/output/acs_<estimate>yr/<year>_<sumlevel>_<tbl>_<column>"
     # concat_border: ["sumlevel", "estimate"]
     source_vars_nesting:
         year:

@@ -13,10 +13,10 @@ global:
             sumlevel:
               - tbl
               - column
-    
+
     source_vars:
-        estimate: [1, 5]
-        year: [2013, 2014]
+        estimate: [5]
+        year: [2014]
         tbl: C24030
         sumlevel:
             - us
@@ -27,14 +27,14 @@ global:
             - "public+use+microdata+area"
 
         column:
-          start: 3
+          start: 2
           end: 55
           exclude: [29]
           zfill: 3
 
     expand_vars:
         column:
-          start: 3
+          start: 2
           end: 55
           exclude: [29]
           zfill: 3
@@ -50,8 +50,8 @@ global:
     db_settings:
         user: postgres
         password_env_var: DATAUSA_PW
-        host: 162.209.124.219
-        db_name: datausa
+        host: 146.20.39.90
+        db_name: datausa_t4
 
     transform:
       - type: set_val
@@ -67,7 +67,7 @@ global:
       - type: plugin
         func: src.plugins.census.acs.helper.ygi
         value_vars: ["{column:C24030_<column>E}", "{column:C24030_<column>M}"]
-        midpoint: 29
+        midpoint: 28
         offset: 27
         join: acs/industry/acs_5year_C24030_crosswalk.csv
         deepest: 4

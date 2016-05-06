@@ -1,0 +1,260 @@
+global:
+    seperator: ","
+    name: chr
+    source : "data/chr/chr_<year>.csv"
+    use_schema: True
+
+    index_col: False
+    strip_column_whitespace: True
+
+    source_vars:
+        year: ["2016"]
+
+    output : "data/output/chr/<year>"
+    thousands: ","
+
+    web_paths:
+      "2016": "http://www.countyhealthrankings.org/sites/default/files/2016CHR_CSV_Analytic_Data_v2.csv"
+
+    import_to_db: False
+    add_pks: True
+    transform:
+            -
+                column: county
+                type: cast
+                as: str
+            -
+                column: county
+                type: concat_and_fill
+                zfill: 3
+            -
+                column: county
+                type: whereset
+                where:
+                    -
+                        op: notequals
+                        value: '000'
+                        set:
+                            prefix: '05000US'
+                            sumlevel: 50
+                    -
+                        op: equals
+                        value: '000'
+                        set:
+                            prefix: '04000US'
+                            county: ''
+                            sumlevel: 40
+            -
+                column: state
+                type: concat_and_fill
+                zfill: 2
+            -
+                column: geo
+                type: "concat"
+                column0: prefix
+                column1: state
+                column2: county
+            -
+                column: state
+                type: drop
+            -
+                column: county
+                type: drop
+            -
+                column: prefix
+                type: drop
+            -
+                column: sumlevel
+                type: drop
+    agg: "sum"
+
+    type:
+        # "Adult smoking Value": "float"
+        STATECODE: str
+        COUNTYCODE: str
+
+    rename:
+        STATECODE: state
+        COUNTYCODE: county
+        "Air pollution - particulate matter Value": polution_ppm
+        "Population estimate Value": "population"
+
+    regex_rename:
+        "<name> Value": "<name>"
+        "<name> Lower Confidence Interval": "<name>_lci"
+        "<name> Upper Confidence Interval": "<name>_uci"
+
+    regex_drop:
+        "Percent<desc>": "delete"
+        "percent<desc>": "delete"
+        "<desc> Numerator": "delete"
+        "<desc> Denominator": "delete"
+        "Coun<desc>": "delete"
+        "Stat<desc>": "delete"
+        "<desc>Ratio": "delete"
+        "Rank for <desc>": "delete"
+        "residential_segregatio<desc>": "delete"
+
+    dropcols: ["Percent of population that is Native Hawaiian or Other Pacific Islander"]
+
+tables:
+    yg_v2:
+        pk: ["year", "geo"]
+        agg:
+          "premature_death": "sum"
+          "premature_death_lci": "sum"
+          "premature_death_uci": "sum"
+          "poor_or_fair_health": "sum"
+          "poor_or_fair_health_lci": "sum"
+          "poor_or_fair_health_uci": "sum"
+          "poor_physical_health_days": "sum"
+          "poor_physical_health_days_lci": "sum"
+          "poor_physical_health_days_uci": "sum"
+          "poor_mental_health_days": "sum"
+          "poor_mental_health_days_lci": "sum"
+          "poor_mental_health_days_uci": "sum"
+          "low_birthweight": "sum"
+          "low_birthweight_lci": "sum"
+          "low_birthweight_uci": "sum"
+          "adult_smoking": "sum"
+          "adult_smoking_lci": "sum"
+          "adult_smoking_uci": "sum"
+          "adult_obesity": "sum"
+          "adult_obesity_lci": "sum"
+          "adult_obesity_uci": "sum"
+          "food_environment_index": "sum"
+          "food_environment_index_lci": "sum"
+          "food_environment_index_uci": "sum"
+          "physical_inactivity": "sum"
+          "physical_inactivity_lci": "sum"
+          "physical_inactivity_uci": "sum"
+          "access_to_exercise_opportunities": "sum"
+          "access_to_exercise_opportunities_lci": "sum"
+          "access_to_exercise_opportunities_uci": "sum"
+          "excessive_drinking": "sum"
+          "excessive_drinking_lci": "sum"
+          "excessive_drinking_uci": "sum"
+          "alcoholimpaired_driving_deaths": "sum"
+          "alcoholimpaired_driving_deaths_lci": "sum"
+          "alcoholimpaired_driving_deaths_uci": "sum"
+          "sexually_transmitted_infections": "sum"
+          "sexually_transmitted_infections_lci": "sum"
+          "sexually_transmitted_infections_uci": "sum"
+          "teen_births": "sum"
+          "teen_births_lci": "sum"
+          "teen_births_uci": "sum"
+          "uninsured": "sum"
+          "uninsured_lci": "sum"
+          "uninsured_uci": "sum"
+          "primary_care_physicians": "sum"
+          "primary_care_physicians_lci": "sum"
+          "primary_care_physicians_uci": "sum"
+          "dentists": "sum"
+          "dentists_lci": "sum"
+          "dentists_uci": "sum"
+          "mental_health_providers": "sum"
+          "mental_health_providers_lci": "sum"
+          "mental_health_providers_uci": "sum"
+          "preventable_hospital_stays": "sum"
+          "preventable_hospital_stays_lci": "sum"
+          "preventable_hospital_stays_uci": "sum"
+          "diabetic_screening": "sum"
+          "diabetic_screening_lci": "sum"
+          "diabetic_screening_uci": "sum"
+          "mammography_screening": "sum"
+          "mammography_screening_lci": "sum"
+          "mammography_screening_uci": "sum"
+          "high_school_graduation": "sum"
+          "high_school_graduation_lci": "sum"
+          "high_school_graduation_uci": "sum"
+          "some_college": "sum"
+          "some_college_lci": "sum"
+          "some_college_uci": "sum"
+          "unemployment": "sum"
+          "unemployment_lci": "sum"
+          "unemployment_uci": "sum"
+          "children_in_poverty": "sum"
+          "children_in_poverty_lci": "sum"
+          "children_in_poverty_uci": "sum"
+          "income_inequality": "sum"
+          "income_inequality_lci": "sum"
+          "income_inequality_uci": "sum"
+          "children_in_singleparent_households": "sum"
+          "children_in_singleparent_households_lci": "sum"
+          "children_in_singleparent_households_uci": "sum"
+          "social_associations": "sum"
+          "social_associations_lci": "sum"
+          "social_associations_uci": "sum"
+          "violent_crime": "sum"
+          "violent_crime_lci": "sum"
+          "violent_crime_uci": "sum"
+          "injury_deaths": "sum"
+          "injury_deaths_lci": "sum"
+          "injury_deaths_uci": "sum"
+          "polution_ppm": "sum"
+          "air_pollution__particulate_matter_lci": "sum"
+          "air_pollution__particulate_matter_uci": "sum"
+          "drinking_water_violations": "sum"
+          "drinking_water_violations_lci": "sum"
+          "drinking_water_violations_uci": "sum"
+          "severe_housing_problems": "sum"
+          "severe_housing_problems_lci": "sum"
+          "severe_housing_problems_uci": "sum"
+          "driving_alone_to_work": "sum"
+          "driving_alone_to_work_lci": "sum"
+          "driving_alone_to_work_uci": "sum"
+          "long_commute__driving_alone": "sum"
+          "long_commute__driving_alone_lci": "sum"
+          "long_commute__driving_alone_uci": "sum"
+          "population_that_is_not_proficient_in_english": "sum"
+          "population_that_is_not_proficient_in_english_lci": "sum"
+          "population_that_is_not_proficient_in_english_uci": "sum"
+          "population_living_in_a_rural_area": "sum"
+          "population_living_in_a_rural_area_lci": "sum"
+          "population_living_in_a_rural_area_uci": "sum"
+          "diabetes": "sum"
+          "diabetes_lci": "sum"
+          "diabetes_uci": "sum"
+          "hiv_prevalence_rate": "sum"
+          "hiv_prevalence_rate_lci": "sum"
+          "hiv_prevalence_rate_uci": "sum"
+          "premature_ageadjusted_mortality": "sum"
+          "premature_ageadjusted_mortality_lci": "sum"
+          "premature_ageadjusted_mortality_uci": "sum"
+          "infant_mortality": "sum"
+          "infant_mortality_lci": "sum"
+          "infant_mortality_uci": "sum"
+          "child_mortality": "sum"
+          "child_mortality_lci": "sum"
+          "child_mortality_uci": "sum"
+          "food_insecurity": "sum"
+          "food_insecurity_lci": "sum"
+          "food_insecurity_uci": "sum"
+          "limited_access_to_healthy_foods": "sum"
+          "limited_access_to_healthy_foods_lci": "sum"
+          "limited_access_to_healthy_foods_uci": "sum"
+          "motor_vehicle_crash_deaths": "sum"
+          "motor_vehicle_crash_deaths_lci": "sum"
+          "motor_vehicle_crash_deaths_uci": "sum"
+          "uninsured_adults": "sum"
+          "uninsured_adults_lci": "sum"
+          "uninsured_adults_uci": "sum"
+          "uninsured_children": "sum"
+          "uninsured_children_lci": "sum"
+          "uninsured_children_uci": "sum"
+          "health_care_costs": "sum"
+          "health_care_costs_lci": "sum"
+          "health_care_costs_uci": "sum"
+          "other_primary_care_providers": "sum"
+          "other_primary_care_providers_lci": "sum"
+          "other_primary_care_providers_uci": "sum"
+          "median_household_income": "sum"
+          "median_household_income_lci": "sum"
+          "median_household_income_uci": "sum"
+          "children_eligible_for_free_lunch": "sum"
+          "children_eligible_for_free_lunch_lci": "sum"
+          "children_eligible_for_free_lunch_uci": "sum"
+          "homicide_rate": "sum"
+          "homicide_rate_lci": "sum"
+          "homicide_rate_uci": "sum"
+          "population": "sum"

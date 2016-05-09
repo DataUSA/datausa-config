@@ -17,6 +17,13 @@ global:
       "2016": "http://www.countyhealthrankings.org/sites/default/files/2016CHR_CSV_Analytic_Data_v2.csv"
 
     import_to_db: False
+    db_settings:
+        user: postgres
+        password_env_var: DATAUSA_PW
+        host: 146.20.39.90
+        db_name: datausa_t4
+
+
     add_pks: True
     transform:
             -
@@ -77,7 +84,7 @@ global:
         STATECODE: state
         COUNTYCODE: county
         "Air pollution - particulate matter Value": polution_ppm
-        "Population estimate Value": "population"
+        "Population estimate Value": "population_estimate"
 
     regex_rename:
         "<name> Value": "<name>"
@@ -98,7 +105,7 @@ global:
     dropcols: ["Percent of population that is Native Hawaiian or Other Pacific Islander"]
 
 tables:
-    yg_v2:
+    yg:
         pk: ["year", "geo"]
         agg:
           "premature_death": "sum"
@@ -194,9 +201,6 @@ tables:
           "polution_ppm": "sum"
           "air_pollution__particulate_matter_lci": "sum"
           "air_pollution__particulate_matter_uci": "sum"
-          "drinking_water_violations": "sum"
-          "drinking_water_violations_lci": "sum"
-          "drinking_water_violations_uci": "sum"
           "severe_housing_problems": "sum"
           "severe_housing_problems_lci": "sum"
           "severe_housing_problems_uci": "sum"
@@ -257,4 +261,4 @@ tables:
           "homicide_rate": "sum"
           "homicide_rate_lci": "sum"
           "homicide_rate_uci": "sum"
-          "population": "sum"
+          "population_estimate": "sum"

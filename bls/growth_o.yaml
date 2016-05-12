@@ -1,6 +1,6 @@
 global:
-    source: "data/bls/growth/soc/occupation.xls"
-    web_paths: http://www.bls.gov/emp/ind-occ-matrix/occupation.xls
+    source: "data/bls/growth/soc/occupation.xlsx"
+    web_paths: http://www.bls.gov/emp/ind-occ-matrix/occupation.xlsx
     name: bls
     use_schema: True
     na_values: [".",]
@@ -11,13 +11,14 @@ global:
     rename:
         "Unnamed: 0": "title"
         "Unnamed: 1": "soc"
+        "Unnamed: 2": "occ_type"
         "Number": "change_thousands"
         "Percent": "pct_change"
-        2012: emp_2012_thousands
-        2022: emp_2022_thousands
-        "2012.1": "emp_pct_2012"
-        "2022.1": "emp_pct_2022"
-        "Unnamed: 8" : "openings_thousands"
+        2014: emp_2014_thousands
+        2024: emp_2024_thousands
+        "2014.1": "emp_pct_2014"
+        "2024.1": "emp_pct_2024"
+        "Unnamed: 9" : "openings_thousands"
 
     transform:
         -
@@ -26,18 +27,17 @@ global:
             target: "-"
             value: ""
 
-    agg: "sum"
     import_to_db: True
     db_settings:
         user: postgres
         password_env_var: DATAUSA_PW
-        host: 162.209.124.219
-        db_name: datausa
+        host: 146.20.39.90
+        db_name: datausa_t4
     filter:
         -
             column: "soc"
             func: "eq"
             value: "!UNKNOWN!"
 tables:
-    growth_o:
+    growth_o_2014:
         pk: ["soc"]

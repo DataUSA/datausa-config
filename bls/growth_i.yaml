@@ -1,6 +1,6 @@
 global:
-    source: "data/bls/growth/naics/occupation.xls"
-    web_paths: http://www.bls.gov/emp/industry-employment/industry.xls
+    source: "data/bls/growth/naics/industry.xlsx"
+    web_paths: http://www.bls.gov/emp/industry-employment/industry.xlsx
     name: bls
     use_schema: True
     na_values: [".",]
@@ -11,39 +11,40 @@ global:
     rename:
         "Unnamed: 0": "title"
         "Unnamed: 1": "naics"
-        2002: emp_2002_thousands
-        2012: emp_2012_thousands
-        2022: emp_2022_thousands
-        "2002.1": "output_2002"
-        "2012.1": "output_2012"
-        "2022.1": "output_2022"
-        "2002 - 2012": "emp_change_2002_2012"
-        "2012 - 2022": "emp_change_2012_2022"
-        "2002 - 2012.1": "emp_carc_2002_2012"
-        "2012 - 2022.1": "emp_carc_2012_2022"
-        "2002 - 2012.2": "output_carc_2002_2012"
-        "2012 - 2022.2": "output_carc_2012_2022"
+        2004: emp_2004_thousands
+        2014: emp_2014_thousands
+        2024: emp_2024_thousands
+        "2004.1": "output_2004"
+        "2014.1": "output_2014"
+        "2024.1": "output_2024"
+        "2004-2014": "emp_change_2004_2014"
+        "2014-2024": "emp_change_2014_2024"
+        "2004-2014.1": "emp_carc_2004_2014"
+        "2014-2024.1": "emp_carc_2014_2024"
+        "2004-2014.2": "output_carc_2004_2014"
+        "2014-2024.2": "output_carc_2014_2024"
     transform:
         -
             column: naics
             type: replace
             target: " "
             value: ""
+        - column: naics
+          type: set_val
+          value: "000000"
+          where:
+            column: title
+            func: "eq"
+            value: "Total(1)(2) "
 
-    agg: "sum"
-    import_to_db: True
+    import_to_db: False
     db_settings:
         user: postgres
         password_env_var: DATAUSA_PW
-        host: 162.209.124.219
-        db_name: datausa
+        host: 146.20.39.90
+        db_name: datausa_t4
 
-    filter:
-        -
-            column: "naics"
-            func: "eq"
-            value: "!UNKNOWN!"
 
 tables:
-    growth_i:
-        pk: ["naics"]
+    growth_i_v2:
+        pk: ["naics", "title"]

@@ -1,14 +1,14 @@
 global:
     name: bea
-    source : "data/bea/use_<industry_level>.json"
+    source : "data/bea/<year>_use_<industry_level>.json"
     use_schema: True
     filetype: json
 
     source_vars:
-        year: [2014]
+        year: [2013, 2014]
         industry_level: [46, 47]
 
-    output : "data/output/bea/use/"
+    output : "data/output/bea/use/<year>/<industry_level>"
     orient: record
 
     preprocess:
@@ -29,8 +29,8 @@ global:
     db_settings:
         user: postgres
         password_env_var: DATAUSA_PW
-        host: 162.209.124.219
-        db_name: datausa
+        host: 146.20.103.188
+        db_name: datausa_t4
     transform:
         -
             column: industry_level

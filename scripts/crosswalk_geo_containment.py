@@ -63,14 +63,21 @@ def gen_sql(child_level, parent_level):
     return sql
 
 
+# '''
+# INSERT INTO attrs.geo_crosswalker(
+# select distinct id as geo_a, '01000US' geo_b
+# FROM attrs.geo_names
+# WHERE id LIKE '795%' AND ID not in (select distinct geo_a from attrs.geo_crosswalker))
+# '''
 
 # identity rows for geo crosswalk joins
-def states_sql(table_name):
-    sql = '''INSERT INTO {0} (
-        select distinct parent_geoid as child_geoid, '01000US' parent_geoid,
+def all_levels_us_sql(table_name):
+    sql = '''
+        INSERT INTO {0} (
+        select distinct child_geoid, '01000US' parent_geoid,
                         100 as percent_covered, NULL::real as area_covered
         FROM {0}
-        WHERE parent_geoid LIKE '040%'
+        WHERE child_geoid NOT LIKE '140%' and child_geoid NOT LIKE '01000US'
     );
     '''
     return sql.format(table_name)
@@ -88,7 +95,7 @@ def ident_sql(table_name):
 for parent, child in containments:
     print gen_sql(parent, child)
 
-print states_sql(table_name)
+print all_levels_us_sql(table_name)
 print ident_sql(table_name)
 
 table_name_no_dot = table_name.replace(".", "_")

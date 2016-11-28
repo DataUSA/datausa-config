@@ -2,9 +2,9 @@ global:
     seperator: ","
     use_schema: True
     name: ipeds
-    source : "data/ipeds/university_geo.csv"
-    output : "data/ipeds/univ_geos/"
-    web_paths: "http://alumni.media.mit.edu/~jspeiser/university_geo.csv"
+    source : "data/ipeds/2015/university_geo.csv"
+    output : "data/ipeds/univ_geos/2015/"
+    web_paths: "https://drive.google.com/uc?export=download&id=0B0fngGlnqNt7ZEFBNkpmSkYzZTQ"
 
     import_to_db: True
     db_settings:

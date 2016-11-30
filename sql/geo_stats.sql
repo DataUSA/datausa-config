@@ -72,3 +72,25 @@ ARRAY(SELECT neighbor from attrs.geo_neighbors where geo = a.id) as county_neigh
 FROM attrs.geo_names a
 WHERE id LIKE '05000US%'
 )
+
+-- puma stats
+CREATE TABLE stats.puma AS (
+  select
+  	(select max(year) from acs_1yr.yg) as year,
+  	a.id as geo,
+  	(SELECT pos
+  	FROM
+  	(SELECT geo, pop, rank()
+  		 OVER (PARTITION BY LEFT(geo, 3) ORDER BY pop DESC) AS 	pos FROM acs_1yr.yg
+  	WHERE year = (select max(year) from acs_1yr.yg) and geo like '79500' ||SUBSTR(a.id, 6, 4) || '%') as tmp
+  	WHERE geo = a.id) as puma_state_rank,
+
+  	(SELECT count(1) FROM acs_1yr.yg WHERE year = (select max(year) from acs_1yr.yg) AND
+  		geo like '79500' ||SUBSTR(a.id, 6, 4) || '%') as pumas_in_state,
+
+      ARRAY( SELECT geo_neighbors.neighbor
+             FROM attrs.geo_neighbors
+            WHERE geo_neighbors.geo = a.id::text) AS puma_neighbors
+  FROM attrs.geo_names a
+  WHERE id LIKE '79500US%'
+)

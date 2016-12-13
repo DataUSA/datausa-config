@@ -6,7 +6,7 @@ global:
   filetype: json
   source_vars:
     estimate: [1, 5]
-    year: [2014]
+    year: [2015]
     sumlevel:
       - "us"
       - "state"

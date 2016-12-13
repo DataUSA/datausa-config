@@ -2,6 +2,7 @@
 -- 1. pg_dump -t attrs.ztest_university datausa --no-privileges -h postgres.datawheel.us -U postgres -W > /tmp/universities.sql
 -- 2. psql < universities.sql
 -- 3. Generate university_geo lookup table
+-- pg_dump -t public.university_geo postgis_template --no-privileges -h postgres.datawheel.us -U postgres -W > /tmp/universities.sql
 CREATE TABLE university_geo AS
 SELECT u.id as university, '04000US' || state.geoid as geo
 FROM tiger2015.state state, attrs.university u

@@ -1,0 +1,78 @@
+# Property value script for 2015 data
+inherits: "acs/acs_template.yaml"
+global:
+    post_agg_transform:
+      - type: add
+        column: propertyval_1Mormore
+        values: ["[B25075_025E]", "[B25075_026E]", "[B25075_027E]"]
+        drop: YES
+      - type: combine_moes
+        confidence: 0.9
+        column: propertyval_1Mormore_moe
+        values: ["B25075_025M", "B25075_026M", "B25075_027M"]
+        drop: YES
+
+    source_vars:
+        tbl: ["B25075"]
+        column:
+          start: 1
+          end: 27
+          zfill: 3
+
+    rename:
+      GEOID: geo
+      B25075_001E: total_owner_occupied_housin_units
+      B25075_001M: total_owner_occupied_housin_units_moe
+      B25075_002E: propertyval_less10k
+      B25075_002M: propertyval_less10k_moe
+      B25075_003E: propertyval_10kto15k
+      B25075_003M: propertyval_10kto15k_moe
+      B25075_004E: propertyval_15kto20k
+      B25075_004M: propertyval_15kto20k_moe
+      B25075_005E: propertyval_20kto25k
+      B25075_005M: propertyval_20kto25k_moe
+      B25075_006E: propertyval_25kto30k
+      B25075_006M: propertyval_25kto30k_moe
+      B25075_007E: propertyval_30kto35k
+      B25075_007M: propertyval_30kto35k_moe
+      B25075_008E: propertyval_35kto40k
+      B25075_008M: propertyval_35kto40k_moe
+      B25075_009E: propertyval_40kto50k
+      B25075_009M: propertyval_40kto50k_moe
+      B25075_010E: propertyval_50kto60k
+      B25075_010M: propertyval_50kto60k_moe
+      B25075_011E: propertyval_60kto70k
+      B25075_011M: propertyval_60kto70k_moe
+      B25075_012E: propertyval_70kto80k
+      B25075_012M: propertyval_70kto80k_moe
+      B25075_013E: propertyval_80kto90k
+      B25075_013M: propertyval_80kto90k_moe
+      B25075_014E: propertyval_90kto100k
+      B25075_014M: propertyval_90kto100k_moe
+      B25075_015E: propertyval_100kto125k
+      B25075_015M: propertyval_100kto125k_moe
+      B25075_016E: propertyval_125kto150k
+      B25075_016M: propertyval_125kto150k_moe
+      B25075_017E: propertyval_150kto175k
+      B25075_017M: propertyval_150kto175k_moe
+      B25075_018E: propertyval_175kto200k
+      B25075_018M: propertyval_175kto200k_moe
+      B25075_019E: propertyval_200kto250k
+      B25075_019M: propertyval_200kto250k_moe
+      B25075_020E: propertyval_250kto300k
+      B25075_020M: propertyval_250kto300k_moe
+      B25075_021E: propertyval_300kto400k
+      B25075_021M: propertyval_300kto400k_moe
+      B25075_022E: propertyval_400kto500k
+      B25075_022M: propertyval_400kto500k_moe
+      B25075_023E: propertyval_500kto750k
+      B25075_023M: propertyval_500kto750k_moe
+      B25075_024E: propertyval_750kto1M
+      B25075_024M: propertyval_750kto1M_moe
+
+
+
+tables:
+  "yg_property_value":
+    pk: ["year", "geo"]
+    agg: sum

@@ -6,7 +6,7 @@ global:
     strip_column_whitespace: True
     na_values: ['']
     source_vars:
-        year: [2014]
+        year: [2015]
         sumlevel: ["040", "050", "160", "310", "010", "795"]
 
     type:
@@ -66,15 +66,15 @@ global:
         -   type: plugin
             func: src.plugins.ipeds.location.geo_locate
             sumlevel: "<sumlevel>"
-            webpath: "http://alumni.media.mit.edu/~jspeiser/university_geo.csv"
+            webpath: "https://drive.google.com/uc?export=download&id=0B0fngGlnqNt7ZEFBNkpmSkYzZTQ"
 
 
     import_to_db: True
     db_settings:
         user: postgres
         password_env_var: DATAUSA_PW
-        host: 162.209.124.219
-        db_name: datausa
+        host: robin.datausa.io
+        db_name: datausa_t4
         type:
             degree: text
     deduplicate: True
@@ -147,4 +147,3 @@ tables:
                 column: "cip"
                 func: "eq"
                 value: "99"
-

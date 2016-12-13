@@ -6,14 +6,14 @@ global:
     strip_column_whitespace: True
     na_values: ['']
     source_vars:
-        year: [2013, 2014]
+        year: [2015]
         sumlevel: ["040", "050", "160", "310", "010", "795"]
 
     growth:
         delta: 1
         time_column: year
         columns: [grads_total]
-        start: 2013
+        start: 2014
         make_inf_nan: True
 
     type:
@@ -42,12 +42,12 @@ global:
         value: 0
 
     gc_transform: &gc_transform
-        - 
+        -
             column: cip
             type: replace
             target: "."
             value: ""
-        - 
+        -
             column: cip
             type: replace
             target: " "
@@ -59,15 +59,15 @@ global:
         -   type: plugin
             func: src.plugins.ipeds.location.geo_locate
             sumlevel: "<sumlevel>"
-            webpath: "http://alumni.media.mit.edu/~jspeiser/university_geo.csv"
+            webpath: "https://drive.google.com/uc?export=download&id=0B0fngGlnqNt7ZEFBNkpmSkYzZTQ"
 
 
-    import_to_db: True
+    import_to_db: False
     db_settings:
         user: postgres
         password_env_var: DATAUSA_PW
-        host: 162.209.124.219
-        db_name: datausa
+        host: robin.datausa.io
+        db_name: datausa_t4
         type:
             degree: text
             sector: text
@@ -159,7 +159,7 @@ tables:
             -   type: plugin
                 func: src.plugins.ipeds.location.geo_locate
                 sumlevel: "<sumlevel>"
-                webpath: "http://alumni.media.mit.edu/~jspeiser/university_geo.csv"
+                webpath: "https://drive.google.com/uc?export=download&id=0B0fngGlnqNt7ZEFBNkpmSkYzZTQ"
         pk: ["year", "geo"]
         filter:
             -
@@ -181,7 +181,7 @@ tables:
             -   type: plugin
                 func: src.plugins.ipeds.location.geo_locate
                 sumlevel: "<sumlevel>"
-                webpath: "http://alumni.media.mit.edu/~jspeiser/university_geo.csv"
+                webpath: "https://drive.google.com/uc?export=download&id=0B0fngGlnqNt7ZEFBNkpmSkYzZTQ"
         pk: ["year", "geo", "sector"]
         filter:
             -
@@ -190,12 +190,12 @@ tables:
                 value: "99"
     grads_ygc:
         transform:
-            - 
+            -
                 column: cip
                 type: replace
                 target: "."
                 value: ""
-            - 
+            -
                 column: cip
                 type: replace
                 target: " "
@@ -207,7 +207,7 @@ tables:
             -   type: plugin
                 func: src.plugins.ipeds.location.geo_locate
                 sumlevel: "<sumlevel>"
-                webpath: "http://alumni.media.mit.edu/~jspeiser/university_geo.csv"
+                webpath: "https://drive.google.com/uc?export=download&id=0B0fngGlnqNt7ZEFBNkpmSkYzZTQ"
         rca:
             index: ["year", "geo"]
             column: "cip"
@@ -245,7 +245,7 @@ tables:
             -   type: plugin
                 func: src.plugins.ipeds.location.geo_locate
                 sumlevel: "<sumlevel>"
-                webpath: "http://alumni.media.mit.edu/~jspeiser/university_geo.csv"
+                webpath: "https://drive.google.com/uc?export=download&id=0B0fngGlnqNt7ZEFBNkpmSkYzZTQ"
         rca:
             index: ["year", "geo", "cip"]
             column: "degree"
@@ -286,7 +286,7 @@ tables:
             -   type: plugin
                 func: src.plugins.ipeds.location.geo_locate
                 sumlevel: "<sumlevel>"
-                webpath: "http://alumni.media.mit.edu/~jspeiser/university_geo.csv"
+                webpath: "https://drive.google.com/uc?export=download&id=0B0fngGlnqNt7ZEFBNkpmSkYzZTQ"
         rca:
             index: ["year", "geo"]
             column: "degree"

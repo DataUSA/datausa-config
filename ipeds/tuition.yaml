@@ -7,8 +7,8 @@ global:
     na_values: ['']
     source_vars:
         year:
-            start: 2014
-            end: 2014
+            start: 2015
+            end: 2015
         cip_depth: [2, 4, 6]
 
     type:
@@ -74,8 +74,8 @@ global:
     db_settings:
         user: postgres
         password_env_var: DATAUSA_PW
-        host: 162.209.124.219
-        db_name: datausa
+        host: robin.datausa.io
+        db_name: datausa_t4
         type:
             degree: text
             sector: text
@@ -189,4 +189,3 @@ tables:
                 column: "cip"
                 func: "eq"
                 value: "99"
-

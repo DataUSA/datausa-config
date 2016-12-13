@@ -7,8 +7,8 @@ global:
     na_values: ['']
     source_vars:
         year:
-            start: 2014
-            end: 2014
+            start: 2015
+            end: 2015
 
     type:
         CIPCODE: str
@@ -33,8 +33,8 @@ global:
     db_settings:
         user: postgres
         password_env_var: DATAUSA_PW
-        host: 162.209.124.219
-        db_name: datausa
+        host: robin.datausa.io
+        db_name: datausa_t4
         type:
             degree: text
             university: text
@@ -71,7 +71,7 @@ global:
         CUNKNT: grads_unknown
         CUNKNM: grads_unknown_men
         CUNKNW: grads_unknown_women
-        CNRALT: grads_nonresident 
+        CNRALT: grads_nonresident
         CNRALM: grads_nonresident_men
         CNRALW: grads_nonresident_women
 

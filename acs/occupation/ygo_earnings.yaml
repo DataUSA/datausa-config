@@ -2,20 +2,22 @@ global:
     # concat_border: "sumlevel"
     name: acs_<estimate>yr
     use_schema: True
-    source: "data/acs_<estimate>yr/<year>_<sumlevel>_<tbl>_<column>.json"
-    output: "data/output/acs_<estimate>yr/<year>_<sumlevel>_<tbl>_<column>"
+    source: "data/acs_<estimate>yr/<year>_<sumlevel>_<tbl>_<tbl2>_<column>.json"
+    output: "data/output/acs_<estimate>yr/<year>_<sumlevel>_<tbl>_<tbl2>_<column>"
     filetype: json
     source_vars_nesting:
         year:
           estimate:
             sumlevel:
               - tbl
+              - tbl2
               - column
 
     source_vars:
         estimate: [1, 5]
-        year: [2013, 2014]
+        year: [2015]
         tbl: ["B24012"]
+        tbl2: ["C24010"]
         column:
           start: 3
           exclude: [38]
@@ -28,7 +30,7 @@ global:
           - place
           - "metropolitan+statistical+area/micropolitan+statistical+area"
           - "public+use+microdata+area"
-    
+
     expand_vars:
       column:
         start: 3
@@ -37,27 +39,28 @@ global:
         zfill: 3
     preprocess:
       func: "src.plugins.preprocess.acs_preprocess"
-    web_paths: "http://api.census.gov/data/<year>/acs<estimate>?get=GEOID,<tbl>_<column>E,<tbl>_<column>M&for=<sumlevel>&key=$ACS_KEY"
+    web_paths: "http://api.census.gov/data/<year>/acs<estimate>?get=GEOID,<tbl>_<column>E,<tbl>_<column>M,<tbl2>_<column>E,<tbl2>_<column>M&for=<sumlevel>&key=$ACS_KEY"
 
     import_to_db: True
     db_settings:
         user: postgres
         password_env_var: DATAUSA_PW
-        host: 162.209.124.219
-        db_name: datausa
+        host: robin.datausa.io
+        db_name: datausa_t4
         type:
           med_earnings: real
           med_earnings_male: real
           med_earnings_female: real
-    
+
     transform:
       - type: plugin
         func: src.plugins.census.acs.helper.ygo
-        value_vars: ["{column:<tbl>_<column>E}", "{column:<tbl>_<column>M}"]
+        value_vars: ["{column:<tbl>_<column>E}", "{column:<tbl>_<column>M}", "{column:<tbl2>_<column>E}", "{column:<tbl2>_<column>M}"]
         val_name: med_earnings
         offset: 36
         midpoint: 38
         join: acs/occupation/acs_5year_B24012_crosswalk.csv
+        combine_method: weighted
 
     rename:
       GEOID: geo

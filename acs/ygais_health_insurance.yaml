@@ -14,11 +14,11 @@ global:
 
     source_vars:
         estimate: [1]
-        year: [2014, 2015]
-        tbl: ["C27010"]
+        year: [2015]
+        tbl: ["B27001"]
         column:
           start: 1
-          end: 21
+          end: 57
           zfill: 3
 
         sumlevel:
@@ -32,7 +32,7 @@ global:
     expand_vars:
       column:
         start: 1
-        end: 21
+        end: 57
         zfill: 3
 
     preprocess:
@@ -51,14 +51,14 @@ global:
 
 tables:
 
-  "ygi_health":
-    pk: ["year", "geo", "insurance"]
+  "ygs_health":
+    pk: ["year", "geo", "sex"]
     agg: "sum"
     transform:
       - type: plugin
         func: src.plugins.census.acs.health_insurance.coverage_by_age
         value_vars: ["{column:<tbl>_<column>E}", "{column:<tbl>_<column>M}"]
-        health_pk: ygi
+        health_pk: ygs
 
   "yga_health":
     pk: ["year", "geo", "age_bucket"]
@@ -70,12 +70,52 @@ tables:
         value_vars: ["{column:<tbl>_<column>E}", "{column:<tbl>_<column>M}"]
         health_pk: yga
 
-  "ygia_health":
-    pk: ["year", "geo", "insurance", "age_bucket"]
+  "ygi_health":
+    pk: ["year", "geo", "insurance"]
     agg: "sum"
 
     transform:
       - type: plugin
         func: src.plugins.census.acs.health_insurance.coverage_by_age
         value_vars: ["{column:<tbl>_<column>E}", "{column:<tbl>_<column>M}"]
-        health_pk: ygia
+        health_pk: ygi
+
+  "ygai_health":
+    pk: ["year", "geo",  "age_bucket", "insurance"]
+    agg: "sum"
+
+    transform:
+      - type: plugin
+        func: src.plugins.census.acs.health_insurance.coverage_by_age
+        value_vars: ["{column:<tbl>_<column>E}", "{column:<tbl>_<column>M}"]
+        health_pk: ygai
+
+  "ygis_health":
+    pk: ["year", "geo", "insurance", "sex"]
+    agg: "sum"
+
+    transform:
+      - type: plugin
+        func: src.plugins.census.acs.health_insurance.coverage_by_age
+        value_vars: ["{column:<tbl>_<column>E}", "{column:<tbl>_<column>M}"]
+        health_pk: ygis
+
+  "ygas_health":
+    pk: ["year", "geo", "age_bucket", "sex"]
+    agg: "sum"
+
+    transform:
+      - type: plugin
+        func: src.plugins.census.acs.health_insurance.coverage_by_age
+        value_vars: ["{column:<tbl>_<column>E}", "{column:<tbl>_<column>M}"]
+        health_pk: ygas
+
+  "ygais_health":
+    pk: ["year", "geo", "age_bucket", "insurance", "sex"]
+    agg: "sum"
+
+    transform:
+      - type: plugin
+        func: src.plugins.census.acs.health_insurance.coverage_by_age
+        value_vars: ["{column:<tbl>_<column>E}", "{column:<tbl>_<column>M}"]
+        health_pk: ygais

@@ -15,8 +15,8 @@ global:
               - column
 
     source_vars:
-        estimate: [5]
-        year: [2014]
+        estimate: [1, 5]
+        year: [2015]
         tbl: C24030
         sumlevel:
             - us
@@ -50,7 +50,7 @@ global:
     db_settings:
         user: postgres
         password_env_var: DATAUSA_PW
-        host: 146.20.39.90
+        host: robin.datausa.io
         db_name: datausa_t4
 
     transform:

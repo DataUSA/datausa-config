@@ -83,4 +83,3 @@ tables:
             index: ["year", "geo"]
             column: "cip"
             values: ["num_ppl"]
-

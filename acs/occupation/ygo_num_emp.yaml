@@ -13,8 +13,8 @@ global:
               - column
 
     source_vars:
-        estimate: [5]
-        year: [2014]
+        estimate: [1, 5]
+        year: [2015]
         tbl: ["C24010"]
         column:
           start: 3
@@ -43,7 +43,7 @@ global:
     db_settings:
         user: postgres
         password_env_var: DATAUSA_PW
-        host: 146.20.39.90
+        host: robin.datausa.io
         db_name: datausa_t4
         type:
           num_emp: real
@@ -52,7 +52,7 @@ global:
 
     transform:
       - type: plugin
-        func: src.plugins.census.acs.helper.ygo
+        func: src.plugins.census.acs.helper.ygo_num_emp
         value_vars: ["{column:<tbl>_<column>E}", "{column:<tbl>_<column>M}"]
         offset: 36
         midpoint: 38

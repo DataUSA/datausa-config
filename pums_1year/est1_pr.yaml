@@ -1,10 +1,9 @@
-source: "$HOME/Documents/data/2014/1/ppr/"
-output: "$HOME/Documents/pums_output_ppr/"
+source: "$HOME/Documents/data/2015/1/ppr/"
+output: "$HOME/Documents/pums_output/ppr/2015/1/"
 name: "pums_1yr"
-year: 2014
-
+year: 2015
 global:
-    files: ["ss14ppr.csv"]
+    files: ["ss15ppr.csv"]
     vars: ["WAGP", "AGEP", "WKHP", "PWGTP"]
 
     sumlevels:

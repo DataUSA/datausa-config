@@ -9,8 +9,8 @@ global:
         year:
           estimate:
             sumlevel:
-              - tbl
-              - column
+              tbl:
+                - column
 
     source_vars:
         estimate: [1]

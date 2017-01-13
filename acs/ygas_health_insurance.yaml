@@ -15,7 +15,7 @@ global:
 
     source_vars:
         estimate: [1]
-        year: [2014, 2015]
+        year: [2015]
         tbl:
           - "B27001"
         column:

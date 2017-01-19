@@ -97,7 +97,7 @@ tables:
     ygs:
         pk: ["year", "geo", "sex"]
 
-    ygb:
+    ygb_v2:
         universe: over_5
         pk: ["year", "geo", "birthplace"]
         rca:

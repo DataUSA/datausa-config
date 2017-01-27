@@ -1,0 +1,34 @@
+inherits: ['db.yaml']
+
+global:
+    add_pks: True
+    seperator: ","
+    name: dartmouth
+    source : "data/dartmouth/<tbl_name>.csv"
+    use_schema: True
+
+    output : "data/output/dartmouth/<tbl_name>/"
+    thousands: ","
+
+    source_vars:
+      tbl_name:
+        - "yg_ami_post_discharge"
+        - "yg_chf_post_discharge"
+        - "yg_medical_post_discharge"
+        - "yg_pneumonia_post_discharge"
+        - "yg_prim_care_access"
+        - "yg_reimbursements"
+        - "yg_surgical_post_discharge"
+
+    web_paths:
+      "yg_ami_post_discharge": "https://drive.google.com/uc?export=download&id=0B0fngGlnqNt7eGVQUHhSR01SLVk"
+      "yg_chf_post_discharge": "https://drive.google.com/uc?export=download&id=0B0fngGlnqNt7Mk03dEwwbnNCNXM"
+      "yg_medical_post_discharge": "https://drive.google.com/uc?export=download&id=0B0fngGlnqNt7cFU3eXlIa3E0aFU"
+      "yg_pneumonia_post_discharge": "https://drive.google.com/uc?export=download&id=0B0fngGlnqNt7UkZpbjdBei1QYTg"
+      "yg_prim_care_access": "https://drive.google.com/uc?export=download&id=0B0fngGlnqNt7SHNEVkgzSExJRWM"
+      "yg_reimbursements": "https://drive.google.com/uc?export=download&id=0B0fngGlnqNt7dFk4cW1tLW5CWkk"
+      "yg_surgical_post_discharge": "https://drive.google.com/uc?export=download&id=0B0fngGlnqNt7bHRMa2RRSkllNms"
+
+tables:
+    "<tbl_name>":
+        pk: ["year", "geo"]

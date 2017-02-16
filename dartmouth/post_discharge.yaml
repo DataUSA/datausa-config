@@ -1,0 +1,15 @@
+inherits: ['db.yaml']
+
+global:
+    add_pks: True
+    seperator: ","
+    name: dartmouth
+    source : "data/dartmouth/ygc_pd.csv"
+    use_schema: True
+    output : "data/output/dartmouth/ygc_pd/"
+    thousands: ","
+    web_paths: "https://drive.google.com/uc?export=download&id=0B0fngGlnqNt7RW9wX2oxQXVYTWc"
+
+tables:
+    ygc_post_discharge:
+        pk: ["year", "geo", "cohort"]

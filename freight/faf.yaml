@@ -1,0 +1,60 @@
+inherits: ['db.yaml']
+
+global:
+    add_pks: True
+    seperator: ","
+    name: freight
+    source : "$HOME/Downloads/FAF_export.csv"
+    use_schema: True
+    output : "data/output/freight/faf/"
+    thousands: ","
+    web_paths: https://drive.google.com/uc?export=download&id=0ByTKV8-R6iT-alZuOW5SVXFDRVk
+    rename:
+      origin_datausa_code: origin_geo
+      destination_datausa_code: destination_geo
+      "Mode title": "transportation_mode"
+      "NAPCS code": "napcs"
+      SCTG_CODE: "sctg"
+    type:
+      "NAPCS code": "str"
+
+tables:
+    yodmp_faf:
+      pk: ["year", "origin_geo", "destination_geo", "transportation_mode", "sctg"]
+      agg:
+        millions_of_2012_dollars: sum
+        tons: sum
+
+    yodp_faf:
+      pk: ["year", "origin_geo", "destination_geo", "sctg"]
+
+      agg:
+        millions_of_2012_dollars: sum
+        tons: sum
+
+    yomp_faf:
+      pk: ["year", "origin_geo", "transportation_mode", "sctg"]
+
+      agg:
+        millions_of_2012_dollars: sum
+        tons: sum
+
+    yodp_faf:
+      pk: ["year", "destination_geo", "transportation_mode", "sctg"]
+
+      agg:
+        millions_of_2012_dollars: sum
+        tons: sum
+
+    yop_faf:
+      pk: ["year", "origin_geo", "sctg"]
+
+      agg:
+        millions_of_2012_dollars: sum
+        tons: sum
+
+    ydp_faf:
+      pk: ["year", "destination_geo", "sctg"]
+      agg:
+        millions_of_2012_dollars: sum
+        tons: sum

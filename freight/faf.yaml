@@ -4,11 +4,11 @@ global:
     add_pks: True
     seperator: ","
     name: freight
-    source : "$HOME/Downloads/FAF_export.csv"
+    source : "data/freight/FAF_export.csv"
     use_schema: True
-    output : "data/output/freight/faf/"
+    output : "data/output/freight/"
     thousands: ","
-    web_paths: https://drive.google.com/uc?export=download&id=0ByTKV8-R6iT-alZuOW5SVXFDRVk
+    web_paths: http://alumni.media.mit.edu/~jspeiser/FAF_export.csv
     rename:
       origin_datausa_code: origin_geo
       destination_datausa_code: destination_geo

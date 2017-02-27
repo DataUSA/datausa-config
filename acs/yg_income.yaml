@@ -1,11 +1,11 @@
 inherits: "acs/acs_template.yaml"
 global:
-    source: "data/acs_<estimate>yr/<sumlevel>_<tbl>_<column>.json"
+    source: "data/acs_<year>_<estimate>yr/<sumlevel>_<tbl>_<column>.json"
     source_vars:
         tbl: ["B19013"]
         column: ["001"]
     web_paths: "http://api.census.gov/data/<year>/acs<estimate>?get=GEOID,B19013_001E,B19013_001M,B19013A_001E,B19013A_001M,B19013B_001E,B19013B_001M,B19013C_001E,B19013C_001M,B19013D_001E,B19013D_001M,B19013E_001E,B19013E_001M,B19013F_001E,B19013F_001M,B19013G_001E,B19013G_001M,B19013H_001E,B19013H_001M,B19013I_001E,B19013I_001M&for=<sumlevel>&key=$ACS_KEY"
-    output: "data/acs_<estimate>yr/<tbl>/<sumlevel>/<column>"
+    output: "data/acs_<year>_<estimate>yr/<tbl>/<sumlevel>/<column>"
 
     transform:
         - type: drop

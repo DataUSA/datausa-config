@@ -1,0 +1,57 @@
+inherits: ['db.yaml']
+
+global:
+    add_pks: True
+    seperator: ","
+    name: attrs
+    source : "data/freight/FAF_export.csv"
+    use_schema: True
+    output : "data/output/freight_attrs/"
+    thousands: ","
+    web_paths:
+      "FAF": "http://alumni.media.mit.edu/~jspeiser/FAF_export_3-6-17.csv"
+      "Meta": "http://alumni.media.mit.edu/~jspeiser/Meta_SCTG_groupings.csv"
+    rename:
+      origin_datausa_code: origin_geo
+      destination_datausa_code: destination_geo
+      "Mode title": "transportation_modes"
+      "NAPCS code": "napcs"
+      "SCTG_Product": "name"
+      SCTG_CODE: "sctg"
+    type:
+      "NAPCS code": "str"
+      SCTG_CODE: "str"
+
+tables:
+    sctg:
+      pk: ["id", "name", "parent"]
+      agg:
+        tons: sum
+
+      transform:
+        - type: rename
+          column: "sctg"
+          value: "id"
+        - type: cast
+          column: id
+          as: int
+        - type: join
+          source: data/freight/Meta_SCTG_groupings.csv
+          settings:
+            filetype: csv
+          left_on: "id"
+          right_on: "sctg"
+          how: left
+
+      post_agg_transform:
+        - type: drop
+          column: tons
+
+    napcs_sctg_xwalk:
+      pk: ["sctg", "napcs"]
+      agg:
+        tons: sum
+
+      post_agg_transform:
+        - type: drop
+          column: tons

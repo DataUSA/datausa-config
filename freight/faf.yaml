@@ -8,7 +8,7 @@ global:
     use_schema: True
     output : "data/output/freight/"
     thousands: ","
-    web_paths: http://alumni.media.mit.edu/~jspeiser/FAF_export.csv
+    web_paths: http://alumni.media.mit.edu/~jspeiser/FAF_export_3-6-17.csv
     rename:
       origin_datausa_code: origin_geo
       destination_datausa_code: destination_geo
@@ -17,6 +17,7 @@ global:
       SCTG_CODE: "sctg"
     type:
       "NAPCS code": "str"
+      SCTG_CODE: "str"
 
 tables:
     yodmp_faf:
@@ -24,6 +25,13 @@ tables:
       agg:
         millions_of_2012_dollars: sum
         tons: sum
+
+    yodm_faf:
+      pk: ["year", "origin_geo", "destination_geo", "transportation_mode"]
+      agg:
+        millions_of_2012_dollars: sum
+        tons: sum
+
 
     yodp_faf:
       pk: ["year", "origin_geo", "destination_geo", "sctg"]
@@ -55,6 +63,25 @@ tables:
 
     ydp_faf:
       pk: ["year", "destination_geo", "sctg"]
+      agg:
+        millions_of_2012_dollars: sum
+        tons: sum
+
+    yom_faf:
+      pk: ["year", "origin_geo", "transportation_mode"]
+      agg:
+        millions_of_2012_dollars: sum
+        tons: sum
+
+    ydm_faf:
+      pk: ["year", "destination_geo", "transportation_mode"]
+      agg:
+        millions_of_2012_dollars: sum
+        tons: sum
+
+    yod_faf:
+      pk: ["year", "origin_geo", "destination_geo"]
+
       agg:
         millions_of_2012_dollars: sum
         tons: sum

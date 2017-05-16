@@ -3,5 +3,5 @@ global:
     db_settings:
         user: postgres
         password_env_var: DATAUSA_PW
-        host: robin.datausa.io
+        host: sunbird.datausa.io
         db_name: datausa_t4

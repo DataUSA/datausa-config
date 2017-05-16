@@ -1,0 +1,563 @@
+inherits: ['db.yaml']
+
+global:
+    seperator: ","
+    name: chr
+    source : "data/chr/chr_<year>.csv"
+    use_schema: True
+
+    index_col: False
+    strip_column_whitespace: True
+
+    source_vars:
+        year: ["2017"]
+
+    output : "data/output/chr/<year>"
+    thousands: ","
+
+    web_paths:
+      "2017": "https://drive.google.com/uc?export=download&id=0B0fngGlnqNt7ZlJSbU9OWHJBUWs"
+
+    add_pks: True
+    transform:
+            - column: countycode
+              type: cast
+              as: str
+            - column: countycode
+              type: concat_and_fill
+              zfill: 3
+            - column: countycode
+              type: whereset
+              where:
+                - op: notequals
+                  value: '000'
+                  set:
+                    prefix: '05000US'
+                    sumlevel: 50
+                - op: equals
+                  value: '000'
+                  set:
+                    prefix: '04000US'
+                    countycode: ''
+                    sumlevel: 40
+            - column: statecode
+              type: concat_and_fill
+              zfill: 2
+            - column: geo
+              type: "concat"
+              column0: prefix
+              column1: statecode
+              column2: countycode
+            - column: prefix
+              type: drop
+            - column: sumlevel
+              type: drop
+    agg: "sum"
+
+    type:
+        # "Adult smoking Value": "float"
+        statecode: str
+        countycode: str
+
+    rename:
+        measure_1_value: "premature_death"
+        measure_1_cilow: "premature_death_lci"
+        measure_1_cihigh: "premature_death_uci"
+
+        measure_2_value: "poor_or_fair_health"
+        measure_2_cilow: "poor_or_fair_health_lci"
+        measure_2_cihigh: "poor_or_fair_health_uci"
+
+        measure_36_value: "poor_physical_health_days"
+        measure_36_cilow: "poor_physical_health_days_lci"
+        measure_36_cihigh: "poor_physical_health_days_uci"
+
+        measure_42_value: "poor_mental_health_days"
+        measure_42_cilow: "poor_mental_health_days_lci"
+        measure_42_cihigh: "poor_mental_health_days_uci"
+
+        measure_37_value: "low_birthweight"
+        measure_37_cilow: "low_birthweight_lci"
+        measure_37_cihigh: "low_birthweight_uci"
+
+        measure_9_value: "adult_smoking"
+        measure_9_cilow: "adult_smoking_lci"
+        measure_9_cihigh: "adult_smoking_uci"
+
+        measure_11_value: "adult_obesity"
+        measure_11_cilow: "adult_obesity_lci"
+        measure_11_cihigh: "adult_obesity_uci"
+
+        measure_133_value: "food_environment_index"
+        measure_133_cilow: "food_environment_index_lci"
+        measure_133_cihigh: "food_environment_index_uci"
+
+        measure_70_value: "physical_inactivity"
+        measure_70_cilow: "physical_inactivity_lci"
+        measure_70_cihigh: "physical_inactivity_uci"
+
+        measure_132_value: "access_to_exercise_opportunities"
+        measure_132_cilow: "access_to_exercise_opportunities_lci"
+        measure_132_cihigh: "access_to_exercise_opportunities_uci"
+
+        measure_49_value: "excessive_drinking"
+        measure_49_cilow: "excessive_drinking_lci"
+        measure_49_cihigh: "excessive_drinking_uci"
+
+        measure_134_value: "alcoholimpaired_driving_deaths"
+        measure_134_cilow: "alcoholimpaired_driving_deaths_lci"
+        measure_134_cihigh: "alcoholimpaired_driving_deaths_uci"
+
+        measure_45_value: "sexually_transmitted_infections"
+        measure_45_cilow: "sexually_transmitted_infections_lci"
+        measure_45_cihigh: "sexually_transmitted_infections_uci"
+
+        measure_14_value: "teen_births"
+        measure_14_cilow: "teen_births_lci"
+        measure_14_cihigh: "teen_births_uci"
+
+        measure_85_value: "uninsured"
+        measure_85_cilow: "uninsured_lci"
+        measure_85_cihigh: "uninsured_uci"
+
+        measure_4_value: "primary_care_physicians"
+        measure_4_cilow: "primary_care_physicians_lci"
+        measure_4_cihigh: "primary_care_physicians_uci"
+
+        measure_88_value: "dentists"
+        measure_88_cilow: "dentists_lci"
+        measure_88_cihigh: "dentists_uci"
+
+        measure_62_value: "mental_health_providers"
+        measure_62_cilow: "mental_health_providers_lci"
+        measure_62_cihigh: "mental_health_providers_uci"
+
+        measure_5_value: "preventable_hospital_stays"
+        measure_5_cilow: "preventable_hospital_stays_lci"
+        measure_5_cihigh: "preventable_hospital_stays_uci"
+
+        measure_7_value: "diabetic_screening"
+        measure_7_cilow: "diabetic_screening_lci"
+        measure_7_cihigh: "diabetic_screening_uci"
+
+        measure_50_value: "mammography_screening"
+        measure_50_cilow: "mammography_screening_lci"
+        measure_50_cihigh: "mammography_screening_uci"
+
+        measure_21_value: "high_school_graduation"
+        measure_21_cilow: "high_school_graduation_lci"
+        measure_21_cihigh: "high_school_graduation_uci"
+
+        measure_69_value: "some_college"
+        measure_69_cilow: "some_college_lci"
+        measure_69_cihigh: "some_college_uci"
+
+        measure_23_value: "unemployment"
+        measure_23_cilow: "unemployment_lci"
+        measure_23_cihigh: "unemployment_uci"
+
+        measure_24_value: "children_in_poverty"
+        measure_24_cilow: "children_in_poverty_lci"
+        measure_24_cihigh: "children_in_poverty_uci"
+
+        measure_44_value: "income_inequality"
+        measure_44_cilow: "income_inequality_lci"
+        measure_44_cihigh: "income_inequality_uci"
+
+        measure_82_value: "children_in_singleparent_households"
+        measure_82_cilow: "children_in_singleparent_households_lci"
+        measure_82_cihigh: "children_in_singleparent_households_uci"
+
+        measure_140_value: "social_associations"
+        measure_140_cilow: "social_associations_lci"
+        measure_140_cihigh: "social_associations_uci"
+
+        measure_43_value: "violent_crime"
+        measure_43_cilow: "violent_crime_lci"
+        measure_43_cihigh: "violent_crime_uci"
+
+        measure_135_value: "injury_deaths"
+        measure_135_cilow: "injury_deaths_lci"
+        measure_135_cihigh: "injury_deaths_uci"
+
+        measure_125_value: "polution_ppm"
+        measure_125_cilow: "polution_ppm_lci"
+        measure_125_cihigh: "polution_ppm_uci"
+
+        measure_124_value: "drinking_water_violations"
+        measure_124_cilow: "drinking_water_violations_lci"
+        measure_124_cihigh: "drinking_water_violations_uci"
+
+        measure_136_value: "severe_housing_problems"
+        measure_136_cilow: "severe_housing_problems_lci"
+        measure_136_cihigh: "severe_housing_problems_uci"
+
+        measure_67_value: "driving_alone_to_work"
+        measure_67_cilow: "driving_alone_to_work_lci"
+        measure_67_cihigh: "driving_alone_to_work_uci"
+
+        measure_137_value: "long_commute__driving_alone"
+        measure_137_cilow: "long_commute__driving_alone_lci"
+        measure_137_cihigh: "long_commute__driving_alone_uci"
+
+        measure_127_value: "premature_ageadjusted_mortality"
+        measure_127_cilow: "premature_ageadjusted_mortality_lci"
+        measure_127_cihigh: "premature_ageadjusted_mortality_uci"
+
+        measure_129_value: "infant_mortality"
+        measure_129_cilow: "infant_mortality_lci"
+        measure_129_cihigh: "infant_mortality_uci"
+
+        measure_128_value: "child_mortality"
+        measure_128_cilow: "child_mortality_lci"
+        measure_128_cihigh: "child_mortality_uci"
+
+        measure_144_value: "frequent_physical_distress"
+        measure_144_cilow: "frequent_physical_distress_lci"
+        measure_144_cihigh: "frequent_physical_distress_uci"
+
+        measure_145_value: "frequent_mental_distress"
+        measure_145_cilow: "frequent_mental_distress_lci"
+        measure_145_cihigh: "frequent_mental_distress_uci"
+
+        measure_60_value: "diabetes"
+        measure_60_cilow: "diabetes_lci"
+        measure_60_cihigh: "diabetes_uci"
+
+        measure_61_value: "hiv_prevalence_rate"
+        measure_61_cilow: "hiv_prevalence_rate_lci"
+        measure_61_cihigh: "hiv_prevalence_rate_uci"
+
+        measure_139_value: "food_insecurity"
+        measure_139_cilow: "food_insecurity_lci"
+        measure_139_cihigh: "food_insecurity_uci"
+
+        measure_83_value: "limited_access_to_healthy_foods"
+        measure_83_cilow: "limited_access_to_healthy_foods_lci"
+        measure_83_cihigh: "limited_access_to_healthy_foods_uci"
+
+        measure_39_value: "motor_vehicle_crash_deaths"
+        measure_39_cilow: "motor_vehicle_crash_deaths_lci"
+        measure_39_cihigh: "motor_vehicle_crash_deaths_uci"
+
+        measure_138_value: "drug_overdose_deaths"
+        measure_138_cilow: "drug_overdose_deaths_lci"
+        measure_138_cihigh: "drug_overdose_deaths_uci"
+
+        measure_143_value: "insufficient_sleep"
+        measure_143_cilow: "insufficient_sleep_lci"
+        measure_143_cihigh: "insufficient_sleep_uci"
+
+        measure_3_value: "uninsured_adults"
+        measure_3_cilow: "uninsured_adults_lci"
+        measure_3_cihigh: "uninsured_adults_uci"
+
+        measure_122_value: "uninsured_children"
+        measure_122_cilow: "uninsured_children_lci"
+        measure_122_cihigh: "uninsured_children_uci"
+
+        measure_86_value: "health_care_costs"
+        measure_86_cilow: "health_care_costs_lci"
+        measure_86_cihigh: "health_care_costs_uci"
+
+        measure_131_value: "other_primary_care_providers"
+        measure_131_cilow: "other_primary_care_providers_lci"
+        measure_131_cihigh: "other_primary_care_providers_uci"
+
+        measure_149_value: "disconnected_youth"
+        measure_149_cilow: "disconnected_youth_lci"
+        measure_149_cihigh: "disconnected_youth_uci"
+
+        measure_63_value: "median_household_income"
+        measure_63_cilow: "median_household_income_lci"
+        measure_63_cihigh: "median_household_income_uci"
+
+        measure_65_value: "children_eligible_for_free_lunch"
+        measure_65_cilow: "children_eligible_for_free_lunch_lci"
+        measure_65_cihigh: "children_eligible_for_free_lunch_uci"
+
+        measure_15_value: "homicide_rate"
+        measure_15_cilow: "homicide_rate_lci"
+        measure_15_cihigh: "homicide_rate_uci"
+
+        measure_148_value: "firearm_fatalities"
+
+        measure_141_value: "residential_segregation_bw"
+        measure_141_cilow: "residential_segregation_bw_lci"
+        measure_141_cihigh: "residential_segregation_bw_uci"
+
+        measure_142_value: "residential_segregation_nww"
+        measure_142_cilow: "residential_segregation_nww_lci"
+        measure_142_cihigh: "residential_segregation_nww_uci"
+
+        measure_51_value: "population_estimate"
+        measure_51_cilow: "population_estimate_lci"
+        measure_51_cihigh: "population_estimate_uci"
+
+        measure_52_value: "pct_below_18"
+        measure_52_cilow: "pct_below_18_lci"
+        measure_52_cihigh: "pct_below_18_uci"
+
+        measure_53_value: "pct_65plus"
+        measure_53_cilow: "pct_65plus_lci"
+        measure_53_cihigh: "pct_65plus_uci"
+
+        measure_54_value: "pct_non_hispanic_black"
+        measure_54_cilow: "pct_non_hispanic_black_lci"
+        measure_54_cihigh: "pct_non_hispanic_black_uci"
+
+        measure_55_value: "pct_native"
+        measure_55_cilow: "pct_native_lci"
+        measure_55_cihigh: "pct_native_uci"
+
+        measure_81_value: "pct_asian"
+        measure_81_cilow: "pct_asian_lci"
+        measure_81_cihigh: "pct_asian_uci"
+
+        measure_80_value: "pct_hawaiian"
+        measure_80_cilow: "pct_hawaiian_lci"
+        measure_80_cihigh: "pct_hawaiian_uci"
+
+        measure_56_value: "pct_hispanic"
+        measure_56_cilow: "pct_hispanic_lci"
+        measure_56_cihigh: "pct_hispanic_uci"
+
+        measure_126_value: "pct_non_hispanic_white"
+        measure_126_cilow: "pct_non_hispanic_white_lci"
+        measure_126_cihigh: "pct_non_hispanic_white_uci"
+
+        measure_59_value: "pct_not_proficient_eng"
+        measure_59_cilow: "pct_not_proficient_eng_lci"
+        measure_59_cihigh: "pct_not_proficient_eng_uci"
+
+        measure_57_value: "pct_females"
+        measure_57_cilow: "pct_females_lci"
+        measure_57_cihigh: "pct_females_uci"
+
+        measure_58_value: "pct_rural"
+        measure_58_cilow: "pct_rural_lci"
+        measure_58_cihigh: "pct_rural_uci"
+
+
+tables:
+    yg_new3:
+        pk: ["year", "geo"]
+        transform:
+          - column: drug_poisoning_deaths
+            type: clone
+            source: drug_overdose_deaths
+          - column: drug_poisoning_deaths_lci
+            type: clone
+            source: drug_overdose_deaths_lci
+          - column: drug_poisoning_deaths_uci
+            type: clone
+            source: drug_overdose_deaths_uci
+        agg:
+          "premature_death": sum
+          "premature_death_lci": sum
+          "premature_death_uci": sum
+          "poor_or_fair_health": sum
+          "poor_or_fair_health_lci": sum
+          "poor_or_fair_health_uci": sum
+          "poor_physical_health_days": sum
+          "poor_physical_health_days_lci": sum
+          "poor_physical_health_days_uci": sum
+          "poor_mental_health_days": sum
+          "poor_mental_health_days_lci": sum
+          "poor_mental_health_days_uci": sum
+          "low_birthweight": sum
+          "low_birthweight_lci": sum
+          "low_birthweight_uci": sum
+          "adult_smoking": sum
+          "adult_smoking_lci": sum
+          "adult_smoking_uci": sum
+          "adult_obesity": sum
+          "adult_obesity_lci": sum
+          "adult_obesity_uci": sum
+          "food_environment_index": sum
+          "food_environment_index_lci": sum
+          "food_environment_index_uci": sum
+          "physical_inactivity": sum
+          "physical_inactivity_lci": sum
+          "physical_inactivity_uci": sum
+          "access_to_exercise_opportunities": sum
+          "access_to_exercise_opportunities_lci": sum
+          "access_to_exercise_opportunities_uci": sum
+          "excessive_drinking": sum
+          "excessive_drinking_lci": sum
+          "excessive_drinking_uci": sum
+          "alcoholimpaired_driving_deaths": sum
+          "alcoholimpaired_driving_deaths_lci": sum
+          "alcoholimpaired_driving_deaths_uci": sum
+          "sexually_transmitted_infections": sum
+          "sexually_transmitted_infections_lci": sum
+          "sexually_transmitted_infections_uci": sum
+          "teen_births": sum
+          "teen_births_lci": sum
+          "teen_births_uci": sum
+          "uninsured": sum
+          "uninsured_lci": sum
+          "uninsured_uci": sum
+          "primary_care_physicians": sum
+          "primary_care_physicians_lci": sum
+          "primary_care_physicians_uci": sum
+          "dentists": sum
+          "dentists_lci": sum
+          "dentists_uci": sum
+          "mental_health_providers": sum
+          "mental_health_providers_lci": sum
+          "mental_health_providers_uci": sum
+          "preventable_hospital_stays": sum
+          "preventable_hospital_stays_lci": sum
+          "preventable_hospital_stays_uci": sum
+          "diabetic_screening": sum
+          "diabetic_screening_lci": sum
+          "diabetic_screening_uci": sum
+          "mammography_screening": sum
+          "mammography_screening_lci": sum
+          "mammography_screening_uci": sum
+          "high_school_graduation": sum
+          "high_school_graduation_lci": sum
+          "high_school_graduation_uci": sum
+          "some_college": sum
+          "some_college_lci": sum
+          "some_college_uci": sum
+          "unemployment": sum
+          "unemployment_lci": sum
+          "unemployment_uci": sum
+          "children_in_poverty": sum
+          "children_in_poverty_lci": sum
+          "children_in_poverty_uci": sum
+          "income_inequality": sum
+          "income_inequality_lci": sum
+          "income_inequality_uci": sum
+          "children_in_singleparent_households": sum
+          "children_in_singleparent_households_lci": sum
+          "children_in_singleparent_households_uci": sum
+          "social_associations": sum
+          "social_associations_lci": sum
+          "social_associations_uci": sum
+          "violent_crime": sum
+          "violent_crime_lci": sum
+          "violent_crime_uci": sum
+          "injury_deaths": sum
+          "injury_deaths_lci": sum
+          "injury_deaths_uci": sum
+          "polution_ppm": sum
+          "polution_ppm_lci": sum
+          "polution_ppm_uci": sum
+          "drinking_water_violations": sum
+          "drinking_water_violations_lci": sum
+          "drinking_water_violations_uci": sum
+          "severe_housing_problems": sum
+          "severe_housing_problems_lci": sum
+          "severe_housing_problems_uci": sum
+          "driving_alone_to_work": sum
+          "driving_alone_to_work_lci": sum
+          "driving_alone_to_work_uci": sum
+          "long_commute__driving_alone": sum
+          "long_commute__driving_alone_lci": sum
+          "long_commute__driving_alone_uci": sum
+          "premature_ageadjusted_mortality": sum
+          "premature_ageadjusted_mortality_lci": sum
+          "premature_ageadjusted_mortality_uci": sum
+          "infant_mortality": sum
+          "infant_mortality_lci": sum
+          "infant_mortality_uci": sum
+          "child_mortality": sum
+          "child_mortality_lci": sum
+          "child_mortality_uci": sum
+          "frequent_physical_distress": sum
+          "frequent_physical_distress_lci": sum
+          "frequent_physical_distress_uci": sum
+          "frequent_mental_distress": sum
+          "frequent_mental_distress_lci": sum
+          "frequent_mental_distress_uci": sum
+          "diabetes": sum
+          "diabetes_lci": sum
+          "diabetes_uci": sum
+          "hiv_prevalence_rate": sum
+          "hiv_prevalence_rate_lci": sum
+          "hiv_prevalence_rate_uci": sum
+          "food_insecurity": sum
+          "food_insecurity_lci": sum
+          "food_insecurity_uci": sum
+          "limited_access_to_healthy_foods": sum
+          "limited_access_to_healthy_foods_lci": sum
+          "limited_access_to_healthy_foods_uci": sum
+          "motor_vehicle_crash_deaths": sum
+          "motor_vehicle_crash_deaths_lci": sum
+          "motor_vehicle_crash_deaths_uci": sum
+          "drug_overdose_deaths": sum
+          "drug_overdose_deaths_lci": sum
+          "drug_overdose_deaths_uci": sum
+          "insufficient_sleep": sum
+          "insufficient_sleep_lci": sum
+          "insufficient_sleep_uci": sum
+          "uninsured_adults": sum
+          "uninsured_adults_lci": sum
+          "uninsured_adults_uci": sum
+          "uninsured_children": sum
+          "uninsured_children_lci": sum
+          "uninsured_children_uci": sum
+          "health_care_costs": sum
+          "health_care_costs_lci": sum
+          "health_care_costs_uci": sum
+          "other_primary_care_providers": sum
+          "other_primary_care_providers_lci": sum
+          "other_primary_care_providers_uci": sum
+          "disconnected_youth": sum
+          "disconnected_youth_lci": sum
+          "disconnected_youth_uci": sum
+          "median_household_income": sum
+          "median_household_income_lci": sum
+          "median_household_income_uci": sum
+          "children_eligible_for_free_lunch": sum
+          "children_eligible_for_free_lunch_lci": sum
+          "children_eligible_for_free_lunch_uci": sum
+          "homicide_rate": sum
+          "homicide_rate_lci": sum
+          "homicide_rate_uci": sum
+          "firearm_fatalities": sum
+          "residential_segregation_bw": sum
+          "residential_segregation_bw_lci": sum
+          "residential_segregation_bw_uci": sum
+          "residential_segregation_nww": sum
+          "residential_segregation_nww_lci": sum
+          "residential_segregation_nww_uci": sum
+          "population_estimate": sum
+          "population_estimate_lci": sum
+          "population_estimate_uci": sum
+          "pct_below_18": sum
+          "pct_below_18_lci": sum
+          "pct_below_18_uci": sum
+          "pct_65plus": sum
+          "pct_65plus_lci": sum
+          "pct_65plus_uci": sum
+          "pct_non_hispanic_black": sum
+          "pct_non_hispanic_black_lci": sum
+          "pct_non_hispanic_black_uci": sum
+          "pct_native": sum
+          "pct_native_lci": sum
+          "pct_native_uci": sum
+          "pct_asian": sum
+          "pct_asian_lci": sum
+          "pct_asian_uci": sum
+          "pct_hawaiian": sum
+          "pct_hawaiian_lci": sum
+          "pct_hawaiian_uci": sum
+          "pct_hispanic": sum
+          "pct_hispanic_lci": sum
+          "pct_hispanic_uci": sum
+          "pct_non_hispanic_white": sum
+          "pct_non_hispanic_white_lci": sum
+          "pct_non_hispanic_white_uci": sum
+          "pct_not_proficient_eng": sum
+          "pct_not_proficient_eng_lci": sum
+          "pct_not_proficient_eng_uci": sum
+          "pct_females": sum
+          "pct_females_lci": sum
+          "pct_females_uci": sum
+          "pct_rural": sum
+          "pct_rural_lci": sum
+          "pct_rural_uci": sum

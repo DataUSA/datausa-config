@@ -1,3 +1,5 @@
+inherits: ['db.yaml']
+
 global:
     seperator: ","
     name: chr
@@ -15,12 +17,6 @@ global:
 
     web_paths:
       "2016": "http://www.countyhealthrankings.org/sites/default/files/2016CHR_CSV_Analytic_Data_v2.csv"
-
-    db_settings:
-        user: postgres
-        password_env_var: DATAUSA_PW
-        host: 146.20.39.90
-        db_name: datausa_t4
 
     add_pks: True
     transform:

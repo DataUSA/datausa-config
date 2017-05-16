@@ -326,17 +326,17 @@ global:
         measure_126_cilow: "pct_non_hispanic_white_lci"
         measure_126_cihigh: "pct_non_hispanic_white_uci"
 
-        measure_59_value: "pct_not_proficient_eng"
-        measure_59_cilow: "pct_not_proficient_eng_lci"
-        measure_59_cihigh: "pct_not_proficient_eng_uci"
+        measure_59_value: "population_that_is_not_proficient_in_english"
+        measure_59_cilow: "population_that_is_not_proficient_in_english_lci"
+        measure_59_cihigh: "population_that_is_not_proficient_in_english_uci"
 
         measure_57_value: "pct_females"
         measure_57_cilow: "pct_females_lci"
         measure_57_cihigh: "pct_females_uci"
 
-        measure_58_value: "pct_rural"
-        measure_58_cilow: "pct_rural_lci"
-        measure_58_cihigh: "pct_rural_uci"
+        measure_58_value: "population_living_in_a_rural_area"
+        measure_58_cilow: "population_living_in_a_rural_area_lci"
+        measure_58_cihigh: "population_living_in_a_rural_area_uci"
 
 
 tables:
@@ -552,12 +552,12 @@ tables:
           "pct_non_hispanic_white": sum
           "pct_non_hispanic_white_lci": sum
           "pct_non_hispanic_white_uci": sum
-          "pct_not_proficient_eng": sum
-          "pct_not_proficient_eng_lci": sum
-          "pct_not_proficient_eng_uci": sum
+          "population_that_is_not_proficient_in_english": sum
+          "population_that_is_not_proficient_in_english_lci": sum
+          "population_that_is_not_proficient_in_english_uci": sum
           "pct_females": sum
           "pct_females_lci": sum
           "pct_females_uci": sum
-          "pct_rural": sum
-          "pct_rural_lci": sum
-          "pct_rural_uci": sum
+          "population_living_in_a_rural_area": sum
+          "population_living_in_a_rural_area_lci": sum
+          "population_living_in_a_rural_area_uci": sum

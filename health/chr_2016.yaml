@@ -1,3 +1,5 @@
+inherits: ['db.yaml']
+
 global:
     seperator: ","
     name: chr
@@ -16,69 +18,51 @@ global:
     web_paths:
       "2016": "http://www.countyhealthrankings.org/sites/default/files/2016CHR_CSV_Analytic_Data_v2.csv"
 
-    import_to_db: False
-    db_settings:
-        user: postgres
-        password_env_var: DATAUSA_PW
-        host: 146.20.39.90
-        db_name: datausa_t4
-
-
-    add_pks: True
     transform:
-            -
-                column: county
-                type: cast
-                as: str
-            -
-                column: county
-                type: concat_and_fill
-                zfill: 3
-            -
-                column: county
-                type: whereset
-                where:
-                    -
-                        op: notequals
-                        value: '000'
-                        set:
-                            prefix: '05000US'
-                            sumlevel: 50
-                    -
-                        op: equals
-                        value: '000'
-                        set:
-                            prefix: '04000US'
-                            county: ''
-                            sumlevel: 40
-            -
-                column: state
-                type: concat_and_fill
-                zfill: 2
-            -
-                column: geo
-                type: "concat"
-                column0: prefix
-                column1: state
-                column2: county
-            -
-                column: state
-                type: drop
-            -
-                column: county
-                type: drop
-            -
-                column: prefix
-                type: drop
-            -
-                column: sumlevel
-                type: drop
+            - column: county
+              type: cast
+              as: str
+            - column: county
+              type: concat_and_fill
+              zfill: 3
+            - column: county
+              type: whereset
+              where:
+                - op: notequals
+                  value: '000'
+                  set:
+                    prefix: '05000US'
+                    sumlevel: 50
+                - op: equals
+                  value: '000'
+                  set:
+                    prefix: '04000US'
+                    county: ''
+                    sumlevel: 40
+            - column: state
+              type: concat_and_fill
+              zfill: 2
+            - column: geo
+              type: "concat"
+              column0: prefix
+              column1: state
+              column2: county
+            - column: state
+              type: drop
+            - column: county
+              type: drop
+            - column: prefix
+              type: drop
+            - column: sumlevel
+              type: drop
     agg: "sum"
 
     type:
         # "Adult smoking Value": "float"
         STATECODE: str
         COUNTYCODE: str
+        "Population estimate Value": int
+
 
     rename:
         STATECODE: state
@@ -105,7 +89,7 @@ global:
     dropcols: ["Percent of population that is Native Hawaiian or Other Pacific Islander"]
 
 tables:
-    yg:
+    yg_new3:
         pk: ["year", "geo"]
         agg:
           "premature_death": "sum"
@@ -199,8 +183,8 @@ tables:
           "injury_deaths_lci": "sum"
           "injury_deaths_uci": "sum"
           "polution_ppm": "sum"
-          "air_pollution__particulate_matter_lci": "sum"
-          "air_pollution__particulate_matter_uci": "sum"
+          # "polution_ppm_lci": "sum"
+          # "polution_ppm_uci": "sum"
           "severe_housing_problems": "sum"
           "severe_housing_problems_lci": "sum"
           "severe_housing_problems_uci": "sum"
@@ -262,3 +246,6 @@ tables:
           "homicide_rate_lci": "sum"
           "homicide_rate_uci": "sum"
           "population_estimate": "sum"
+          "drug_overdose_deaths": "sum"
+          "drug_overdose_deaths_lci": "sum"
+          "drug_overdose_deaths_uci": "sum"

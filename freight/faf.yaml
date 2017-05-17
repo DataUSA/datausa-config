@@ -48,7 +48,7 @@ tables:
         tons: sum
 
     yodp_faf:
-      pk: ["year", "destination_geo", "transportation_mode", "sctg"]
+      pk: ["year", "origin_geo", "destination_geo", "sctg"]
 
       agg:
         millions_of_2012_dollars: sum

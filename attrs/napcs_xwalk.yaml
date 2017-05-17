@@ -1,0 +1,38 @@
+inherits: ['db.yaml']
+
+global:
+    add_pks: True
+    seperator: ","
+    name: attrs
+    source : "data/freight/FAF_export.csv"
+    use_schema: True
+    output : "data/output/attrs/freight/"
+    thousands: ","
+    web_paths: http://alumni.media.mit.edu/~jspeiser/FAF_export_3-6-17.csv
+    rename:
+      "NAPCS code": "napcs"
+      SCTG_CODE: "sctg"
+      "NAPCS title": "napcs_name"
+      "SCTG_Product": "sctg_name"
+    type:
+      "NAPCS code": "str"
+      SCTG_CODE: "str"
+
+tables:
+    napcs_sctg_xwalk:
+      pk: ["napcs", "sctg"]
+      agg:
+        millions_of_2012_dollars: sum
+        tons: sum
+
+    napcs:
+      pk: ["id", "name"]
+      rename:
+        "napcs": "id"
+        "napcs_name": "name"
+      agg:
+        tons: sum
+
+      post_agg_transform:
+        - type: drop
+          column: tons

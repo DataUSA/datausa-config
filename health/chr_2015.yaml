@@ -10,13 +10,13 @@ global:
     strip_column_whitespace: True
 
     source_vars:
-        year: ["2016"]
+        year: ["2015"]
 
-    output : "data/output3/chr/<year>"
+    output : "data/output/chr/<year>"
     thousands: ","
 
     web_paths:
-      "2016": "http://www.countyhealthrankings.org/sites/default/files/2016CHR_CSV_Analytic_Data_v2.csv"
+      "2015": "http://www.countyhealthrankings.org/sites/default/files/2015%20CHR%20Analytic%20Data.csv"
 
     add_pks: True
     transform:
@@ -78,7 +78,9 @@ global:
         STATECODE: state
         COUNTYCODE: county
         "Air pollution - particulate matter Value": polution_ppm
-        "Population estimate Value": "population"
+        "Air pollution - particulate matter Lower Confidence Interval": polution_ppm_lci
+        "Air pollution - particulate matter Upper Confidence Interval": polution_ppm_uci
+        "2011 population estimate Value": "population_estimate"
 
     regex_rename:
         "<name> Value": "<name>"
@@ -99,7 +101,7 @@ global:
     dropcols: ["Percent of population that is Native Hawaiian or Other Pacific Islander"]
 
 tables:
-    yg_v2:
+    yg_new3:
         pk: ["year", "geo"]
         agg:
           "premature_death": "sum"
@@ -193,8 +195,8 @@ tables:
           "injury_deaths_lci": "sum"
           "injury_deaths_uci": "sum"
           "polution_ppm": "sum"
-          "air_pollution__particulate_matter_lci": "sum"
-          "air_pollution__particulate_matter_uci": "sum"
+          "polution_ppm_lci": "sum"
+          "polution_ppm_uci": "sum"
           "drinking_water_violations": "sum"
           "drinking_water_violations_lci": "sum"
           "drinking_water_violations_uci": "sum"
@@ -258,4 +260,4 @@ tables:
           "homicide_rate": "sum"
           "homicide_rate_lci": "sum"
           "homicide_rate_uci": "sum"
-          "population": "sum"
+          "population_estimate": "sum"

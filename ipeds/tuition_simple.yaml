@@ -1,0 +1,82 @@
+global:
+    seperator: ","
+    name: ipeds
+    use_schema: True
+    encoding: utf-8-sig
+    strip_column_whitespace: True
+    source_vars:
+        year:
+            start: 2014
+            end: 2015
+
+
+    source: "data/ipeds/ic<year>_ay.zip"
+    output : "data/output/ipeds/tuition/simple/<year>"
+    na_values: ['.']
+    usecols: ["UNITID", "TUITION1", "TUITION2", "TUITION3", "TUITION5", "TUITION6", "TUITION7", "FEE1", "FEE2", "FEE3", "FEE5", "FEE6", "FEE7"]
+
+    rename:
+      UNITID: university
+      TUITION1: district_tuition
+      FEE1: district_fee
+      TUITION2: state_tuition
+      FEE2: state_fee
+      TUITION3: oos_tuition
+      FEE3: oos_fee
+      TUITION5: district_tuition_grads
+      FEE5: district_fee_grads
+      TUITION6: state_tuition_grads
+      FEE6: state_fee_grads
+      TUITION7: oos_tuition_grads
+      FEE7: oos_fee_grads
+
+
+    web_paths:
+        "ipeds/ic": "https://nces.ed.gov/ipeds/datacenter/data/ic<year>_ay.zip"
+
+    fillna:
+      mode: True
+      value: 0
+
+    import_to_db: True
+    db_settings:
+        user: postgres
+        password_env_var: DATAUSA_PW
+        host: university.datausa.io
+        db_name: datausa_t4
+        type:
+          university: text
+
+    deduplicate: True
+
+    agg: &global_agg
+        district_tuition: "median"
+        district_fee: "median"
+        state_tuition: "median"
+        state_tuition: "median"
+        state_fee: "median"
+        oos_tuition: "median"
+        oos_tuition: "median"
+        oos_fee: "median"
+        district_tuition_grads: "median"
+        district_tuition_grads: "median"
+        district_fee_grads: "median"
+        state_tuition: "median"
+        state_tuition_grads: "median"
+        state_fee_grads: "median"
+        oos_tuition_grads: "median"
+        oos_fee_grads: "median"
+
+tables:
+    tuition_yu:
+        pk: ["year", "university"]
+
+        post_agg_transform:
+            -
+                column: oos_tuition_rank
+                type: rank
+                target: oos_tuition
+            -
+                column: state_tuition_rank
+                type: rank
+                target: state_tuition

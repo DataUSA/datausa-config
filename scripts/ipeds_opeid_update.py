@@ -3,12 +3,15 @@ import pandas as pd
 from slugify import slugify
 from sqlalchemy.dialects import postgresql
 from sqlalchemy.types import String
+import os
+
+DEBUG = os.environ.get("DEBUG", True)
 
 def clean_cip(x):
     return x.split(".")[0].zfill(2)
 
 def stem_map():
-    url = "https://nces.ed.gov/ipeds/datacenter/data/C2016_A.zip"
+    url = "C2016_A.zip" if DEBUG else "https://nces.ed.gov/ipeds/datacenter/data/C2016_A.zip"
     df = pd.read_csv(url, compression="infer", converters={"UNITID": str})
     df.rename(columns={"CIPCODE": "cip","UNITID": "id", "CTOTALT": "total"}, inplace=True)
     stem_list = ["01", "02", "11", "14", "15", "25", "26", "27", "40", "41",  "51"]
@@ -26,7 +29,7 @@ def load_existing_data():
     return existing_df
 
 def load_new_data(opeid_only=False):
-    url = "https://nces.ed.gov/ipeds/datacenter/data/HD2016.zip"
+    url = "HD2016.zip" if DEBUG else "https://nces.ed.gov/ipeds/datacenter/data/HD2016.zip"
     df = pd.read_csv(url, compression="infer", converters={"UNITID": str, "CBSA": str})
     df.rename(columns={
         "UNITID": "id",
@@ -68,7 +71,6 @@ existing_df = load_existing_data()
 
 print("2. Loading new data...")
 new_df = load_new_data()
-
 # preserve meta information from existing DFs
 edf_meta = existing_df[existing_df.id.isin(new_df.id)][["id", "image_link", "image_meta", "image_author", "keywords"]].copy()
 
@@ -97,6 +99,7 @@ master_df.loc[master_df.category.isnull(), 'category'] = -1
 # fix url names
 master_df.loc[master_df.duplicated("url_name"), 'url_name'] = master_df.url_name + "-" + master_df.id.astype(str)
 master_df['display_name'] = master_df.name
+
 print(master_df.head())
 
 to_import = True
@@ -104,8 +107,7 @@ if to_import:
     from sqlalchemy import create_engine
     import os
     for col in master_df.columns:
-        if str(master_df[col].dtype) == "object" and col != "keywords":
-            print col
+        if col in ["name", "display_name", "url"]:
             master_df[col] = master_df[col].str.decode('utf8', 'ignore')
     DATAUSA_PW = os.environ.get('DATAUSA_DB_PW')
     DATAUSA_DB = os.environ.get('DATAUSA_DB_NAME')

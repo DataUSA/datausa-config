@@ -1,12 +1,15 @@
 import requests
 import pandas as pd
 from slugify import slugify
+from sqlalchemy.dialects import postgresql
+from sqlalchemy.types import String
 
 def clean_cip(x):
     return x.split(".")[0].zfill(2)
 
 def stem_map():
-    df = pd.read_csv("https://nces.ed.gov/ipeds/datacenter/data/C2016_A.zip", compression="infer", converters={"UNITID": str})
+    url = "https://nces.ed.gov/ipeds/datacenter/data/C2016_A.zip"
+    df = pd.read_csv(url, compression="infer", converters={"UNITID": str})
     df.rename(columns={"CIPCODE": "cip","UNITID": "id", "CTOTALT": "total"}, inplace=True)
     stem_list = ["01", "02", "11", "14", "15", "25", "26", "27", "40", "41",  "51"]
     df.cip = df.cip.astype(str).apply(clean_cip)
@@ -23,7 +26,8 @@ def load_existing_data():
     return existing_df
 
 def load_new_data(opeid_only=False):
-    df = pd.read_csv("https://nces.ed.gov/ipeds/datacenter/data/HD2016.zip", compression="infer", converters={"UNITID": str, "CBSA": str})
+    url = "https://nces.ed.gov/ipeds/datacenter/data/HD2016.zip"
+    df = pd.read_csv(url, compression="infer", converters={"UNITID": str, "CBSA": str})
     df.rename(columns={
         "UNITID": "id",
         "INSTNM": "name",
@@ -54,29 +58,31 @@ def load_new_data(opeid_only=False):
         df.loc[df.category.isnull(), 'category'] = -1
         df.status = df.status.str.strip().astype(unicode)
     df['last_year'] = 2016
-    keys = ["last_year", "id", "name", "state", "county", "msa", "category", "sector", "lat", "lng", "is_stem", "status", "url_name"] if not opeid_only else ["id", "opeid"]
+    keys = ["last_year", "id", "name", "state", "county", "msa", "category", "sector", "lat", "lng", "is_stem", "status", "url", "url_name"] if not opeid_only else ["id", "opeid"]
     df = df[keys]
 
     return df
 
 print("1. Loading existing data...")
 existing_df = load_existing_data()
+
 print("2. Loading new data...")
 new_df = load_new_data()
 
 # preserve meta information from existing DFs
-edf_meta = existing_df[existing_df.id.isin(new_df.id)][["id", "image_link", "image_meta", "image_author"]].copy()
-new_df = new_df.merge(edf_meta, how="left", on="id")
+edf_meta = existing_df[existing_df.id.isin(new_df.id)][["id", "image_link", "image_meta", "image_author", "keywords"]].copy()
 
+new_df = new_df.merge(edf_meta, how="left", on="id")
 print(new_df[new_df.id == "110662"])
+print(edf_meta[edf_meta.id == "211440"].keywords)
 
 # # old institutions for historical purposes
 existing_df = existing_df[~existing_df.id.isin(new_df.id)].copy()
 existing_df['status'] = 'D'
 master_df = pd.concat([existing_df, new_df])
+
 existing_df = None
 new_df = None
-print master_df.category.value_counts()
 
 print("3. Loading new OPEIDs...")
 opeis = load_new_data(opeid_only=True)
@@ -90,6 +96,7 @@ master_df.is_stem = master_df.is_stem.astype(int)
 master_df.loc[master_df.category.isnull(), 'category'] = -1
 # fix url names
 master_df.loc[master_df.duplicated("url_name"), 'url_name'] = master_df.url_name + "-" + master_df.id.astype(str)
+master_df['display_name'] = master_df.name
 print(master_df.head())
 
 to_import = True
@@ -97,7 +104,7 @@ if to_import:
     from sqlalchemy import create_engine
     import os
     for col in master_df.columns:
-        if str(master_df[col].dtype) == "object":
+        if str(master_df[col].dtype) == "object" and col != "keywords":
             print col
             master_df[col] = master_df[col].str.decode('utf8', 'ignore')
     DATAUSA_PW = os.environ.get('DATAUSA_DB_PW')
@@ -105,5 +112,6 @@ if to_import:
     DATAUSA_HOST = os.environ.get('DATAUSA_DB_HOST')
     dbpath = 'postgres://postgres:{}@{}:5432/{}'.format(DATAUSA_PW, DATAUSA_HOST, DATAUSA_DB)
     engine = create_engine(dbpath, echo=False)
-    master_df.to_sql(name='university_v2', schema="attrs", con=engine, if_exists='fail', index=False)
+    print(master_df.dtypes)
+    master_df.to_sql(name='university_v2', schema="attrs", con=engine, if_exists='fail', index=False, dtype={"keywords": postgresql.ARRAY(String) })
     print("Import complete!")

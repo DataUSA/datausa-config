@@ -1,0 +1,55 @@
+inherits: ["db.yaml"]
+
+global:
+    db_settings:
+      type:
+        id: text
+        zip_code: text
+    seperator: ","
+    name: attrs
+    use_schema: True
+    add_pks: True
+    source : "data/attrs/ed/opeid6.xls"
+    output : "data/output/attrs/opeid6"
+    web_paths: "https://www2.ed.gov/offices/OSFAP/defaultmanagement/peps300.xlsx"
+    mode: excel
+    filetype: excel
+    sheetname: "300"
+    type:
+        "OPEID": "str"
+        "Zip Code": "str"
+
+    rename:
+      "School\nType": "school_type"
+      "OPEID": "id"
+      "Name": "name"
+      "Ethnic Code": "ethnic_code"
+      "Zip Code": "zip_code"
+      "Address": "address"
+      "City": "city"
+      "State": "state2"
+      "Region": "region"
+
+    usecols: ["School\nType", "Ethnic Code", "Prog\nLength", "Name", "OPEID", "Zip Code", "Address", "City", "State", "Region"]
+
+tables:
+    opeid6:
+      pk: ["id", "name"]
+
+      transform:
+        - type: cast
+          column: name
+          as: unicode
+        - type: title
+          column: name
+        - type: strip
+          column: name
+
+      agg:
+        region: "max"
+        zip_code: "any"
+        city: "any"
+        state2: "any"
+        ethnic_code: "max"
+        school_type: "max"
+        address: "any"

@@ -29,6 +29,7 @@ global:
       "City": "city"
       "State": "state2"
       "Region": "region"
+      "Prog\nLength": "program_length"
 
     usecols: ["School\nType", "Ethnic Code", "Prog\nLength", "Name", "OPEID", "Zip Code", "Address", "City", "State", "Region"]
 
@@ -52,4 +53,5 @@ tables:
         state2: "any"
         ethnic_code: "max"
         school_type: "max"
+        program_length: "max"
         address: "any"

@@ -3,5 +3,8 @@ global:
     db_settings:
         user: postgres
         password_env_var: DATAUSA_PW
-        host: university.datausa.io
+        host: 127.0.0.1
         db_name: datausa_t4
+        permissions_sql:
+          - "GRANT USAGE on SCHEMA {} to readonly_role"
+          - "GRANT SELECT ON ALL TABLES IN SCHEMA {} to readonly_role;"

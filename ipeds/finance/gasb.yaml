@@ -1,0 +1,42 @@
+inherits: ["db.yaml"]
+
+global:
+  seperator: ","
+  name: ipeds
+  use_schema: True
+  encoding: utf-8-sig
+  strip_column_whitespace: True
+  na_values: ['']
+  source_vars:
+    year:
+      start: 2014
+      end: 2015
+
+  type:
+    UNITID: str
+
+  source : "data/ipeds/finance/gasb/<year>.zip"
+  output : "data/output/ipeds/finance/gasb/<year>"
+
+  web_paths:
+    "2015": "https://nces.ed.gov/ipeds/datacenter/data/F1415_F1A.zip"
+    "2014": "https://nces.ed.gov/ipeds/datacenter/data/F1314_F1A.zip"
+
+  add_pks: True
+
+  db_settings:
+    type:
+      university: text
+
+  rename:
+    UNITID: university
+
+
+  regex_drop:
+    "^X<anything>": "delete"
+
+tables:
+  adm_undergrad_y:
+    pk: [year]
+    agg:
+      applicants_total: sum

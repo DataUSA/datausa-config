@@ -30,15 +30,15 @@ global:
       admissions_total: float
       admissions_men: float
       admissions_women: float
-      enrolled_total: float
-      enrolled_men: float
-      enrolled_women: float
-      enrolled_ft_total: float
-      enrolled_ft_men: float
-      enrolled_ft_women: float
-      enrolled_pt_total: float
-      enrolled_pt_men: float
-      enrolled_pt_women: float
+      admissions_enrolled_total: float
+      admissions_enrolled_men: float
+      admissions_enrolled_women: float
+      admissions_enrolled_ft_total: float
+      admissions_enrolled_ft_men: float
+      admissions_enrolled_ft_women: float
+      admissions_enrolled_pt_total: float
+      admissions_enrolled_pt_men: float
+      admissions_enrolled_pt_women: float
       sub_sat_scores_num: float
       sub_act_scores_num: float
       sub_sat_scores_pct: float
@@ -65,15 +65,15 @@ global:
     ADMSSN: admissions_total
     ADMSSNM: admissions_men
     ADMSSNW: admissions_women
-    ENRLT: enrolled_total
-    ENRLM: enrolled_men
-    ENRLW: enrolled_women
-    ENRLFT: enrolled_ft_total
-    ENRLFTM: enrolled_ft_men
-    ENRLFTW: enrolled_ft_women
-    ENRLPT: enrolled_pt_total
-    ENRLPTM: enrolled_pt_men
-    ENRLPTW: enrolled_pt_women
+    ENRLT: admissions_enrolled_total
+    ENRLM: admissions_enrolled_men
+    ENRLW: admissions_enrolled_women
+    ENRLFT: admissions_enrolled_ft_total
+    ENRLFTM: admissions_enrolled_ft_men
+    ENRLFTW: admissions_enrolled_ft_women
+    ENRLPT: admissions_enrolled_pt_total
+    ENRLPTM: admissions_enrolled_pt_men
+    ENRLPTW: admissions_enrolled_pt_women
     SATNUM: sub_sat_scores_num
     ACTNUM: sub_act_scores_num
     SATPCT: sub_sat_scores_pct
@@ -106,15 +106,15 @@ tables:
       admissions_total: sum
       admissions_men: sum
       admissions_women: sum
-      enrolled_total: sum
-      enrolled_men: sum
-      enrolled_women: sum
-      enrolled_ft_total: sum
-      enrolled_ft_men: sum
-      enrolled_ft_women: sum
-      enrolled_pt_total: sum
-      enrolled_pt_men: sum
-      enrolled_pt_women: sum
+      admissions_enrolled_total: sum
+      admissions_enrolled_men: sum
+      admissions_enrolled_women: sum
+      admissions_enrolled_ft_total: sum
+      admissions_enrolled_ft_men: sum
+      admissions_enrolled_ft_women: sum
+      admissions_enrolled_pt_total: sum
+      admissions_enrolled_pt_men: sum
+      admissions_enrolled_pt_women: sum
       sub_sat_scores_num: sum
       sub_act_scores_num: sum
       sub_sat_scores_pct: median

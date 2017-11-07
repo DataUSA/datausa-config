@@ -1,0 +1,138 @@
+inherits: ["db.yaml"]
+
+global:
+  seperator: ","
+  name: ipeds
+  use_schema: True
+  encoding: utf-8-sig
+  strip_column_whitespace: True
+  na_values: ['']
+  source_vars:
+    year:
+      start: 2014
+      end: 2015
+
+  type:
+    UNITID: str
+  source : "data/ipeds/admissions/ADM<year>.zip"
+  output : "data/output/ipeds/admissions/<year>"
+
+  web_paths: "https://nces.ed.gov/ipeds/datacenter/data/ADM<year>.zip"
+
+  add_pks: True
+
+  db_settings:
+    type:
+      university: text
+      applicants_total: float
+      applicants_men: float
+      applicants_women: float
+      admissions_total: float
+      admissions_men: float
+      admissions_women: float
+      enrolled_total: float
+      enrolled_men: float
+      enrolled_women: float
+      enrolled_ft_total: float
+      enrolled_ft_men: float
+      enrolled_ft_women: float
+      enrolled_pt_total: float
+      enrolled_pt_men: float
+      enrolled_pt_women: float
+      sub_sat_scores_num: float
+      sub_act_scores_num: float
+      sub_sat_scores_pct: float
+      sub_act_scores_pct: float
+      sat_cr_25: float
+      sat_cr_75: float
+      sat_math_25: float
+      sat_math_75: float
+      sat_writing_25: float
+      sat_writing_75: float
+      act_composite_25: float
+      act_composite_75: float
+      act_english_25: float
+      act_english_75: float
+      act_math_25: float
+      act_math_75: float
+      act_writing_25: float
+      act_writing_75: float
+  rename:
+    UNITID: university
+    APPLCN: applicants_total
+    APPLCNM: applicants_men
+    APPLCNW: applicants_women
+    ADMSSN: admissions_total
+    ADMSSNM: admissions_men
+    ADMSSNW: admissions_women
+    ENRLT: enrolled_total
+    ENRLM: enrolled_men
+    ENRLW: enrolled_women
+    ENRLFT: enrolled_ft_total
+    ENRLFTM: enrolled_ft_men
+    ENRLFTW: enrolled_ft_women
+    ENRLPT: enrolled_pt_total
+    ENRLPTM: enrolled_pt_men
+    ENRLPTW: enrolled_pt_women
+    SATNUM: sub_sat_scores_num
+    ACTNUM: sub_act_scores_num
+    SATPCT: sub_sat_scores_pct
+    ACTPCT: sub_act_scores_pct
+    SATVR25: sat_cr_25
+    SATVR75: sat_cr_75
+    SATMT25: sat_math_25
+    SATMT75: sat_math_75
+    SATWR25: sat_writing_25
+    SATWR75: sat_writing_75
+    ACTCM25: act_composite_25
+    ACTCM75: act_composite_75
+    ACTEN25: act_english_25
+    ACTEN75: act_english_75
+    ACTMT25: act_math_25
+    ACTMT75: act_math_75
+    ACTWR25: act_writing_25
+    ACTWR75: act_writing_75
+
+  regex_drop:
+    "^X<anything>": "delete"
+
+tables:
+  adm_undergrad_y:
+    pk: [year]
+    agg:
+      applicants_total: sum
+      applicants_men: sum
+      applicants_women: sum
+      admissions_total: sum
+      admissions_men: sum
+      admissions_women: sum
+      enrolled_total: sum
+      enrolled_men: sum
+      enrolled_women: sum
+      enrolled_ft_total: sum
+      enrolled_ft_men: sum
+      enrolled_ft_women: sum
+      enrolled_pt_total: sum
+      enrolled_pt_men: sum
+      enrolled_pt_women: sum
+      sub_sat_scores_num: sum
+      sub_act_scores_num: sum
+      sub_sat_scores_pct: median
+      sub_act_scores_pct: median
+      sat_cr_25: median
+      sat_cr_75: median
+      sat_math_25: median
+      sat_math_75: median
+      sat_writing_25: median
+      sat_writing_75: median
+      act_composite_25: median
+      act_composite_75: median
+      act_english_25: median
+      act_english_75: median
+      act_math_25: median
+      act_math_75: median
+      act_writing_25: median
+      act_writing_75: median
+
+  adm_undergrad_yu:
+    pk: [year, university]

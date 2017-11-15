@@ -5,7 +5,7 @@ from sqlalchemy.dialects import postgresql
 from sqlalchemy.types import String
 import os
 
-DEBUG = os.environ.get("DEBUG", True)
+DEBUG = os.environ.get("DEBUG", "True") not in ["0", "false", "False"]
 
 def clean_cip(x):
     return x.split(".")[0].zfill(2)
@@ -42,8 +42,9 @@ def load_new_data(opeid_only=False):
         "SECTOR": "sector",
         "LONGITUD": "lng",
         "LATITUDE": "lat",
-    	"OPEID": "opeid",
-        "ACT": "status"
+        "OPEID": "opeid",
+        "ACT": "status",
+        "C15BASIC": "carnegie"
     }, inplace=True)
     print(df.head())
 
@@ -61,7 +62,7 @@ def load_new_data(opeid_only=False):
         df.loc[df.category.isnull(), 'category'] = -1
         df.status = df.status.str.strip().astype(unicode)
     df['last_year'] = 2016
-    keys = ["last_year", "id", "name", "state", "county", "msa", "category", "sector", "lat", "lng", "is_stem", "status", "url", "url_name"] if not opeid_only else ["id", "opeid"]
+    keys = ["last_year", "id", "name", "state", "county", "msa", "category", "sector", "lat", "lng", "is_stem", "status", "carnegie", "url", "url_name"] if not opeid_only else ["id", "opeid"]
     df = df[keys]
 
     return df
@@ -115,5 +116,5 @@ if to_import:
     dbpath = 'postgres://postgres:{}@{}:5432/{}'.format(DATAUSA_PW, DATAUSA_HOST, DATAUSA_DB)
     engine = create_engine(dbpath, echo=False)
     print(master_df.dtypes)
-    master_df.to_sql(name='university_v2', schema="attrs", con=engine, if_exists='fail', index=False, dtype={"keywords": postgresql.ARRAY(String) })
+    master_df.to_sql(name='university_v3', schema="attrs", con=engine, if_exists='fail', index=False, dtype={"keywords": postgresql.ARRAY(String) })
     print("Import complete!")

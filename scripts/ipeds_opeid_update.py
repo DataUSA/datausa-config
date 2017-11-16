@@ -116,5 +116,5 @@ if to_import:
     dbpath = 'postgres://postgres:{}@{}:5432/{}'.format(DATAUSA_PW, DATAUSA_HOST, DATAUSA_DB)
     engine = create_engine(dbpath, echo=False)
     print(master_df.dtypes)
-    master_df.to_sql(name='university_v3', schema="attrs", con=engine, if_exists='fail', index=False, dtype={"keywords": postgresql.ARRAY(String) })
+    master_df.to_sql(name='university', schema="attrs", con=engine, if_exists='fail', index=False, dtype={"keywords": postgresql.ARRAY(String), "carnegie": String})
     print("Import complete!")

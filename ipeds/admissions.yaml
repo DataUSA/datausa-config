@@ -100,6 +100,15 @@ tables:
   adm_undergrad_y:
     pk: [year]
     agg:
+      ADMCON1: mode
+      ADMCON2: mode
+      ADMCON3: mode
+      ADMCON4: mode
+      ADMCON5: mode
+      ADMCON6: mode
+      ADMCON7: mode
+      ADMCON8: mode
+      ADMCON9: mode
       applicants_total: sum
       applicants_men: sum
       applicants_women: sum
@@ -136,3 +145,36 @@ tables:
 
   adm_undergrad_yu:
     pk: [year, university]
+
+    transform:
+      - type: plugin
+        func: ipeds.plugins.carnegie.add_rows
+        pk: [year, university]
+        raw_mode: True
+        aggs_dict:
+          ADMCON1: mode
+          ADMCON2: mode
+          ADMCON3: mode
+          ADMCON4: mode
+          ADMCON5: mode
+          ADMCON6: mode
+          ADMCON7: mode
+          ADMCON8: mode
+          ADMCON9: mode
+          applicants_total: sum
+          applicants_men: sum
+          applicants_women: sum
+          admissions_total: sum
+          admissions_men: sum
+          admissions_women: sum
+          admissions_enrolled_total: sum
+          admissions_enrolled_men: sum
+          admissions_enrolled_women: sum
+          admissions_enrolled_ft_total: sum
+          admissions_enrolled_ft_men: sum
+          admissions_enrolled_ft_women: sum
+          admissions_enrolled_pt_total: sum
+          admissions_enrolled_pt_men: sum
+          admissions_enrolled_pt_women: sum
+          sub_sat_scores_num: sum
+          sub_act_scores_num: sum

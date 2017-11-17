@@ -33,13 +33,17 @@ def get_fn(fn_name):
 
 
 def add_rows(orig_df, **kwargs):
+    orig_idx = [x for x in orig_df.index.names if x]
+    if len(orig_idx) > 0:
+        orig_df = orig_df.reset_index()
+
     extra_rows_df = orig_df.merge(univ_df, on="university", how="left")
     extra_rows_df = extra_rows_df.merge(linkage_df, on="carnegie", how="left")
     extra_rows_df.university = extra_rows_df.uniq_ids
     extra_rows_df.drop(columns=["uniq_ids", "carnegie"], axis=1, inplace=True)
     pk = kwargs["pk"] if "pk" in kwargs else ["year", "university"]
-
-    aggs = {col: "median" for col in extra_rows_df.columns if col not in pk}
+    default_agg = "median" if "default_agg" not in kwargs else kwargs["default_agg"]
+    aggs = {col: default_agg for col in extra_rows_df.columns if col not in pk}
     if "aggs_dict" in kwargs:
         aggs.update(kwargs["aggs_dict"])
 
@@ -53,6 +57,8 @@ def add_rows(orig_df, **kwargs):
     new_df.loc[new_df.university_level.isnull(), 'university_level'] = 2
     new_df.university_level = new_df.university_level.astype(int)
     # raise Exception(new_df.head())
+    if len(orig_idx) > 0:
+        new_df = new_df.set_index(orig_idx)
     return new_df
 
 

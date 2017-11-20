@@ -56,9 +56,6 @@ def add_rows(orig_df, **kwargs):
     new_df = orig_df.append(extra_rows_df)
     new_df.loc[new_df.university_level.isnull(), 'university_level'] = 2
     new_df.university_level = new_df.university_level.astype(int)
-    # raise Exception(new_df.head())
-    if len(orig_idx) > 0:
-        new_df = new_df.set_index(orig_idx)
     return new_df
 
 

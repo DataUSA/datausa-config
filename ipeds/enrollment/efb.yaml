@@ -1,0 +1,153 @@
+inherits: ["db.yaml"]
+
+global:
+  zip:
+    target_name: ef201Xa_rv.csv
+  seperator: ","
+  name: ipeds
+  use_schema: True
+  encoding: utf-8-sig
+  strip_column_whitespace: True
+  na_values: ['']
+  source_vars:
+    year: [2012, 2013, 2014, 2015]
+  type:
+    UNITID: str
+    CIPCODE: str
+  source : "data/ipeds/enrollment/enrollment/efb/ef<year>b.zip"
+  output : "data/output/ipeds/enrollment/efb/ef<year>b"
+
+  web_paths: "https://nces.ed.gov/ipeds/datacenter/data/EF<year>B.zip"
+
+  add_pks: True
+
+  db_settings:
+    type:
+      university: text
+
+  rename:
+    UNITID: university
+    EFBAGE: efbage
+    LINE: ipeds_age
+    LSTUDY: lstudy
+    EFAGE01: enrolled_men_ft
+    EFAGE02: enrolled_women_ft
+    EFAGE03: enrolled_men_pt
+    EFAGE04: enrolled_women_pt
+    EFAGE05: enrolled_ft
+    EFAGE06: enrolled_pt
+    EFAGE07: enrolled_men
+    EFAGE08: enrolled_women
+    EFAGE09: enrolled_total
+
+  regex_drop:
+    "^X<anything>": "delete"
+
+tables:
+  enrollment_efb_yu:
+    pk: [year, university]
+    agg: sum
+    filter:
+      - column: lstudy
+        func: ne
+        value: 1
+      - column: ipeds_age
+        func: isin
+        value: [112, 312, 412, 999]
+
+    post_agg_transform:
+      - type: drop
+        column: [efbage, lstudy, ipeds_age]
+      - type: plugin
+        func: ipeds.plugins.carnegie.add_rows
+        pk: [year, university, university_level]
+        raw_mode: True
+        default_agg: sum
+
+  enrollment_efb_yua:
+    pk: [year, university, ipeds_age]
+    agg: sum
+    filter:
+      - column: lstudy
+        func: ne
+        value: 1
+      - column: ipeds_age
+        func: isin
+        value: [112, 312, 412, 999]
+
+    post_agg_transform:
+      - type: drop
+        column: [efbage, lstudy]
+      - type: plugin
+        func: ipeds.plugins.carnegie.add_rows
+        pk: [year, university, ipeds_age, university_level]
+        raw_mode: True
+        default_agg: sum
+
+
+  enrollment_efb_yul:
+    pk: [year, university, lstudy]
+    agg: sum
+    filter:
+      - column: lstudy
+        func: ne
+        value: 1
+      - column: ipeds_age
+        func: isin
+        value: [112, 312, 412, 999]
+
+    post_agg_transform:
+      - type: plugin
+        func: ipeds.plugins.carnegie.add_rows
+        pk: [year, university, lstudy, university_level]
+        raw_mode: True
+        default_agg: sum
+    #   # Standardize lstudy values, because IPEDS is inconsistent with itself!
+      - type: set_val
+        column: lstudy
+        value: 1
+        where:
+          column: lstudy
+          func: eq
+          value: 2
+    #   - type: set_val
+    #     column: lstudy
+    #     value: 3
+    #     where:
+    #       column: lstudy
+    #       func: eq
+    #       value: 5
+
+  enrollment_efb_yual:
+    pk: [year, university, ipeds_age, lstudy]
+    filter:
+      - column: lstudy
+        func: ne
+        value: 1
+      - column: ipeds_age
+        func: isin
+        value: [112, 312, 412, 999]
+    transform:
+      - type: drop
+        column: efbage
+    post_agg_transform:
+      - type: plugin
+        func: ipeds.plugins.carnegie.add_rows
+        pk: [year, university, ipeds_age, lstudy, university_level]
+        raw_mode: True
+        default_agg: sum
+      # Standardize lstudy values, because IPEDS is inconsistent with itself!
+      - type: set_val
+        column: lstudy
+        value: 1
+        where:
+          column: lstudy
+          func: eq
+          value: 2
+      - type: set_val
+        column: lstudy
+        value: 3
+        where:
+          column: lstudy
+          func: eq
+          value: 5

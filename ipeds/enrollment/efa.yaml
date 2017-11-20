@@ -10,7 +10,7 @@ global:
   strip_column_whitespace: True
   na_values: ['']
   source_vars:
-    year: [2015]
+    year: [2012]
   type:
     UNITID: str
     CIPCODE: str
@@ -200,6 +200,7 @@ tables:
           pk: [year, university, student_kind, university_level]
           raw_mode: True
           default_agg: sum
+          restore_index: True
 
   enrollment_yukle:
       pk: [year, university, student_kind, lstudy, enrollment_status]
@@ -246,3 +247,4 @@ tables:
           pk: [year, university, student_kind, lstudy, enrollment_status, university_level]
           raw_mode: True
           default_agg: sum
+          restore_index: True

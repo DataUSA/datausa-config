@@ -1,0 +1,248 @@
+inherits: ["db.yaml"]
+
+global:
+  zip:
+    target_name: ef201Xa_rv.csv
+  seperator: ","
+  name: ipeds
+  use_schema: True
+  encoding: utf-8-sig
+  strip_column_whitespace: True
+  na_values: ['']
+  source_vars:
+    year: [2015]
+  type:
+    UNITID: str
+    CIPCODE: str
+  source : "data/ipeds/enrollment/enrollment/efa/ef<year>a.zip"
+  output : "data/output/ipeds/enrollment/efa/ef<year>a"
+
+  web_paths: "https://nces.ed.gov/ipeds/datacenter/data/EF<year>A.zip"
+
+  add_pks: True
+
+  db_settings:
+    type:
+      university: text
+      cip: text
+
+  rename:
+    UNITID: university
+    EFALEVEL: efalevel
+    LINE: line
+    LSTUDY: lstudy
+    SECTION: section
+    EFTOTLT: enrolled_total
+    EFTOTLM: enrolled_men
+    EFTOTLW: enrolled_women
+    EFAIANT: enrolled_native
+    EFAIANM: enrolled_native_men
+    EFAIANW: enrolled_native_women
+    EFASIAT: enrolled_asian
+    EFASIAM: enrolled_asian_men
+    EFASIAW: enrolled_asian_women
+    EFBKAAT: enrolled_black
+    EFBKAAM: enrolled_black_men
+    EFBKAAW: enrolled_black_women
+    EFHISPT: enrolled_hispanic
+    EFHISPM: enrolled_hispanic_men
+    EFHISPW: enrolled_hispanic_women
+    EFNHPIT: enrolled_hawaiian
+    EFNHPIM: enrolled_hawaiian_men
+    EFNHPIW: enrolled_enrolled_hawaiian_women
+    EFWHITT: enrolled_white
+    EFWHITM: enrolled_white_men
+    EFWHITW: enrolled_white_women
+    EF2MORT: enrolled_multiracial
+    EF2MORM: enrolled_multiracial_men
+    EF2MORW: enrolled_multiracial_women
+    EFUNKNT: enrolled_unknown
+    EFUNKNM: enrolled_unknown_men
+    EFUNKNW: enrolled_unknown_women
+    EFNRALT: enrolled_nonresident
+    EFNRALM: enrolled_nonresident_men
+    EFNRALW: enrolled_nonresident_women
+
+  regex_drop:
+    "^X<anything>": "delete"
+
+tables:
+
+  enrollment_y:
+    pk: [year]
+    filter:
+      - column: lstudy
+        func: ne
+        value: 4
+      - column: section
+        func: ne
+        value: 3
+    agg: sum
+    post_agg_transform:
+      - type: drop
+        column: [university, efalevel, line, lstudy, section]
+
+  # calculates total university enrollment
+  enrollment_yu:
+    pk: [year, university]
+    filter:
+      - column: lstudy
+        func: ne
+        value: 4
+      - column: section
+        func: ne
+        value: 3
+    post_agg_transform:
+      - type: plugin
+        func: ipeds.plugins.carnegie.add_rows
+        pk: [year, university, university_level]
+        raw_mode: True
+        default_agg: sum
+
+  # calculates ft/pt enrollment
+  enrollment_yue:
+    pk: [year, university, enrollment_status]
+    post_agg_transform:
+      - type: drop
+        column: [efalevel, line, lstudy]
+      - type: rename
+        column: section
+        value: enrollment_status
+      - type: plugin
+        func: ipeds.plugins.carnegie.add_rows
+        pk: [year, university, enrollment_status, university_level]
+        raw_mode: True
+        default_agg: sum
+    filter:
+      - column: lstudy
+        func: eq
+        value: 3
+      - column: efalevel
+        func: isin
+        value: [21, 41]
+        negate: True
+
+  # calculate undergrad / graduate
+  enrollment_yul:
+      pk: [year, university, lstudy]
+      filter:
+        - column: efalevel
+          func: isin
+          value: [2, 12]
+          negate: True
+      post_agg_transform:
+        - type: drop
+          column: [line, efalevel, section]
+        - type: plugin
+          func: ipeds.plugins.carnegie.add_rows
+          pk: [year, university, lstudy, university_level]
+          raw_mode: True
+          default_agg: sum
+  # calculate undergrad / graduate
+  enrollment_yule:
+      pk: [year, university, lstudy, enrollment_status]
+      filter:
+        - column: efalevel
+          func: isin
+          value: [22, 32, 42, 52]
+          negate: True
+      post_agg_transform:
+        - type: drop
+          column: [line, efalevel]
+        - type: rename
+          column: section
+          value: enrollment_status
+        - type: plugin
+          func: ipeds.plugins.carnegie.add_rows
+          pk: [year, university, lstudy, enrollment_status, university_level]
+          raw_mode: True
+          default_agg: sum
+
+  # # calculate undergrad / graduate
+  enrollment_yuk:
+      pk: [year, university, student_kind]
+      filter:
+        - column: efalevel
+          func: isin
+          value: [4, 19, 20, 11, 12]
+          negate: True
+
+      transform:
+        - column: student_kind
+          type: set_val
+          value: 1 # undergraduate degree seeking
+          where:
+            column: efalevel
+            func: isin
+            value: [4, 19, 20]
+        - column: student_kind
+          type: set_val
+          value: 2 # undergrad non-degree seeking
+          where:
+            column: efalevel
+            func: eq
+            value: 11
+        - column: student_kind
+          type: set_val
+          value: 99 # graduate students, not broken out
+          where:
+            column: efalevel
+            func: eq
+            value: 12
+
+      agg: sum
+
+      post_agg_transform:
+        - type: drop
+          column: [line, lstudy, section, efalevel]
+        - type: plugin
+          func: ipeds.plugins.carnegie.add_rows
+          pk: [year, university, student_kind, university_level]
+          raw_mode: True
+          default_agg: sum
+
+  enrollment_yukle:
+      pk: [year, university, student_kind, lstudy, enrollment_status]
+
+      transform:
+        - type: filter
+          column: efalevel
+          func: isin
+          value: [24, 39, 40, 31, 32, 44, 59, 60, 51, 52]
+          negate: True
+
+        - column: student_kind
+          type: set_val
+          value: 1 # undergraduate degree seeking
+          where:
+            column: efalevel
+            func: isin
+            value: [24, 39, 40, 44, 59, 60]
+        - column: student_kind
+          type: set_val
+          value: 2 # undergrad non-degree seeking
+          where:
+            column: efalevel
+            func: isin
+            value: [31, 51]
+        - column: student_kind
+          type: set_val
+          value: 99 # graduate students, not broken out
+          where:
+            column: efalevel
+            func: isin
+            value: [32, 52]
+        - type: rename
+          column: section
+          value: enrollment_status
+
+      agg: sum
+
+      post_agg_transform:
+        - type: drop
+          column: [efalevel]
+        - type: plugin
+          func: ipeds.plugins.carnegie.add_rows
+          pk: [year, university, student_kind, lstudy, enrollment_status, university_level]
+          raw_mode: True
+          default_agg: sum

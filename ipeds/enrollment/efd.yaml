@@ -1,0 +1,85 @@
+# The EFD file covers:
+# "Total entering class, retention rates, and student-to-faculty ratio"
+inherits: ["db.yaml"]
+
+global:
+  zip:
+    target_name: ef201Xd_rv.csv
+  seperator: ","
+  name: ipeds
+  use_schema: True
+  encoding: utf-8-sig
+  strip_column_whitespace: True
+  na_values: ['']
+  source_vars:
+    year: [2012, 2013, 2014, 2015]
+  type:
+    UNITID: str
+    CIPCODE: str
+  source : "data/ipeds/enrollment/enrollment/efd/ef<year>d.zip"
+  output : "data/output/ipeds/enrollment/efd/ef<year>d"
+
+  web_paths: "https://nces.ed.gov/ipeds/datacenter/data/EF<year>D.zip"
+
+  add_pks: True
+
+  db_settings:
+    type:
+      university: text
+      student_faculty_ratio: float
+
+  rename:
+    UNITID: university
+    GRCOHRT: grcohort
+    UGENTERN: ugentern
+    RRFTCT: rrftct
+    RRFTEX: rrftex
+    RRFTCTA: rrftcta
+    RRPTCT: rrptct
+    RRPTEX: rrptex
+    RRPTCTA: rrptcta
+    RET_NMP: retention_num_fall_cohort_pt
+    RET_NMF: retention_num_fall_cohort_ft
+    PGRCOHRT: pgrcohrt
+    RET_PCF: retention_rate_fall_cohort_ft
+    RET_PCP: retention_rate_fall_cohort_pt
+    STUFACR: student_faculty_ratio
+
+
+  regex_drop:
+    "^X<anything>": "delete"
+
+tables:
+
+  enrollment_efd_y:
+    pk: [year, ]
+    agg:
+      pgrcohrt: median
+      retention_rate_fall_cohort_ft: median
+      retention_rate_fall_cohort_pt: median
+      student_faculty_ratio: median
+      grcohort: sum
+      ugentern: sum
+      rrftct: sum
+      rrftex: sum
+      rrftcta: sum
+      rrptct: sum
+      rrptex: sum
+      rrptcta: sum
+      retention_num_fall_cohort_pt: sum
+      retention_num_fall_cohort_ft: sum
+
+  enrollment_efd_yu:
+    pk: [year, university]
+
+    post_agg_transform:
+      - type: plugin
+        func: ipeds.plugins.carnegie.add_rows
+        pk: [year, university, university_level]
+        raw_mode: True
+        default_agg: sum
+        aggs_dict:
+          pgrcohrt: median
+          retention_rate_fall_cohort_ft: median
+          retention_rate_fall_cohort_pt: median
+          student_faculty_ratio: median

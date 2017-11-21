@@ -1,5 +1,5 @@
 inherits: ["db.yaml"]
-
+# TODO DOUBLE CHECK TABLES
 global:
   zip:
     target_name: ef201Xa_rv.csv
@@ -62,7 +62,7 @@ tables:
         func: ipeds.plugins.carnegie.add_rows
         pk: [year, university, university_level]
         raw_mode: True
-        default_agg: sum
+        default_agg: median
 
   enrollment_efb_yua:
     pk: [year, university, ipeds_age]
@@ -82,7 +82,7 @@ tables:
         func: ipeds.plugins.carnegie.add_rows
         pk: [year, university, ipeds_age, university_level]
         raw_mode: True
-        default_agg: sum
+        default_agg: median
 
 
   enrollment_efb_yul:
@@ -101,7 +101,7 @@ tables:
         func: ipeds.plugins.carnegie.add_rows
         pk: [year, university, lstudy, university_level]
         raw_mode: True
-        default_agg: sum
+        default_agg: median
     #   # Standardize lstudy values, because IPEDS is inconsistent with itself!
       - type: set_val
         column: lstudy
@@ -135,7 +135,7 @@ tables:
         func: ipeds.plugins.carnegie.add_rows
         pk: [year, university, ipeds_age, lstudy, university_level]
         raw_mode: True
-        default_agg: sum
+        default_agg: median
       # Standardize lstudy values, because IPEDS is inconsistent with itself!
       - type: set_val
         column: lstudy

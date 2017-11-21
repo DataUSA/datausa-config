@@ -188,92 +188,92 @@ tables:
           default_agg: median
 
   # # calculate undergrad / graduate
-  enrollment_efa_yuk:
-      pk: [year, university, student_kind]
-      filter:
-        - column: efalevel
-          func: isin
-          value: [4, 19, 20, 11, 12]
-          negate: True
-
-      transform:
-        - column: student_kind
-          type: set_val
-          value: 1 # undergraduate degree seeking
-          where:
-            column: efalevel
-            func: isin
-            value: [4, 19, 20]
-        - column: student_kind
-          type: set_val
-          value: 2 # undergrad non-degree seeking
-          where:
-            column: efalevel
-            func: eq
-            value: 11
-        - column: student_kind
-          type: set_val
-          value: 99 # graduate students, not broken out
-          where:
-            column: efalevel
-            func: eq
-            value: 12
-
-      agg: sum
-
-      post_agg_transform:
-        - type: drop
-          column: [line, lstudy, section, efalevel]
-        - type: plugin
-          func: ipeds.plugins.carnegie.add_rows
-          pk: [year, university, student_kind, university_level]
-          raw_mode: True
-          default_agg: median
-          restore_index: True
-
-  enrollment_efa_yukle:
-      pk: [year, university, student_kind, lstudy, enrollment_status]
-
-      transform:
-        - type: filter
-          column: efalevel
-          func: isin
-          value: [24, 39, 40, 31, 32, 44, 59, 60, 51, 52]
-          negate: True
-
-        - column: student_kind
-          type: set_val
-          value: 1 # undergraduate degree seeking
-          where:
-            column: efalevel
-            func: isin
-            value: [24, 39, 40, 44, 59, 60]
-        - column: student_kind
-          type: set_val
-          value: 2 # undergrad non-degree seeking
-          where:
-            column: efalevel
-            func: isin
-            value: [31, 51]
-        - column: student_kind
-          type: set_val
-          value: 99 # graduate students, not broken out
-          where:
-            column: efalevel
-            func: isin
-            value: [32, 52]
-        - type: rename
-          column: section
-          value: enrollment_status
-
-      agg: sum
-
-      post_agg_transform:
-        - type: drop
-          column: [efalevel]
-        - type: plugin
-          func: ipeds.plugins.carnegie.add_rows
-          pk: [year, university, student_kind, lstudy, enrollment_status, university_level]
-          raw_mode: True
-          default_agg: median
-          restore_index: True
+  # enrollment_efa_yuk:
+  #     pk: [year, university, student_kind]
+  #     filter:
+  #       - column: efalevel
+  #         func: isin
+  #         value: [4, 19, 20, 11, 12]
+  #         negate: True
+  #
+  #     transform:
+  #       - column: student_kind
+  #         type: set_val
+  #         value: 1 # undergraduate degree seeking
+  #         where:
+  #           column: efalevel
+  #           func: isin
+  #           value: [4, 19, 20]
+  #       - column: student_kind
+  #         type: set_val
+  #         value: 2 # undergrad non-degree seeking
+  #         where:
+  #           column: efalevel
+  #           func: eq
+  #           value: 11
+  #       - column: student_kind
+  #         type: set_val
+  #         value: 99 # graduate students, not broken out
+  #         where:
+  #           column: efalevel
+  #           func: eq
+  #           value: 12
+  #
+  #     agg: sum
+  #
+  #     post_agg_transform:
+  #       - type: drop
+  #         column: [line, lstudy, section, efalevel]
+  #       - type: plugin
+  #         func: ipeds.plugins.carnegie.add_rows
+  #         pk: [year, university, student_kind, university_level]
+  #         raw_mode: True
+  #         default_agg: median
+  #         restore_index: True
+  #
+  # enrollment_efa_yukle:
+  #     pk: [year, university, student_kind, lstudy, enrollment_status]
+  #
+  #     transform:
+  #       - type: filter
+  #         column: efalevel
+  #         func: isin
+  #         value: [24, 39, 40, 31, 32, 44, 59, 60, 51, 52]
+  #         negate: True
+  #
+  #       - column: student_kind
+  #         type: set_val
+  #         value: 1 # undergraduate degree seeking
+  #         where:
+  #           column: efalevel
+  #           func: isin
+  #           value: [24, 39, 40, 44, 59, 60]
+  #       - column: student_kind
+  #         type: set_val
+  #         value: 2 # undergrad non-degree seeking
+  #         where:
+  #           column: efalevel
+  #           func: isin
+  #           value: [31, 51]
+  #       - column: student_kind
+  #         type: set_val
+  #         value: 99 # graduate students, not broken out
+  #         where:
+  #           column: efalevel
+  #           func: isin
+  #           value: [32, 52]
+  #       - type: rename
+  #         column: section
+  #         value: enrollment_status
+  #
+  #     agg: sum
+  #
+  #     post_agg_transform:
+  #       - type: drop
+  #         column: [efalevel]
+  #       - type: plugin
+  #         func: ipeds.plugins.carnegie.add_rows
+  #         pk: [year, university, student_kind, lstudy, enrollment_status, university_level]
+  #         raw_mode: True
+  #         default_agg: median
+  #         restore_index: True

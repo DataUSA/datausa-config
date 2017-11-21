@@ -52,7 +52,7 @@ global:
 tables:
 
   enrollment_efd_y:
-    pk: [year, ]
+    pk: [year]
     agg:
       pgrcohrt: median
       retention_rate_fall_cohort_ft: median
@@ -77,9 +77,4 @@ tables:
         func: ipeds.plugins.carnegie.add_rows
         pk: [year, university, university_level]
         raw_mode: True
-        default_agg: sum
-        aggs_dict:
-          pgrcohrt: median
-          retention_rate_fall_cohort_ft: median
-          retention_rate_fall_cohort_pt: median
-          student_faculty_ratio: median
+        default_agg: median

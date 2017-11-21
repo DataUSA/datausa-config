@@ -34,6 +34,7 @@ def get_fn(fn_name):
 
 def add_rows(orig_df, **kwargs):
     orig_idx = [x for x in orig_df.index.names if x]
+    orig_cols = [x for x in orig_df.columns]
     if len(orig_idx) > 0:
         orig_df = orig_df.reset_index()
 
@@ -58,6 +59,8 @@ def add_rows(orig_df, **kwargs):
     new_df.university_level = new_df.university_level.astype(int)
     if "restore_index" in kwargs and kwargs["restore_index"]:
         new_df = new_df.set_index(orig_idx)
+    if "index" in new_df.columns and "index" not in orig_cols:
+        del new_df["index"]
     return new_df
 
 

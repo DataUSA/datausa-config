@@ -110,13 +110,13 @@ tables:
           column: lstudy
           func: eq
           value: 2
-    #   - type: set_val
-    #     column: lstudy
-    #     value: 3
-    #     where:
-    #       column: lstudy
-    #       func: eq
-    #       value: 5
+      - type: set_val
+        column: lstudy
+        value: 3
+        where:
+          column: lstudy
+          func: eq
+          value: 5
 
   enrollment_efb_yual:
     pk: [year, university, ipeds_age, lstudy]

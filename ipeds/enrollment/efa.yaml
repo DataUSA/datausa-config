@@ -10,7 +10,7 @@ global:
   strip_column_whitespace: True
   na_values: ['']
   source_vars:
-    year: [2012]
+    year: [2012, 2013, 2014, 2015]
   type:
     UNITID: str
     CIPCODE: str
@@ -25,7 +25,36 @@ global:
     type:
       university: text
       cip: text
-
+      enrolled_total: float
+      enrolled_men: float
+      enrolled_women: float
+      enrolled_native: float
+      enrolled_native_men: float
+      enrolled_native_women: float
+      enrolled_asian: float
+      enrolled_asian_men: float
+      enrolled_asian_women: float
+      enrolled_black: float
+      enrolled_black_men: float
+      enrolled_black_women: float
+      enrolled_hispanic: float
+      enrolled_hispanic_men: float
+      enrolled_hispanic_women: float
+      enrolled_hawaiian: float
+      enrolled_hawaiian_men: float
+      enrolled_enrolled_hawaiian_women: float
+      enrolled_white: float
+      enrolled_white_men: float
+      enrolled_white_women: float
+      enrolled_multiracial: float
+      enrolled_multiracial_men: float
+      enrolled_multiracial_women: float
+      enrolled_unknown: float
+      enrolled_unknown_men: float
+      enrolled_unknown_women: float
+      enrolled_nonresident: float
+      enrolled_nonresident_men: float
+      enrolled_nonresident_women: float
   rename:
     UNITID: university
     EFALEVEL: efalevel
@@ -68,7 +97,7 @@ global:
 
 tables:
 
-  enrollment_y:
+  enrollment_efa_y:
     pk: [year]
     filter:
       - column: lstudy
@@ -83,7 +112,7 @@ tables:
         column: [university, efalevel, line, lstudy, section]
 
   # calculates total university enrollment
-  enrollment_yu:
+  enrollment_efa_yu:
     pk: [year, university]
     filter:
       - column: lstudy
@@ -97,10 +126,10 @@ tables:
         func: ipeds.plugins.carnegie.add_rows
         pk: [year, university, university_level]
         raw_mode: True
-        default_agg: sum
+        default_agg: median
 
   # calculates ft/pt enrollment
-  enrollment_yue:
+  enrollment_efa_yue:
     pk: [year, university, enrollment_status]
     post_agg_transform:
       - type: drop
@@ -112,7 +141,7 @@ tables:
         func: ipeds.plugins.carnegie.add_rows
         pk: [year, university, enrollment_status, university_level]
         raw_mode: True
-        default_agg: sum
+        default_agg: median
     filter:
       - column: lstudy
         func: eq
@@ -123,7 +152,7 @@ tables:
         negate: True
 
   # calculate undergrad / graduate
-  enrollment_yul:
+  enrollment_efa_yul:
       pk: [year, university, lstudy]
       filter:
         - column: efalevel
@@ -137,9 +166,9 @@ tables:
           func: ipeds.plugins.carnegie.add_rows
           pk: [year, university, lstudy, university_level]
           raw_mode: True
-          default_agg: sum
+          default_agg: median
   # calculate undergrad / graduate
-  enrollment_yule:
+  enrollment_efa_yule:
       pk: [year, university, lstudy, enrollment_status]
       filter:
         - column: efalevel
@@ -156,10 +185,10 @@ tables:
           func: ipeds.plugins.carnegie.add_rows
           pk: [year, university, lstudy, enrollment_status, university_level]
           raw_mode: True
-          default_agg: sum
+          default_agg: median
 
   # # calculate undergrad / graduate
-  enrollment_yuk:
+  enrollment_efa_yuk:
       pk: [year, university, student_kind]
       filter:
         - column: efalevel
@@ -199,10 +228,10 @@ tables:
           func: ipeds.plugins.carnegie.add_rows
           pk: [year, university, student_kind, university_level]
           raw_mode: True
-          default_agg: sum
+          default_agg: median
           restore_index: True
 
-  enrollment_yukle:
+  enrollment_efa_yukle:
       pk: [year, university, student_kind, lstudy, enrollment_status]
 
       transform:
@@ -246,5 +275,5 @@ tables:
           func: ipeds.plugins.carnegie.add_rows
           pk: [year, university, student_kind, lstudy, enrollment_status, university_level]
           raw_mode: True
-          default_agg: sum
+          default_agg: median
           restore_index: True

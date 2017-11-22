@@ -10,17 +10,17 @@ global:
   strip_column_whitespace: True
   na_values: ['']
   source_vars:
-      year: [2014]
+    year: [2014, 2015]
 
   type:
-      CIPCODE: str
-      UNITID: str
+    CIPCODE: str
+    UNITID: str
 
   source : "data/ipeds/grads/c<year>_a.zip"
   output : "data/output/ipeds/grads/<year>"
 
   web_paths:
-      "ipeds/grads/c": "https://nces.ed.gov/ipeds/datacenter/data/c<year>_a.zip"
+    "ipeds/grads/c": "https://nces.ed.gov/ipeds/datacenter/data/c<year>_a.zip"
 
   fillna:
     mode: True
@@ -71,52 +71,52 @@ global:
     CNRALW: grads_nonresident_women
 
   agg: &global_agg
-      grads_total: "sum"
-      grads_men: "sum"
-      grads_women: "sum"
-      grads_native: "sum"
-      grads_native_men: "sum"
-      grads_native_women: "sum"
-      grads_asian: "sum"
-      grads_asian_men: "sum"
-      grads_asian_women: "sum"
-      grads_black: "sum"
-      grads_black_men: "sum"
-      grads_black_women: "sum"
-      grads_hispanic: "sum"
-      grads_hispanic_men: "sum"
-      grads_hispanic_women: "sum"
-      grads_hawaiian: "sum"
-      grads_hawaiian_men: "sum"
-      grads_hawaiian_women: "sum"
-      grads_white: "sum"
-      grads_white_men: "sum"
-      grads_white_women: "sum"
-      grads_multi: "sum"
-      grads_multi_men: "sum"
-      grads_multi_women: "sum"
-      grads_unknown: "sum"
-      grads_unknown_men: "sum"
-      grads_unknown_women: "sum"
-      grads_nonresident: "sum"
-      grads_nonresident_men: "sum"
-      grads_nonresident_women: "sum"
+    grads_total: "sum"
+    grads_men: "sum"
+    grads_women: "sum"
+    grads_native: "sum"
+    grads_native_men: "sum"
+    grads_native_women: "sum"
+    grads_asian: "sum"
+    grads_asian_men: "sum"
+    grads_asian_women: "sum"
+    grads_black: "sum"
+    grads_black_men: "sum"
+    grads_black_women: "sum"
+    grads_hispanic: "sum"
+    grads_hispanic_men: "sum"
+    grads_hispanic_women: "sum"
+    grads_hawaiian: "sum"
+    grads_hawaiian_men: "sum"
+    grads_hawaiian_women: "sum"
+    grads_white: "sum"
+    grads_white_men: "sum"
+    grads_white_women: "sum"
+    grads_multi: "sum"
+    grads_multi_men: "sum"
+    grads_multi_women: "sum"
+    grads_unknown: "sum"
+    grads_unknown_men: "sum"
+    grads_unknown_women: "sum"
+    grads_nonresident: "sum"
+    grads_nonresident_men: "sum"
+    grads_nonresident_women: "sum"
 
 
 tables:
   grads_yu:
     pk: ["year", "university"]
     transform:
-        - column: cip
-          type: replace
-          target: "."
-          value: ""
-        - column: cip
-          type: strip
+      - column: cip
+        type: replace
+        target: "."
+        value: ""
+      - column: cip
+        type: strip
     filter:
-        - column: "cip"
-          func: "eq"
-          value: "99"
+      - column: "cip"
+        func: "eq"
+        value: "99"
     post_agg_transform:
       - type: plugin
         func: ipeds.plugins.carnegie.add_rows
@@ -128,23 +128,23 @@ tables:
     pk: ["year", "cip", "university"]
 
     table_vars:
-        cip_depth: [2, 4, 6]
+      cip_depth: [2, 4, 6]
 
     transform: &cip_transforms
-        - column: cip
-          type: replace
-          target: "."
-          value: ""
-        - column: cip
-          type: strip
-        - column: cip
-          type: slice
-          length: "<cip_depth>"
+      - column: cip
+        type: replace
+        target: "."
+        value: ""
+      - column: cip
+        type: strip
+      - column: cip
+        type: slice
+        length: "<cip_depth>"
 
     filter:
-        - column: "cip"
-          func: "eq"
-          value: "99"
+      - column: "cip"
+        func: "eq"
+        value: "99"
 
     post_agg_transform:
       - type: plugin
@@ -154,72 +154,69 @@ tables:
         default_agg: median
 
   grads_yud:
-      pk: ["year", "university", "degree"]
+    pk: ["year", "university", "degree"]
 
-      transform:
-          - column: cip
-            type: replace
-            target: "."
-            value: ""
-          - column: cip
-            type: strip
+    transform:
+      - column: cip
+        type: replace
+        target: "."
+        value: ""
+      - column: cip
+        type: strip
 
-      filter:
-          - column: "cip"
-            func: "eq"
-            value: "99"
+    filter:
+      - column: "cip"
+        func: "eq"
+        value: "99"
 
-      post_agg_transform:
-        - type: plugin
-          func: ipeds.plugins.carnegie.add_rows
-          pk: [year, university, degree, university_level]
-          raw_mode: True
-          default_agg: median
+    post_agg_transform:
+      - type: plugin
+        func: ipeds.plugins.carnegie.add_rows
+        pk: [year, university, degree, university_level]
+        raw_mode: True
+        default_agg: median
 
   grads_yucd:
-      pk: ["year", "university", "cip", "degree"]
+    pk: ["year", "university", "cip", "degree"]
 
-      table_vars:
+    table_vars:
+      cip_depth: [2, 4, 6]
+
+    filter:
+      - column: "cip"
+        func: "eq"
+        value: "99"
+    transform: *cip_transforms
+
+    post_agg_transform:
+      - type: plugin
+        func: ipeds.plugins.carnegie.add_rows
+        pk: [year, university, cip, degree, university_level]
+        raw_mode: True
+        default_agg: median
+
+  grads_ycd:
+    pk: ["year", "cip", "degree"]
+    table_vars:
         cip_depth: [2, 4, 6]
-
-      filter:
+    filter:
         - column: "cip"
           func: "eq"
           value: "99"
-      transform: *cip_transforms
-
-      post_agg_transform:
-        - type: plugin
-          func: ipeds.plugins.carnegie.add_rows
-          pk: [year, university, cip, degree, university_level]
-          raw_mode: True
-          default_agg: median
-
-  grads_ycd:
-      pk: ["year", "cip", "degree"]
-      table_vars:
-          cip_depth: [2, 4, 6]
-      filter:
-          -
-              column: "cip"
-              func: "eq"
-              value: "99"
-      transform: *cip_transforms
+    transform: *cip_transforms
 
   grads_yc:
-      pk: ["year", "cip"]
-      table_vars:
-          cip_depth: [2, 4, 6]
-      filter:
-          -
-              column: "cip"
-              func: "eq"
-              value: "99"
+    pk: ["year", "cip"]
+    table_vars:
+        cip_depth: [2, 4, 6]
+    filter:
+        - column: "cip"
+          func: "eq"
+          value: "99"
 
-      transform: *cip_transforms
+    transform: *cip_transforms
 
-      post_agg_transform:
-          -
-              column: grads_rank
-              type: rank
-              target: grads_total
+    post_agg_transform:
+        - column: grads_rank
+          type: rank
+          target: grads_total

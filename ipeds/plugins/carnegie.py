@@ -33,13 +33,15 @@ def get_fn(fn_name):
 
 
 def add_rows(orig_df, **kwargs):
+
     orig_idx = [x for x in orig_df.index.names if x]
     orig_cols = [x for x in orig_df.columns]
     if len(orig_idx) > 0:
         orig_df = orig_df.reset_index()
-
+    orig_df.university = orig_df.university.astype(str)
     extra_rows_df = orig_df.merge(univ_df, on="university", how="left")
     extra_rows_df = extra_rows_df.merge(linkage_df, on="carnegie", how="left")
+
     extra_rows_df.university = extra_rows_df.uniq_ids
     extra_rows_df.drop(columns=["uniq_ids", "carnegie"], axis=1, inplace=True)
     pk = kwargs["pk"] if "pk" in kwargs else ["year", "university"]

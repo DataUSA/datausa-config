@@ -1,6 +1,8 @@
 inherits: ["db.yaml"]
 
 global:
+    zip:
+      target_name: c201X_a_rv.csv
     seperator: ","
     name: ipeds
     use_schema: True
@@ -8,13 +10,13 @@ global:
     strip_column_whitespace: True
     na_values: ['']
     source_vars:
-        year: [2015]
+        year: [2013, 2014, 2015]
         sumlevel: ["040", "050", "160", "310", "010", "795"]
 
     type:
         CIPCODE: str
     source : "data/ipeds/c<year>_a.zip"
-    output : "data/output/ipeds/<year>"
+    output : "data/output/ipeds/<year>/<sumlevel>"
 
     join:
         -

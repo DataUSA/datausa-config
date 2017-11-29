@@ -1,191 +1,186 @@
+inherits: ["db.yaml"]
+
 global:
-    seperator: ","
-    name: ipeds
-    use_schema: True
-    encoding: utf-8-sig
-    strip_column_whitespace: True
-    na_values: ['']
-    source_vars:
-        year:
-            start: 2015
-            end: 2015
-        cip_depth: [2, 4, 6]
+  zip:
+    target_name: c201X_a_rv.csv
+  seperator: ","
+  name: ipeds
+  use_schema: True
+  encoding: utf-8-sig
+  strip_column_whitespace: True
+  na_values: ['']
+  source_vars:
+    year:
+      start: 2013
+      end: 2015
+    cip_depth: [2, 4, 6]
 
+  type:
+    CIPCODE: str
+  source : "data/ipeds/tuition/c<year>_a.zip"
+  output : "data/output/ipeds/tuition/<year>/<cip_depth>/"
+
+  join:
+    - source: "data/ipeds/tuition/hd<year>.zip"
+      left_on: university
+      right_on: UNITID
+      encoding: ISO-8859-1
+      usecols: ["UNITID", "SECTOR"]
+      rename:
+        SECTOR: sector
+    - na_values: ['.']
+      source: "data/ipeds/tuition/ic<year>_ay.zip"
+      left_on: university
+      right_on: UNITID
+      usecols: ["UNITID", "TUITION1", "TUITION2", "TUITION3", "TUITION5", "TUITION6", "TUITION7", "FEE1", "FEE2", "FEE3", "FEE5", "FEE6", "FEE7"]
+      rename:
+        TUITION1: district_tuition
+        FEE1: district_fee
+        TUITION2: state_tuition
+        FEE2: state_fee
+        TUITION3: oos_tuition
+        FEE3: oos_fee
+        TUITION5: district_tuition_grads
+        FEE5: district_fee_grads
+        TUITION6: state_tuition_grads
+        FEE6: state_fee_grads
+        TUITION7: oos_tuition_grads
+        FEE7: oos_fee_grads
+  web_paths:
+    "ipeds/tuition/c": "https://nces.ed.gov/ipeds/datacenter/data/c<year>_a.zip"
+    "ipeds/tuition/hd": "https://nces.ed.gov/ipeds/datacenter/data/hd<year>.zip"
+    "ipeds/tuition/ic": "https://nces.ed.gov/ipeds/datacenter/data/ic<year>_ay.zip"
+
+  fillna:
+    mode: True
+    value: 0
+
+  transform: &global_transform
+    - column: cip
+      type: replace
+      target: "."
+      value: ""
+    - column: cip
+      type: replace
+      target: " "
+      value: ""
+    - column: cip
+      type: slice
+      length: "<cip_depth>"
+
+  import_to_db: True
+  add_pks: True
+
+  db_settings:
     type:
-        CIPCODE: str
-    source : "data/ipeds/c<year>_a.zip"
-    output : "data/output/ipeds/<year>"
+      degree: text
+      sector: text
+      university: text
 
-    join:
-        -
-            source: "data/ipeds/hd<year>.zip"
-            left_on: university
-            right_on: UNITID
-            encoding: ISO-8859-1
-            usecols: ["UNITID", "SECTOR"]
-            rename:
-                SECTOR: sector
-        -
-            na_values: ['.']
-            source: "data/ipeds/ic<year>_ay.zip"
-            left_on: university
-            right_on: UNITID
-            usecols: ["UNITID", "TUITION1", "TUITION2", "TUITION3", "TUITION5", "TUITION6", "TUITION7", "FEE1", "FEE2", "FEE3", "FEE5", "FEE6", "FEE7"]
-            rename:
-                TUITION1: district_tuition
-                FEE1: district_fee
-                TUITION2: state_tuition
-                FEE2: state_fee
-                TUITION3: oos_tuition
-                FEE3: oos_fee
-                TUITION5: district_tuition_grads
-                FEE5: district_fee_grads
-                TUITION6: state_tuition_grads
-                FEE6: state_fee_grads
-                TUITION7: oos_tuition_grads
-                FEE7: oos_fee_grads
+  deduplicate: True
+  rename:
+    UNITID: university
+    CIPCODE: cip
+    AWLEVEL: degree
+    CTOTALT: grads_total
+    CTOTALM: grads_men
+    CTOTALW: grads_women
+    CAIANT: grads_native
+    CAIANM: grads_native_men
+    CAIANW: grads_native_women
+    CASIAT: grads_asian
+    CASIAM: grads_asian_men
+    CASIAW: grads_asian_women
+    CBKAAT: grads_black
+    CBKAAM: grads_black_men
+    CBKAAW: grads_black_women
+    CHISPT: grads_hispanic
+    CHISPM: grads_hispanic_men
+    CHISPW: grads_hispanic_women
+    CNHPIT: grads_hawaiian
+    CNHPIM: grads_hawaiian_men
+    CNHPIW: grads_hawaiian_women
+    CWHITT: grads_white
+    CWHITM: grads_white_men
+    CWHITW: grads_white_women
+    C2MORT: grads_multi
+    C2MORM: grads_multi_men
+    C2MORW: grads_multi_women
+    CUNKNT: grads_unknown
+    CUNKNM: grads_unknown_men
+    CUNKNW: grads_unknown_women
+    CNRALT: grads_nonresident
+    CNRALM: grads_nonresident_men
+    CNRALW: grads_nonresident_women
 
-    web_paths:
-        "ipeds/c": "https://nces.ed.gov/ipeds/datacenter/data/c<year>_a.zip"
-        "ipeds/hd": "https://nces.ed.gov/ipeds/datacenter/data/hd<year>.zip"
-        "ipeds/ic": "https://nces.ed.gov/ipeds/datacenter/data/ic<year>_ay.zip"
-
-    fillna:
-        mode: True
-        value: 0
-
-    transform: &global_transform
-        -
-            column: cip
-            type: replace
-            target: "."
-            value: ""
-        -
-            column: cip
-            type: replace
-            target: " "
-            value: ""
-        -
-            column: cip
-            type: slice
-            length: "<cip_depth>"
-
-    import_to_db: True
-    db_settings:
-        user: postgres
-        password_env_var: DATAUSA_PW
-        host: robin.datausa.io
-        db_name: datausa_t4
-        type:
-            degree: text
-            sector: text
-            university: text
-
-    deduplicate: True
-    rename:
-        UNITID: university
-        CIPCODE: cip
-        AWLEVEL: degree
-        CTOTALT: grads_total
-        CTOTALM: grads_men
-        CTOTALW: grads_women
-        CAIANT: grads_native
-        CAIANM: grads_native_men
-        CAIANW: grads_native_women
-        CASIAT: grads_asian
-        CASIAM: grads_asian_men
-        CASIAW: grads_asian_women
-        CBKAAT: grads_black
-        CBKAAM: grads_black_men
-        CBKAAW: grads_black_women
-        CHISPT: grads_hispanic
-        CHISPM: grads_hispanic_men
-        CHISPW: grads_hispanic_women
-        CNHPIT: grads_hawaiian
-        CNHPIM: grads_hawaiian_men
-        CNHPIW: grads_hawaiian_women
-        CWHITT: grads_white
-        CWHITM: grads_white_men
-        CWHITW: grads_white_women
-        C2MORT: grads_multi
-        C2MORM: grads_multi_men
-        C2MORW: grads_multi_women
-        CUNKNT: grads_unknown
-        CUNKNM: grads_unknown_men
-        CUNKNW: grads_unknown_women
-        CNRALT: grads_nonresident
-        CNRALM: grads_nonresident_men
-        CNRALW: grads_nonresident_women
-
-    agg: &global_agg
-        district_tuition: "median"
-        district_fee: "median"
-        state_tuition: "median"
-        state_tuition: "median"
-        state_fee: "median"
-        oos_tuition: "median"
-        oos_tuition: "median"
-        oos_fee: "median"
-        district_tuition_grads: "median"
-        district_tuition_grads: "median"
-        district_fee_grads: "median"
-        state_tuition: "median"
-        state_tuition_grads: "median"
-        state_fee_grads: "median"
-        oos_tuition_grads: "median"
-        oos_fee_grads: "median"
-        grads_total: "sum"
+  agg: &global_agg
+      district_tuition: "median"
+      district_fee: "median"
+      state_tuition: "median"
+      state_tuition: "median"
+      state_fee: "median"
+      oos_tuition: "median"
+      oos_tuition: "median"
+      oos_fee: "median"
+      district_tuition_grads: "median"
+      district_tuition_grads: "median"
+      district_fee_grads: "median"
+      state_tuition: "median"
+      state_tuition_grads: "median"
+      state_fee_grads: "median"
+      oos_tuition_grads: "median"
+      oos_fee_grads: "median"
+      grads_total: "sum"
 
 tables:
-    tuition_yc:
-        pk: ["year", "cip"]
-        filter:
-            -
-                column: "cip"
-                func: "eq"
-                value: "99"
-        post_agg_transform:
-            -
-                column: oos_tuition_rank
-                type: rank
-                target: oos_tuition
-            -
-                column: state_tuition_rank
-                type: rank
-                target: state_tuition
-    tuition_ycu:
-        pk: ["year", "cip", "university"]
-        filter:
-            -
-                column: "cip"
-                func: "eq"
-                value: "99"
-    tuition_ycs:
-        pk: ["year", "cip", "sector"]
-        transform:
-            -
-                column: cip
-                type: replace
-                target: "."
-                value: ""
-            -
-                column: cip
-                type: replace
-                target: " "
-                value: ""
-            -
-                column: cip
-                type: slice
-                length: "<cip_depth>"
-            -
-                column: num_universities
-                type: clone
-                source: university
-        agg:
-            <<: *global_agg
-            num_universities: nunique
-        filter:
-            -
-                column: "cip"
-                func: "eq"
-                value: "99"
+  tuition_yc:
+    pk: ["year", "cip"]
+    filter:
+      - column: "cip"
+        func: "eq"
+        value: "99"
+    post_agg_transform:
+      - column: oos_tuition_rank
+        type: rank
+        target: oos_tuition
+      - column: state_tuition_rank
+        type: rank
+        target: state_tuition
+
+  tuition_ycu:
+    pk: ["year", "cip", "university"]
+    filter:
+      - column: "cip"
+        func: "eq"
+        value: "99"
+    post_agg_transform:
+      - type: plugin
+        func: ipeds.plugins.carnegie.add_rows
+        pk: [year, university, cip, university_level]
+        raw_mode: True
+        default_agg: median
+
+  tuition_ycs:
+    pk: ["year", "cip", "sector"]
+    transform:
+      - column: cip
+        type: replace
+        target: "."
+        value: ""
+      - column: cip
+        type: replace
+        target: " "
+        value: ""
+      - column: cip
+        type: slice
+        length: "<cip_depth>"
+      - column: num_universities
+        type: clone
+        source: university
+    agg:
+      <<: *global_agg
+      num_universities: nunique
+    filter:
+      - column: "cip"
+        func: "eq"
+        value: "99"

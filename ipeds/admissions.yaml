@@ -109,23 +109,23 @@ tables:
       ADMCON7: mode
       ADMCON8: mode
       ADMCON9: mode
-      applicants_total: sum
-      applicants_men: sum
-      applicants_women: sum
-      admissions_total: sum
-      admissions_men: sum
-      admissions_women: sum
-      admissions_enrolled_total: sum
-      admissions_enrolled_men: sum
-      admissions_enrolled_women: sum
-      admissions_enrolled_ft_total: sum
-      admissions_enrolled_ft_men: sum
-      admissions_enrolled_ft_women: sum
-      admissions_enrolled_pt_total: sum
-      admissions_enrolled_pt_men: sum
-      admissions_enrolled_pt_women: sum
-      sub_sat_scores_num: sum
-      sub_act_scores_num: sum
+      applicants_total: median
+      applicants_men: median
+      applicants_women: median
+      admissions_total: median
+      admissions_men: median
+      admissions_women: median
+      admissions_enrolled_total: median
+      admissions_enrolled_men: median
+      admissions_enrolled_women: median
+      admissions_enrolled_ft_total: median
+      admissions_enrolled_ft_men: median
+      admissions_enrolled_ft_women: median
+      admissions_enrolled_pt_total: median
+      admissions_enrolled_pt_men: median
+      admissions_enrolled_pt_women: median
+      sub_sat_scores_num: median
+      sub_act_scores_num: median
       sub_sat_scores_pct: median
       sub_act_scores_pct: median
       sat_cr_25: median
@@ -142,15 +142,25 @@ tables:
       act_math_75: median
       act_writing_25: median
       act_writing_75: median
+      yield_total: median
+      yield_men: median
+      yield_women: median
+
+    transform:
+      - type: plugin
+        func: ipeds.plugins.admissions.compute_yields
 
   adm_undergrad_yu:
     pk: [year, university]
 
     transform:
       - type: plugin
+        func: ipeds.plugins.admissions.compute_yields
+      - type: plugin
         func: ipeds.plugins.carnegie.add_rows
         pk: [year, university]
         raw_mode: True
+        default_agg: median
         aggs_dict:
           ADMCON1: mode
           ADMCON2: mode
@@ -161,20 +171,3 @@ tables:
           ADMCON7: mode
           ADMCON8: mode
           ADMCON9: mode
-          applicants_total: sum
-          applicants_men: sum
-          applicants_women: sum
-          admissions_total: sum
-          admissions_men: sum
-          admissions_women: sum
-          admissions_enrolled_total: sum
-          admissions_enrolled_men: sum
-          admissions_enrolled_women: sum
-          admissions_enrolled_ft_total: sum
-          admissions_enrolled_ft_men: sum
-          admissions_enrolled_ft_women: sum
-          admissions_enrolled_pt_total: sum
-          admissions_enrolled_pt_men: sum
-          admissions_enrolled_pt_women: sum
-          sub_sat_scores_num: sum
-          sub_act_scores_num: sum

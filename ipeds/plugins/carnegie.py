@@ -9,21 +9,24 @@ DATAUSA_HOST = os.environ.get('DATAUSA_DB_HOST')
 if not DATAUSA_HOST:
     raise Exception("Make sure DATAUSA_DB_HOST environment variable is set")
 
-db_path = 'postgres://postgres:{}@{}:5432/{}'.format(DATAUSA_PW, DATAUSA_HOST, DATAUSA_DB)
-engine = create_engine(db_path, echo=False)
-university_to_carnegie = None
-carnegie_df = pd.read_sql("SELECT id as carnegie, parent, depth, children FROM attrs.carnegie WHERE depth=0", engine)
-univ_df = pd.read_sql("SELECT id as university, carnegie FROM attrs.university WHERE carnegie IS NOT NULL", engine)
-carnegies = []
-depths = []
-uniq_ids = []
-for carnegie, parent, depth, children in carnegie_df.values:
-    for child in children:
-        carnegies += [child, child]
-        depths += [1, 0]
-        uniq_ids += [child, carnegie]
 
-linkage_df = pd.DataFrame({"carnegie": carnegies, "university_level": depths, "uniq_ids": uniq_ids})
+def get_dfs():
+    db_path = 'postgres://postgres:{}@{}:5432/{}'.format(DATAUSA_PW, DATAUSA_HOST, DATAUSA_DB)
+    engine = create_engine(db_path, echo=False)
+    # university_to_carnegie = None
+    carnegie_df = pd.read_sql("SELECT id as carnegie, parent, depth, children FROM attrs.carnegie WHERE depth=0", engine)
+    univ_df = pd.read_sql("SELECT id as university, carnegie FROM attrs.university WHERE carnegie IS NOT NULL", engine)
+    carnegies = []
+    depths = []
+    uniq_ids = []
+    for carnegie, parent, depth, children in carnegie_df.values:
+        for child in children:
+            carnegies += [child, child]
+            depths += [1, 0]
+            uniq_ids += [child, carnegie]
+
+    linkage_df = pd.DataFrame({"carnegie": carnegies, "university_level": depths, "uniq_ids": uniq_ids})
+    return univ_df, linkage_df
 
 
 def get_fn(fn_name):
@@ -33,7 +36,7 @@ def get_fn(fn_name):
 
 
 def add_rows(orig_df, **kwargs):
-
+    univ_df, linkage_df = get_dfs()
     orig_idx = [x for x in orig_df.index.names if x]
     orig_cols = [x for x in orig_df.columns]
     if len(orig_idx) > 0:

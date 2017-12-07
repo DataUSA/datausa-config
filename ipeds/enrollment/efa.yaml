@@ -97,6 +97,127 @@ tables:
 
 
 
+  enrollment_efa_ys:
+    pk: ['year', 'sex']
+    agg: sum
+    post_agg_transform:
+      - type: drop
+        column: ['ipeds_race', 'enrollment_status', 'lstudy', 'university']
+
+
+  enrollment_efa_yr:
+    pk: ['year', 'ipeds_race']
+    agg: sum
+    post_agg_transform:
+      - type: drop
+        column: ['sex', 'enrollment_status', 'lstudy', 'university']
+
+
+  enrollment_efa_yl:
+    pk: ['year', 'lstudy']
+    agg: sum
+    post_agg_transform:
+      - type: drop
+        column: ['sex', 'ipeds_race', 'enrollment_status', 'university']
+
+
+  enrollment_efa_ye:
+    pk: ['year', 'enrollment_status']
+    agg: sum
+    post_agg_transform:
+      - type: drop
+        column: ['sex', 'ipeds_race', 'lstudy', 'university']
+
+
+  enrollment_efa_ysr:
+    pk: ['year', 'sex', 'ipeds_race']
+    agg: sum
+    post_agg_transform:
+      - type: drop
+        column: ['enrollment_status', 'lstudy', 'university']
+
+
+  enrollment_efa_ysl:
+    pk: ['year', 'sex', 'lstudy']
+    agg: sum
+    post_agg_transform:
+      - type: drop
+        column: ['ipeds_race', 'enrollment_status', 'university']
+
+
+  enrollment_efa_yse:
+    pk: ['year', 'sex', 'enrollment_status']
+    agg: sum
+    post_agg_transform:
+      - type: drop
+        column: ['ipeds_race', 'lstudy', 'university']
+
+
+  enrollment_efa_yrl:
+    pk: ['year', 'ipeds_race', 'lstudy']
+    agg: sum
+    post_agg_transform:
+      - type: drop
+        column: ['sex', 'enrollment_status', 'university']
+
+
+  enrollment_efa_yre:
+    pk: ['year', 'ipeds_race', 'enrollment_status']
+    agg: sum
+    post_agg_transform:
+      - type: drop
+        column: ['sex', 'lstudy', 'university']
+
+
+  enrollment_efa_yle:
+    pk: ['year', 'lstudy', 'enrollment_status']
+    agg: sum
+    post_agg_transform:
+      - type: drop
+        column: ['sex', 'ipeds_race', 'university']
+
+
+  enrollment_efa_ysrl:
+    pk: ['year', 'sex', 'ipeds_race', 'lstudy']
+    agg: sum
+    post_agg_transform:
+      - type: drop
+        column: ['enrollment_status', 'university']
+
+
+  enrollment_efa_ysre:
+    pk: ['year', 'sex', 'ipeds_race', 'enrollment_status']
+    agg: sum
+    post_agg_transform:
+      - type: drop
+        column: ['lstudy', 'university']
+
+
+  enrollment_efa_ysle:
+    pk: ['year', 'sex', 'lstudy', 'enrollment_status']
+    agg: sum
+    post_agg_transform:
+      - type: drop
+        column: ['ipeds_race', 'university']
+
+
+  enrollment_efa_yrle:
+    pk: ['year', 'ipeds_race', 'lstudy', 'enrollment_status']
+    agg: sum
+    post_agg_transform:
+      - type: drop
+        column: ['sex', 'university']
+
+
+  enrollment_efa_ysrle:
+    pk: ['year', 'sex', 'ipeds_race', 'lstudy', 'enrollment_status']
+    agg: sum
+    post_agg_transform:
+      - type: drop
+        column: ['university']
+
+
+
 
   enrollment_efa_yus:
     pk: ['year', 'university', 'sex']

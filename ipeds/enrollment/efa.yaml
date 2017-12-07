@@ -85,7 +85,7 @@ global:
 tables:
   enrollment_efa_yu:
     pk: [year, university]
-
+    agg: sum
     post_agg_transform:
       - type: drop
         column: [lstudy, enrollment_status, sex, ipeds_race]
@@ -100,7 +100,7 @@ tables:
 
   enrollment_efa_yus:
     pk: ['year', 'university', 'sex']
-
+    agg: sum
     post_agg_transform:
       - type: drop
         column: ['ipeds_race', 'enrollment_status', 'lstudy']
@@ -113,7 +113,7 @@ tables:
 
   enrollment_efa_yur:
     pk: ['year', 'university', 'ipeds_race']
-
+    agg: sum
     post_agg_transform:
       - type: drop
         column: ['sex', 'enrollment_status', 'lstudy']
@@ -126,7 +126,7 @@ tables:
 
   enrollment_efa_yul:
     pk: ['year', 'university', 'lstudy']
-
+    agg: sum
     post_agg_transform:
       - type: drop
         column: ['sex', 'ipeds_race', 'enrollment_status']
@@ -139,7 +139,7 @@ tables:
 
   enrollment_efa_yue:
     pk: ['year', 'university', 'enrollment_status']
-
+    agg: sum
     post_agg_transform:
       - type: drop
         column: ['sex', 'ipeds_race', 'lstudy']
@@ -152,7 +152,7 @@ tables:
 
   enrollment_efa_yusr:
     pk: ['year', 'university', 'sex', 'ipeds_race']
-
+    agg: sum
     post_agg_transform:
       - type: drop
         column: ['enrollment_status', 'lstudy']
@@ -165,7 +165,7 @@ tables:
 
   enrollment_efa_yusl:
     pk: ['year', 'university', 'sex', 'lstudy']
-
+    agg: sum
     post_agg_transform:
       - type: drop
         column: ['ipeds_race', 'enrollment_status']
@@ -178,7 +178,7 @@ tables:
 
   enrollment_efa_yuse:
     pk: ['year', 'university', 'sex', 'enrollment_status']
-
+    agg: sum
     post_agg_transform:
       - type: drop
         column: ['ipeds_race', 'lstudy']
@@ -191,7 +191,7 @@ tables:
 
   enrollment_efa_yurl:
     pk: ['year', 'university', 'ipeds_race', 'lstudy']
-
+    agg: sum
     post_agg_transform:
       - type: drop
         column: ['sex', 'enrollment_status']
@@ -204,7 +204,7 @@ tables:
 
   enrollment_efa_yure:
     pk: ['year', 'university', 'ipeds_race', 'enrollment_status']
-
+    agg: sum
     post_agg_transform:
       - type: drop
         column: ['sex', 'lstudy']
@@ -217,7 +217,7 @@ tables:
 
   enrollment_efa_yule:
     pk: ['year', 'university', 'lstudy', 'enrollment_status']
-
+    agg: sum
     post_agg_transform:
       - type: drop
         column: ['sex', 'ipeds_race']
@@ -230,7 +230,7 @@ tables:
 
   enrollment_efa_yusrl:
     pk: ['year', 'university', 'sex', 'ipeds_race', 'lstudy']
-
+    agg: sum
     post_agg_transform:
       - type: drop
         column: ['enrollment_status']
@@ -243,7 +243,7 @@ tables:
 
   enrollment_efa_yusre:
     pk: ['year', 'university', 'sex', 'ipeds_race', 'enrollment_status']
-
+    agg: sum
     post_agg_transform:
       - type: drop
         column: ['lstudy']
@@ -256,7 +256,7 @@ tables:
 
   enrollment_efa_yusle:
     pk: ['year', 'university', 'sex', 'lstudy', 'enrollment_status']
-
+    agg: sum
     post_agg_transform:
       - type: drop
         column: ['ipeds_race']
@@ -269,7 +269,7 @@ tables:
 
   enrollment_efa_yurle:
     pk: ['year', 'university', 'ipeds_race', 'lstudy', 'enrollment_status']
-
+    agg: sum
     post_agg_transform:
       - type: drop
         column: ['sex']

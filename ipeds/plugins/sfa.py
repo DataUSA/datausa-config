@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 import re
 
+
 def transform_living(df, **kwargs):
     if "pk" not in kwargs or not kwargs["pk"]:
         raise Exception("Please specify a valid primary key")
@@ -46,4 +47,16 @@ def transform_income_range(df, **kwargs):
         df.drop(columns=[var1, var2], axis=1, inplace=True)
     # df = df.dropna(axis=0, how='all', subset=my_list)  # drop rows where are of the elements are nan
 
+    return df
+
+
+def transform_public_private(df, **kwargs):
+    columns_to_work_on = ['avg_netprice_gos_aid']
+    for var in columns_to_work_on:
+        var1 = "{}_public".format(var)
+        var2 = "{}_private".format(var)
+        assert df[df[var1].notnull() & df[var2].notnull()].empty
+        df.loc[df[var1].notnull(), var] = df[var1]
+        df.loc[df[var2].notnull(), var] = df[var2]
+        df.drop(columns=[var1, var2], axis=1, inplace=True)
     return df

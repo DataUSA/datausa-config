@@ -1,0 +1,73 @@
+inherits: ["db.yaml"]
+
+global:
+  zip:
+    target_name: sfa1X1Y_rv.csv
+  seperator: ","
+  name: ipeds
+  use_schema: True
+  encoding: utf-8-sig
+  strip_column_whitespace: True
+  na_values: ['']
+  source_vars:
+    year: [2012, 2013, 2014, 2015]
+  type:
+    UNITID: str
+    CIPCODE: str
+  source : "data/ipeds/enrollment/aid/sfa/netprice/sfa<year>.zip"
+  output : "data/output/ipeds/aid/sfa/netprice/sfa<year>"
+
+  web_paths:
+    "2015": "https://nces.ed.gov/ipeds/datacenter/data/SFA1415.zip"
+    "2014": "https://nces.ed.gov/ipeds/datacenter/data/SFA1314.zip"
+    "2013": "https://nces.ed.gov/ipeds/datacenter/data/SFA1213.zip"
+    "2012": "https://nces.ed.gov/ipeds/datacenter/data/SFA1112.zip"
+
+  add_pks: True
+
+  db_settings:
+    type:
+      university: text
+      year: integer
+
+  usecols:
+    - UNITID
+    - NPIST2
+    - NPGRN2
+    - UAGRNTP
+    - UFLOANN
+    - UFLOANP
+    - UFLOANT
+
+
+
+  rename:
+    UNITID: university
+    NPIST2: avg_netprice_gos_aid_public
+    NPGRN2: avg_netprice_gos_aid_private
+    UAGRNTP: pct_with_aid
+    UFLOANN: num_fed_loans
+    UFLOANP: pct_fed_loans
+    UFLOANT: total_fed_loans
+
+  regex_drop:
+    "^X<anything>": "delete"
+
+  transform:
+    - type: plugin
+      func: ipeds.plugins.sfa.transform_public_private
+      pk: [year, university]
+      raw_mode: True
+
+tables:
+  # calculates students living arrangements in SFA cohort
+
+  university_sfa_yu:
+    pk: [year, university]
+
+    post_agg_transform:
+      - type: plugin
+        func: ipeds.plugins.carnegie.add_rows
+        pk: [year, university, university_level]
+        raw_mode: True
+        default_agg: median

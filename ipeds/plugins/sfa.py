@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-
+import re
 
 def transform_living(df, **kwargs):
     if "pk" not in kwargs or not kwargs["pk"]:
@@ -24,7 +24,7 @@ def transform_income_range(df, **kwargs):
         raise Exception("Please specify a valid primary key")
     pk = kwargs["pk"]
 
-    df = df.melt(id_vars=pk)  # value_name="variable")
+    df = df.melt(id_vars=pk)
 
     df.variable = df.variable.str.strip()
     df.loc[df.variable.str.endswith("level_1"), "income_range"] = "1"
@@ -35,8 +35,16 @@ def transform_income_range(df, **kwargs):
     df.variable = df.variable.str.slice(0, -8)
     my_list = df.variable.unique()
     df = pd.pivot_table(df, values="value", index=pk + ["income_range"], columns=["variable"], aggfunc=np.sum)
-    df = df.dropna(axis=0, how='all', subset=my_list)  # drop rows where are of the elements are nan
 
+    columns_to_work_on = set([re.sub(r"_(public|private)", "", x) for x in df.columns])
     df = df.reset_index()
+    for var in columns_to_work_on:
+        var1 = "{}_public".format(var)
+        var2 = "{}_private".format(var)
+        assert df[df[var1].notnull() & df[var2].notnull()].empty
+        df.loc[df[var1].notnull(), var] = df[var1]
+        df.loc[df[var2].notnull(), var] = df[var2]
+        df.drop(columns=[var1, var2], axis=1, inplace=True)
+    # df = df.dropna(axis=0, how='all', subset=my_list)  # drop rows where are of the elements are nan
 
     return df

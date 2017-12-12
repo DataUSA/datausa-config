@@ -33,17 +33,31 @@ global:
 
   usecols:
     - UNITID
-    - NPIST2
     - GRN4N12
     - GRN4N22
     - GRN4N32
     - GRN4N42
     - GRN4N52
+    - GIS4N12
+    - GIS4N22
+    - GIS4N32
+    - GIS4N42
+    - GIS4N52
     - GRN4G12
     - GRN4G22
     - GRN4G32
     - GRN4G42
     - GRN4G52
+    - GIS4G12
+    - GIS4G22
+    - GIS4G32
+    - GIS4G42
+    - GIS4G52
+    - GIS4A12
+    - GIS4A22
+    - GIS4A32
+    - GIS4A42
+    - GIS4A52
     - GRN4A12
     - GRN4A22
     - GRN4A32
@@ -54,30 +68,54 @@ global:
     - NPT432
     - NPT442
     - NPT452
+    - NPIS412
+    - NPIS422
+    - NPIS432
+    - NPIS442
+    - NPIS452
 
   rename:
     UNITID: university
-    NPIST2: avg_netprice_gos_aid
-    GRN4N12: num_income_level_1
-    GRN4N22: num_income_level_2
-    GRN4N32: num_income_level_3
-    GRN4N42: num_income_level_4
-    GRN4N52: num_income_level_5
-    GRN4G12: num_gos_award_level_1
-    GRN4G22: num_gos_award_level_2
-    GRN4G32: num_gos_award_level_3
-    GRN4G42: num_gos_award_level_4
-    GRN4G52: num_gos_award_level_5
-    GRN4A12: avg_gos_award_level_1
-    GRN4A22: avg_gos_award_level_2
-    GRN4A32: avg_gos_award_level_3
-    GRN4A42: avg_gos_award_level_4
-    GRN4A52: avg_gos_award_level_5
-    NPT412: avg_netprice_fedaid_level_1
-    NPT422: avg_netprice_fedaid_level_2
-    NPT432: avg_netprice_fedaid_level_3
-    NPT442: avg_netprice_fedaid_level_4
-    NPT452: avg_netprice_fedaid_level_5
+    GRN4N12: num_income_private_level_1
+    GRN4N22: num_income_private_level_2
+    GRN4N32: num_income_private_level_3
+    GRN4N42: num_income_private_level_4
+    GRN4N52: num_income_private_level_5
+    GIS4N12: num_income_public_level_1
+    GIS4N22: num_income_public_level_2
+    GIS4N32: num_income_public_level_3
+    GIS4N42: num_income_public_level_4
+    GIS4N52: num_income_public_level_5
+    GRN4G12: num_gos_award_private_level_1
+    GRN4G22: num_gos_award_private_level_2
+    GRN4G32: num_gos_award_private_level_3
+    GRN4G42: num_gos_award_private_level_4
+    GRN4G52: num_gos_award_private_level_5
+    GIS4G12: num_gos_award_public_level_1
+    GIS4G22: num_gos_award_public_level_2
+    GIS4G32: num_gos_award_public_level_3
+    GIS4G42: num_gos_award_public_level_4
+    GIS4G52: num_gos_award_public_level_5
+    GIS4A12: avg_gos_award_public_level_1
+    GIS4A22: avg_gos_award_public_level_2
+    GIS4A32: avg_gos_award_public_level_3
+    GIS4A42: avg_gos_award_public_level_4
+    GIS4A52: avg_gos_award_public_level_5
+    GRN4A12: avg_gos_award_private_level_1
+    GRN4A22: avg_gos_award_private_level_2
+    GRN4A32: avg_gos_award_private_level_3
+    GRN4A42: avg_gos_award_private_level_4
+    GRN4A52: avg_gos_award_private_level_5
+    NPT412: avg_netprice_fedaid_private_level_1
+    NPT422: avg_netprice_fedaid_private_level_2
+    NPT432: avg_netprice_fedaid_private_level_3
+    NPT442: avg_netprice_fedaid_private_level_4
+    NPT452: avg_netprice_fedaid_private_level_5
+    NPIS412: avg_netprice_fedaid_public_level_1
+    NPIS422: avg_netprice_fedaid_public_level_2
+    NPIS432: avg_netprice_fedaid_public_level_3
+    NPIS442: avg_netprice_fedaid_public_level_4
+    NPIS452: avg_netprice_fedaid_public_level_5
   regex_drop:
     "^X<anything>": "delete"
 
@@ -88,8 +126,6 @@ tables:
     pk: [year, university, income_range]
 
     transform:
-      - type: drop
-        column: avg_netprice_gos_aid
       - type: plugin
         func: ipeds.plugins.sfa.transform_income_range
         pk: [year, university]

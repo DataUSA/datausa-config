@@ -33,7 +33,6 @@ def transform_income_range(df, **kwargs):
     df.loc[df.variable.str.endswith("level_4"), "income_range"] = "4"
     df.loc[df.variable.str.endswith("level_5"), "income_range"] = "5"
     df.variable = df.variable.str.slice(0, -8)
-    my_list = df.variable.unique()
     df = pd.pivot_table(df, values="value", index=pk + ["income_range"], columns=["variable"], aggfunc=np.sum)
 
     columns_to_work_on = set([re.sub(r"_(public|private)", "", x) for x in df.columns])

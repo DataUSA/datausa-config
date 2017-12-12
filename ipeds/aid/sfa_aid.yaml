@@ -1,0 +1,102 @@
+inherits: ["db.yaml"]
+
+global:
+  zip:
+    target_name: sfa1X1Y_rv.csv
+  seperator: ","
+  name: ipeds
+  use_schema: True
+  encoding: utf-8-sig
+  strip_column_whitespace: True
+  na_values: ['']
+  source_vars:
+    year: [2012, 2013, 2014, 2015]
+  type:
+    UNITID: str
+    CIPCODE: str
+  source : "data/ipeds/enrollment/aid/sfa/netprice/sfa<year>.zip"
+  output : "data/output/ipeds/aid/sfa/netprice/sfa<year>"
+
+  web_paths:
+    "2015": "https://nces.ed.gov/ipeds/datacenter/data/SFA1415.zip"
+    "2014": "https://nces.ed.gov/ipeds/datacenter/data/SFA1314.zip"
+    "2013": "https://nces.ed.gov/ipeds/datacenter/data/SFA1213.zip"
+    "2012": "https://nces.ed.gov/ipeds/datacenter/data/SFA1112.zip"
+
+  add_pks: True
+
+  db_settings:
+    type:
+      university: text
+      year: integer
+      avg_netprice_gos_aid: float
+
+  usecols:
+    - UNITID
+    - NPIST2
+    - GRN4N12
+    - GRN4N22
+    - GRN4N32
+    - GRN4N42
+    - GRN4N52
+    - GRN4G12
+    - GRN4G22
+    - GRN4G32
+    - GRN4G42
+    - GRN4G52
+    - GRN4A12
+    - GRN4A22
+    - GRN4A32
+    - GRN4A42
+    - GRN4A52
+    - NPT412
+    - NPT422
+    - NPT432
+    - NPT442
+    - NPT452
+
+  rename:
+    UNITID: university
+    NPIST2: avg_netprice_gos_aid
+    GRN4N12: num_income_level_1
+    GRN4N22: num_income_level_2
+    GRN4N32: num_income_level_3
+    GRN4N42: num_income_level_4
+    GRN4N52: num_income_level_5
+    GRN4G12: num_gos_award_level_1
+    GRN4G22: num_gos_award_level_2
+    GRN4G32: num_gos_award_level_3
+    GRN4G42: num_gos_award_level_4
+    GRN4G52: num_gos_award_level_5
+    GRN4A12: avg_gos_award_level_1
+    GRN4A22: avg_gos_award_level_2
+    GRN4A32: avg_gos_award_level_3
+    GRN4A42: avg_gos_award_level_4
+    GRN4A52: avg_gos_award_level_5
+    NPT412: avg_netprice_fedaid_level_1
+    NPT422: avg_netprice_fedaid_level_2
+    NPT432: avg_netprice_fedaid_level_3
+    NPT442: avg_netprice_fedaid_level_4
+    NPT452: avg_netprice_fedaid_level_5
+  regex_drop:
+    "^X<anything>": "delete"
+
+tables:
+  # calculates students living arrangements in SFA cohort
+
+  aid_sfa_yui:
+    pk: [year, university, income_range]
+
+    transform:
+      - type: drop
+        column: avg_netprice_gos_aid
+      - type: plugin
+        func: ipeds.plugins.sfa.transform_income_range
+        pk: [year, university]
+        raw_mode: True
+    post_agg_transform:
+      - type: plugin
+        func: ipeds.plugins.carnegie.add_rows
+        pk: [year, university, income_range]
+        raw_mode: True
+        default_agg: median

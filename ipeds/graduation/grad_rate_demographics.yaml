@@ -72,7 +72,7 @@ global:
       value: [12, 13]
     - type: filter
       column: line
-      func: "isin"
+      func: "~isin"
       value: ["999"]
 
 tables:

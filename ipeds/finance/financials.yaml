@@ -1,0 +1,119 @@
+inherits: ["db.yaml"]
+
+global:
+  seperator: ","
+  name: ipeds
+  use_schema: True
+  encoding: utf-8-sig
+  strip_column_whitespace: True
+  na_values: ['']
+  source_vars:
+    year: [2015]
+    mode: [gasb, fasb, privateforprofit]
+
+  type:
+    UNITID: str
+
+  source : "data/ipeds/finance/<mode>/<year>.zip"
+  output : "data/output/ipeds/finance/<mode>/<year>"
+
+  web_paths:
+    "gasb/2015": "https://nces.ed.gov/ipeds/datacenter/data/F1415_F1A.zip"
+    "fasb/2015": "https://nces.ed.gov/ipeds/datacenter/data/F1415_F2.zip"
+    "privateforprofit/2015": "https://nces.ed.gov/ipeds/datacenter/data/F1415_F3.zip"
+
+  add_pks: True
+
+  db_settings:
+    type:
+      university: text
+
+  rename:
+    UNITID: university
+    # gasb 1, gasb2
+    F1A06: total_assets
+    F2A02: total_assets
+    F3A01: total_assets
+
+    F1A13: total_liabilities
+    F2A03: total_liabilities
+    F3A02: total_liabilities
+
+    F1D01: total_revenue # TODO DOES THIS INCLUDE investment return?
+    F2B01: total_revenue
+    F3B01: total_revenue
+
+    F1D02: total_expenses
+    F2B02: total_expenses
+    F3B02: total_expenses
+
+    F1H02: endowment_value_fiscal_year_end
+    F2H02: endowment_value_fiscal_year_end
+
+    F1B17: investment_income
+    F2D10: investment_income
+    F3D05: investment_income
+
+    F1C021: research_total
+    F2E021: research_total
+    F3E02A1: research_total
+
+    F1B02: federal_grants_and_contracts
+    F2D05: federal_grants_and_contracts
+    F3D02B: federal_grants_and_contracts
+
+    F1B03: state_grants_and_contracts
+    F2D06: state_grants_and_contracts
+    F3D03B: state_grants_and_contracts
+
+    F1B04A: local_grants_and_contracts
+    F2D07: local_grants_and_contracts
+    F3D03D: local_grants_and_contracts
+
+    F1B04B: private_grants
+    F2D08B: private_grants
+    F3D04: private_grants
+
+    F1E01: pell_grants
+    F2C01: pell_grants
+    F3C01: pell_grants
+
+    F1E02: other_federal_grants
+    F2C02: other_federal_grants
+    F3C02: other_federal_grants
+
+    F1E03: state_grants
+    F2C03: state_grants
+    F3C03A: state_grants
+
+    F1E04: local_grants
+    F2C04: local_grants
+    F3C03B: local_grants
+
+    F1B01: tuition_and_fees
+    F2D01: tuition_and_fees
+    F3D01: tuition_and_fees
+
+  regex_drop:
+    "^X<anything>": "delete"
+
+tables:
+  financials_yu:
+    pk: [year, university]
+    transform:
+      - type: set_nan_if_dne
+        column: endowment_value_fiscal_year_end
+    agg:
+      total_expenses: sum
+      endowment_value_fiscal_year_end: sum
+      investment_income: sum
+      research_total: sum
+      federal_grants_and_contracts: sum
+      state_grants_and_contracts: sum
+      local_grants_and_contracts: sum
+      private_grants: sum
+      pell_grants: sum
+      other_federal_grants: sum
+      state_grants: sum
+      local_grants: sum
+      tuition_and_fees: sum

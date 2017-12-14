@@ -7,8 +7,10 @@ global:
   encoding: utf-8-sig
   strip_column_whitespace: True
   na_values: ['']
+  concat: YES
+  concat_border: year
   source_vars:
-    year: [2015, 2014, 2013, 2012]
+    year: [2012, 2013, 2014, 2015]
     mode: [gasb, fasb, privateforprofit]
 
   type:
@@ -40,8 +42,8 @@ global:
   db_settings:
     type:
       university: text
-      investment_income: bigint
-      tuition_and_fees: bigint
+      investment_income: float
+      tuition_and_fees: float
 
   rename:
     UNITID: university
@@ -141,3 +143,19 @@ tables:
       local_grants: sum
       tuition_and_fees: sum
       mode: sum
+
+    post_agg_transform:
+      - type: plugin
+        func: ipeds.plugins.carnegie.add_rows
+        pk: [year, university]
+        raw_mode: True
+        default_agg: median
+        aggs_dict:
+          mode: mode
+      - type: cast
+        as: int
+        column: investment_income
+        where:
+          column: investment_income
+          func: eq
+          value: !!null

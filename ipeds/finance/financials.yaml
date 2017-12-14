@@ -8,7 +8,7 @@ global:
   strip_column_whitespace: True
   na_values: ['']
   source_vars:
-    year: [2015]
+    year: [2015, 2014, 2013, 2012]
     mode: [gasb, fasb, privateforprofit]
 
   type:
@@ -22,11 +22,26 @@ global:
     "fasb/2015": "https://nces.ed.gov/ipeds/datacenter/data/F1415_F2.zip"
     "privateforprofit/2015": "https://nces.ed.gov/ipeds/datacenter/data/F1415_F3.zip"
 
+    "gasb/2014": "https://nces.ed.gov/ipeds/datacenter/data/F1314_F1A.zip"
+    "fasb/2014": "https://nces.ed.gov/ipeds/datacenter/data/F1314_F2.zip"
+    "privateforprofit/2014": "https://nces.ed.gov/ipeds/datacenter/data/F1314_F3.zip"
+
+    "gasb/2013": "https://nces.ed.gov/ipeds/datacenter/data/F1213_F1A.zip"
+    "fasb/2013": "https://nces.ed.gov/ipeds/datacenter/data/F1213_F2.zip"
+    "privateforprofit/2013": "https://nces.ed.gov/ipeds/datacenter/data/F1213_F3.zip"
+
+    "gasb/2012": "https://nces.ed.gov/ipeds/datacenter/data/F1112_F1A.zip"
+    "fasb/2012": "https://nces.ed.gov/ipeds/datacenter/data/F1112_F2.zip"
+    "privateforprofit/2012": "https://nces.ed.gov/ipeds/datacenter/data/F1112_F3.zip"
+
+
   add_pks: True
 
   db_settings:
     type:
       university: text
+      investment_income: bigint
+      tuition_and_fees: bigint
 
   rename:
     UNITID: university
@@ -102,7 +117,15 @@ tables:
     pk: [year, university]
     transform:
       - type: set_nan_if_dne
-        column: endowment_value_fiscal_year_end
+        column:
+          - endowment_value_fiscal_year_end
+          - federal_grants_and_contracts
+          - state_grants_and_contracts
+          - local_grants_and_contracts
+          - state_grants
+          - local_grants
+          - research_total
+
     agg:
       total_expenses: sum
       endowment_value_fiscal_year_end: sum
@@ -117,3 +140,4 @@ tables:
       state_grants: sum
       local_grants: sum
       tuition_and_fees: sum
+      mode: sum

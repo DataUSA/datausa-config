@@ -54,11 +54,11 @@ tables:
   financials_endowmentquintiles_yu:
     pk: [year, university]
 
-    agg:
-      endowment_value_fiscal_year_end: sum
-      mode: sum
-
     post_agg_transform:
+      - type: agg
+        pk: [year, university, mode]
+        agg:
+          endowment_value_fiscal_year_end: sum
       - type: plugin
         func: ipeds.plugins.carnegie.add_rows
         pk: [year, university]

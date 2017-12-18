@@ -1,0 +1,117 @@
+inherits: ["db.yaml"]
+
+global:
+  zip:
+    target_name: sal201X_nis_rv.csv
+  seperator: ","
+  name: ipeds
+  use_schema: True
+  encoding: utf-8-sig
+  strip_column_whitespace: True
+  na_values: ['']
+  source_vars:
+    year: [2012, 2013, 2014, 2015]
+  type:
+    UNITID: str
+    ipeds_occ: str
+  source : "data/ipeds/salaries/is/sal<year>is.zip"
+  output : "data/output/salaries/is/sal<year>is"
+
+  web_paths: "https://nces.ed.gov/ipeds/datacenter/data/SAL<year>_IS.zip"
+
+  add_pks: True
+  usecols:
+    - UNITID
+    - ARANK
+    - SATOTLM
+    - SATOTLW
+    - SAOUTLM
+    - SAOUTLW
+    - SAMNTHW
+    - SAMNTHM
+
+  db_settings:
+    type:
+      university: text
+      total_outlays: real
+      num_staff: real
+  rename:
+    UNITID: university
+    ARANK: academic_rank
+    SAOUTLW: outlays_instructional_staff_women
+    SAOUTLM: outlays_instructional_staff_men
+    SATOTLM: num_instructional_staff_men
+    SATOTLW: num_instructional_staff_women
+    SAMNTHM: months_covered_instructional_staff_men
+    SAMNTHW: months_covered_instructional_staff_women
+
+  regex_drop:
+    "^X<anything>": "delete"
+
+tables:
+  instructional_salaries_yu:
+    pk: [year, university]
+    agg:
+      outlays_instructional_staff: sum
+      num_instructional_staff: sum
+      months_covered_instructional_staff: sum
+    transform:
+      - type: plugin
+        func: ipeds.plugins.salaries.ipeds_is
+
+    post_agg_transform:
+      - type: plugin
+        func: ipeds.plugins.carnegie.add_rows
+        pk: [year, university]
+        raw_mode: True
+        default_agg: median
+
+  instructional_salaries_yus:
+    pk: [year, university, sex]
+    agg:
+      outlays_instructional_staff: sum
+      num_instructional_staff: sum
+      months_covered_instructional_staff: sum
+    transform:
+      - type: plugin
+        func: ipeds.plugins.salaries.ipeds_is
+
+    post_agg_transform:
+      - type: plugin
+        func: ipeds.plugins.carnegie.add_rows
+        pk: [year, university, sex]
+        raw_mode: True
+        default_agg: median
+
+
+  instructional_salaries_yua:
+    pk: [year, university, academic_rank]
+    agg:
+      outlays_instructional_staff: sum
+      num_instructional_staff: sum
+      months_covered_instructional_staff: sum
+    transform:
+      - type: plugin
+        func: ipeds.plugins.salaries.ipeds_is
+
+    post_agg_transform:
+      - type: plugin
+        func: ipeds.plugins.carnegie.add_rows
+        pk: [year, university, academic_rank]
+        raw_mode: True
+        default_agg: median
+
+
+  instructional_salaries_yuas:
+    pk: [year, university, academic_rank, sex]
+
+    transform:
+      - type: plugin
+        func: ipeds.plugins.salaries.ipeds_is
+
+    post_agg_transform:
+      - type: plugin
+        func: ipeds.plugins.carnegie.add_rows
+        pk: [year, university, academic_rank, sex]
+        raw_mode: True
+        default_agg: median

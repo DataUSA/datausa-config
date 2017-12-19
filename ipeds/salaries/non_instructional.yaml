@@ -26,11 +26,17 @@ global:
       university: text
       outlays_noninstructional_staff: real
       num_noninstructional_staff: real
+      ipeds_occ: text
   rename:
     UNITID: university
 
   regex_drop:
     "^X<anything>": "delete"
+
+  filter:
+    - column: ipeds_occ
+      func: eq
+      value: "01"
 
 tables:
   noninstructional_salaries_yu:

@@ -36,6 +36,7 @@ global:
       total_outlays: real
       num_staff: real
       academic_rank: text
+      sex: text
   rename:
     UNITID: university
     ARANK: academic_rank

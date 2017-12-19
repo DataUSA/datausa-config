@@ -35,6 +35,7 @@ global:
       university: text
       total_outlays: real
       num_staff: real
+      academic_rank: text
   rename:
     UNITID: university
     ARANK: academic_rank
@@ -47,6 +48,11 @@ global:
 
   regex_drop:
     "^X<anything>": "delete"
+
+  filter:
+    - column: academic_rank
+      func: eq
+      value: 7
 
 tables:
   instructional_salaries_yu:

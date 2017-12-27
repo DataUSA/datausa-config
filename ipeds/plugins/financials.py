@@ -20,3 +20,18 @@ def compute_quintiles(df, **kwargs):
     df.rename(columns={"level_3": "endowment_quintile", "endowment_value_fiscal_year_end": "endowment_quintile_value"}, inplace=True)
 
     return df
+
+
+def research_ranks(df, **kwargs):
+    univ_df, linkage_df = get_dfs()
+
+    df = df.reset_index()
+    df = df.merge(univ_df, on="university", how="left")
+    df['research_rank'] = df["research_total"].rank(method="dense", ascending=False)
+    df['research_rank_pct'] = df["research_total"].rank(method="dense", ascending=False, pct=True)
+
+    df['research_rank_carnegie'] = df.groupby("carnegie")["research_total"].rank(method="dense", ascending=False)
+    df['research_rank_carnegie_pct'] = df.groupby("carnegie")["research_total"].rank(method="dense", ascending=False, pct=True)
+
+    del df['carnegie']
+    return df

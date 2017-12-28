@@ -146,6 +146,8 @@ tables:
 
     post_agg_transform:
       - type: plugin
+        func: ipeds.plugins.financials.research_ranks
+      - type: plugin
         func: ipeds.plugins.carnegie.add_rows
         pk: [year, university]
         raw_mode: True

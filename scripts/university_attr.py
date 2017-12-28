@@ -22,16 +22,59 @@ def stem_map():
     return df.groupby("id").agg({"is_stem": pd.Series.sum}).reset_index()
 
 
+def datafold(data):
+    return [dict(zip(data["headers"], d)) for d in data["data"]]
+
+
 def load_existing_data():
     headers = {'User-Agent': 'DataUSA Client'}
-
-    def datafold(data):
-        return [dict(zip(data["headers"], d)) for d in data["data"]]
     r = requests.get('https://university-api.datausa.io/attrs/university', headers=headers).json()
     existing_df = pd.DataFrame(datafold(r))
     # clean msa strs
     existing_df.msa = existing_df.msa.str.replace("\.0$", "")
     return existing_df
+
+
+def load_carnegies():
+    headers = {'User-Agent': 'DataUSA Client'}
+    r = requests.get('https://university-api.datausa.io/attrs/carnegie', headers=headers).json()
+    df = pd.DataFrame(datafold(r))
+    del df["children"]
+    return df.rename(columns={"depth": "university_level", "parent": "carnegie_parent"})
+
+
+def add_carnegies(master_df):
+    cdf = load_carnegies()
+
+    def my_mode(x):
+        res = x.mode()
+        if not res.empty:
+            return res.iloc[0]
+        return None
+
+    delta_df = pd.DataFrame()
+    for level in [0, 1]:
+        carnegie_attr_df = cdf[cdf.university_level == level]
+        pk = "carnegie" if level == 1 else "carnegie_parent"
+        collapsed_df = master_df.groupby(pk).agg({
+            "county": my_mode,
+            "category": my_mode,
+            "is_stem": my_mode,
+            "sector": my_mode,
+            "state": my_mode,
+            "lat": pd.Series.mean,
+            "lng": pd.Series.mean
+        }).reset_index()
+        collapsed_df.rename(columns={pk: "id"}, inplace=True)
+        carnegie_attr_df = carnegie_attr_df.merge(collapsed_df, on="id", how="left")
+        carnegie_attr_df['university_level'] = carnegie_attr_df.university_level.astype(int)
+
+        new_rows = carnegie_attr_df.copy()
+        delta_df = pd.concat([delta_df, new_rows])
+    delta_df['status'] = 'CG'
+    delta_df["url_name"] = delta_df.name.apply(slugify)
+
+    return pd.concat([master_df, delta_df])
 
 
 def load_new_data(opeid_only=False):
@@ -88,7 +131,7 @@ def carnegie_processing(my_df):
     }
 
     for key, val in lookups.items():
-        my_df.loc[my_df.carnegie.isin(val), 'carnegie_parent'] = key
+        my_df.loc[my_df.carnegie.isin(map(str, val)), 'carnegie_parent'] = key
 
     return my_df
 
@@ -132,6 +175,8 @@ master_df = carnegie_processing(master_df)
 
 
 print(master_df.head())
+print("6. Insert Carnegie Groupings...")
+master_df = add_carnegies(master_df)
 
 to_import = True
 if to_import:
@@ -146,5 +191,6 @@ if to_import:
     dbpath = 'postgres://postgres:{}@{}:5432/{}'.format(DATAUSA_PW, DATAUSA_HOST, DATAUSA_DB)
     engine = create_engine(dbpath, echo=False)
     print(master_df.dtypes)
-    master_df.to_sql(name='university_vtest', schema="attrs", con=engine, if_exists='fail', index=False, dtype={"keywords": postgresql.ARRAY(String), "carnegie": String})
+    print("7. Importing to database...")
+    master_df.to_sql(name='university_vtest2', schema="attrs", con=engine, if_exists='fail', index=False, dtype={"keywords": postgresql.ARRAY(String), "carnegie": String})
     print("Import complete!")

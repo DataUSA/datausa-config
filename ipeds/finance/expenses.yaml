@@ -1,0 +1,235 @@
+inherits: ["db.yaml"]
+
+global:
+  seperator: ","
+  name: ipeds
+  use_schema: True
+  encoding: utf-8-sig
+  strip_column_whitespace: True
+  na_values: ['']
+  concat: YES
+  concat_border: year
+  source_vars:
+    year: [2012, 2013, 2014, 2015]
+    accounting_mode: [gasb, fasb]
+
+  type:
+    UNITID: str
+
+  source : "data/ipeds/finance/expenses/<accounting_mode>/<year>.zip"
+  output : "data/output/ipeds/finance/expenses/<accounting_mode>/<year>"
+
+  web_paths:
+    "gasb/2015": "https://nces.ed.gov/ipeds/datacenter/data/F1415_F1A.zip"
+    "fasb/2015": "https://nces.ed.gov/ipeds/datacenter/data/F1415_F2.zip"
+
+    "gasb/2014": "https://nces.ed.gov/ipeds/datacenter/data/F1314_F1A.zip"
+    "fasb/2014": "https://nces.ed.gov/ipeds/datacenter/data/F1314_F2.zip"
+
+    "gasb/2013": "https://nces.ed.gov/ipeds/datacenter/data/F1213_F1A.zip"
+    "fasb/2013": "https://nces.ed.gov/ipeds/datacenter/data/F1213_F2.zip"
+
+    "gasb/2012": "https://nces.ed.gov/ipeds/datacenter/data/F1112_F1A.zip"
+    "fasb/2012": "https://nces.ed.gov/ipeds/datacenter/data/F1112_F2.zip"
+
+
+  add_pks: True
+
+  db_settings:
+    type:
+      university: text
+
+  rename:
+    UNITID: university
+
+    F1C012: instruction_salaries
+    F2E012: instruction_salaries
+    F1C013: instruction_benefits
+    F2E013: instruction_benefits
+    F1C016: instruction_ops
+    F2E014: instruction_ops
+    F1C014: instruction_dep
+    F2E015: instruction_dep
+    F1C017: instruction_interest
+    F2E016: instruction_interest
+    F1C015: instruction_other
+    F2E017: instruction_other
+
+    F1C022: research_salaries
+    F2E022: research_salaries
+    F1C023: research_benefits
+    F2E023: research_benefits
+    F1C026: research_ops
+    F2E024: research_ops
+    F1C024: research_dep
+    F2E025: research_dep
+    F1C027: research_interest
+    F2E026: research_interest
+    F1C025: research_other
+    F2E027: research_other
+
+    F1C032: publicservice_salaries
+    F2E032: publicservice_salaries
+    F1C033: publicservice_benefits
+    F2E033: publicservice_benefits
+    F1C036: publicservice_ops
+    F2E034: publicservice_ops
+    F1C034: publicservice_dep
+    F2E035: publicservice_dep
+    F1C037: publicservice_interest
+    F2E036: publicservice_interest
+    F1C035: publicservice_other
+    F2E037: publicservice_other
+
+    F1C052: academicsupport_salaries
+    F2E042: academicsupport_salaries
+    F1C053: academicsupport_benefits
+    F2E043: academicsupport_benefits
+    F1C056: academicsupport_ops
+    F2E044: academicsupport_ops
+    F1C054: academicsupport_dep
+    F2E045: academicsupport_dep
+    F1C057: academicsupport_interest
+    F2E046: academicsupport_interest
+    F1C055: academicsupport_other
+    F2E047: academicsupport_other
+
+    F1C062: studentservices_salaries
+    F2E052: studentservices_salaries
+    F1C063: studentservices_benefits
+    F2E053: studentservices_benefits
+    F1C066: studentservices_ops
+    F2E054: studentservices_ops
+    F1C064: studentservices_dep
+    F2E055: studentservices_dep
+    F1C067: studentservices_interest
+    F2E056: studentservices_interest
+    F1C065: studentservices_other
+    F2E057: studentservices_other
+
+    F1C072: instsupport_salaries
+    F2E062: instsupport_salaries
+    F1C073: instsupport_benefits
+    F2E063: instsupport_benefits
+    F1C076: instsupport_ops
+    F2E064: instsupport_ops
+    F1C074: instsupport_dep
+    F2E065: instsupport_dep
+    F1C077: instsupport_interest
+    F2E066: instsupport_interest
+    F1C075: instsupport_other
+    F2E067: instsupport_other
+
+    F1C082: ops_salaries
+    F2E062: ops_salaries
+    F1C083: ops_benefits
+    F2E063: ops_benefits
+    F1C086: ops_ops
+    F2E064: ops_ops
+    F1C084: ops_dep
+    F2E065: ops_dep
+    F1C087: ops_interest
+    F2E066: ops_interest
+    F1C085: ops_other
+    F2E067: ops_other
+
+
+    F1C112: aux_salaries
+    F2E072: aux_salaries
+    F1C113: aux_benefits
+    F2E073: aux_benefits
+    F1C116: aux_ops
+    F2E074: aux_ops
+    F1C114: aux_dep
+    F2E075: aux_dep
+    F1C117: aux_interest
+    F2E076: aux_interest
+    F1C115: aux_other
+    F2E077: aux_other
+
+    F1C122: hospital_salaries
+    F2E092: hospital_salaries
+    F1C123: hospital_benefits
+    F2E093: hospital_benefits
+    F1C126: hospital_ops
+    F2E094: hospital_ops
+    F1C124: hospital_dep
+    F2E095: hospital_dep
+    F1C127: hospital_interest
+    F2E096: hospital_interest
+    F1C125: hospital_other
+    F2E097: hospital_other
+
+    F1C132: independentops_salaries
+    F2E102: independentops_salaries
+    F1C133: independentops_benefits
+    F2E103: independentops_benefits
+    F1C136: independentops_ops
+    F2E104: independentops_ops
+    F1C134: independentops_dep
+    F2E105: independentops_dep
+    F1C137: independentops_interest
+    F2E106: independentops_interest
+    F1C135: independentops_other
+    F2E107: independentops_other
+
+
+    F1C142: other_salaries
+    F2E122: other_salaries
+    F1C143: other_benefits
+    F2E123: other_benefits
+    F1C146: other_ops
+    F2E124: other_ops
+    F1C144: other_dep
+    F2E125: other_dep
+    F1C147: other_interest
+    F2E126: other_interest
+    F1C145: other_other
+    F2E127: other_other
+
+
+
+  regex_drop:
+    "^X<anything>": "delete"
+
+tables:
+
+
+  expenses_yu:
+    pk: [year, university]
+
+    agg: sum
+
+    transform:
+      - type: drop
+        column: accounting_mode
+      - type: plugin
+        func: ipeds.plugins.financials.transform_expenses
+
+    post_agg_transform:
+      - type: drop
+        column: ipeds_expense
+      - type: plugin
+        func: ipeds.plugins.carnegie.add_rows
+        pk: [year, university]
+        raw_mode: True
+        default_agg: median
+
+
+  expenses_yue:
+    pk: [year, university, ipeds_expense]
+
+    agg: sum
+
+    transform:
+      - type: drop
+        column: accounting_mode
+      - type: plugin
+        func: ipeds.plugins.financials.transform_expenses
+
+    post_agg_transform:
+      - type: plugin
+        func: ipeds.plugins.carnegie.add_rows
+        pk: [year, university, ipeds_expense]
+        raw_mode: True
+        default_agg: median

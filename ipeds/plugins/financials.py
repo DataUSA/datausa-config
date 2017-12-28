@@ -1,4 +1,4 @@
-import pandas as pd
+import numpy as np
 from carnegie import get_dfs
 
 
@@ -34,4 +34,19 @@ def research_ranks(df, **kwargs):
     df['research_rank_carnegie_pct'] = df.groupby("carnegie")["research_total"].rank(method="dense", ascending=False, pct=True)
 
     del df['carnegie']
+    return df
+
+
+def transform_expenses(df, **kwargs):
+    denied = ["accounting_mode"]
+    allowed_cols = ["year", "university"] + [c for c in df.columns if "_" in c and c not in denied]
+    df = df[allowed_cols]
+    df = df.melt(id_vars=['year', 'university'])
+    df['ipeds_expense'] = df.variable.apply(lambda x: x.split("_")[0])
+    df['ipeds_expense_kind'] = df.variable.apply(lambda x: x.split("_")[1] + "_expense")
+    del df["variable"]
+    df.value = df.value.astype(float)
+    df = df.pivot_table(index=['year', 'university', 'ipeds_expense'],
+                        columns='ipeds_expense_kind', values='value', aggfunc=np.sum)
+    df = df.reset_index()
     return df

@@ -3,6 +3,7 @@ import pandas as pd
 from slugify import slugify
 from sqlalchemy.dialects import postgresql
 from sqlalchemy.types import String
+from util import datafold
 import os
 
 DEBUG = os.environ.get("DEBUG", "True") not in ["0", "false", "False"]
@@ -20,10 +21,6 @@ def stem_map():
     df.cip = df.cip.astype(str).apply(clean_cip)
     df.loc[df.cip.isin(stem_list) & df.total > 0, 'is_stem'] = 1
     return df.groupby("id").agg({"is_stem": pd.Series.sum}).reset_index()
-
-
-def datafold(data):
-    return [dict(zip(data["headers"], d)) for d in data["data"]]
 
 
 def load_existing_data():

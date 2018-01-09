@@ -56,7 +56,7 @@ tables:
         raw_mode: True
         default_agg: median
 
-  noninstructional_salaries_yuo:
+  noninstructional_salaries_yuo_v2:
     pk: [year, university, ipeds_occ]
 
     transform:
@@ -71,6 +71,6 @@ tables:
     post_agg_transform:
       - type: plugin
         func: ipeds.plugins.carnegie.add_rows
-        pk: [year, university]
+        pk: [year, university, ipeds_occ]
         raw_mode: True
         default_agg: median

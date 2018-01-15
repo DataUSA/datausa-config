@@ -38,6 +38,10 @@ global:
     - UFLOANN
     - UFLOANP
     - UFLOANT
+    - ANYAIDN
+    - ANYAIDP
+    - AIDFSIN
+    - AIDFSIP
 
 
 
@@ -45,10 +49,15 @@ global:
     UNITID: university
     NPIST2: avg_netprice_gos_aid_public
     NPGRN2: avg_netprice_gos_aid_private
-    UAGRNTP: pct_with_aid
+    UAGRNTP: pct_with_grant_aid
     UFLOANN: num_fed_loans
     UFLOANP: pct_fed_loans
     UFLOANT: total_fed_loans
+    ANYAIDN: num_any_aid
+    ANYAIDP: pct_any_aid
+    AIDFSIN: aidfsin
+    AIDFSIP: aidfsip
+
 
   regex_drop:
     "^X<anything>": "delete"

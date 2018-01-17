@@ -49,3 +49,6 @@ tables:
           - type: rename
             column: "denom"
             value: "num_borrowers"
+          - type: plugin
+            func: ed.plugins.util.map_to_carnegies
+            year: 2015

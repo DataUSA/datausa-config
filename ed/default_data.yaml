@@ -35,14 +35,34 @@ global:
         "Year <val>": "year_<val>"
 
 tables:
-    yu_defaults:
-      pk: ["year", "opeid"]
+    yur_defaults:
+      pk: ["year", "opeid", "rate_type"]
 
       transform:
           - type: drop
             column: ["State Desc", "State", "Zip Code", "Zip Ext", "Address", "City"]
           - type: plugin
             func: ed.plugins.util.clean
+          - type: rename
+            column: "num"
+            value: "num_defaults"
+          - type: rename
+            column: "denom"
+            value: "num_borrowers"
+          - type: plugin
+            func: ed.plugins.util.map_to_carnegies
+            year: 2015
+
+    yure_defaults:
+      pk: ["year", "opeid", "rate_type", "ethnic_code"]
+
+      transform:
+          - type: drop
+            column: ["State Desc", "State", "Zip Code", "Zip Ext", "Address", "City"]
+          - type: plugin
+            func: ed.plugins.util.clean
+            id_vars: [opeid, ethnic_code]
+            raw_mode: True
           - type: rename
             column: "num"
             value: "num_defaults"

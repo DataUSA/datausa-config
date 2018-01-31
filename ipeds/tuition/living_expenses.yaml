@@ -1,0 +1,58 @@
+inherits: ["db.yaml"]
+
+global:
+    seperator: ","
+    name: ipeds
+    use_schema: True
+    encoding: utf-8-sig
+    strip_column_whitespace: True
+    source_vars:
+      year: [2013, 2014, 2015, 2016]
+
+    source: "data/ipeds/living/ic<year>_ay.zip"
+    output : "data/output/ipeds/tuition/living_expenses/<year>"
+    na_values: ['.']
+    usecols: [UNITID, CHG6AY3, CHG8AY3, CHG5AY3, CHG7AY3, "CHG9AY3 "]
+    rename:
+      UNITID: university
+      CHG6AY3: other_expenses_oncampus
+      CHG9AY3: other_expenses_offcampuswithfamily
+      CHG8AY3: other_expenses_offcampusnotwithfamily
+      CHG5AY3: room_and_board_oncampus
+      CHG7AY3: room_and_board_offcampusnotwithfamily
+
+    web_paths:
+      "living/ic": "https://nces.ed.gov/ipeds/datacenter/data/ic<year>_ay.zip"
+
+    fillna:
+      mode: True
+      value: 0
+
+    import_to_db: True
+    adds_pks: True
+    db_settings:
+      type:
+        university: text
+        living_arrangement: text
+
+    deduplicate: True
+    add_pks: True
+
+
+
+tables:
+  ic_living_expenses_yua:
+    pk: ["year", "university", "living_arrangement"]
+
+    transform:
+      - type: plugin
+        func: ipeds.plugins.sfa.transform_living_expenses
+        pk: [year, university]
+        raw_mode: True
+
+    post_agg_transform:
+      - type: plugin
+        func: ipeds.plugins.carnegie.add_rows
+        pk: [year, university, living_arrangement, university_level]
+        raw_mode: True
+        default_agg: median

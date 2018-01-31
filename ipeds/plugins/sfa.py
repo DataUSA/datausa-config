@@ -3,6 +3,24 @@ import pandas as pd
 import re
 
 
+def transform_living_expenses(df, **kwargs):
+    if "pk" not in kwargs or not kwargs["pk"]:
+        raise Exception("Please specify a valid primary key")
+    pk = kwargs["pk"]
+
+    df = df.melt(id_vars=pk)
+    df['living_arrangement'] = df.variable.apply(lambda x: x.rsplit("_")[0])
+
+    df.variable = df.variable.str.strip()
+    df.loc[df.variable.str.endswith("_oncampus"), "living_arrangement"] = "1"
+    df.loc[df.variable.str.endswith("_offcampuswithfamily"), "living_arrangement"] = "2"
+    df.loc[df.variable.str.endswith("_offcampusnotwithfamily"), "living_arrangement"] = "3"
+    df.variable = df.variable.str.replace(r"(_oncampus$|_offcampuswithfamily$|_offcampusnotwithfamily$)", "")
+    df = pd.pivot_table(df, values="value", index=pk + ['living_arrangement'], columns=["variable"], aggfunc=np.sum)
+    df = df.reset_index()
+    return df
+
+
 def transform_living(df, **kwargs):
     if "pk" not in kwargs or not kwargs["pk"]:
         raise Exception("Please specify a valid primary key")

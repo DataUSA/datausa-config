@@ -1,3 +1,5 @@
+inherits: ["db.yaml"]
+
 global:
     name: bea
     source : "data/bea/<year>_use_<industry_level>.json"
@@ -5,7 +7,7 @@ global:
     filetype: json
 
     source_vars:
-        year: [2013, 2014]
+        year: [2016]
         industry_level: [46, 47]
 
     output : "data/output/bea/use/<year>/<industry_level>"
@@ -25,12 +27,6 @@ global:
         RowCode: commodity_iocode
         DataValue: value_millions
 
-    import_to_db: True
-    db_settings:
-        user: postgres
-        password_env_var: DATAUSA_PW
-        host: 146.20.103.188
-        db_name: datausa_t4
     transform:
         -
             column: industry_level

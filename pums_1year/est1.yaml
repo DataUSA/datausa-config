@@ -1,10 +1,10 @@
-source: "$HOME/Documents/data/2015/1"
-output: "$HOME/Documents/pums_output/2015/1"
+source: "$HOME/Documents/data/2016/1"
+output: "$HOME/Documents/pums_output/2016/1"
 name: "pums_1yr"
-year: 2015
+year: 2016
 
 global:
-    files: ["ss15pusa.csv", "ss15pusb.csv"]
+    files: ["ss16pusa.csv", "ss16pusb.csv"]
     vars: ["WAGP", "AGEP", "WKHP", "PWGTP"]
 
     sumlevels:

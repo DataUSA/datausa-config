@@ -12,10 +12,10 @@ global:
         end: 2015
 
 
-    source: "data/ipeds/ic<year>_ay.zip"
-    output : "data/output/ipeds/tuition/simple/<year>"
+    source: "data/ipeds/simpletuition/ic<year>_ay.zip"
+    output : "data/output/ipeds/tuition/simpletuition/<year>"
     na_values: ['.']
-    usecols: ["UNITID", "TUITION1", "TUITION2", "TUITION3", "TUITION5", "TUITION6", "TUITION7", "FEE1", "FEE2", "FEE3", "FEE5", "FEE6", "FEE7"]
+    usecols: ["UNITID", "TUITION1", "TUITION2", "TUITION3", "TUITION5", "TUITION6", "TUITION7", "FEE1", "FEE2", "FEE3", "FEE5", "FEE6", "FEE7", "CHG4AY3"]
 
     rename:
       UNITID: university
@@ -31,9 +31,9 @@ global:
       FEE6: state_fee_grads
       TUITION7: oos_tuition_grads
       FEE7: oos_fee_grads
+      CHG4AY3: books_and_supplies
 
-    web_paths:
-      "ipeds/ic": "https://nces.ed.gov/ipeds/datacenter/data/ic<year>_ay.zip"
+    web_paths: "https://nces.ed.gov/ipeds/datacenter/data/ic<year>_ay.zip"
 
     fillna:
       mode: True
@@ -47,39 +47,33 @@ global:
         district_tuition: real
         district_fee: real
         state_tuition: real
-        state_tuition: real
         state_fee: real
-        oos_tuition: real
         oos_tuition: real
         oos_fee: real
         district_tuition_grads: real
-        district_tuition_grads: real
         district_fee_grads: real
-        state_tuition: real
         state_tuition_grads: real
         state_fee_grads: real
         oos_tuition_grads: real
         oos_fee_grads: real
+        books_and_supplies: real
 
     deduplicate: True
 
-    agg: &global_agg
-      district_tuition: "median"
-      district_fee: "median"
-      state_tuition: "median"
-      state_tuition: "median"
-      state_fee: "median"
-      oos_tuition: "median"
-      oos_tuition: "median"
-      oos_fee: "median"
-      district_tuition_grads: "median"
-      district_tuition_grads: "median"
-      district_fee_grads: "median"
-      state_tuition: "median"
-      state_tuition_grads: "median"
-      state_fee_grads: "median"
-      oos_tuition_grads: "median"
-      oos_fee_grads: "median"
+    agg:
+      district_tuition: median
+      district_fee: median
+      state_tuition: median
+      state_fee: median
+      oos_tuition: median
+      oos_fee: median
+      district_tuition_grads: median
+      district_fee_grads: median
+      state_tuition_grads: median
+      state_fee_grads: median
+      oos_tuition_grads: median
+      oos_fee_grads: median
+      books_and_supplies: median
 
 tables:
   tuition_yu:

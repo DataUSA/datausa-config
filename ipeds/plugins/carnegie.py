@@ -5,13 +5,14 @@ import pandas as pd
 DATAUSA_PW = os.environ.get('DATAUSA_DB_PW')
 DATAUSA_DB = os.environ.get('DATAUSA_DB_NAME')
 DATAUSA_HOST = os.environ.get('DATAUSA_DB_HOST')
+DATAUSA_PORT = os.environ.get('DATAUSA_DB_PORT', 5432)
 
 if not DATAUSA_HOST:
     raise Exception("Make sure DATAUSA_DB_HOST environment variable is set")
 
 
 def get_dfs():
-    db_path = 'postgres://postgres:{}@{}:5432/{}'.format(DATAUSA_PW, DATAUSA_HOST, DATAUSA_DB)
+    db_path = 'postgres://postgres:{}@{}:{}/{}'.format(DATAUSA_PW, DATAUSA_HOST, DATAUSA_PORT, DATAUSA_DB)
     engine = create_engine(db_path, echo=False)
     # university_to_carnegie = None
     carnegie_df = pd.read_sql("SELECT id as carnegie, parent, depth, children FROM attrs.carnegie WHERE depth=0", engine)

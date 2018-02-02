@@ -8,11 +8,13 @@ global:
       end: 2
       zfill: 3
     race: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']
-  
+
   output: "data/output/acs_<estimate>yr/<year>_<sumlevel>_<tbl><race>_<column>"
-  
-  web_paths: "http://api.census.gov/data/<year>/acs<estimate>?get=GEOID,<tbl><race>_<column>E,<tbl><race>_<column>M&for=<sumlevel>&key=$ACS_KEY"
-  
+
+  web_paths:
+    "*": "http://api.census.gov/data/<year>/acs/acs<estimate>?get=<tbl><race>_<column>E,<tbl><race>_<column>M&for=<sumlevel>&key=$ACS_KEY"
+    "2016": "http://api.census.gov/data/<year>/acs/acs<estimate>?get=<tbl><race>_<column>E,<tbl><race>_<column>M&for=<sumlevel>&key=$ACS_KEY"
+
   rename:
     GEOID: geo
     B17001A_002E: poverty_white
@@ -33,7 +35,7 @@ global:
     B17001H_002M: poverty_white_non_hispanic_moe
     B17001I_002E: poverty_hispanic
     B17001I_002M: poverty_hispanic_moe
-  
+
 
 tables:
   "yg_poverty_race":

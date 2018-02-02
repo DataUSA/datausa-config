@@ -1,0 +1,77 @@
+inherits: "acs/acs_template_pumas.yaml"
+global:
+    source_vars:
+        tbl: ["B17001"]
+        column:
+          start: 1
+          end: 30
+          zfill: 3
+
+    rename:
+      GEOID: geo
+      B17001_001E: pop_poverty_status
+      B17001_001M: pop_poverty_status_moe
+      B17001_002E: income_below_poverty
+      B17001_002M: income_below_poverty_moe
+      B17001_003E: poverty_male
+      B17001_003M: poverty_male_moe
+      B17001_004E: poverty_male_under5
+      B17001_004M: poverty_male_under5_moe
+      B17001_005E: poverty_male_5
+      B17001_005M: poverty_male_5_moe
+      B17001_006E: poverty_male_6to11
+      B17001_006M: poverty_male_6to11_moe
+      B17001_007E: poverty_male_12to14
+      B17001_007M: poverty_male_12to14_moe
+      B17001_008E: poverty_male_15
+      B17001_008M: poverty_male_15_moe
+      B17001_009E: poverty_male_16to17
+      B17001_009M: poverty_male_16to17_moe
+      B17001_010E: poverty_male_18to24
+      B17001_010M: poverty_male_18to24_moe
+      B17001_011E: poverty_male_25to34
+      B17001_011M: poverty_male_25to34_moe
+      B17001_012E: poverty_male_35to44
+      B17001_012M: poverty_male_35to44_moe
+      B17001_013E: poverty_male_45to54
+      B17001_013M: poverty_male_45to54_moe
+      B17001_014E: poverty_male_55to64
+      B17001_014M: poverty_male_55to64_moe
+      B17001_015E: poverty_male_65to74
+      B17001_015M: poverty_male_65to74_moe
+      B17001_016E: poverty_male_75over
+      B17001_016M: poverty_male_75over_moe
+      B17001_017E: poverty_female
+      B17001_017M: poverty_female_moe
+      B17001_018E: poverty_female_under5
+      B17001_018M: poverty_female_under5_moe
+      B17001_019E: poverty_female_5
+      B17001_019M: poverty_female_5_moe
+      B17001_020E: poverty_female_6to11
+      B17001_020M: poverty_female_6to11_moe
+      B17001_021E: poverty_female_12to14
+      B17001_021M: poverty_female_12to14_moe
+      B17001_022E: poverty_female_15
+      B17001_022M: poverty_female_15_moe
+      B17001_023E: poverty_female_16to17
+      B17001_023M: poverty_female_16to17_moe
+      B17001_024E: poverty_female_18to24
+      B17001_024M: poverty_female_18to24_moe
+      B17001_025E: poverty_female_25to34
+      B17001_025M: poverty_female_25to34_moe
+      B17001_026E: poverty_female_35to44
+      B17001_026M: poverty_female_35to44_moe
+      B17001_027E: poverty_female_45to54
+      B17001_027M: poverty_female_45to54_moe
+      B17001_028E: poverty_female_55to64
+      B17001_028M: poverty_female_55to64_moe
+      B17001_029E: poverty_female_65to74
+      B17001_029M: poverty_female_65to74_moe
+      B17001_030E: poverty_female_75over
+      B17001_030M: poverty_female_75over_moe
+
+
+tables:
+  "yg_poverty":
+    pk: ["year", "geo"]
+    agg: sum

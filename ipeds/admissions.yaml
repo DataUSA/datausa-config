@@ -8,9 +8,7 @@ global:
   strip_column_whitespace: True
   na_values: ['']
   source_vars:
-    year:
-      start: 2014
-      end: 2015
+    year: [2016]
 
   type:
     UNITID: str
@@ -82,16 +80,16 @@ global:
     SATVR75: sat_cr_75
     SATMT25: sat_math_25
     SATMT75: sat_math_75
-    SATWR25: sat_writing_25
-    SATWR75: sat_writing_75
+    # SATWR25: sat_writing_25
+    # SATWR75: sat_writing_75
     ACTCM25: act_composite_25
     ACTCM75: act_composite_75
     ACTEN25: act_english_25
     ACTEN75: act_english_75
     ACTMT25: act_math_25
     ACTMT75: act_math_75
-    ACTWR25: act_writing_25
-    ACTWR75: act_writing_75
+    # ACTWR25: act_writing_25
+    # ACTWR75: act_writing_75
 
   regex_drop:
     "^X<anything>": "delete"
@@ -132,16 +130,16 @@ tables:
       sat_cr_75: median
       sat_math_25: median
       sat_math_75: median
-      sat_writing_25: median
-      sat_writing_75: median
+      # sat_writing_25: median
+      # sat_writing_75: median
       act_composite_25: median
       act_composite_75: median
       act_english_25: median
       act_english_75: median
       act_math_25: median
       act_math_75: median
-      act_writing_25: median
-      act_writing_75: median
+      # act_writing_25: median
+      # act_writing_75: median
       yield_total: median
       yield_men: median
       yield_women: median

@@ -1,76 +1,82 @@
 inherits: "acs/acs_template.yaml"
 global:
-    source: "data/acs_<year>_<estimate>yr/<sumlevel>_<tbl>_<column>.json"
-    source_vars:
-        tbl: ["B19013"]
-        column: ["001"]
-    web_paths: "http://api.census.gov/data/<year>/acs<estimate>?get=GEOID,B19013_001E,B19013_001M,B19013A_001E,B19013A_001M,B19013B_001E,B19013B_001M,B19013C_001E,B19013C_001M,B19013D_001E,B19013D_001M,B19013E_001E,B19013E_001M,B19013F_001E,B19013F_001M,B19013G_001E,B19013G_001M,B19013H_001E,B19013H_001M,B19013I_001E,B19013I_001M&for=<sumlevel>&key=$ACS_KEY"
-    output: "data/acs_<year>_<estimate>yr/<tbl>/<sumlevel>/<column>"
+  source: "data/acs_<year>_<estimate>yr/<sumlevel>_<tbl>_<column>.json"
+  source_vars:
+    tbl: ["B19013"]
+    column: ["001"]
+  web_paths:
+    #"http://api.census.gov/data/<year>/acs<estimate>?get=GEOID,B19013_001E,B19013_001M,B19013A_001E,B19013A_001M,B19013B_001E,B19013B_001M,B19013C_001E,B19013C_001M,B19013D_001E,B19013D_001M,B19013E_001E,B19013E_001M,B19013F_001E,B19013F_001M,B19013G_001E,B19013G_001M,B19013H_001E,B19013H_001M,B19013I_001E,B19013I_001M&for=<sumlevel>&key=$ACS_KEY"
+    "acs_2016_" : "http://api.census.gov/data/<year>/acs/acs<estimate>?get=B19013_001E,B19013_001M,B19013A_001E,B19013A_001M,B19013B_001E,B19013B_001M,B19013C_001E,B19013C_001M,B19013D_001E,B19013D_001M,B19013E_001E,B19013E_001M,B19013F_001E,B19013F_001M,B19013G_001E,B19013G_001M,B19013H_001E,B19013H_001M,B19013I_001E,B19013I_001M&for=<sumlevel>&key=$ACS_KEY"
+    "*" : "http://api.census.gov/data/<year>/acs<estimate>?get=GEOID,B19013_001E,B19013_001M,B19013A_001E,B19013A_001M,B19013B_001E,B19013B_001M,B19013C_001E,B19013C_001M,B19013D_001E,B19013D_001M,B19013E_001E,B19013E_001M,B19013F_001E,B19013F_001M,B19013G_001E,B19013G_001M,B19013H_001E,B19013H_001M,B19013I_001E,B19013I_001M&for=<sumlevel>&key=$ACS_KEY"
+  output: "data/acs_<year>_<estimate>yr/<tbl>/<sumlevel>/<column>"
 
-    transform:
-        - type: drop
-          strict: NO
-          column: [tbl, sumlevel, column, state, race, tract, us, place,public use microdata area, county,estimate,metropolitan statistical area/micropolitan statistical area]
-        - type: rename
-          column: "B19013_001E"
-          value: "income"
-        - type: rename
-          column: "B19013_001M"
-          value: "income_moe"
-        - type: rename
-          column: "B19013A_001E"
-          value: "income_white"
-        - type: rename
-          column: "B19013A_001M"
-          value: "income_white_moe"
-        - type: rename
-          column: "B19013B_001E"
-          value: "income_black"
-        - type: rename
-          column: "B19013B_001M"
-          value: "income_black_moe"
-        - type: rename
-          column: "B19013C_001E"
-          value: "income_native"
-        - type: rename
-          column: "B19013C_001M"
-          value: "income_native_moe"
-        - type: rename
-          column: "B19013D_001E"
-          value: "income_asian"
-        - type: rename
-          column: "B19013D_001M"
-          value: "income_asian_moe"
-        - type: rename
-          column: "B19013E_001E"
-          value: "income_other"
-        - type: rename
-          column: "B19013E_001M"
-          value: "income_other_moe"
-        - type: rename
-          column: "B19013F_001E"
-          value: "income_hawaiian"
-        - type: rename
-          column: "B19013F_001M"
-          value: "income_hawaiian_moe"
-        - type: rename
-          column: "B19013G_001E"
-          value: "income_2ormore"
-        - type: rename
-          column: "B19013G_001M"
-          value: "income_2ormore_moe"
-        - type: rename
-          column: "B19013H_001E"
-          value: "income_whitenonhispanic"
-        - type: rename
-          column: "B19013H_001M"
-          value: "income_whitenonhispanic_moe"
-        - type: rename
-          column: "B19013I_001E"
-          value: "income_hispanic"
-        - type: rename
-          column: "B19013I_001M"
-          value: "income_hispanic_moe"
+  transform:
+    - type: plugin
+      func: src.plugins.census.acs.helper.clean_geoids
+      target: <sumlevel>
+    - type: drop
+      strict: NO
+      column: [tbl, sumlevel, column, state, race, tract, us, place,public use microdata area, county,estimate,metropolitan statistical area/micropolitan statistical area]
+    - type: rename
+      column: "B19013_001E"
+      value: "income"
+    - type: rename
+      column: "B19013_001M"
+      value: "income_moe"
+    - type: rename
+      column: "B19013A_001E"
+      value: "income_white"
+    - type: rename
+      column: "B19013A_001M"
+      value: "income_white_moe"
+    - type: rename
+      column: "B19013B_001E"
+      value: "income_black"
+    - type: rename
+      column: "B19013B_001M"
+      value: "income_black_moe"
+    - type: rename
+      column: "B19013C_001E"
+      value: "income_native"
+    - type: rename
+      column: "B19013C_001M"
+      value: "income_native_moe"
+    - type: rename
+      column: "B19013D_001E"
+      value: "income_asian"
+    - type: rename
+      column: "B19013D_001M"
+      value: "income_asian_moe"
+    - type: rename
+      column: "B19013E_001E"
+      value: "income_other"
+    - type: rename
+      column: "B19013E_001M"
+      value: "income_other_moe"
+    - type: rename
+      column: "B19013F_001E"
+      value: "income_hawaiian"
+    - type: rename
+      column: "B19013F_001M"
+      value: "income_hawaiian_moe"
+    - type: rename
+      column: "B19013G_001E"
+      value: "income_2ormore"
+    - type: rename
+      column: "B19013G_001M"
+      value: "income_2ormore_moe"
+    - type: rename
+      column: "B19013H_001E"
+      value: "income_whitenonhispanic"
+    - type: rename
+      column: "B19013H_001M"
+      value: "income_whitenonhispanic_moe"
+    - type: rename
+      column: "B19013I_001E"
+      value: "income_hispanic"
+    - type: rename
+      column: "B19013I_001M"
+      value: "income_hispanic_moe"
 
 tables:
   "yg_income":

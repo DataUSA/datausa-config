@@ -1,0 +1,52 @@
+inherits: "acs/acs_template_pumas.yaml"
+global:
+  source: "data/acs_<estimate>yr/<year>_<estimate>_<state>_<sumlevel>_<tbl><column>_<race>.json"
+  source_vars:
+    tbl: ["B17001"]
+    race: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']
+    column:
+      start: 2
+      end: 2
+      zfill: 3
+
+  source_vars_nesting:
+    year:
+      estimate:
+        state:
+          sumlevel:
+            - tbl
+            - column
+            - race
+
+  output: "data/output/acs_<estimate>yr/<year>_<estimate>_<state>_<sumlevel>_<tbl><column>_<race>"
+
+  web_paths:
+    "*": "http://api.census.gov/data/<year>/acs/acs<estimate>?get=<tbl><race>_<column>E,<tbl><race>_<column>M&for=<sumlevel>&in=state:<state>&key=$ACS_KEY"
+    "2016": "http://api.census.gov/data/<year>/acs/acs<estimate>?get=<tbl><race>_<column>E,<tbl><race>_<column>M&for=<sumlevel>&in=state:<state>&key=$ACS_KEY"
+
+  rename:
+    GEOID: geo
+    B17001A_002E: poverty_white
+    B17001A_002M: poverty_white_moe
+    B17001B_002E: poverty_black
+    B17001B_002M: poverty_black_moe
+    B17001C_002E: poverty_native
+    B17001C_002M: poverty_native_moe
+    B17001D_002E: poverty_asian
+    B17001D_002M: poverty_asian_moe
+    B17001E_002E: poverty_hawaiian
+    B17001E_002M: poverty_hawaiian_moe
+    B17001F_002E: poverty_other
+    B17001F_002M: poverty_other_moe
+    B17001G_002E: poverty_2ormore
+    B17001G_002M: poverty_2ormore_moe
+    B17001H_002E: poverty_white_non_hispanic
+    B17001H_002M: poverty_white_non_hispanic_moe
+    B17001I_002E: poverty_hispanic
+    B17001I_002M: poverty_hispanic_moe
+
+
+tables:
+  "yg_poverty_race":
+    pk: ["year", "geo"]
+    agg: sum

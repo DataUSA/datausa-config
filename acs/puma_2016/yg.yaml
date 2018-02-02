@@ -1,27 +1,20 @@
-inherits: "acs/acs_template.yaml"
+inherits: "acs/acs_template_pumas.yaml"
 global:
     concat: NO
     concat_border: NO
     use_schema: True
     name: acs_<estimate>yr
-    source: "data/acs_<estimate>yr/<year>_<sumlevel>.json"
-    output: "data/output/acs_<estimate>yr/yg/<year>/<sumlevel>"
-    source_vars_nesting:
-        year:
-          estimate:
-            sumlevel: []
+
     source_vars:
-        estimate: [1, 5]
-        year: [2016]
-        sumlevel:
-          - "us"
-          - "state"
-          - "county"
-          - "metropolitan+statistical+area/micropolitan+statistical+area"
-          - "place"
-    web_paths:
-      "yr/2016_" : "http://api.census.gov/data/<year>/acs/acs<estimate>?get=B01002_001E,B01002_001M,B01003_001E,B01003_001M,B19013_001E,B19013_001M,B08006_001E,B08013_001E,B05001_006E,B25003_001E,B25003_002E,B25077_001E,B25077_001M,C16001_001E,C16001_002E&for=<sumlevel>&key=$ACS_KEY"
-      "*": "http://api.census.gov/data/<year>/acs<estimate>?get=GEOID,B01002_001E,B01002_001M,B01003_001E,B01003_001M,B19013_001E,B19013_001M,B08006_001E,B08013_001E,B05001_006E,B25003_001E,B25003_002E,B25077_001E,B25077_001M,C16001_001E,C16001_002E&for=<sumlevel>&key=$ACS_KEY"
+        tbl: ["yg"]
+
+    source: "data/acs_<estimate>yr/<year>_<estimate>_<state>_<sumlevel>_<tbl>.json"
+    output: "data/output/acs_<estimate>yr/<state>_<year>_<sumlevel>_<tbl>"
+
+
+    web_paths: "http://api.census.gov/data/<year>/acs/acs<estimate>?get=B01002_001E,B01002_001M,B01003_001E,B01003_001M,B19013_001E,B19013_001M,B08006_001E,B08013_001E,B05001_006E,B25003_001E,B25003_002E,B25077_001E,B25077_001M,C16001_001E,C16001_002E&for=<sumlevel>&in=state:<state>&key=$ACS_KEY"
+      # "*": "http://api.census.gov/data/<year>/acs<estimate>?get=GEOID,B01002_001E,B01002_001M,B01003_001E,B01003_001M,B19013_001E,B19013_001M,B08006_001E,B08013_001E,B05001_006E,B25003_001E,B25003_002E,B25077_001E,B25077_001M,C16001_001E,C16001_002E&for=<sumlevel>&key=$ACS_KEY"
+
     db_settings:
       type:
         income: real
@@ -29,6 +22,7 @@ global:
         median_property_value: real
         median_property_value_moe: real
         non_eng_speakers_pct: real
+
     transform:
         - type: plugin
           func: src.plugins.census.acs.helper.clean_geoids

@@ -1,0 +1,68 @@
+inherits: "db.yaml"
+
+global:
+    # concat_border: "sumlevel"
+    name: acs_<estimate>yr
+    use_schema: True
+    source: "data/acs_<estimate>yr/<year>_<state>_<sumlevel>_<tbl>_<tbl2>_<column>.json"
+    output: "data/output/acs_<estimate>yr/<year>_<state>_<sumlevel>_<tbl>_<tbl2>_<column>"
+    filetype: json
+    source_vars_nesting:
+        year:
+          estimate:
+            state:
+              sumlevel:
+                - tbl
+                - tbl2
+                - column
+
+    source_vars:
+        state: ["01","02","04","05","06","08","09","10","11","12","13","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","44","45","46","47","48","49","50","51","53","54","55","56","72"]
+        estimate: [1, 5]
+        year: [2016]
+        tbl: ["B24012"]
+        tbl2: ["C24010"]
+        column:
+          start: 3
+          exclude: [38]
+          end: 73
+          zfill: 3
+        sumlevel:
+          - "public+use+microdata+area"
+
+    expand_vars:
+      column:
+        start: 3
+        exclude: [38]
+        end: 73
+        zfill: 3
+    preprocess:
+      func: "src.plugins.preprocess.acs_preprocess"
+    web_paths: "http://api.census.gov/data/<year>/acs/acs<estimate>?get=<tbl>_<column>E,<tbl>_<column>M,<tbl2>_<column>E,<tbl2>_<column>M&for=<sumlevel>&key=$ACS_KEY&in=state:<state>"
+
+    import_to_db: True
+    db_settings:
+        type:
+          med_earnings: real
+          med_earnings_male: real
+          med_earnings_female: real
+
+    transform:
+      - type: plugin
+        func: src.plugins.census.acs.helper.clean_geoids
+      - type: plugin
+        func: src.plugins.census.acs.helper.ygo
+        value_vars: ["{column:<tbl>_<column>E}", "{column:<tbl>_<column>M}", "{column:<tbl2>_<column>E}", "{column:<tbl2>_<column>M}"]
+        val_name: med_earnings
+        offset: 36
+        midpoint: 38
+        join: acs/occupation/acs_5year_B24012_crosswalk.csv
+        combine_method: weighted
+
+    rename:
+      GEOID: geo
+
+tables:
+  "ygo_med_earnings":
+    pk: ["year", "geo", "acs_occ"]
+    agg: "sum"

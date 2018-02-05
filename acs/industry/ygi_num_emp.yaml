@@ -16,7 +16,7 @@ global:
 
     source_vars:
         estimate: [1, 5]
-        year: [2015]
+        year: [2016]
         tbl: C24030
         sumlevel:
             - us
@@ -24,7 +24,7 @@ global:
             - county
             - place
             - "metropolitan+statistical+area/micropolitan+statistical+area"
-            - "public+use+microdata+area"
+            # - "public+use+microdata+area"
 
         column:
           start: 2
@@ -43,17 +43,13 @@ global:
       func: "src.plugins.preprocess.acs_preprocess"
 
 
-    web_paths: "http://api.census.gov/data/<year>/acs<estimate>?get=GEOID,<tbl>_<column>E,<tbl>_<column>M&for=<sumlevel>&key=$ACS_KEY"
+    web_paths: "http://api.census.gov/data/<year>/acs/acs<estimate>?get=GEOID,<tbl>_<column>E,<tbl>_<column>M&for=<sumlevel>&key=$ACS_KEY"
     concat: YES
 
-    import_to_db: True
-    db_settings:
-        user: postgres
-        password_env_var: DATAUSA_PW
-        host: robin.datausa.io
-        db_name: datausa_t4
-
     transform:
+      - type: plugin
+        func: src.plugins.census.acs.helper.clean_geoids
+        target: <sumlevel>
       - type: set_val
         column: tmp
         value: "<tbl>_"

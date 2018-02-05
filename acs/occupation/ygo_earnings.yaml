@@ -1,3 +1,5 @@
+inherits: "db.yaml"
+
 global:
     # concat_border: "sumlevel"
     name: acs_<estimate>yr
@@ -15,7 +17,7 @@ global:
 
     source_vars:
         estimate: [1, 5]
-        year: [2015]
+        year: [2016]
         tbl: ["B24012"]
         tbl2: ["C24010"]
         column:
@@ -29,7 +31,7 @@ global:
           - county
           - place
           - "metropolitan+statistical+area/micropolitan+statistical+area"
-          - "public+use+microdata+area"
+          # - "public+use+microdata+area"
 
     expand_vars:
       column:
@@ -43,10 +45,6 @@ global:
 
     import_to_db: True
     db_settings:
-        user: postgres
-        password_env_var: DATAUSA_PW
-        host: robin.datausa.io
-        db_name: datausa_t4
         type:
           med_earnings: real
           med_earnings_male: real

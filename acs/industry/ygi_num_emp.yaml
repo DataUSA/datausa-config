@@ -1,3 +1,5 @@
+inherits: "db.yaml"
+
 global:
     seperator: ","
     name: acs_<estimate>yr

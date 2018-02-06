@@ -1,0 +1,52 @@
+inherits: "acs/acs_template_pumas.yaml"
+
+global:
+    source_vars:
+        tbl: ["B19001"]
+        column:
+          start: 1
+          end: 17
+          zfill: 3
+
+    rename:
+      GEOID: geo
+      B19001_001E: totalhouseholds
+      B19001_001M: totalhouseholds_moe
+      B19001_002E: income_under10
+      B19001_002M: income_under10_moe
+      B19001_003E: income_10to15
+      B19001_003M: income_10to15_moe
+      B19001_004E: income_15to20
+      B19001_004M: income_15to20_moe
+      B19001_005E: income_20to25
+      B19001_005M: income_20to25_moe
+      B19001_006E: income_25to30
+      B19001_006M: income_25to30_moe
+      B19001_007E: income_30to35
+      B19001_007M: income_30to35_moe
+      B19001_008E: income_35to40
+      B19001_008M: income_35to40_moe
+      B19001_009E: income_40to45
+      B19001_009M: income_40to45_moe
+      B19001_010E: income_45to50
+      B19001_010M: income_45to50_moe
+      B19001_011E: income_50to60
+      B19001_011M: income_50to60_moe
+      B19001_012E: income_60to75
+      B19001_012M: income_60to75_moe
+      B19001_013E: income_75to100
+      B19001_013M: income_75to100_moe
+      B19001_014E: income_100to125
+      B19001_014M: income_100to125_moe
+      B19001_015E: income_125to150
+      B19001_015M: income_125to150_moe
+      B19001_016E: income_150to200
+      B19001_016M: income_150to200_moe
+      B19001_017E: income_200over
+      B19001_017M: income_200over_moe
+
+
+tables:
+  "yg_income_distribution":
+    pk: ["year", "geo"]
+    agg: sum

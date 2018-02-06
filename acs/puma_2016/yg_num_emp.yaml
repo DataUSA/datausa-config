@@ -1,0 +1,29 @@
+inherits: "acs/acs_template_pumas.yaml"
+global:
+  source_vars:
+    tbl: ["B23025"]
+    column:
+      start: 1
+      end: 7
+      zfill: 3
+
+  rename:
+    GEOID: geo
+    B23025_001E: emp_survey_total
+    B23025_001M: emp_survey_total_moe
+    B23025_002E: labor_force
+    B23025_002M: labor_force_moe
+    B23025_003E: civ_labor_force
+    B23025_003M: civ_labor_force_moe
+    B23025_004E: num_emp
+    B23025_004M: num_emp_moe
+    B23025_005E: num_unemp
+    B23025_005M: num_unemp_moe
+    B23025_006E: num_armed_forces
+    B23025_006M: num_armed_forces_moe
+    B23025_007E: not_in_labor_force
+    B23025_007M: not_in_labor_force_moe
+tables:
+  "yg_num_emp":
+    pk: ["year", "geo"]
+    agg: sum

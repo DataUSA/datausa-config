@@ -37,7 +37,7 @@ global:
 
     preprocess:
       func: "src.plugins.preprocess.acs_preprocess"
-    web_paths: "http://api.census.gov/data/<year>/acs/acs<estimate>?get=<tbl>_<column>E,<tbl>_<column>M&for=<sumlevel>&key=$ACS_KEY&in=<state>"
+    web_paths: "http://api.census.gov/data/<year>/acs/acs<estimate>?get=<tbl>_<column>E,<tbl>_<column>M&for=<sumlevel>&key=$ACS_KEY&in=state:<state>"
 
     db_settings:
         type:

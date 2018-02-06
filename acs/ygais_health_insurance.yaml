@@ -1,9 +1,11 @@
+inherits: "db.yaml"
+
 global:
     # concat_border: "sumlevel"
     name: acs_<estimate>yr
     use_schema: True
-    source: "data/acs_<estimate>yr/<year>_<sumlevel>_<tbl>_<column>.json"
-    output: "data/output/acs_<estimate>yr/<year>_<sumlevel>_<tbl>_<column>"
+    source: "data/acs_<estimate>yr/ygais/<year>_<sumlevel>_<tbl>_<column>.json"
+    output: "data/output/acs_<estimate>yr/ygais/<year>_<sumlevel>_<tbl>_<column>"
     filetype: json
     source_vars_nesting:
         year:
@@ -14,7 +16,7 @@ global:
 
     source_vars:
         estimate: [1]
-        year: [2014, 2015]
+        year: [2016]
         tbl:
           - "B27001"
           - "B27002"
@@ -36,7 +38,7 @@ global:
           - county
           - place
           - "metropolitan+statistical+area/micropolitan+statistical+area"
-          - "public+use+microdata+area"
+          # - "public+use+microdata+area"
 
     expand_vars:
       column:
@@ -46,14 +48,9 @@ global:
 
     preprocess:
       func: "src.plugins.preprocess.acs_preprocess"
-    web_paths: "http://api.census.gov/data/<year>/acs<estimate>?get=GEOID,<tbl>_<column>E,<tbl>_<column>M&for=<sumlevel>&key=$ACS_KEY"
+    web_paths: "http://api.census.gov/data/<year>/acs/acs<estimate>?get=<tbl>_<column>E,<tbl>_<column>M&for=<sumlevel>&key=$ACS_KEY"
 
-    import_to_db: True
     db_settings:
-        user: postgres
-        password_env_var: DATAUSA_PW
-        host: robin.datausa.io
-        db_name: datausa_t4
         type:
           hc_pop: bigint
 
@@ -67,6 +64,8 @@ tables:
 
     transform:
       - type: plugin
+        func: src.plugins.census.acs.helper.clean_geoids
+      - type: plugin
         func: src.plugins.census.acs.health_insurance.coverage_by_age
         value_vars: ["{column:<tbl>_<column>E}", "{column:<tbl>_<column>M}"]
         health_pk: ygi
@@ -76,6 +75,8 @@ tables:
     agg: "sum"
 
     transform:
+      - type: plugin
+        func: src.plugins.census.acs.helper.clean_geoids
       - type: plugin
         func: src.plugins.census.acs.health_insurance.coverage_by_age
         value_vars: ["{column:<tbl>_<column>E}", "{column:<tbl>_<column>M}"]
@@ -87,6 +88,8 @@ tables:
 
     transform:
       - type: plugin
+        func: src.plugins.census.acs.helper.clean_geoids
+      - type: plugin
         func: src.plugins.census.acs.health_insurance.coverage_by_age
         value_vars: ["{column:<tbl>_<column>E}", "{column:<tbl>_<column>M}"]
         health_pk: ygis
@@ -96,6 +99,8 @@ tables:
     agg: "sum"
 
     transform:
+      - type: plugin
+        func: src.plugins.census.acs.helper.clean_geoids
       - type: plugin
         func: src.plugins.census.acs.health_insurance.coverage_by_age
         value_vars: ["{column:<tbl>_<column>E}", "{column:<tbl>_<column>M}"]

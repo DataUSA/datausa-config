@@ -10,14 +10,15 @@ global:
   strip_column_whitespace: True
   na_values: ['']
   source_vars:
-    year: [2012, 2013, 2014, 2015]
+    year: [2016]
   type:
     UNITID: str
     CIPCODE: str
-  source : "data/ipeds/enrollment/aid/sfa/netprice/sfa<year>.zip"
-  output : "data/output/ipeds/aid/sfa/netprice/sfa<year>"
+  source : "data/ipeds/enrollment/aid/sfa/netprice/univ/sfa<year>.zip"
+  output : "data/output/ipeds/aid/sfa/netprice/univ/sfa<year>"
 
   web_paths:
+    "2016": "https://nces.ed.gov/ipeds/datacenter/data/SFA1516.zip"
     "2015": "https://nces.ed.gov/ipeds/datacenter/data/SFA1415.zip"
     "2014": "https://nces.ed.gov/ipeds/datacenter/data/SFA1314.zip"
     "2013": "https://nces.ed.gov/ipeds/datacenter/data/SFA1213.zip"

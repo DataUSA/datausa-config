@@ -10,7 +10,7 @@ global:
   strip_column_whitespace: True
   na_values: ['']
   source_vars:
-    year: [2012, 2013, 2014, 2015]
+    year: [2016]
   type:
     UNITID: str
     CIPCODE: str
@@ -49,6 +49,9 @@ tables:
   retention_efd_yu:
     pk: [year, university]
     post_agg_transform:
+      - type: drop
+        column: [RRFTIN, RRPTIN]
+        strict: NO
       - type: plugin
         func: ipeds.plugins.carnegie.add_rows
         pk: [year, university]

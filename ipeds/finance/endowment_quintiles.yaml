@@ -10,7 +10,7 @@ global:
   concat: YES
   concat_border: year
   source_vars:
-    year: [2012, 2013, 2014, 2015]
+    year: [2016]
     mode: [gasb, fasb]
 
   type:
@@ -20,6 +20,9 @@ global:
   output : "data/output/ipeds/finance/<mode>/<year>"
 
   web_paths:
+    "gasb/2016": "https://nces.ed.gov/ipeds/datacenter/data/F1516_F1A.zip"
+    "fasb/2016": "https://nces.ed.gov/ipeds/datacenter/data/F1516_F2.zip"
+
     "gasb/2015": "https://nces.ed.gov/ipeds/datacenter/data/F1415_F1A.zip"
     "fasb/2015": "https://nces.ed.gov/ipeds/datacenter/data/F1415_F2.zip"
 

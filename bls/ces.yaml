@@ -1,3 +1,5 @@
+inherits: ["db.yaml"]
+
 global:
     separator: "\t"
     filetype: csv
@@ -17,13 +19,6 @@ global:
         "AllCESSeries": "http://download.bls.gov/pub/time.series/ce/ce.data.0.AllCESSeries"
         "ce.industry": "http://download.bls.gov/pub/time.series/ce/ce.industry"
 
-    import_to_db: True
-    db_settings:
-        user: postgres
-        password_env_var: DATAUSA_PW
-        host: 162.209.124.219
-        db_name: datausa
-
     transform:
       - type: filter
         column: period
@@ -31,8 +26,8 @@ global:
         value: "M13"
       - type: filter
         column: year
-        func: "gt"
-        value: 2012
+        func: "eq"
+        value: 2016
       - column: data_type
         type: clone
         source: series_id
@@ -107,5 +102,5 @@ global:
         type: rename
         value: naics
 tables:
-    ces_yi2:
+    ces_yi:
         pk: ["year", "series_id", "period", "naics", "seasonal"]

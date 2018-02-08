@@ -1,3 +1,5 @@
+inherits: ["db.yaml"]
+
 global:
     source: "data/bls/growth/naics/industry.xlsx"
     web_paths: http://www.bls.gov/emp/industry-employment/industry.xlsx
@@ -11,18 +13,19 @@ global:
     rename:
         "Unnamed: 0": "title"
         "Unnamed: 1": "naics"
-        2004: emp_2004_thousands
-        2014: emp_2014_thousands
-        2024: emp_2024_thousands
-        "2004.1": "output_2004"
-        "2014.1": "output_2014"
-        "2024.1": "output_2024"
-        "2004-2014": "emp_change_2004_2014"
-        "2014-2024": "emp_change_2014_2024"
-        "2004-2014.1": "emp_carc_2004_2014"
-        "2014-2024.1": "emp_carc_2014_2024"
-        "2004-2014.2": "output_carc_2004_2014"
-        "2014-2024.2": "output_carc_2014_2024"
+        2006: emp_2006_thousands
+        2016: emp_2016_thousands
+        2026: emp_2026_thousands
+        "2006.1": "output_2006"
+        "2016.1": "output_2016"
+        "2026.1": "output_2026"
+        "2006-2016": "emp_change_2006_2016"
+        "2016-2026": "emp_change_2016_2026"
+        "2006-2016.1": "emp_carc_2006_2016"
+        "2016-2026.1": "emp_carc_2016_2026"
+        "2006-2016.2": "output_carc_2006_2016"
+        "2016-2026.2": "output_carc_2016_2026"
+
     transform:
         -
             column: naics
@@ -37,14 +40,12 @@ global:
             func: "eq"
             value: "Total(1)(2) "
 
-    import_to_db: False
-    db_settings:
-        user: postgres
-        password_env_var: DATAUSA_PW
-        host: 146.20.39.90
-        db_name: datausa_t4
-
+    post_agg_transform:
+        - type: filter
+          column: naics
+          func: ne
+          value: '!UNKNOWN!'
 
 tables:
-    growth_i_v2:
+    growth_i_2016:
         pk: ["naics", "title"]

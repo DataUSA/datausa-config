@@ -16,6 +16,8 @@ def transform_living_expenses(df, **kwargs):
     df.loc[df.variable.str.endswith("_offcampuswithfamily"), "living_arrangement"] = "2"
     df.loc[df.variable.str.endswith("_offcampusnotwithfamily"), "living_arrangement"] = "3"
     df.variable = df.variable.str.replace(r"(_oncampus$|_offcampuswithfamily$|_offcampusnotwithfamily$)", "")
+    if kwargs.get("max_mode", False):
+        df.variable = "max_" + df.variable
     df = pd.pivot_table(df, values="value", index=pk + ['living_arrangement'], columns=["variable"], aggfunc=np.sum)
     df = df.reset_index()
     return df

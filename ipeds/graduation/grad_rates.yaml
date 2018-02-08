@@ -1,0 +1,60 @@
+inherits: ["db.yaml"]
+
+global:
+  zip:
+    target_name: gr200_1X_rv.csv
+  seperator: ","
+  name: ipeds
+  use_schema: True
+  encoding: utf-8-sig
+  strip_column_whitespace: True
+  na_values: ['']
+  source_vars:
+    year: [2012, 2013, 2014, 2015, 2016]
+  type:
+    UNITID: str
+  source : "data/ipeds/grads/demographics/grate_timeframe_<year>.zip"
+  output : "data/output/grads/demographics/grate_timeframe_<year>"
+
+  web_paths:
+    "2016": "https://nces.ed.gov/ipeds/datacenter/data/GR200_16.zip"
+    "2015": "https://nces.ed.gov/ipeds/datacenter/data/GR200_15.zip"
+    "2014": "https://nces.ed.gov/ipeds/datacenter/data/GR200_14.zip"
+    "2013": "https://nces.ed.gov/ipeds/datacenter/data/GR200_13.zip"
+    "2012": "https://nces.ed.gov/ipeds/datacenter/data/GR200_12.zip"
+
+  add_pks: True
+
+  db_settings:
+    type:
+      university: text
+      year: integer
+
+  usecols: [UNITID, BANC100, BAGR100, BANC150, BAGR150, BANC200, BAGR200]
+  rename:
+    UNITID: university
+    BANC100: num_completed_ba_100
+    BAGR100: pct_completed_ba_100
+    BANC150: num_completed_ba_150
+    BAGR150: pct_completed_ba_150
+    BANC200: num_completed_ba_200
+    BAGR200: pct_completed_ba_200
+
+
+  regex_drop:
+    "^X<anything>": "delete"
+
+tables:
+  gradrate_timeframe_yut:
+    pk: [year, university, timeframe]
+
+    post_agg_transform:
+      - type: plugin
+        func: ipeds.plugins.grads.transform_grad_timeframe
+        pk: [year, university]
+        raw_mode: True
+      - type: plugin
+        func: ipeds.plugins.carnegie.add_rows
+        pk: [year, university, timeframe]
+        raw_mode: True
+        default_agg: median

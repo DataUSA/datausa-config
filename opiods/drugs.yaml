@@ -1,0 +1,36 @@
+inherits: ['db.yaml']
+
+global:
+    add_pks: True
+    seperator: ","
+    name: opiods
+    source : "data/opiods/<tbl_name>.csv"
+    use_schema: True
+    na_values: ['NR', 'NSD']
+    output : "data/output/opiods/<tbl_name>/"
+
+    db_settings:
+      type:
+        non_medical_use_of_pain_relievers: real
+        non_medical_use_of_pain_relievers_lci: real
+        non_medical_use_of_pain_relievers_uci: real
+        opioid_overdose_deathrate_ageadjusted: real
+        drug_overdose_ageadjusted: real
+
+    source_vars:
+      tbl_name:
+        - "drug_overdose_deathrate"
+        - "non_medical_use_of_pain_releivers"
+        - "opioid_overdose_deathrate"
+
+    web_paths:
+      "drug_overdose_deathrate": "https://drive.google.com/uc?export=download&id=1o5Q9LGhqGJGRAoWBieiJceCPtXtEcW-v"
+      "non_medical_use_of_pain_releivers": "https://drive.google.com/uc?export=download&id=1a002KzRVg4vtVBgo4aZFJAab8dmXFaHe"
+      "opioid_overdose_deathrate": "https://drive.google.com/uc?export=download&id=1ffwuGbv25QmPGpJhV8zsdNviIG97H0Wf"
+
+tables:
+  "<tbl_name>":
+    pk: ["year", "geo"]
+    transform:
+      - type: drop
+        column: "tbl_name"

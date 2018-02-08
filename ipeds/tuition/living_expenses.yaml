@@ -56,3 +56,24 @@ tables:
         pk: [year, university, living_arrangement, university_level]
         raw_mode: True
         default_agg: median
+
+  ic_max_living_expenses_yu:
+    pk: ["year", "university"]
+
+    transform:
+      - type: plugin
+        func: ipeds.plugins.sfa.transform_living_expenses
+        pk: [year, university]
+        raw_mode: True
+        max_mode: True
+
+    agg:
+      max_other_expenses: max
+      max_room_and_board: max
+
+    post_agg_transform:
+      - type: plugin
+        func: ipeds.plugins.carnegie.add_rows
+        pk: [year, university, university_level]
+        raw_mode: True
+        default_agg: median

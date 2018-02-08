@@ -5,11 +5,18 @@ global:
     web_paths: http://www.bls.gov/emp/industry-employment/industry.xlsx
     name: bls
     use_schema: True
-    na_values: [".",]
+    na_values: [".", "-"]
     skiprows: 3
     output : "data/output/bls/growth/naics"
     filetype: excel
     sheetname: "Table 2.7"
+    db_settings:
+      type:
+        output_2006: real
+        output_2016: real
+        output_2026: real
+        output_carc_2006_2016: real
+        output_carc_2016_2026: real
     rename:
         "Unnamed: 0": "title"
         "Unnamed: 1": "naics"
@@ -19,12 +26,12 @@ global:
         "2006.1": "output_2006"
         "2016.1": "output_2016"
         "2026.1": "output_2026"
-        "2006-2016": "emp_change_2006_2016"
-        "2016-2026": "emp_change_2016_2026"
-        "2006-2016.1": "emp_carc_2006_2016"
-        "2016-2026.1": "emp_carc_2016_2026"
-        "2006-2016.2": "output_carc_2006_2016"
-        "2016-2026.2": "output_carc_2016_2026"
+        "2006-16": "emp_change_2006_2016"
+        "2016-26": "emp_change_2016_2026"
+        "2006-16.1": "emp_carc_2006_2016"
+        "2016-26.1": "emp_carc_2016_2026"
+        "2006-16.2": "output_carc_2006_2016"
+        "2016-26.2": "output_carc_2016_2026"
 
     transform:
         -
@@ -45,6 +52,10 @@ global:
           column: naics
           func: ne
           value: '!UNKNOWN!'
+        - type: filter
+          column: title
+          func: ne
+          value: 'Nonagriculture self-employed(4) '
 
 tables:
     growth_i_2016:

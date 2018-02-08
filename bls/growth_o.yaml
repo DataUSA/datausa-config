@@ -1,3 +1,5 @@
+inherits: ["db.yaml"]
+
 global:
     source: "data/bls/growth/soc/occupation.xlsx"
     web_paths: http://www.bls.gov/emp/ind-occ-matrix/occupation.xlsx
@@ -14,10 +16,10 @@ global:
         "Unnamed: 2": "occ_type"
         "Number": "change_thousands"
         "Percent": "pct_change"
-        2014: emp_2014_thousands
-        2024: emp_2024_thousands
-        "2014.1": "emp_pct_2014"
-        "2024.1": "emp_pct_2024"
+        2016: emp_2016_thousands
+        2026: emp_2026_thousands
+        "2016.1": "emp_pct_2016"
+        "2026.1": "emp_pct_2026"
         "Unnamed: 9" : "openings_thousands"
 
     transform:
@@ -27,17 +29,11 @@ global:
             target: "-"
             value: ""
 
-    import_to_db: True
-    db_settings:
-        user: postgres
-        password_env_var: DATAUSA_PW
-        host: 146.20.39.90
-        db_name: datausa_t4
     filter:
         -
             column: "soc"
             func: "eq"
             value: "!UNKNOWN!"
 tables:
-    growth_o_2014:
+    growth_o_2016:
         pk: ["soc"]

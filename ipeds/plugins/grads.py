@@ -3,6 +3,21 @@ import numpy as np
 import pandas as pd
 
 
+def transform_grad_timeframe(df, **kwargs):
+    # first_pk = ["year", "university"]
+
+    if "pk" not in kwargs or not kwargs["pk"]:
+        raise Exception("Please specify a valid primary key", kwargs)
+    pk = kwargs["pk"]
+
+    df = df.melt(id_vars=pk, value_name="value")
+    df['kind'] = df.variable.apply(lambda x: x.split("_")[0] + "_completed_ba")
+    df['timeframe'] = df.variable.apply(lambda x: x.split("_")[-1] + "%")
+    df = pd.pivot_table(df, values='value', columns='kind', aggfunc=np.sum, index=pk + ['timeframe'])
+    df = df.reset_index()
+    return df
+
+
 def transform_grad_rate(df, **kwargs):
     df = df.set_index(["year", "university"])
     columns_to_work_on = set([re.sub(r"_(ba|2y)$", "", x) for x in df.columns])

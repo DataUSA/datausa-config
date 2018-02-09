@@ -73,7 +73,7 @@ global:
       column: efalevel
       func: isin
       value: [22, 32, 42, 52]
-      negate: True
+      negate: False
     - type: drop
       column: [efalevel, line]
     - type: plugin

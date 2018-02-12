@@ -9,13 +9,13 @@ global:
     source_vars:
       year:
         start: 2013
-        end: 2015
+        end: 2016
 
 
     source: "data/ipeds/simpletuition/ic<year>_ay.zip"
     output : "data/output/ipeds/tuition/simpletuition/<year>"
     na_values: ['.']
-    usecols: ["UNITID", "TUITION1", "TUITION2", "TUITION3", "TUITION5", "TUITION6", "TUITION7", "FEE1", "FEE2", "FEE3", "FEE5", "FEE6", "FEE7", "CHG4AY3"]
+    usecols: ["UNITID", "TUITION1", "TUITION2", "TUITION3", "TUITION5", "TUITION6", "TUITION7", "FEE1", "FEE2", "FEE3", "FEE5", "FEE6", "FEE7", "CHG4AY2", "CHG1AT2", "CHG1AF2", "CHG1AY2", "CHG2AT2", "CHG2AF2", "CHG2AY2", "CHG3AT2", "CHG3AF2", "CHG3AY2"]
 
     rename:
       UNITID: university
@@ -31,7 +31,16 @@ global:
       FEE6: state_fee_grads
       TUITION7: oos_tuition_grads
       FEE7: oos_fee_grads
-      CHG4AY3: books_and_supplies
+      CHG4AY2: books_and_supplies
+      CHG1AT2: published_district_tuition
+      CHG1AF2: published_district_fee
+      CHG1AY2: published_district_tuition_and_fee
+      CHG2AT2: published_state_tuition
+      CHG2AF2: published_state_fee
+      CHG2AY2: published_state_tuition_and_fee
+      CHG3AT2: published_oos_tuition
+      CHG3AF2: published_oos_fee
+      CHG3AY2: published_oos_tuition_and_fee
 
     web_paths: "https://nces.ed.gov/ipeds/datacenter/data/ic<year>_ay.zip"
 
@@ -57,7 +66,15 @@ global:
         oos_tuition_grads: real
         oos_fee_grads: real
         books_and_supplies: real
-
+        published_district_tuition: real
+        published_district_fee: real
+        published_district_tuition_and_fee: real
+        published_state_tuition: real
+        published_state_fee: real
+        published_state_tuition_and_fee: real
+        published_oos_tuition: real
+        published_oos_fee: real
+        published_oos_tuition_and_fee: real
     deduplicate: True
 
     agg:
@@ -74,9 +91,18 @@ global:
       oos_tuition_grads: median
       oos_fee_grads: median
       books_and_supplies: median
+      published_district_tuition: median
+      published_district_fee: median
+      published_district_tuition_and_fee: median
+      published_state_tuition: median
+      published_state_fee: median
+      published_state_tuition_and_fee: median
+      published_oos_tuition: median
+      published_oos_fee: median
+      published_oos_tuition_and_fee: median
 
 tables:
-  tuition_yu:
+  tuition_yu_v2:
     pk: ["year", "university"]
 
     post_agg_transform:

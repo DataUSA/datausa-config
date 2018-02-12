@@ -12,7 +12,7 @@ global:
   source_vars:
     year:
       start: 2013
-      end: 2015
+      end: 2016
     cip_depth: [2, 4, 6]
 
   type:
@@ -32,7 +32,7 @@ global:
       source: "data/ipeds/tuition/ic<year>_ay.zip"
       left_on: university
       right_on: UNITID
-      usecols: ["UNITID", "TUITION1", "TUITION2", "TUITION3", "TUITION5", "TUITION6", "TUITION7", "FEE1", "FEE2", "FEE3", "FEE5", "FEE6", "FEE7"]
+      usecols: ["UNITID", "TUITION1", "TUITION2", "TUITION3", "TUITION5", "TUITION6", "TUITION7", "FEE1", "FEE2", "FEE3", "FEE5", "FEE6", "FEE7", "CHG4AY2", "CHG1AT2", "CHG1AF2", "CHG1AY2", "CHG2AT2", "CHG2AF2", "CHG2AY2", "CHG3AT2", "CHG3AF2", "CHG3AY2"]
       rename:
         TUITION1: district_tuition
         FEE1: district_fee
@@ -46,6 +46,16 @@ global:
         FEE6: state_fee_grads
         TUITION7: oos_tuition_grads
         FEE7: oos_fee_grads
+        CHG4AY2: books_and_supplies
+        CHG1AT2: published_district_tuition
+        CHG1AF2: published_district_fee
+        CHG1AY2: published_district_tuition_and_fee
+        CHG2AT2: published_state_tuition
+        CHG2AF2: published_state_fee
+        CHG2AY2: published_state_tuition_and_fee
+        CHG3AT2: published_oos_tuition
+        CHG3AF2: published_oos_fee
+        CHG3AY2: published_oos_tuition_and_fee
   web_paths:
     "ipeds/tuition/c": "https://nces.ed.gov/ipeds/datacenter/data/c<year>_a.zip"
     "ipeds/tuition/hd": "https://nces.ed.gov/ipeds/datacenter/data/hd<year>.zip"
@@ -76,6 +86,15 @@ global:
       degree: text
       sector: text
       university: text
+      published_district_tuition: real
+      published_district_fee: real
+      published_district_tuition_and_fee: real
+      published_state_tuition: real
+      published_state_fee: real
+      published_state_tuition_and_fee: real
+      published_oos_tuition: real
+      published_oos_fee: real
+      published_oos_tuition_and_fee: real
 
   deduplicate: True
   rename:
@@ -117,12 +136,9 @@ global:
       district_tuition: "median"
       district_fee: "median"
       state_tuition: "median"
-      state_tuition: "median"
       state_fee: "median"
       oos_tuition: "median"
-      oos_tuition: "median"
       oos_fee: "median"
-      district_tuition_grads: "median"
       district_tuition_grads: "median"
       district_fee_grads: "median"
       state_tuition: "median"
@@ -131,9 +147,19 @@ global:
       oos_tuition_grads: "median"
       oos_fee_grads: "median"
       grads_total: "sum"
+      books_and_supplies: median
+      published_district_tuition: median
+      published_district_fee: median
+      published_district_tuition_and_fee: median
+      published_state_tuition: median
+      published_state_fee: median
+      published_state_tuition_and_fee: median
+      published_oos_tuition: median
+      published_oos_fee: median
+      published_oos_tuition_and_fee: median
 
 tables:
-  tuition_yc:
+  tuition_yc_v2:
     pk: ["year", "cip"]
     filter:
       - column: "cip"
@@ -147,7 +173,7 @@ tables:
         type: rank
         target: state_tuition
 
-  tuition_ycu:
+  tuition_ycu_v2:
     pk: ["year", "cip", "university"]
     filter:
       - column: "cip"
@@ -160,7 +186,7 @@ tables:
         raw_mode: True
         default_agg: median
 
-  tuition_ycs:
+  tuition_ycs_v2:
     pk: ["year", "cip", "sector"]
     transform:
       - column: cip

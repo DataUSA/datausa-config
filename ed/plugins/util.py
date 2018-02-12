@@ -61,3 +61,29 @@ def map_to_carnegies(df, **kwargs):
     result_df = pd.concat([df, df_c1, df_c2])
     return result_df
 # map_to_carnegies(None, year=2016)
+
+
+def map_to_geos(df, **kwargs):
+
+    year = kwargs.get("year")
+    attr_df = pd.read_csv("https://nces.ed.gov/ipeds/datacenter/data/HD{}.zip".format(year), converters={"OPEID": str}, compression='infer', usecols=["OPEID", "FIPS", "COUNTYCD", "CBSA"])
+
+    attr_df.rename(columns={"OPEID": "opeid", "C15BASIC": "carnegie"}, inplace=True)
+    attr_df.FIPS = "04000US" + attr_df.FIPS.astype(str).str.zfill(2)
+    attr_df.COUNTYCD = "05000US" + attr_df.COUNTYCD.astype(str).str.zfill(5)
+    attr_df.loc[attr_df.CBSA != -2, 'CBSA'] = "31000US" + attr_df.loc[attr_df.CBSA != -2, 'CBSA'].astype(str).str.zfill(5)
+    attr_df.loc[attr_df.CBSA == -2, 'CBSA'] = None
+
+    attr_df['nation'] = '01000US'
+    attr_df.rename(columns={
+        "FIPS": "state",
+        "COUNTYCD": "county",
+        "CBSA": "msa",
+    }, inplace=True)
+    df.opeid = df.opeid.astype(str)
+    attr_df.opeid = attr_df.opeid.astype(str).str.slice(0, 6)
+    sumlevel = kwargs.get("geo_level")
+    attr_df['geo'] = attr_df[sumlevel]
+    df = df.merge(attr_df, on="opeid", how="left")
+    return df
+# map_to_carnegies(None, year=2016)

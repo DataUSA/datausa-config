@@ -1,0 +1,75 @@
+inherits: ["db.yaml"]
+
+global:
+    db_settings:
+      type:
+        default_rate: float
+    seperator: ","
+    name: ed
+    use_schema: True
+    add_pks: True
+
+    source : "data/ed/ed_defaults.xls"
+    output : "data/output/ed/"
+
+    source_vars:
+      sumlevel:
+        - "nation"
+        - "state"
+        - "county"
+        - "msa"
+
+    web_paths: "https://www2.ed.gov/offices/OSFAP/defaultmanagement/peps300.xlsx"
+
+    mode: excel
+
+    filetype: excel
+    sheetname: "300"
+    type:
+        "OPEID": "str"
+
+    rename:
+      "Prog\nLength": "max_program_length"
+      "School\nType": "school_type"
+      "OPEID": "opeid"
+      "Name": "opeid_name"
+      "Ethnic Code": "ethnic_code"
+
+    regex_rename:
+        "Dual\\n<val>": "<val>"
+        "DRate <val>": "default_rate_<val>"
+        "PRate <val>": "rate_type_<val>"
+        "Year <val>": "year_<val>"
+
+tables:
+  yg_defaults:
+    pk: ["year", "geo"]
+
+    transform:
+        - type: drop
+          column: ["State Desc", "State", "Zip Code", "Zip Ext", "Address", "City"]
+        - type: plugin
+          func: ed.plugins.util.clean
+        - type: rename
+          column: "num"
+          value: "num_defaults"
+        - type: rename
+          column: "denom"
+          value: "num_borrowers"
+        - type: plugin
+          func: ed.plugins.util.map_to_geos
+          year: 2015
+          geo_level: <sumlevel>
+
+    agg:
+      rate_type: tiebreakmode
+      num_defaults: sum
+      num_borrowers: sum
+
+    post_agg_transform:
+      - type: clone
+        column: default_rate
+        source: num_defaults
+      - type: div
+        column: "default_rate"
+        value: "[num_borrowers]"

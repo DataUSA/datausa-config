@@ -10,7 +10,7 @@ global:
   strip_column_whitespace: True
   na_values: ['']
   source_vars:
-    year: [2014, 2015]
+    year: [2014, 2015, 2016]
 
   type:
     CIPCODE: str
@@ -147,6 +147,10 @@ tables:
         value: "99"
 
     post_agg_transform:
+      - type: rca
+        index: ["year", "university"]
+        column: "cip"
+        values: [grads_total]
       - type: plugin
         func: ipeds.plugins.carnegie.add_rows
         pk: [year, university, cip, university_level]
@@ -189,6 +193,10 @@ tables:
     transform: *cip_transforms
 
     post_agg_transform:
+      - type: rca
+        index: ["year", "university"]
+        column: "cip"
+        values: [grads_total]
       - type: plugin
         func: ipeds.plugins.carnegie.add_rows
         pk: [year, university, cip, degree, university_level]

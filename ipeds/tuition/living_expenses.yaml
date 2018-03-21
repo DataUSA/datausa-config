@@ -12,14 +12,14 @@ global:
     source: "data/ipeds/living/ic<year>_ay.zip"
     output : "data/output/ipeds/tuition/living_expenses/<year>"
     na_values: ['.']
-    usecols: [UNITID, CHG6AY3, CHG8AY3, CHG5AY3, CHG7AY3, "CHG9AY3 "]
+    usecols: [UNITID, CHG6AY2, CHG8AY2, CHG5AY2, CHG7AY2, "CHG9AY2"]
     rename:
       UNITID: university
-      CHG6AY3: other_expenses_oncampus
-      CHG9AY3: other_expenses_offcampuswithfamily
-      CHG8AY3: other_expenses_offcampusnotwithfamily
-      CHG5AY3: room_and_board_oncampus
-      CHG7AY3: room_and_board_offcampusnotwithfamily
+      CHG6AY2: other_expenses_oncampus
+      CHG9AY2: other_expenses_offcampuswithfamily
+      CHG8AY2: other_expenses_offcampusnotwithfamily
+      CHG5AY2: room_and_board_oncampus
+      CHG7AY2: room_and_board_offcampusnotwithfamily
 
     web_paths:
       "living/ic": "https://nces.ed.gov/ipeds/datacenter/data/ic<year>_ay.zip"

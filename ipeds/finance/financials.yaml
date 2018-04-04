@@ -1,6 +1,8 @@
 inherits: ["db.yaml"]
 
 global:
+  zip:
+    target_name: f1X1Y_fX_rv.csv
   seperator: ","
   name: ipeds
   use_schema: True
@@ -10,7 +12,7 @@ global:
   concat: YES
   concat_border: year
   source_vars:
-    year: [2016]
+    year: [2015]
     mode: [gasb, fasb, privateforprofit]
 
   type:
@@ -67,6 +69,10 @@ global:
     F1D02: total_expenses
     F2B02: total_expenses
     F3B02: total_expenses
+
+    F1C192: total_salaries
+    F2E132: total_salaries
+    F3E072: total_salaries
 
     F1H02: endowment_value_fiscal_year_end
     F2H02: endowment_value_fiscal_year_end
@@ -134,6 +140,7 @@ tables:
 
     agg:
       total_expenses: sum
+      total_salaries: sum
       endowment_value_fiscal_year_end: sum
       investment_income: sum
       research_total: sum

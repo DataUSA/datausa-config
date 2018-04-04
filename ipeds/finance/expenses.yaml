@@ -1,6 +1,8 @@
 inherits: ["db.yaml"]
 
 global:
+  zip:
+    target_name: f1X1Y_fX_rv.csv
   seperator: ","
   name: ipeds
   use_schema: True
@@ -10,7 +12,7 @@ global:
   concat: YES
   concat_border: year
   source_vars:
-    year: [2016]
+    year: [2015]
     accounting_mode: [gasb, fasb]
 
   type:
